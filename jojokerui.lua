@@ -68,7 +68,7 @@ function G.FUNCS.jojoker_joker_pool(e)
     create_menu_toggles(joker_pool_settings, joker_pool_toggles)
 
     local t = create_UIBox_generic_options({
-        back_func = G.ACTIVE_MOD_UI and "OpenModUI_"..G.ACTIVE_MOD_UI.id or 'your_collection',
+        back_func = G.ACTIVE_MOD_UI and "openModUI_"..G.ACTIVE_MOD_UI.id or 'your_collection',
         contents = {joker_pool_settings}
     })
     G.FUNCS.overlay_menu { definition = t }

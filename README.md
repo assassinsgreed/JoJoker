@@ -39,6 +39,5 @@ JoJo's Bizarre Adventure is property of Hirohiko Araki.
 
 # v0.1.0 TODOs Shortlist
 
-- Fix issues with config (error on close, probably doesn't filter Jokers properly yet)
 - Add Soft & Wet Joker sprite
 - Test Soft & Wet
