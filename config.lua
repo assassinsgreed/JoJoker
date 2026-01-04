@@ -8,5 +8,5 @@ return {
     ["stone_ocean"] = true,
     ["steel_ball_run"] = true,
     ["jojolion"] = true,
-    ["jojolands"] = true,
+    ["the_jojolands"] = true,
 }

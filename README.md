@@ -36,3 +36,9 @@ JoJokers is made and maintained by Assassins_Greed and PurpleHaunter.
 This mod's concept and organization are heavily inspired by InertSteak's [Pokermon](https://github.com/InertSteak/Pokermon) project. Check them out!
 
 JoJo's Bizarre Adventure is property of Hirohiko Araki.
+
+# v0.1.0 TODOs Shortlist
+
+- Fix issues with config (error on close, probably doesn't filter Jokers properly yet)
+- Add Soft & Wet Joker sprite
+- Test Soft & Wet

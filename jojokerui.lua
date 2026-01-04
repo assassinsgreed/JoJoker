@@ -1,23 +1,24 @@
 -- Config UI
 local joker_pool_toggles = {
-    { ref_value = "jojoker_only", label = "settings_jojoker_only", tooltip = { set = 'Other', key = 'jojoker_only_tooltip' } },
-    { ref_value = "part_1", label = "settings_part_1_enabled", tooltip = { set = 'Other', key = 'part1_tooltip' } },
-    { ref_value = "part_2", label = "settings_part_2_enabled", tooltip = { set = 'Other', key = 'part2_tooltip' } },
-    { ref_value = "part_3", label = "settings_part_3_enabled", tooltip = { set = 'Other', key = 'part3_tooltip' } },
-    { ref_value = "part_4", label = "settings_part_4_enabled", tooltip = { set = 'Other', key = 'part4_tooltip' } },
-    { ref_value = "part_5", label = "settings_part_5_enabled", tooltip = { set = 'Other', key = 'part5_tooltip' } },
-    { ref_value = "part_6", label = "settings_part_6_enabled", tooltip = { set = 'Other', key = 'part6_tooltip' } },
-    { ref_value = "part_7", label = "settings_part_7_enabled", tooltip = { set = 'Other', key = 'part7_tooltip' } },
-    { ref_value = "part_8", label = "settings_part_8_enabled", tooltip = { set = 'Other', key = 'part8_tooltip' } },
-    { ref_value = "part_9", label = "settings_part_9_enabled", tooltip = { set = 'Other', key = 'part9_tooltip' } },
+    { ref_value = "jojoker_only", label = "jojoker_settings_jojoker_only", tooltip = { set = 'Other', key = 'jojoker_only_tooltip' } },
+    { ref_value = "phantom_blood", label = "jojoker_settings_part_1_enabled", tooltip = { set = 'Other', key = 'part1_tooltip' } },
+    { ref_value = "battle_tendency", label = "jojoker_settings_part_2_enabled", tooltip = { set = 'Other', key = 'part2_tooltip' } },
+    { ref_value = "stardust_crusaders", label = "jojoker_settings_part_3_enabled", tooltip = { set = 'Other', key = 'part3_tooltip' } },
+    { ref_value = "diamond_is_unbreakable", label = "jojoker_settings_part_4_enabled", tooltip = { set = 'Other', key = 'part4_tooltip' } },
+    { ref_value = "golden_wind", label = "jojoker_settings_part_5_enabled", tooltip = { set = 'Other', key = 'part5_tooltip' } },
+    { ref_value = "stone_ocean", label = "jojoker_settings_part_6_enabled", tooltip = { set = 'Other', key = 'part6_tooltip' } },
+    { ref_value = "steel_ball_run", label = "jojoker_settings_part_7_enabled", tooltip = { set = 'Other', key = 'part7_tooltip' } },
+    { ref_value = "jojolion", label = "jojoker_settings_part_8_enabled", tooltip = { set = 'Other', key = 'part8_tooltip' } },
+    { ref_value = "the_jojolands", label = "jojoker_settings_part_9_enabled", tooltip = { set = 'Other', key = 'part9_tooltip' } },
 }
 
 local create_menu_toggles = function(parent, toggles)
     for k,v in ipairs(toggles) do
-        parent.nodes[#parent.nodes+1] = create_toggle({
+        parent.nodes[#parent.nodes + 1] = create_toggle({
             label = localize(v.label),
             ref_table = jojoker_config,
             ref_value = v.ref_value,
+            callback = v.callback,
         })
         if v.tooltip then
             parent.nodes[#parent.nodes].config.detailed_tooltip = v.tooltip
@@ -34,27 +35,36 @@ local jojokerconfig = function()
             colour = G.C.CLEAR,
         },
         nodes = {
-            UIBox_button({
-                minw = 3.85,
-                colour = HEX("#7220D6"),
-                button = "jojoker_joker_pool",
-                label = "Joker Pool Options"
-            })
+          {
+            n = G.UIT.R,
+            config = {
+              padding = 0.25,
+              align = "cm"
+            },
+            nodes = {
+              {
+                n = G.UIT.T,
+                config = {
+                  text = localize("jojoker_settings_header_norestart"),
+                  shadow = true,
+                  scale = 0.75 * 0.8,
+                  colour = HEX("ED533A")
+                }
+              }
+            },
+          },
+          UIBox_button({
+              minw = 3.85,
+              colour = HEX("7220D6"),
+              button = "jojoker_joker_pool",
+              label = {"Joker Pool Options"}
+          }),
         }
     }
 end
 
 function G.FUNCS.jojoker_joker_pool(e)
-    local joker_pool_settings = {
-        n = G.UIT.R,
-        config = {
-            align = "tm",
-            padding = 0.05,
-            scale = 0.75,
-            colour = G.C.CLEAR,
-            nodes = {}
-        }
-    }
+    local joker_pool_settings = {n = G.UIT.R, config = {align = "tm", padding = 0.05, scale = 0.75, colour = G.C.CLEAR}, nodes = {}}
     create_menu_toggles(joker_pool_settings, joker_pool_toggles)
 
     local t = create_UIBox_generic_options({
