@@ -3,8 +3,15 @@
 
 return {
     descriptions = {
-        -- TODO: Other localizations
-        -- TODO: These are courtesy of Copilot autocomplete; we can surely do better. There are even dupes!
+        jokers = {
+            stand_soft_and_wet = {
+                name = "Soft & Wet",
+                text = {
+                    "Removed scoring card enhancements",
+                    "Gian {C:mult}+#6${} for each removed enhancement"
+                }
+            }
+        },
         quips = {
             lose_quip1 = "You thought you could beat me? Yare yare daze...",
             lose_quip2 = "Is that all you've got? Ora ora ora!",
@@ -26,7 +33,93 @@ return {
             win_quip8 = "Arrivederci!",
             win_quip9 = "Yes, I am!",
             win_quip10 = "The shortest path was a detour.",
+        },
+        sounds = {
+            sound_ora = "Ora Ora Ora!"
         }
         -- TODO: Other localizations
-    }  
+    },
+    settings = {
+        settings_jojoker_only = "JoJoker Only?",
+        settings_part_1_enabled = "Phantom Blood Enabled?",
+        settings_part_2_enabled = "Battle Tendency Enabled?",
+        settings_part_3_enabled = "Stardust Crusaders Enabled?",
+        settings_part_4_enabled = "Diamond is Unbreakable Enabled?",
+        settings_part_5_enabled = "Golden Wind Enabled?",
+        settings_part_6_enabled = "Stone Ocean Enabled?",
+        settings_part_7_enabled = "Steel Ball Run Enabled?",
+        settings_part_8_enabled = "JoJolion Enabled?",
+        settings_part_9_enabled = "The JoJoLands Enabled?",
+    },
+    tooltips = {
+        jojoker_only_tooltip = {
+            name = "JoJoker Only",
+            text = {
+                "Only {C:attention}JoJoker jokers will appear"
+            }
+        },
+        part1_tooltip = {
+            name = "Phantom Blood Enabled",
+            text = {
+                "{C:attention}JoJoker jokers from",
+                "Phantom Blood will appear"
+            }
+        },
+        part2_tooltip = {
+            name = "Battle Tendency Enabled",
+            text = {
+                "{C:attention}JoJoker jokers from",
+                "Battle Tendency will appear"
+            }
+        },
+        part3_tooltip = {
+            name = "Stardust Crusaders Enabled",
+            text = {
+                "{C:attention}JoJoker jokers from",
+                "Stardust Crusaders will appear"
+            }
+        },
+        part4_tooltip = {
+            name = "Diamond is Unbreakable Enabled",
+            text = {
+                "{C:attention}JoJoker jokers from",
+                "Diamond is Unbreakable will appear"
+            }
+        },
+        part5_tooltip = {
+            name = "Golden Wind Enabled",
+            text = {
+                "{C:attention}JoJoker jokers from",
+                "Golden Wind will appear"
+            }
+        },
+        part6_tooltip = {
+            name = "Stone Ocean Enabled",
+            text = {
+                "{C:attention}JoJoker jokers from",
+                "Stone Ocean will appear"
+            }
+        },
+        part7_tooltip = {
+            name = "Steel Ball Run Enabled",
+            text = {
+                "{C:attention}JoJoker jokers from",
+                "Steel Ball Run will appear"
+            }
+        },
+        part8_tooltip = {
+            name = "JoJolion Enabled",
+            text = {
+                "{C:attention}JoJoker jokers from",
+                "JoJolion will appear"
+            }
+        },
+        part9_tooltip = {
+            name = "The JoJoLands Enabled",
+            text = {
+                "{C:attention}JoJoker jokers from",
+                "The JoJoLands will appear"
+            }
+        },
+    }
 }

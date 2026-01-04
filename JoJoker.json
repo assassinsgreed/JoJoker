@@ -11,8 +11,8 @@
   "display_name": "JoJoker",
 	"version": "0.0.1",
 	"dependencies": [
-		"Steamodded (>=1.0.0~BETA-1244a)",
-        "Lovely (>=0.8)"
+		"Steamodded (>=1.0.0~BETA-0511b)",
+        "Lovely (>=0.7.1)"
 	],
   "conflicts": [],
 	"provides": [],

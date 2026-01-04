@@ -1,0 +1,129 @@
+-- Config UI
+local joker_pool_toggles = {
+    { ref_value = "jojoker_only", label = "settings_jojoker_only", tooltip = { set = 'Other', key = 'jojoker_only_tooltip' } },
+    { ref_value = "part_1", label = "settings_part_1_enabled", tooltip = { set = 'Other', key = 'part1_tooltip' } },
+    { ref_value = "part_2", label = "settings_part_2_enabled", tooltip = { set = 'Other', key = 'part2_tooltip' } },
+    { ref_value = "part_3", label = "settings_part_3_enabled", tooltip = { set = 'Other', key = 'part3_tooltip' } },
+    { ref_value = "part_4", label = "settings_part_4_enabled", tooltip = { set = 'Other', key = 'part4_tooltip' } },
+    { ref_value = "part_5", label = "settings_part_5_enabled", tooltip = { set = 'Other', key = 'part5_tooltip' } },
+    { ref_value = "part_6", label = "settings_part_6_enabled", tooltip = { set = 'Other', key = 'part6_tooltip' } },
+    { ref_value = "part_7", label = "settings_part_7_enabled", tooltip = { set = 'Other', key = 'part7_tooltip' } },
+    { ref_value = "part_8", label = "settings_part_8_enabled", tooltip = { set = 'Other', key = 'part8_tooltip' } },
+    { ref_value = "part_9", label = "settings_part_9_enabled", tooltip = { set = 'Other', key = 'part9_tooltip' } },
+}
+
+local create_menu_toggles = function(parent, toggles)
+    for k,v in ipairs(toggles) do
+        parent.nodes[#parent.nodes+1] = create_toggle({
+            label = localize(v.label),
+            ref_table = jojoker_config,
+            ref_value = v.ref_value,
+        })
+        if v.tooltip then
+            parent.nodes[#parent.nodes].config.detailed_tooltip = v.tooltip
+        end
+    end
+end
+
+local jojokerconfig = function()
+    return {
+        n = G.UIT.ROOT,
+        config = {
+            align = "cm",
+            padding = 0.05,
+            colour = G.C.CLEAR,
+        },
+        nodes = {
+            UIBox_button({
+                minw = 3.85,
+                colour = HEX("#7220D6"),
+                button = "jojoker_joker_pool",
+                label = "Joker Pool Options"
+            })
+        }
+    }
+end
+
+function G.FUNCS.jojoker_joker_pool(e)
+    local joker_pool_settings = {
+        n = G.UIT.R,
+        config = {
+            align = "tm",
+            padding = 0.05,
+            scale = 0.75,
+            colour = G.C.CLEAR,
+            nodes = {}
+        }
+    }
+    create_menu_toggles(joker_pool_settings, joker_pool_toggles)
+
+    local t = create_UIBox_generic_options({
+        back_func = G.ACTIVE_MOD_UI and "OpenModUI_"..G.ACTIVE_MOD_UI.id or 'your_collection',
+        contents = {joker_pool_settings}
+    })
+    G.FUNCS.overlay_menu { definition = t }
+end
+
+SMODS.current_mod.config_tab = jojokerconfig
+
+-- Credits
+local jojoker_credits = function()
+    local creditsText = {
+        { "Programming", "Assassins_Greed", "PurpleHaunter" }
+    }
+    local content_nodes = {}
+
+    for _, text_row in ipairs(creditsText) do
+    local row_node = { n = G.UIT.R, config = { align = "cm" }, nodes = {} }
+    for i, text in ipairs(text_row) do
+      table.insert(row_node.nodes, {
+        n = G.UIT.T,
+        config = {
+          text = text,
+          shadow = true,
+          scale = 0.6,
+          colour = i == 1 and G.C.UI.TEXT_LIGHT or G.C.BLUE,
+        }
+      })
+    end
+    table.insert(content_nodes, row_node)
+  end
+
+  table.insert(content_nodes, {
+    n = G.UIT.R,
+    config = {
+      padding = 0.2,
+      align = "cm",
+    },
+    nodes = {
+      UIBox_button({
+        minw = 3.85,
+        button = "jojoker_github",
+        label = {"Github"}
+      })
+    },
+  })
+
+  return {
+    label = "Credits",
+    tab_definition_function = function()
+      return {
+        n = G.UIT.ROOT,
+        config = {
+          align = "cm",
+          padding = 0.05,
+          colour = G.C.CLEAR,
+        },
+        nodes = content_nodes,
+      }
+    end
+  }
+end
+
+function G.FUNCS.jojoker_github(e)
+	love.system.openURL("https://github.com/assassinsgreed/jojoker")
+end
+
+SMODS.current_mod.extra_tabs = function()
+    return { jojoker_credits() }
+end
