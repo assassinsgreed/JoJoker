@@ -1,14 +1,15 @@
 -- Jojolion Stands
 
 local soft_and_wet = {
-    name = "Soft & Wet",
+    name = "soft_and_wet",
     pos = { x = 0, y = 0 }, -- Index in spritesheet
-    rarity = 3,
+    rarity = 2,
     cost = 4,
-    type = "Close Range",
+    jtype = "Stand",
+    jclass = "Close Range",
     part = "jojolion",
     blueprint_compat = false,
-    config = { mult_mod = 6 },
+    config = { mult_mod = 10 },
     calculate = function(self, card, context)
         -- Apply mult
         if context.cardarea == G.jokers and context.before and not context.blueprint then
@@ -25,7 +26,6 @@ local soft_and_wet = {
                     v:set_ability(G.P_CENTERS.c_base, nil, true)
                     G.E_MANAGER:add_event(Event({
                         func = function()
-                            v:juice_up()
                             v.vampired = nil
                             return true
                         end
@@ -49,4 +49,9 @@ local soft_and_wet = {
             end
         end
     end
+}
+
+return {
+    name = "Jojolion Stands Jokers",
+    list = { soft_and_wet },
 }

@@ -39,5 +39,10 @@ JoJo's Bizarre Adventure is property of Hirohiko Araki.
 
 # v0.1.0 TODOs Shortlist
 
-- Add Soft & Wet Joker sprite
 - Test Soft & Wet
+  - Mult mod is hard coded
+  - Missing JokerDisplay implementation
+  - Crashing when consuming enhancements
+  - Should only say Ora Ora Ora when eating enhancement
+- Fix up display (ex. show type like Stand and class like Close Range when hovering joker)
+- Document steps to create a new joker

@@ -4,11 +4,11 @@
 return {
     descriptions = {
         Joker = {
-            j_stand_soft_and_wet = {
+            j_jojoker_soft_and_wet = {
                 name = "Soft & Wet",
                 text = {
-                    "Removed scoring card enhancements",
-                    "Gain {C:mult}+#6${} for each removed enhancement"
+                    "Removes scoring card enhancements",
+                    "Gain {C:mult}+10{} mult for each removed enhancement"
                 }
             }
         },

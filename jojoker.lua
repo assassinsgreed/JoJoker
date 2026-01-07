@@ -19,35 +19,35 @@ if (SMODS.Mods["JokerDisplay"] or {}).can_load then
     end
 end
 
--- Load custom rarities (ex. Joker type)
-SMODS.Rarity {
-    key = "stand",
-    default_weight = 0,
-    badge_colour = HEX("22179C"), -- Blue
-    pools = {["Joker"] = true},
-    get_weight = function(self, weight, object_type)
-        return weight
-    end,
-}
-SMODS.Rarity {
-    key = "user",
-    default_weight = 0,
-    badge_colour = HEX("9C1717"), -- Red
-    pools = {["Joker"] = true},
-    get_weight = function(self, weight, object_type)
-        return weight
-    end,
-}
-SMODS.Rarity {
-    key = "effect",
-    default_weight = 0,
-    badge_colour = HEX("FAFA05"), -- Yellow
-    pools = {["Joker"] = true},
-    get_weight = function(self, weight, object_type)
-        return weight
-    end,
-}
--- TODO: Other rarities for things like close range, automatic, etc.
+-- -- Load custom rarities (ex. Joker type)
+-- SMODS.Rarity {
+--     key = "stand",
+--     default_weight = 0,
+--     badge_colour = HEX("22179C"), -- Blue
+--     pools = {["Joker"] = true},
+--     get_weight = function(self, weight, object_type)
+--         return weight
+--     end,
+-- }
+-- SMODS.Rarity {
+--     key = "user",
+--     default_weight = 0,
+--     badge_colour = HEX("9C1717"), -- Red
+--     pools = {["Joker"] = true},
+--     get_weight = function(self, weight, object_type)
+--         return weight
+--     end,
+-- }
+-- SMODS.Rarity {
+--     key = "effect",
+--     default_weight = 0,
+--     badge_colour = HEX("FAFA05"), -- Yellow
+--     pools = {["Joker"] = true},
+--     get_weight = function(self, weight, object_type)
+--         return weight
+--     end,
+-- }
+-- -- TODO: Other rarities for things like close range, automatic, etc.
 
 -- Load helper function files
 function loadFile(path)
@@ -63,16 +63,19 @@ end
 loadFile("functions/joker_order.lua")
 loadFile("functions/joker_sprite_load.lua")
 loadFile("functions/apifuncs.lua")
+loadFile("functions/jokerfunctions.lua")
+loadFile("functions/uifunctions.lua")
 loadFile("jojokerui.lua")
+loadFile("jokersprites.lua")
 loadFile("quips.lua")
 
 -- Load Jokers
-local pfiles = NFS.getDirectoryItems(mod_dir.."jojoker")
+local pfiles = NFS.getDirectoryItems(mod_dir.."jokers")
 for _, file in ipairs(pfiles) do
     sendDebugMessage("Loading Jojoker file: "..file)
-    local joker, load_error = SMODS.load_file("jojoker/"..file)
+    local joker, load_error = SMODS.load_file("jokers/"..file)
     if load_error then
-        sendDebugMessage("Error loading Jojoker file "..file..": "..load_error)
+        sendDebugMessage("Error loading joker file "..file..": "..load_error)
     else
         local curr_joker = joker()
         if curr_joker.init then curr_joker:init() end

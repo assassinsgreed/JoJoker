@@ -2,7 +2,7 @@ JokerSprites = {
     lookup = {},
     list = {
         -- TODO: Others
-        {name = "soft_and_wet", base = {pos = {x = 0, y = 0}},},
+        {name = "soft_and_wet", base = {pos = {x = 0, y = 0}}, part_atlas = "jojolion" },
     }
 }
 
@@ -16,7 +16,7 @@ setmetatable(JokerSprites, {
     end
 })
 
-jojoker_load_sprites = function(item)
+joker_load_sprites = function(item)
     local sprite_info = JokerSprites[item.name]
     local sprite = nil
     local new_pos = {}
@@ -32,24 +32,25 @@ jojoker_load_sprites = function(item)
 
         if position then item.pos = new_pos end
         if soul_position then item.soul_pos = soul_position end
+        sendDebugMessage("loading sprite for "..item.name..": ("..new_pos.x..","..new_pos.y..")")
     end
 end
 
 jojoker_get_atlas_string = function(atlas_prefix, part_atlas, other_atlas)
+    sendDebugMessage("Getting atlas string for prefix "..atlas_prefix..", part_atlas "..tostring(part_atlas)..", other_atlas "..tostring(other_atlas))
     if part_atlas then
-        local part_string
-        part_string = 'Part'..part_atlas
-        return atlas_prefix..part_string
+        return atlas_prefix.."_"..part_atlas -- AtlasJokers_jojolion
     elseif other_atlas then
-        return atlas_prefix.."Others"
+        return atlas_prefix.."_"..other_atlas -- AtlasJokers_others
     end
 end
 
-jojoker_load_atlas = function(item)
+joker_load_atlas = function(item)
     if JokerSprites[item.name] then
         local sprite_info = JokerSprites[item.name]
-        local atlas_prefix = "AtlasJokersBasic" -- We only support a single sprite source currently
+        local atlas_prefix = "AtlasJokers" -- We only support a single sprite source currently
         item.atlas = jojoker_get_atlas_string(atlas_prefix, sprite_info.part_atlas, sprite_info.other_atlas)
+        sendDebugMessage("loading atlas for "..item.name..": "..item.atlas)
         if sprite_info.lookup_part_atlas then
             item.jojoker_lookup_atlas = jojoker_get_atlas_string(atlas_prefix, sprite_info.lookup_part_atlas)
         end

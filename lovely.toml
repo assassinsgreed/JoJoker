@@ -12,6 +12,18 @@ position = "after"
 payload = "joker_stand = G.C.RARITY['stand'], joker_user = G.C.RARITY['user'], joker_effect = G.C.RARITY['effect'],"
 match_indent = true
 
+# Jojoker Only functionality
+[[patches]]
+[patches.pattern]
+target = "functions/common_events.lua"
+pattern = "if v.yes_pool_flag and not G.GAME.pool_flags[v.yes_pool_flag] then add = nil end"
+position = "after"
+payload = '''
+if v.set == 'Joker' and not v.part and jojoker_config and jojoker_config.jojoker_only then add = nil end
+if v.set == 'Joker' and v.part and not get_part_allowed(v) then add = nil end
+'''
+match_indent = true
+
 # Descriptions
 [[patches]]
 [patches.pattern]
