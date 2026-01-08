@@ -7,8 +7,9 @@ return {
             j_jojoker_soft_and_wet = {
                 name = "Soft & Wet",
                 text = {
-                    "Removes scoring card enhancements",
-                    "Gain {C:mult}+#1#{} mult for each removed enhancement"
+                    "Removes scoring card enhancements.",
+                    "Gain {C:mult}+#2#{} mult for each.",
+                    "{C:inactive}(Currently {C:mult}+#1#{C:inactive} Mult)"
                 }
             }
         },

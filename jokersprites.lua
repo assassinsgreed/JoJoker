@@ -36,7 +36,7 @@ function loc_colour(_c, _default)
   end
   G.ARGS.LOC_COLOURS["stand"] = HEX("22179c")
   G.ARGS.LOC_COLOURS["user"] = HEX("9c1717")
-  G.ARGS.LOC_COLOURS["effect"] = HEX("fafa05")
+  G.ARGS.LOC_COLOURS["effect"] = HEX("d2d232")
   G.ARGS.LOC_COLOURS["close_range"] = HEX("853424")
   G.ARGS.LOC_COLOURS["long_range"] = HEX("852468")
   G.ARGS.LOC_COLOURS["automatic"] = HEX("24853B")
