@@ -8,7 +8,7 @@ return {
                 name = "Soft & Wet",
                 text = {
                     "Removes scoring card enhancements",
-                    "Gain {C:mult}+10{} mult for each removed enhancement"
+                    "Gain {C:mult}+#1#{} mult for each removed enhancement"
                 }
             }
         },
@@ -86,7 +86,7 @@ return {
     },
     misc = {
         dictionary = {
-            sound_ora = "Ora Ora Ora!",
+            sound_ora = "Ora Ora Ora!", -- TODO: Use this somewhere?
 
             -- Config Menu
             jojoker_settings_header_norestart = "No Restart Required:",

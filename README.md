@@ -40,9 +40,8 @@ JoJo's Bizarre Adventure is property of Hirohiko Araki.
 # v0.1.0 TODOs Shortlist
 
 - Test Soft & Wet
-  - Mult mod is hard coded
   - Missing JokerDisplay implementation
-  - Crashing when consuming enhancements
-  - Should only say Ora Ora Ora when eating enhancement
+  - Replace cards with manga panel art
 - Fix up display (ex. show type like Stand and class like Close Range when hovering joker)
 - Document steps to create a new joker
+- Basic Jimbo joker keeps appearing

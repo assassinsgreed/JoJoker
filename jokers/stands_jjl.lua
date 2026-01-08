@@ -9,18 +9,32 @@ local soft_and_wet = {
     jclass = "Close Range",
     part = "jojolion",
     blueprint_compat = false,
-    config = { mult_mod = 10 },
+    config = { extra = { mult = 0, mult_mod = 8 } },
+    loc_vars = function(self, info_queue, center)
+     return {vars = {center.ability.extra.mult_mod}}
+   end,
     calculate = function(self, card, context)
+        local m_count = 0
+
         -- Apply mult
         if context.cardarea == G.jokers and context.before and not context.blueprint then
-            local m_count = 0
             local enhanced = {}
+            local mult_centers = {
+                [G.P_CENTERS.m_mult] = true,
+                [G.P_CENTERS.m_wild] = true,
+                [G.P_CENTERS.m_bonus] = true,
+                [G.P_CENTERS.m_stone] = true,
+                [G.P_CENTERS.m_steel] = true,
+                [G.P_CENTERS.m_glass] = true,
+                [G.P_CENTERS.m_gold] = true,
+                [G.P_CENTERS.m_lucky] = true,
+            }
             for k,v in ipairs(context.scoring_hand) do
-                if v.config.center ~= G.P_CENTERS.c_base and not v.debuff and not v.vapired then
+                if v.config.center ~= G.P_CENTERS.c_base and not v.debuff and not v.vampired then
                     enhanced[#enhanced+1] = v
                     v.vampired = true
                     
-                    if v.config.center == G.P_CENTERS.m_mult or v.config.center == G.P_CENTERS.m_wild or v.config.center == G.P_CENTERS.m_bonus or v.config.center == G.P_CENTERS.m_stone or v.config.center == G.P_CENTERS.m_steel or v.config.center == G.P_CENTERS.m_glass or v.config.center == G.P_CENTERS.m_gold or v.config.center == G.P_CENTERS.m_lucky then
+                    if mult_centers[v.config.center] then
                         m_count = m_count + 1
                     end
                     v:set_ability(G.P_CENTERS.c_base, nil, true)
@@ -36,15 +50,16 @@ local soft_and_wet = {
             if #enhanced > 0 and m_count > 0 then
                 card.ability.extra.mult = card.ability.extra.mult + card.ability.extra.mult_mod * m_count
             end
+            sendDebugMessage("Soft & Wet removed " .. #enhanced .. " enhancements. Mult is now " .. card.ability.extra.mult)
         end
 
         -- Sound effect
         if context.cardarea == G.jokers and context.scoring_hand then
             if context.joker_main then
                 return {
-                message = localize("sound_ora"),
-                colour = G.C.BLACK,
-                mult_mod = card.ability.extra.mult
+                    message = localize{type = 'variable', key = 'a_mult', vars = {card.ability.extra.mult}},
+                    colour = G.C.MULT,
+                    mult_mod = card.ability.extra.mult
                 }
             end
         end
