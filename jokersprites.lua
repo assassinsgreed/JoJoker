@@ -27,3 +27,21 @@ for i = 1, #joker_basic_atlases do
         })
     end
 end
+
+--Custom colors for badges
+local jokercolours = loc_colour
+function loc_colour(_c, _default)
+  if not G.ARGS.LOC_COLOURS then
+    jokercolours()
+  end
+  G.ARGS.LOC_COLOURS["stand"] = HEX("22179c")
+  G.ARGS.LOC_COLOURS["user"] = HEX("9c1717")
+  G.ARGS.LOC_COLOURS["effect"] = HEX("fafa05")
+  G.ARGS.LOC_COLOURS["close_range"] = HEX("853424")
+  G.ARGS.LOC_COLOURS["long_range"] = HEX("852468")
+  G.ARGS.LOC_COLOURS["automatic"] = HEX("24853B")
+  return jokercolours(_c, _default)
+end
+
+--called to ensure crashes don't happen
+loc_colour()

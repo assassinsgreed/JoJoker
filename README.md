@@ -42,6 +42,5 @@ JoJo's Bizarre Adventure is property of Hirohiko Araki.
 - Test Soft & Wet
   - Missing JokerDisplay implementation
   - Replace cards with manga panel art
-- Fix up display (ex. show type like Stand and class like Close Range when hovering joker)
 - Document steps to create a new joker
 - Basic Jimbo joker keeps appearing

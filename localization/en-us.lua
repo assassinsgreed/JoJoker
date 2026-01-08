@@ -88,6 +88,15 @@ return {
         dictionary = {
             sound_ora = "Ora Ora Ora!", -- TODO: Use this somewhere?
 
+            -- Joker badges
+            joker_type_stand_badge = "Stand",
+            joker_type_user_badge = "User",
+            joker_type_effect_badge = "Effect",
+
+            joker_class_automatic_badge = "Automatic",
+            joker_class_close_range_badge = "Close Range",
+            joker_class_long_range_badge = "Long Range",
+
             -- Config Menu
             jojoker_settings_header_norestart = "No Restart Required:",
             jojoker_settings_jojoker_only = "JoJoker Only?",

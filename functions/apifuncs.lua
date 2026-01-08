@@ -26,6 +26,9 @@ jojoker.load_joker = function(item)
             item.config.extra = {jclass = item.jclass}
         end
     end
+
+    -- Set detail badges
+    item.set_badges = jojoker_set_joker_badges
     
     -- Load the Joker
     local prev_load = item.load
