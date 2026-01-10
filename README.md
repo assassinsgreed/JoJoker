@@ -25,7 +25,7 @@ These mods have integrations in JoJoker to enahnce the experience:
 
 ## Contributing
 
-Feel free to open a PR with any bug fixes or feature improvements you'd like to see!
+For developer resources, consult the [repo wiki](https://github.com/assassinsgreed/JoJoker/wiki). Feel free to open a PR with any bug fixes or feature improvements you'd like to see!
 
 In the future, we'll look at other ways to get in touch, such as Discord.
 
@@ -39,5 +39,4 @@ JoJo's Bizarre Adventure is property of Hirohiko Araki.
 
 # v0.1.0 TODOs Shortlist
 
-- Document steps to create a new joker
 - Basic Jimbo joker keeps appearing
