@@ -4,6 +4,15 @@
 return {
     descriptions = {
         Joker = {
+            -- Stone Ocean
+            j_jojoker_goo_goo_dolls = {
+                name = "Goo Goo Dolls",
+                text = {
+                    "Each rank 2-6 card scored",
+                    "gives {C:mult}+#1#{} mult.",
+                }
+            },
+            -- Jojolion
             j_jojoker_soft_and_wet = {
                 name = "Soft & Wet",
                 text = {
