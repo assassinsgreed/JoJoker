@@ -1,6 +1,7 @@
 jojoker.joker_order = {
+    -- Phantom Blood
+    "danny",
     -- Others
-
     -- Part 6: Stone Ocean
     "goo_goo_dolls",
     "stone_free",

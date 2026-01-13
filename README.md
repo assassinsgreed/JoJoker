@@ -40,3 +40,5 @@ JoJo's Bizarre Adventure is property of Hirohiko Araki.
 # v0.1.0 TODOs Shortlist
 
 - Basic Jimbo joker keeps appearing
+- Fix Jojoker in Mods > Config Jojoker > Additions
+- Add more jokers

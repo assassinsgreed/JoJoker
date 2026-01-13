@@ -4,6 +4,14 @@
 return {
     descriptions = {
         Joker = {
+            -- Phantom Blood
+            j_jojoker_danny = {
+                name = "Danny (Pt 1)",
+                text = {
+                    "Gives {C:mult}+#1#{} mult.",
+                    "{S:1.1,C:red,E:2}Self destructs{} if score catches fire."
+                }
+            },
             -- Stone Ocean
             j_jojoker_goo_goo_dolls = {
                 name = "Goo Goo Dolls",
@@ -104,6 +112,7 @@ return {
     misc = {
         dictionary = {
             sound_ora = "Ora Ora Ora!", -- TODO: Use this somewhere?
+            sound_yip = "Yip!",
 
             -- Joker badges
             joker_type_stand_badge = "Stand",

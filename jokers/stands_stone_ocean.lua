@@ -2,7 +2,6 @@
 
 local goo_goo_dolls = {
     name = "goo_goo_dolls",
-    pos = { x = 0, y = 0 }, -- Index in spritesheet
     rarity = 1,
     cost = 3,
     jtype = "Stand",
@@ -29,7 +28,6 @@ local goo_goo_dolls = {
 
 local stone_free = {
     name = "stone_free",
-    pos = { x = 1, y = 0 }, -- Index in spritesheet
     rarity = 2,
     cost = 4,
     jtype = "Stand",

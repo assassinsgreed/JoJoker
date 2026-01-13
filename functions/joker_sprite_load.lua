@@ -2,6 +2,7 @@ JokerSprites = {
     lookup = {},
     list = {
         -- TODO: Others
+        {name = "danny", base = {pos = {x = 0, y = 0}}, part_atlas = "phantom_blood" },
         {name = "goo_goo_dolls", base = {pos = {x = 0, y = 0}}, part_atlas = "stone_ocean" },
         {name = "stone_free", base = {pos = {x = 1, y = 0}}, part_atlas = "stone_ocean" },
         {name = "soft_and_wet", base = {pos = {x = 0, y = 0}}, part_atlas = "jojolion" },

@@ -2,7 +2,6 @@
 
 local soft_and_wet = {
     name = "soft_and_wet",
-    pos = { x = 0, y = 0 }, -- Index in spritesheet
     rarity = 2,
     cost = 6,
     jtype = "Stand",

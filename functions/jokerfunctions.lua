@@ -62,3 +62,27 @@ jojoker_set_joker_badges = function(self, card, badges)
     badges[#badges+1] = create_badge(jclass, G.ARGS.LOC_COLOURS[lower_jclass], G.C.WHITE, 1.2 )
   end
 end
+
+remove = function(self, card, context, check_shiny)
+  card.getting_sliced = true
+  local flags = SMODS.calculate_context({ joker_type_destroyed = true, card = card })
+  if flags.no_destroy then
+    card.getting_sliced = nil
+    return
+  end
+  play_sound('tarot1')
+  card.T.r = -0.2
+  card.states.drag.is = true
+  card.children.center.pinch.x = true
+  G.E_MANAGER:add_event(Event({
+      trigger = 'after', delay = 0.3, blockable = false,
+      func = function()
+          G.jokers:remove_card(card)
+          card:remove()
+          card = nil
+          return true
+      end
+  }))
+  card.gone = true
+  return true
+end
