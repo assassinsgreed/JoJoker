@@ -27,7 +27,30 @@ local goo_goo_dolls = {
     end
 }
 
+local stone_free = {
+    name = "stone_free",
+    pos = { x = 1, y = 0 }, -- Index in spritesheet
+    rarity = 2,
+    cost = 4,
+    jtype = "Stand",
+    jclass = "Close Range",
+    part = "stone_ocean",
+    blueprint_compat = true,
+    calculate = function(self, card, context)
+        if context.individual and context.cardarea == G.play and not context.other_card.debuff then
+            if card.config.center == G.P_CENTERS.m_stone then
+                sendDebugMessage("Stone Free: Retriggering stone card")
+                return {
+                    message = localize('k_again_ex'),
+                    repetitions = card.ability.extra.retriggers,
+                    card = card
+                }
+            end
+        end
+    end
+}
+
 return {
     name = "Stone Ocean Stands Jokers",
-    list = { goo_goo_dolls },
+    list = { goo_goo_dolls, stone_free },
 }

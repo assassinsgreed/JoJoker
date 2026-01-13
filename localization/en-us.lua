@@ -12,6 +12,13 @@ return {
                     "gives {C:mult}+#1#{} mult.",
                 }
             },
+            j_jojoker_stone_free = {
+                name = "Stone Free",
+                text = {
+                    "Retriggers each scored",
+                    "{C:attention}Stone{} card.",
+                }
+            },
             -- Jojolion
             j_jojoker_soft_and_wet = {
                 name = "Soft & Wet",
