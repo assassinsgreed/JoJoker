@@ -36,9 +36,13 @@ local stone_free = {
     jclass = "Close Range",
     part = "stone_ocean",
     blueprint_compat = true,
+    config = {extra = {retriggers = 1}},
+    loc_vars = function(self, info_queue, center)
+        return {vars = {center.ability.extra.retriggers}}
+    end,
     calculate = function(self, card, context)
-        if context.individual and context.cardarea == G.play and not context.other_card.debuff then
-            if card.config.center == G.P_CENTERS.m_stone then
+        if context.repetition and context.cardarea == G.play then
+            if context.other_card.config.center == G.P_CENTERS.m_stone then
                 sendDebugMessage("Stone Free: Retriggering stone card")
                 return {
                     message = localize('k_again_ex'),

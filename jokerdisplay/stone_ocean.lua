@@ -9,4 +9,9 @@ jd_def["j_jojoker_goo_goo_dolls"] = {
         { text = "per scored 2-6", colour = G.C.GREY, },
     },
 }
--- No definition for Stone Free
+
+jd_def["j_jojoker_stone_free"] = {
+    text = {
+        { text = "Retrigger stone", colour = G.C.GREY, },
+    },
+}
