@@ -4,7 +4,7 @@
 return {
     descriptions = {
         Joker = {
-            -- Phantom Blood
+            -- Part 1: Phantom Blood
             j_jojoker_danny = {
                 name = "Danny (Pt 1)",
                 text = {
@@ -12,7 +12,8 @@ return {
                     "{S:1.1,C:red,E:2}Self destructs{} if score catches fire."
                 }
             },
-            -- Stardust Crusaders
+            -- Part 2: Battle Tendency
+            -- Part 3: Stardust Crusaders
             j_jojoker_magician_red = {
                 name = "Magician's Red",
                 text = {
@@ -20,7 +21,16 @@ return {
                     "score catches fire."
                 }
             },
-            -- Stone Ocean
+            -- Part 4: Diamond is Unbreakable
+            j_jojoker_voice_of_love = {
+                name = "Voice of Love",
+                text = {
+                    "Each scored {C:mult}Heart{} card",
+                    "gives {C:mult}+#1#{} mult.",
+                }
+            },
+            -- Part 5: Golden Wind
+            -- Part 6: Stone Ocean
             j_jojoker_goo_goo_dolls = {
                 name = "Goo Goo Dolls",
                 text = {
@@ -35,7 +45,8 @@ return {
                     "{C:attention}Stone{} card.",
                 }
             },
-            -- Jojolion
+            -- Part 7: Steel Ball Run
+            -- Part 8: Jojolion
             j_jojoker_soft_and_wet = {
                 name = "Soft & Wet",
                 text = {
@@ -44,6 +55,7 @@ return {
                     "{C:inactive}(Currently {C:mult}+#1#{C:inactive} Mult)"
                 }
             }
+            -- Part 9: The Jojolands
         },
         Other = {
             jojoker_only_tooltip = {

@@ -3,7 +3,7 @@ local lovely = require("lovely")
 
 -- Load all atlases
 -- TODO: Add other parts as jokers use them!
-local joker_basic_atlases = {"phantom_blood", "stardust_crusaders", "stone_ocean", "jojolion"} -- {"battle_tendency", "diamond_is_unbreakable", "golden_wind", "steel_ball_run", "the_jojolands", "others"}
+local joker_basic_atlases = {"phantom_blood", "stardust_crusaders", "diamond_is_unbreakable", "stone_ocean", "jojolion"} -- {"battle_tendency", "golden_wind", "steel_ball_run", "the_jojolands", "others"}
 local basic_prefix = "AtlasJokers"
 
 for i = 1, #joker_basic_atlases do
