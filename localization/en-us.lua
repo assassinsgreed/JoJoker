@@ -12,6 +12,14 @@ return {
                     "{S:1.1,C:red,E:2}Self destructs{} if score catches fire."
                 }
             },
+            -- Stardust Crusaders
+            j_jojoker_magician_red = {
+                name = "Magician's Red",
+                text = {
+                    "Earns {C:money}$#1#{} if",
+                    "score catches fire."
+                }
+            },
             -- Stone Ocean
             j_jojoker_goo_goo_dolls = {
                 name = "Goo Goo Dolls",

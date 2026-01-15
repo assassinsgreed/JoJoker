@@ -31,7 +31,7 @@ local danny = {
         -- If score catches fire, then destroy Danny
         if context.end_of_round and not context.individual and not context.repetition and not context.blueprint then
             if not G.GAME.chips or not G.GAME.blind.chips then return end
-            local start = G.GAME._chips_before_hand or 0           -- fallback if missing
+            local start = G.GAME._chips_before_hand or 0 -- fallback if missing
             local hand_score = (G.GAME.chips or 0) - start
             sendDebugMessage("Danny: Recognized score at hand start as "..start)
             sendDebugMessage("Danny: Resulting chips are "..hand_score.." and blind chips are "..G.GAME.blind.chips..". Will "..(hand_score > G.GAME.blind.chips and "" or " not ").." be destroyed.")

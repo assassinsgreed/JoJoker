@@ -1,11 +1,22 @@
 JokerSprites = {
     lookup = {},
     list = {
-        -- TODO: Others
+        -- TODO: Make magician red art and test card
+        -- Part 1: Phantom Blood
         {name = "danny", base = {pos = {x = 0, y = 0}}, part_atlas = "phantom_blood" },
+        -- Part 2: Battle Tendency
+        -- Part 3: Stardust Crusaders
+        {name = "magician_red", base = {pos = {x = 0, y = 0}}, part_atlas = "stardust_crusaders" },
+        -- Part 4: Diamond is Unbreakable
+        -- Part 5: Golden Wind
+        -- Part 6: Stone Ocean
         {name = "goo_goo_dolls", base = {pos = {x = 0, y = 0}}, part_atlas = "stone_ocean" },
         {name = "stone_free", base = {pos = {x = 1, y = 0}}, part_atlas = "stone_ocean" },
+        -- Part 7: Steel Ball Run
+        -- Part 8: Jojolion
         {name = "soft_and_wet", base = {pos = {x = 0, y = 0}}, part_atlas = "jojolion" },
+        -- Part 9: The Jojolands
+        -- Other
     }
 }
 
