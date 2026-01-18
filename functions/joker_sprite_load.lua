@@ -10,6 +10,7 @@ JokerSprites = {
         -- Part 4: Diamond is Unbreakable
         {name = "voice_of_love", base = {pos = {x = 0, y = 0}}, part_atlas = "diamond_is_unbreakable" },
         -- Part 5: Golden Wind
+        {name = "sex_pistols", base = {pos = {x = 0, y = 0}}, part_atlas = "golden_wind" },
         -- Part 6: Stone Ocean
         {name = "goo_goo_dolls", base = {pos = {x = 0, y = 0}}, part_atlas = "stone_ocean" },
         {name = "stone_free", base = {pos = {x = 1, y = 0}}, part_atlas = "stone_ocean" },

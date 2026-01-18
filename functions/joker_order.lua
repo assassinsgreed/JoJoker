@@ -8,6 +8,7 @@ jojoker.joker_order = {
     -- Part 4: Diamond is Unbreakable
     "voice_of_love",
     -- Part 5: Golden Wind
+    "sex_pistols",
     -- Part 6: Stone Ocean
     "goo_goo_dolls",
     "stone_free",

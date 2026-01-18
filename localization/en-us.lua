@@ -39,6 +39,16 @@ return {
                 }
             },
             -- Part 5: Golden Wind
+            j_jojoker_sex_pistols = {
+                name = "Sex Pistols",
+                text = {
+                    "When {C:attention}Blind{} is selected, randomly picks from",
+                    "{C:attention}[Ace, 2, 3, 5, 6, 7]{}.",
+                    "Increases mult by rank the first time it is scored per blind.",
+                    "Currently: {C:mult}+#1# mult{}",
+                    "Chosen rank: {C:green}#2#{}",
+                }
+            },
             -- Part 6: Stone Ocean
             j_jojoker_goo_goo_dolls = {
                 name = "Goo Goo Dolls",
@@ -144,6 +154,11 @@ return {
             sound_yip = "Yip!",
             sound_prediction = "Your next line is...",
             sound_nice = "Naaaaiiiiiccceeee!",
+            sound_mista = "Miiiistaaa!",
+
+            -- Common strings
+            a_hand = "a hand",
+            undecided = "undecided",
 
             -- Joker badges
             joker_type_stand_badge = "Stand",

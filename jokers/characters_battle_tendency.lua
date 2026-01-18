@@ -1,4 +1,4 @@
--- Phantom Blood effects
+-- Battle Tendency characters
 
 local joseph_joestar = {
     name = "joseph_joestar",
@@ -8,7 +8,7 @@ local joseph_joestar = {
     part = "battle_tendency",
     blueprint_compat = true,
     perishable_compat = true,
-    eternal_compat = false,
+    eternal_compat = true,
     config = { extra = { chosen_hand_type_name = "undecided", jokerdisplay_hand_name = "a hand" } }, -- Default for displayed strings in desc & jokerdisplay
     loc_vars = function(self, info_queue, card)
       return {vars = {card.ability.extra.chosen_hand_type_name}}
@@ -54,8 +54,8 @@ local joseph_joestar = {
 
         -- When blind ends, reset display strings
         if context.end_of_round then
-            card.ability.extra.chosen_hand_type_name = "undecided"
-            card.ability.extra.jokerdisplay_hand_name = "a hand"
+            card.ability.extra.chosen_hand_type_name = localize("undecided")
+            card.ability.extra.jokerdisplay_hand_name = localize("a_hand")
         end
     end
 }

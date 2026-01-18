@@ -17,17 +17,17 @@ local voice_of_love = {
         -- Each heart gives +4 mult
         if context.individual and not context.end_of_round and context.cardarea == G.play then
             if context.other_card:is_suit("Hearts") then
-                    if context.other_card.debuff then
-                return {
-                    message = localize("k_debuffed"),
-                    colour = G.C.RED,
-                    card = card,
-                }
+                if context.other_card.debuff then
+                    return {
+                        message = localize("k_debuffed"),
+                        colour = G.C.RED,
+                        card = card,
+                    }
                 else
-                return {
-                    mult = card.ability.extra.mult,
-                    card = card
-                }
+                    return {
+                        mult = card.ability.extra.mult,
+                        card = card
+                    }
                 end
             end
         end
