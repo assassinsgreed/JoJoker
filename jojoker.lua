@@ -30,7 +30,7 @@ end
 --     end,
 -- }
 -- SMODS.Rarity {
---     key = "user",
+--     key = "character",
 --     default_weight = 0,
 --     badge_colour = HEX("9C1717"), -- Red
 --     pools = {["Joker"] = true},

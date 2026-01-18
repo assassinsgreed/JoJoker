@@ -13,6 +13,15 @@ return {
                 }
             },
             -- Part 2: Battle Tendency
+            j_jojoker_joseph_joestar = {
+                name = "Joseph Joestar",
+                text = {
+                    "When {C:attention}Blind{} is selected, picks",
+                    "a random {C:attention}poker hand{}.",
+                    "Levels up that hand if played.",
+                    "Currently: {C:green}#1#{}"
+                }
+            },
             -- Part 3: Stardust Crusaders
             j_jojoker_magician_red = {
                 name = "Magician's Red",
@@ -133,10 +142,12 @@ return {
         dictionary = {
             sound_ora = "Ora Ora Ora!", -- TODO: Use this somewhere?
             sound_yip = "Yip!",
+            sound_prediction = "Your next line is...",
+            sound_nice = "Naaaaiiiiiccceeee!",
 
             -- Joker badges
             joker_type_stand_badge = "Stand",
-            joker_type_user_badge = "User",
+            joker_type_character_badge = "Character",
             joker_type_effect_badge = "Effect",
 
             joker_class_automatic_badge = "Automatic",

@@ -1,10 +1,10 @@
 JokerSprites = {
     lookup = {},
     list = {
-        -- TODO: Make magician red art and test card
         -- Part 1: Phantom Blood
         {name = "danny", base = {pos = {x = 0, y = 0}}, part_atlas = "phantom_blood" },
         -- Part 2: Battle Tendency
+        {name = "joseph_joestar", base = {pos = {x = 0, y = 0}}, part_atlas = "battle_tendency" },
         -- Part 3: Stardust Crusaders
         {name = "magician_red", base = {pos = {x = 0, y = 0}}, part_atlas = "stardust_crusaders" },
         -- Part 4: Diamond is Unbreakable

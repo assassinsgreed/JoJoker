@@ -3,7 +3,7 @@ local lovely = require("lovely")
 
 -- Load all atlases
 -- TODO: Add other parts as jokers use them!
-local joker_basic_atlases = {"phantom_blood", "stardust_crusaders", "diamond_is_unbreakable", "stone_ocean", "jojolion"} -- {"battle_tendency", "golden_wind", "steel_ball_run", "the_jojolands", "others"}
+local joker_basic_atlases = {"phantom_blood", "battle_tendency", "stardust_crusaders", "diamond_is_unbreakable", "stone_ocean", "jojolion"} -- {"golden_wind", "steel_ball_run", "the_jojolands", "others"}
 local basic_prefix = "AtlasJokers"
 
 for i = 1, #joker_basic_atlases do
@@ -35,7 +35,7 @@ function loc_colour(_c, _default)
     jokercolours()
   end
   G.ARGS.LOC_COLOURS["stand"] = HEX("22179c")
-  G.ARGS.LOC_COLOURS["user"] = HEX("9c1717")
+  G.ARGS.LOC_COLOURS["character"] = HEX("9c1717")
   G.ARGS.LOC_COLOURS["effect"] = HEX("d2d232")
   G.ARGS.LOC_COLOURS["close_range"] = HEX("853424")
   G.ARGS.LOC_COLOURS["long_range"] = HEX("852468")

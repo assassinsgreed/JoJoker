@@ -47,9 +47,6 @@ jojoker_set_joker_badges = function(self, card, badges)
   if jtype then
     local lower_jtype = string.lower(jtype)
     local text_colour = G.C.WHITE
-    if jtype == "User" then
-      text_colour = G.C.BLACK
-    end
     jtype = localize('joker_type_'..lower_jtype..'_badge')
     badges[#badges+1] = create_badge(jtype, G.ARGS.LOC_COLOURS[lower_jtype], text_colour, 1.2 )
   end
