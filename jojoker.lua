@@ -69,8 +69,9 @@ loadFile("jojokerui.lua")
 loadFile("jokersprites.lua")
 loadFile("quips.lua")
 
--- Load tests
+-- Load tests, if Balatest mod is present and active
 if Balatest then
+    SMODS.load_file('tests/jokers/phantom_blood_tests.lua')()
     SMODS.load_file('tests/jokers/golden_wind_tests.lua')()
 end
 
