@@ -15,6 +15,7 @@ JokerSprites = {
         {name = "goo_goo_dolls", base = {pos = {x = 0, y = 0}}, part_atlas = "stone_ocean" },
         {name = "stone_free", base = {pos = {x = 1, y = 0}}, part_atlas = "stone_ocean" },
         -- Part 7: Steel Ball Run
+        {name = "mandom", base = {pos = {x = 0, y = 0}}, part_atlas = "steel_ball_run" },
         -- Part 8: Jojolion
         {name = "soft_and_wet", base = {pos = {x = 0, y = 0}}, part_atlas = "jojolion" },
         -- Part 9: The Jojolands

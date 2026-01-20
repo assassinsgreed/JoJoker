@@ -13,6 +13,7 @@ jojoker.joker_order = {
     "goo_goo_dolls",
     "stone_free",
     -- Part 7: Steel Ball Run
+    "mandom",
     -- Part 8: Jojolion
     "soft_and_wet",
     -- Part 9: The Jojolands

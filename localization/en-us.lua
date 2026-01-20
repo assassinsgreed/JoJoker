@@ -65,6 +65,14 @@ return {
                 }
             },
             -- Part 7: Steel Ball Run
+            j_jojoker_mandom = {
+                name = "Mandom",
+                text = {
+                    "Retrigger the first {C:attention}#2#{}",
+                    "cards scored each round.",
+                    "Triggered: {C:green}#2#/#3# times{}"
+                }
+            },
             -- Part 8: Jojolion
             j_jojoker_soft_and_wet = {
                 name = "Soft & Wet",

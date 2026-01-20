@@ -1,4 +1,4 @@
--- Phantom Blood effects
+-- Stardust Crusaders Stands
 
 local magician_red = {
     name = "magician_red",
