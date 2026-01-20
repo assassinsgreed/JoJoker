@@ -71,9 +71,13 @@ loadFile("quips.lua")
 
 -- Load tests, if Balatest mod is present and active
 if Balatest then
-    SMODS.load_file('tests/jokers/phantom_blood_tests.lua')()
-    SMODS.load_file('tests/jokers/battle_tendency_tests.lua')()
-    SMODS.load_file('tests/jokers/golden_wind_tests.lua')()
+    SMODS.load_file('tests/jokers/characters_phantom_blood_tests.lua')()
+    SMODS.load_file('tests/jokers/characters_battle_tendency_tests.lua')()
+    SMODS.load_file('tests/jokers/stands_stardust_crusaders_tests.lua')()
+    SMODS.load_file('tests/jokers/effects_diamond_is_unbreakable_tests.lua')()
+    SMODS.load_file('tests/jokers/stands_golden_wind_tests.lua')()
+    SMODS.load_file('tests/jokers/stands_stone_ocean_tests.lua')()
+    SMODS.load_file('tests/jokers/stands_jojolion_tests.lua')()
 end
 
 -- Load Jokers

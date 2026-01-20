@@ -30,7 +30,7 @@ Balatest.TestPlay {
     execute = function()
         G.jokers.cards[1].ability.extra.chosen_hand_type_name = "Two Pair"
         Balatest.play_hand { '2S', '2C', '7H', '7D' }
-        Balatest.play_hand { '3S', '3C', '8H', '8mmD' }
+        Balatest.play_hand { '3S', '3C', '8H', '8D' }
     end,
     assert = function()
         Balatest.assert_chips(502, "Joseph didn't level up 2 pair hand to level 2, after it was played twice")
