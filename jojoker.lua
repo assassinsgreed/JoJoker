@@ -69,6 +69,11 @@ loadFile("jojokerui.lua")
 loadFile("jokersprites.lua")
 loadFile("quips.lua")
 
+-- Load tests
+if Balatest then
+    SMODS.load_file('tests/jokers/golden_wind_tests.lua')()
+end
+
 -- Load Jokers
 local pfiles = NFS.getDirectoryItems(mod_dir.."jokers")
 for _, file in ipairs(pfiles) do
