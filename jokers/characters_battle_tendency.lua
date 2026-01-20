@@ -43,7 +43,7 @@ local joseph_joestar = {
         if context.cardarea == G.jokers and context.scoring_hand then
             if not context.blueprint then
                 if context.before and next(context.poker_hands[card.ability.extra.chosen_hand_type_name]) then
-                    sendDebugMessage("Joseph Joestar: Levelling up hand "..hand.handname)
+                    sendDebugMessage("Joseph Joestar: Leveling up hand "..card.ability.extra.chosen_hand_type_name)
                     SMODS.smart_level_up_hand(card, card.ability.extra.chosen_hand_type_name)
                     return {
                         message = localize('sound_nice')
