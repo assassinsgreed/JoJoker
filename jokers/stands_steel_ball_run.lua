@@ -20,7 +20,7 @@ local mandom = {
                 card.ability.extra.cards = card.ability.extra.cards + 1
             end
             return {
-                message = localize('k_again_ex'),
+                message = localize('sound_tick'),
                 repetitions = card.ability.extra.retriggers,
                 card = card
             }

@@ -17,5 +17,6 @@ jojoker.joker_order = {
     -- Part 8: Jojolion
     "soft_and_wet",
     -- Part 9: The Jojolands
+    "smooth_operator"
     -- Other
 }

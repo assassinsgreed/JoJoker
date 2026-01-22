@@ -81,8 +81,18 @@ return {
                     "Gain {C:mult}+#2#{} mult for each.",
                     "{C:inactive}(Currently {C:mult}+#1#{C:inactive} Mult)"
                 }
-            }
+            },
             -- Part 9: The Jojolands
+            j_jojoker_smooth_operator = {
+                name = "Smooth Operator",
+                text = {
+                    "Relocates itself at the start of",
+                    "each blind. If not manually relocated,",
+                    "gains {C:mult}mult{} equal to the",
+                    "number of held jokers.",
+                    "{C:inactive}(Currently {C:mult}#1#{C:inactive} Mult)"
+                }
+            },
         },
         Other = {
             jojoker_only_tooltip = {
@@ -163,6 +173,7 @@ return {
             sound_prediction = "Your next line is...",
             sound_nice = "Naaaaiiiiiccceeee!",
             sound_mista = "Miiiistaaa!",
+            sound_tick = "Tick",
 
             -- Common strings
             a_hand = "a hand",

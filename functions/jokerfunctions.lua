@@ -83,3 +83,14 @@ remove = function(self, card, context, check_shiny)
   card.gone = true
   return true
 end
+
+find_joker_pos = function(card)
+  local card_index = nil
+  for i, joker in ipairs(G.jokers.cards) do
+      if joker == card then
+          card_index = i
+          break
+      end
+  end
+  return card_index
+end
