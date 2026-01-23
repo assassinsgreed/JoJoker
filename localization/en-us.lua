@@ -12,6 +12,13 @@ return {
                     "{S:1.1,C:red,E:2}Self destructs{} if score catches fire."
                 }
             },
+            j_jojoker_baron_zeppeli = {
+                name = "Baron Zeppeli",
+                text = {
+                    "Cuts scored {C:chips}chips{} by {C:attention}50%{} when scored.",
+                    "Adds {C:mult}mult{} equal to {C:attention}10%{} of original chips."
+                }
+            },
             -- Part 2: Battle Tendency
             j_jojoker_joseph_joestar = {
                 name = "Joseph Joestar",
@@ -174,6 +181,7 @@ return {
             sound_nice = "Naaaaiiiiiccceeee!",
             sound_mista = "Miiiistaaa!",
             sound_tick = "Tick",
+            sound_hey_baby = "Hey, baby!",
 
             -- Common strings
             a_hand = "a hand",

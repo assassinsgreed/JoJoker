@@ -53,8 +53,36 @@ local danny = {
     end
 }
 
+local baron_zeppeli = {
+    name = "baron_zeppeli",
+    rarity = 3,
+    cost = 8,
+    jtype = "Character",
+    part = "phantom_blood",
+    blueprint_compat = false,
+    perishable_compat = true,
+    eternal_compat = false,
+    config = { extra = { } },
+    loc_vars = function(self, info_queue, center)
+      return {vars = { }}
+    end,
+    calculate = function(self, card, context)
+        if context.final_scoring_step then
+            local currentChips = hand_chips or 0
+            hand_chips = math.floor(currentChips / 2)
+            local addedMult = math.floor(currentChips * 0.1)
+            mult = mult + addedMult
+            sendDebugMessage("Baron Zeppeli: Cut chips to "..hand_chips.." and added "..addedMult.." to mult, new mult is "..(mult))
+
+            return {
+                message = localize("sound_hey_baby"),
+                colour = G.C.GOLD,
+            }
+        end
+    end
+}
 
 return {
     name = "Phantom Blood Effect Jokers",
-    list = { danny },
+    list = { danny, baron_zeppeli },
 }
