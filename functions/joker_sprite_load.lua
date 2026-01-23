@@ -6,6 +6,7 @@ JokerSprites = {
         {name = "baron_zeppeli", base = {pos = {x = 1, y = 0}}, part_atlas = "phantom_blood" },
         -- Part 2: Battle Tendency
         {name = "joseph_joestar", base = {pos = {x = 0, y = 0}}, part_atlas = "battle_tendency" },
+        {name = "esidisi", base = {pos = {x = 1, y = 0}}, part_atlas = "battle_tendency" },
         -- Part 3: Stardust Crusaders
         {name = "magician_red", base = {pos = {x = 0, y = 0}}, part_atlas = "stardust_crusaders" },
         -- Part 4: Diamond is Unbreakable

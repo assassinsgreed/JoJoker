@@ -28,6 +28,14 @@ for i = 1, #joker_basic_atlases do
     end
 end
 
+-- Mod icon
+SMODS.Atlas({
+    key = "modicon",
+    path = "icon.png",
+    px = 32,
+    py = 32
+})
+
 --Custom colors for badges
 local jokercolours = loc_colour
 function loc_colour(_c, _default)

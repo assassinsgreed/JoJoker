@@ -29,6 +29,14 @@ return {
                     "Currently: {C:green}#1#{}"
                 }
             },
+            j_jojoker_esidisi = {
+                name = "Esidisi",
+                text = {
+                    "Gains {C:mult}+#2#x{} mult whenever",
+                    "score catches fire.",
+                    "Currently: {C:mult}#1#x{}"
+                }
+            },
             -- Part 3: Stardust Crusaders
             j_jojoker_magician_red = {
                 name = "Magician's Red",

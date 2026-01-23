@@ -10,3 +10,10 @@ jd_def["j_jojoker_joseph_joestar"] = {
         { text = "Changes each blind", colour = G.C.GREY, },
     },
 }
+
+jd_def["j_jojoker_esidisi"] = {
+    text = {
+        { ref_table = "card.ability.extra", ref_value = "Xmult", retrigger_type = "Xmult",  colour = G.C.MULT },
+        { text = "x", colour = G.C.MULT }
+    }
+}

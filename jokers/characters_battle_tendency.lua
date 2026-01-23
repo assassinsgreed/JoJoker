@@ -60,7 +60,38 @@ local joseph_joestar = {
     end
 }
 
+local esidisi = {
+    name = "esidisi",
+    rarity = 3,
+    cost = 6,
+    jtype = "Character",
+    part = "battle_tendency",
+    blueprint_compat = false,
+    perishable_compat = true,
+    eternal_compat = true,
+    config = { extra = { Xmult = 1, mult_mod = 1 } },
+    loc_vars = function(self, info_queue, card)
+      return {vars = {card.ability.extra.Xmult, card.ability.extra.mult_mod}}
+    end,
+    calculate = function(self, card, context)
+        -- If score catches fire, give +1 Xmult
+        if context.cardarea == G.jokers and context.scoring_hand then
+            if context.joker_main then
+                if SMODS.calculate_round_score() > G.GAME.blind.chips then
+                    card.ability.extra.Xmult = card.ability.extra.Xmult + 1
+                    sendDebugMessage("Esidisi: Score caught fire, increasing Xmult to "..card.ability.extra.Xmult)
+                    return {
+                        message = localize{type = 'variable', key = 'a_mult', vars = {1}},
+                        colour = G.C.XMULT,
+                        Xmult_mod = 1
+                    }
+                end
+            end
+        end
+    end
+}
+
 return {
     name = "Battle Tendency Character Jokers",
-    list = { joseph_joestar },
+    list = { joseph_joestar, esidisi },
 }

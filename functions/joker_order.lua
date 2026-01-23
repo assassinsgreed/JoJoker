@@ -1,8 +1,10 @@
 jojoker.joker_order = {
     -- Part 1: Phantom Blood
     "danny",
+    "baron_zeppeli",
     -- Part 2: Battle Tendency
     "joseph_joestar",
+    "esidisi",
     -- Part 3: Stardust Crusaders
     "magician_red",
     -- Part 4: Diamond is Unbreakable
