@@ -94,3 +94,21 @@ find_joker_pos = function(card)
   end
   return card_index
 end
+
+pick_random_hand_type = function()
+    local hand_options = {}
+    local hand_names = {}
+    for k,v in pairs(G.GAME.hands) do
+      if v.visible then
+          local hand = v
+          hand.handname = k
+          table.insert(hand_options, hand)
+          table.insert(hand_names, hand.handname)
+      end
+  end
+
+  if #hand_options > 0 then
+      return hand_options[math.random(#hand_options)]
+  end
+  return nil
+end

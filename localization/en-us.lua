@@ -53,6 +53,14 @@ return {
                     "gives {C:mult}+#1#{} mult.",
                 }
             },
+            j_jojoker_shizuka = {
+                name = "Shizuka",
+                text = {
+                    "Picks a random {C:attention}poker hand{}.",
+                    "Levels up that hand {C:attention}#1# times{} if played,",
+                    "then picks a new one."
+                }
+            },
             -- Part 5: Golden Wind
             j_jojoker_sex_pistols = {
                 name = "Sex Pistols",
@@ -190,6 +198,7 @@ return {
             sound_mista = "Miiiistaaa!",
             sound_tick = "Tick",
             sound_hey_baby = "Hey, baby!",
+            sound_gaa = "Gaa!",
 
             -- Common strings
             a_hand = "a hand",

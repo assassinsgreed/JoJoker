@@ -9,6 +9,7 @@ jojoker.joker_order = {
     "magician_red",
     -- Part 4: Diamond is Unbreakable
     "voice_of_love",
+    "shizuka",
     -- Part 5: Golden Wind
     "sex_pistols",
     -- Part 6: Stone Ocean

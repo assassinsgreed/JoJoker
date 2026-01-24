@@ -9,3 +9,14 @@ jd_def["j_jojoker_voice_of_love"] = {
         { text = "Hearts only", colour = G.C.GREY, },
     },
 }
+
+jd_def["j_jojoker_shizuka"] = {
+    text = {
+        { text = "Secret hand", colour = G.C.GREY }        
+    },
+    reminder_text = {
+        { text = "+", colour = G.C.GREY, },
+        { ref_table = "card.ability.extra", ref_value = "levels", colour = G.C.GREY},
+        { text = " levels when played", colour = G.C.GREY }
+    },
+}
