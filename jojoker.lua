@@ -73,6 +73,7 @@ loadFile("quips.lua")
 if Balatest then
     SMODS.load_file('tests/jokers/characters_phantom_blood_tests.lua')()
     SMODS.load_file('tests/jokers/characters_battle_tendency_tests.lua')()
+    SMODS.load_file('tests/jokers/effects_battle_tendency_tests.lua')()
     SMODS.load_file('tests/jokers/stands_stardust_crusaders_tests.lua')()
     SMODS.load_file('tests/jokers/characters_diamond_is_unbreakable_tests.lua')()
     SMODS.load_file('tests/jokers/effects_diamond_is_unbreakable_tests.lua')()

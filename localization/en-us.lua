@@ -39,6 +39,14 @@ return {
                     "{C:inactive}Currently: {C:mult}#1#x{}"
                 }
             },
+            j_jojoker_german_engineering = {
+                name = "German Engineering",
+                text = {
+                    "If scoring hand is a single {C:attention}9{},",
+                    "adds a duplicate to the deck",
+                    "and levels up {C:attention}High Card{}"
+                }
+            },
             -- Part 3: Stardust Crusaders
             j_jojoker_magician_red = {
                 name = "Magician's Red",
