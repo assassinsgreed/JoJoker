@@ -5,6 +5,7 @@ Balatest.TestPlay {
     jokers = { 'j_jojoker_joseph_joestar' },
     execute = function()
         G.jokers.cards[1].ability.extra.chosen_hand_type_name = "Two Pair"
+        G.jokers.cards[1].ability.extra.jokerdisplay_hand_name = "Two Pair" -- Purely for viewer sanity; this does not matter for the test
         Balatest.play_hand { '2S' }
     end,
     assert = function()
@@ -17,6 +18,7 @@ Balatest.TestPlay {
     jokers = { 'j_jojoker_joseph_joestar' },
     execute = function()
         G.jokers.cards[1].ability.extra.chosen_hand_type_name = "Two Pair"
+        G.jokers.cards[1].ability.extra.jokerdisplay_hand_name = "Two Pair" -- Purely for viewer sanity; this does not matter for the test
         Balatest.play_hand { '2S', '2C', '7H', '7D' }
     end,
     assert = function()
@@ -29,11 +31,25 @@ Balatest.TestPlay {
     jokers = { 'j_jojoker_joseph_joestar' },
     execute = function()
         G.jokers.cards[1].ability.extra.chosen_hand_type_name = "Two Pair"
+        G.jokers.cards[1].ability.extra.jokerdisplay_hand_name = "Two Pair" -- Purely for viewer sanity; this does not matter for the test
         Balatest.play_hand { '2S', '2C', '7H', '7D' }
         Balatest.play_hand { '3S', '3C', '8H', '8D' }
     end,
     assert = function()
         Balatest.assert_chips(502, "Joseph didn't level up 2 pair hand to level 2, after it was played twice")
+    end
+}
+Balatest.TestPlay {
+    name = 'joseph_does_not_level_up_two_pair_contained_in_full_house',
+    category = { 'jokers', 'battle_tendency', 'joseph_joestar' },
+    jokers = { 'j_jojoker_joseph_joestar' },
+    execute = function()
+        G.jokers.cards[1].ability.extra.chosen_hand_type_name = "Two Pair"
+        G.jokers.cards[1].ability.extra.jokerdisplay_hand_name = "Two Pair" -- Purely for viewer sanity; this does not matter for the test
+        Balatest.play_hand { '2S', '2C', '7H', '7D', '7S' }
+    end,
+    assert = function()
+        Balatest.assert_chips(260, "Joseph levelled up Two Pair hand when Full House was played, but should not have")
     end
 }
 --#endregion
