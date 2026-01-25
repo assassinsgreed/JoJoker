@@ -63,6 +63,13 @@ return {
                     "then picks a new one."
                 }
             },
+            j_jojoker_red_hot_chili_pepper = {
+                name = "Red Hot Chili Pepper",
+                text = {
+                    "{C:mult}+#1# mult{} per",
+                    "{C:money}$#2#{} held."
+                }
+            },
             -- Part 5: Golden Wind
             j_jojoker_sex_pistols = {
                 name = "Sex Pistols",

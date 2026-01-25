@@ -10,6 +10,7 @@ jojoker.joker_order = {
     -- Part 4: Diamond is Unbreakable
     "voice_of_love",
     "shizuka",
+    "red_hot_chili_pepper",
     -- Part 5: Golden Wind
     "sex_pistols",
     -- Part 6: Stone Ocean

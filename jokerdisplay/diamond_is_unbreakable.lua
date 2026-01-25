@@ -20,3 +20,17 @@ jd_def["j_jojoker_shizuka"] = {
         { text = " levels when played", colour = G.C.GREY }
     },
 }
+
+jd_def["j_jojoker_red_hot_chili_pepper"] = {
+    text = {
+        { text = "+", colour = G.C.MULT },
+        { ref_table = "card.joker_display_values", ref_value = "mult_given", retrigger_type = "mult_given",  colour = G.C.MULT },
+    },
+    calc_function = function(card)
+        if G.GAME and G.GAME.dollars > 0 then
+            card.joker_display_values.mult_given = card.ability.extra.mult_mod * G.GAME.dollars
+        else
+            card.joker_display_values.mult_given = 0
+        end
+    end
+}
