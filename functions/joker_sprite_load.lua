@@ -21,7 +21,7 @@ JokerSprites = {
         {name = "mandom", base = {pos = {x = 0, y = 0}}, part_atlas = "steel_ball_run" },
         -- Part 8: Jojolion
         {name = "soft_and_wet", base = {pos = {x = 0, y = 0}}, part_atlas = "jojolion" },
-        -- Part 9: The Jojolands
+        -- Part 9: THE JOJOLands
         {name = "smooth_operator", base = {pos = {x = 0, y = 0}}, part_atlas = "the_jojolands" },
         -- Other
     }

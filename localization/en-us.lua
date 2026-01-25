@@ -110,7 +110,7 @@ return {
                     "{C:inactive}Currently {C:mult}+#1#{C:inactive}"
                 }
             },
-            -- Part 9: The Jojolands
+            -- Part 9: THE JOJOLands
             j_jojoker_smooth_operator = {
                 name = "Smooth Operator",
                 text = {
@@ -187,10 +187,10 @@ return {
                 }
             },
             part9_tooltip = {
-                name = "The JoJoLands Enabled",
+                name = "THE JOJOLands Enabled",
                 text = {
                     "{C:attention}JoJoker{} jokers from",
-                    "{C:blue}The JoJoLands{} will appear"
+                    "{C:blue}THE JOJOLands{} will appear"
                 }
             },
         }
@@ -230,7 +230,7 @@ return {
             jojoker_settings_part_6_enabled = "Stone Ocean Enabled?",
             jojoker_settings_part_7_enabled = "Steel Ball Run Enabled?",
             jojoker_settings_part_8_enabled = "JoJolion Enabled?",
-            jojoker_settings_part_9_enabled = "The JoJoLands Enabled?",
+            jojoker_settings_part_9_enabled = "THE JOJOLands Enabled?",
         },
         quips = {
             jojoker_lose_quip1 = {"You thought you could beat me?", "Yare yare daze...",},
