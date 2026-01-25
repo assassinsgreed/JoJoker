@@ -193,6 +193,14 @@ return {
                     "{C:blue}THE JOJOLands{} will appear"
                 }
             },
+            -- Misc No Restart Tooltips
+            jojoker_only_collection_tooltip = {
+                name = "JoJoker Only Collection",
+                text = {
+                    "Only {C:attention}JoJoker{} jokers will",
+                    "appear in the collection"
+                }
+            },
         }
     },
     misc = {
@@ -231,6 +239,9 @@ return {
             jojoker_settings_part_7_enabled = "Steel Ball Run Enabled?",
             jojoker_settings_part_8_enabled = "JoJolion Enabled?",
             jojoker_settings_part_9_enabled = "THE JOJOLands Enabled?",
+
+            -- Misc config options
+            jojoker_settings_jojoker_only_collection = "Only JoJoker Jokers in Collection?",
         },
         quips = {
             jojoker_lose_quip1 = {"You thought you could beat me?", "Yare yare daze...",},

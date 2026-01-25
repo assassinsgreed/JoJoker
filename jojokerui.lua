@@ -12,6 +12,10 @@ local joker_pool_toggles = {
     { ref_value = "the_jojolands", label = "jojoker_settings_part_9_enabled", tooltip = { set = 'Other', key = 'part9_tooltip' } },
 }
 
+local misc_no_restart_toggles = {
+    { ref_value = "jojoker_only_collection", label = "jojoker_settings_jojoker_only_collection", tooltip = { set = 'Other', key = 'jojoker_only_collection_tooltip' } },
+}
+
 local create_menu_toggles = function(parent, toggles)
     for k,v in ipairs(toggles) do
         parent.nodes[#parent.nodes + 1] = create_toggle({
@@ -59,6 +63,12 @@ local jojokerconfig = function()
               button = "jojoker_joker_pool",
               label = {"Joker Pool Options"}
           }),
+          UIBox_button({
+              minw = 3.85,
+              colour = HEX("AB1A0F"),
+              button = "jojoker_misc_no_restart",
+              label = {"Misc No Restart Options"}
+          }),
         }
     }
 end
@@ -70,6 +80,17 @@ function G.FUNCS.jojoker_joker_pool(e)
     local t = create_UIBox_generic_options({
         back_func = G.ACTIVE_MOD_UI and "openModUI_"..G.ACTIVE_MOD_UI.id or 'your_collection',
         contents = {joker_pool_settings}
+    })
+    G.FUNCS.overlay_menu { definition = t }
+end
+
+function G.FUNCS.jojoker_misc_no_restart(e)
+    local misc_no_restart_settings = {n = G.UIT.R, config = {align = "tm", padding = 0.05, scale = 0.75, colour = G.C.CLEAR}, nodes = {}}
+    create_menu_toggles(misc_no_restart_settings, misc_no_restart_toggles)
+
+    local t = create_UIBox_generic_options({
+        back_func = G.ACTIVE_MOD_UI and "openModUI_"..G.ACTIVE_MOD_UI.id or 'your_collection',
+        contents = {misc_no_restart_settings}
     })
     G.FUNCS.overlay_menu { definition = t }
 end
