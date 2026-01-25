@@ -15,7 +15,7 @@ return {
             j_jojoker_baron_zeppeli = {
                 name = "Baron Zeppeli",
                 text = {
-                    "Cuts scored {C:chips}chips{} by {C:attention}50%{} when scored.",
+                    "Cuts scored {C:chips}chips in half{} when scored.",
                     "Adds {C:mult}mult{} equal to {C:attention}10%{} of original chips."
                 }
             },
@@ -26,7 +26,8 @@ return {
                     "When {C:attention}Blind{} is selected, picks",
                     "a random {C:attention}poker hand{}.",
                     "Levels up that hand if played.",
-                    "Currently: {C:green}#1#{}"
+                    "{br:2}line break",
+                    "{C:inactive}Currently: {C:green}#1#"
                 }
             },
             j_jojoker_esidisi = {
@@ -34,7 +35,8 @@ return {
                 text = {
                     "Gains {C:mult}+#2#x{} mult whenever",
                     "score catches fire.",
-                    "Currently: {C:mult}#1#x{}"
+                    "{br:2}line break",
+                    "{C:inactive}Currently: {C:mult}#1#x{}"
                 }
             },
             -- Part 3: Stardust Crusaders
@@ -68,8 +70,9 @@ return {
                     "When {C:attention}Blind{} is selected, randomly picks from",
                     "{C:attention}[Ace, 2, 3, 5, 6, 7]{}.",
                     "Increases mult by rank the first time it is scored per blind.",
-                    "Currently: {C:mult}+#1# mult{}",
-                    "Chosen rank: {C:green}#2#{}",
+                    "{br:2}line break",
+                    "{C:inactive}Currently: {C:mult}+#1#",
+                    "{C:inactive}Chosen rank: {C:green}#2#",
                 }
             },
             -- Part 6: Stone Ocean
@@ -93,7 +96,8 @@ return {
                 text = {
                     "Retrigger the first {C:attention}#2#{}",
                     "cards scored each round.",
-                    "Triggered: {C:green}#2#/#3# times{}"
+                    "{br:2}line break",
+                    "{C:inactive}Triggered: {C:green}#2#/#3# times{}"
                 }
             },
             -- Part 8: Jojolion
@@ -102,7 +106,8 @@ return {
                 text = {
                     "Removes scoring card enhancements.",
                     "Gain {C:mult}+#2#{} mult for each.",
-                    "{C:inactive}(Currently {C:mult}+#1#{C:inactive} Mult)"
+                    "{br:2}line break",
+                    "{C:inactive}Currently {C:mult}+#1#{C:inactive}"
                 }
             },
             -- Part 9: The Jojolands
@@ -113,7 +118,8 @@ return {
                     "each blind. If not manually relocated,",
                     "gains {C:mult}mult{} equal to the",
                     "number of held jokers.",
-                    "{C:inactive}(Currently {C:mult}#1#{C:inactive} Mult)"
+                    "{br:2}line break",
+                    "{C:inactive}Currently {C:mult}#1#"
                 }
             },
         },

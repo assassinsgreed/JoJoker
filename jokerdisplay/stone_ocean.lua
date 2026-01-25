@@ -6,7 +6,7 @@ jd_def["j_jojoker_goo_goo_dolls"] = {
         { ref_table = "card.ability.extra", ref_value = "mult", retrigger_type = "mult",  colour = G.C.MULT },
     },
     reminder_text = {
-        { text = "per scored 2-6", colour = G.C.GREY, },
+        { text = "Per scored 2-6", colour = G.C.GREY, },
     },
 }
 
