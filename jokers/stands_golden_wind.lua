@@ -25,7 +25,7 @@ local sex_pistols = {
 
         -- When a hand is scored, if rank is present in scoring hand then boost joker mult
         if context.cardarea == G.jokers and context.scoring_hand then
-            if context.joker_main then
+            if context.initial_scoring_step then
                 if not context.blueprint then
                     for k, v in pairs(context.scoring_hand) do
                         local rank = v:get_id()
@@ -38,11 +38,17 @@ local sex_pistols = {
                                     card.ability.extra.mult = card.ability.extra.mult + card.ability.extra.chosen_rank
                                 end
                                 card.ability.extra.deactivated = true
+                                return {
+                                    message = localize('k_upgrade_ex'),
+                                    colour = G.C.MULT
+                                }
                             end
                         end
                     end
                 end
+            end
 
+            if context.joker_main then
                 if card.ability.extra.mult > 0 then
                     return {
                         message = localize{type = 'variable', key = 'a_mult', vars = {card.ability.extra.mult}},
