@@ -50,3 +50,40 @@ Balatest.TestPlay {
     end
 }
 --#endregion
+--#region Grateful Dead
+Balatest.TestPlay {
+    name = 'grateful_dead_starts_with_correct_mult',
+    category = { 'jokers', 'golden_wind', 'grateful_dead' },
+    jokers = { 'j_jojoker_grateful_dead' },
+    execute = function()
+        Balatest.play_hand { '2S' }
+    end,
+    assert = function()
+        Balatest.assert_chips(7 * (G.jokers.cards[1].ability.extra.starting_mult + 1), "Grateful Dead mult started decayed.")
+    end
+}
+Balatest.TestPlay {
+    name = 'grateful_dead_mult_decays_on_round_end',
+    category = { 'jokers', 'golden_wind', 'grateful_dead' },
+    jokers = { 'j_jojoker_grateful_dead' },
+    execute = function()
+        Balatest.end_round()
+    end,
+    assert = function()
+        local new_mult = G.jokers.cards[1].ability.extra.mult
+        Balatest.assert_eq(new_mult, G.jokers.cards[1].ability.extra.starting_mult - G.jokers.cards[1].ability.extra.mult_decay, "Grateful Dead mult didn't decay at the end of the round.")
+    end
+}
+Balatest.TestPlay {
+    name = 'grateful_dead_mult_cannot_decay_below_zero',
+    category = { 'jokers', 'golden_wind', 'grateful_dead' },
+    jokers = { 'j_jojoker_grateful_dead' },
+    execute = function()
+        G.jokers.cards[1].ability.extra.mult = 0
+        Balatest.end_round()
+    end,
+    assert = function()
+        Balatest.assert_eq(0, G.jokers.cards[1].ability.extra.mult, "Grateful Dead mult decayed below zero.")
+    end
+}
+--#endregion

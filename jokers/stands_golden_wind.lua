@@ -64,14 +64,48 @@ local sex_pistols = {
         end
 
         -- When blind ends, reset display strings
-        if context.end_of_round then
+        if context.end_of_round and not context.individual and not context.repetition and not context.blueprint then
             card.ability.extra.chosen_rank = localize("undecided")
             card.ability.extra.deactivated = false
         end
     end
 }
 
+local grateful_dead = {
+    name = "grateful_dead",
+    rarity = 1,
+    cost = 5,
+    jtype = "Stand",
+    jclass = "Long Range",
+    part = "golden_wind",
+    blueprint_compat = true,
+    perishable_compat = true,
+    eternal_compat = false,
+    config = { extra = { starting_mult = 25, mult_decay = 5, mult = 25, } },
+    loc_vars = function(self, info_queue, card)
+      return {vars = {card.ability.extra.starting_mult, card.ability.extra.mult_decay, card.ability.extra.mult}}
+    end,
+    calculate = function(self, card, context)
+        -- Give mult during scoring
+        if context.joker_main then
+            if card.ability.extra.mult > 0 then
+                return {
+                    message = localize{type = 'variable', key = 'a_mult', vars = {card.ability.extra.mult}},
+                    colour = G.C.MULT,
+                    mult_mod = card.ability.extra.mult
+                }
+            end
+        end
+
+        -- When blind is ending, decay mult
+        if context.end_of_round and not context.individual and not context.repetition and not context.blueprint then
+            card.ability.extra.mult = math.max(0, card.ability.extra.mult - card.ability.extra.mult_decay)
+            sendDebugMessage("Grateful Dead: Decayed mult to "..card.ability.extra.mult)
+        end
+    end
+}
+
 return {
     name = "Golden Wind Stand Jokers",
-    list = { sex_pistols },
+    list = { sex_pistols, grateful_dead },
 }

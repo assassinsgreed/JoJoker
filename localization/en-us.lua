@@ -82,6 +82,15 @@ return {
                     "{C:inactive}Chosen rank: {C:green}#2#",
                 }
             },
+            j_jojoker_grateful_dead = {
+                name = "Grateful Dead",
+                text = {
+                    "Starts with {C:mult}+#1#{} mult.",
+                    "{C:mult}-#2# mult{} at the end of each blind.",
+                    "{br:2}line break",
+                    "{C:inactive}Remaining: {C:mult}+#3#",
+                }
+            },
             -- Part 6: Stone Ocean
             j_jojoker_goo_goo_dolls = {
                 name = "Goo Goo Dolls",
