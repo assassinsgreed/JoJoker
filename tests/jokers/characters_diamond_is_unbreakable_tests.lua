@@ -8,7 +8,8 @@ Balatest.TestPlay {
         Balatest.play_hand { '2S' }
     end,
     assert = function()
-        Balatest.assert_chips(7, "Pair hand wasn't level 1")
+        local pair_hand_level = G.GAME.hands["Pair"].level
+        Balatest.assert_eq(pair_hand_level, 1, "Pair hand wasn't level 1")
     end
 }
 Balatest.TestPlay {
@@ -20,7 +21,8 @@ Balatest.TestPlay {
         Balatest.play_hand { '2S', '2C', '7H', '7D' }
     end,
     assert = function()
-        Balatest.assert_chips(490, "Shizuka didn't level up 2 pair hand after it was played")
+        local two_pair_hand_level = G.GAME.hands["Two Pair"].level
+        Balatest.assert_eq(two_pair_hand_level, 4, "Shizuka didn't level up 2 pair hand after it was played")
     end
 }
 --#endregion

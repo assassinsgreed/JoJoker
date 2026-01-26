@@ -53,7 +53,7 @@ local joseph_joestar = {
         end
 
         -- When blind ends, reset display strings
-        if context.end_of_round then
+        if context.end_of_round and not context.individual and not context.repetition and not context.blueprint then
             card.ability.extra.chosen_hand_type_name = localize("undecided")
             card.ability.extra.jokerdisplay_hand_name = localize("a_hand")
         end

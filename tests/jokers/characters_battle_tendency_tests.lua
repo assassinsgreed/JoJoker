@@ -9,7 +9,8 @@ Balatest.TestPlay {
         Balatest.play_hand { '2S' }
     end,
     assert = function()
-        Balatest.assert_chips(7, "Pair hand wasn't level 1")
+        local two_pair_hand_level = G.GAME.hands["Two Pair"].level
+        Balatest.assert_eq(two_pair_hand_level, 1, "Two Pair hand wasn't level 1")
     end
 }
 Balatest.TestPlay {
@@ -22,7 +23,8 @@ Balatest.TestPlay {
         Balatest.play_hand { '2S', '2C', '7H', '7D' }
     end,
     assert = function()
-        Balatest.assert_chips(174, "Joseph didn't level up 2 pair hand after it was played")
+        local two_pair_hand_level = G.GAME.hands["Two Pair"].level
+        Balatest.assert_eq(two_pair_hand_level, 2, "Joseph didn't level up 2 pair hand after it was played")
     end
 }
 Balatest.TestPlay {
@@ -36,7 +38,8 @@ Balatest.TestPlay {
         Balatest.play_hand { '3S', '3C', '8H', '8D' }
     end,
     assert = function()
-        Balatest.assert_chips(502, "Joseph didn't level up 2 pair hand to level 2, after it was played twice")
+        local two_pair_hand_level = G.GAME.hands["Two Pair"].level
+        Balatest.assert_eq(two_pair_hand_level, 3, "Joseph didn't level up two pair hand to level 3, after it was played twice")
     end
 }
 Balatest.TestPlay {
@@ -49,7 +52,8 @@ Balatest.TestPlay {
         Balatest.play_hand { '2S', '2C', '7H', '7D', '7S' }
     end,
     assert = function()
-        Balatest.assert_chips(260, "Joseph levelled up Two Pair hand when Full House was played, but should not have")
+        local two_pair_hand_level = G.GAME.hands["Two Pair"].level
+        Balatest.assert_eq(two_pair_hand_level, 1, "Joseph levelled up Two Pair hand when Full House was played, but should not have")
     end
 }
 --#endregion

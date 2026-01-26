@@ -17,3 +17,12 @@ jd_def["j_jojoker_esidisi"] = {
         { text = "x", colour = G.C.MULT }
     }
 }
+
+jd_def["j_jojoker_german_engineering"] = {
+    text = {
+        { text = "Single 9 duplicated", colour = G.C.GREY }
+    },
+    reminder_text = {
+        { text = "Levels up High Card", colour = G.C.GREY, },
+    }
+}

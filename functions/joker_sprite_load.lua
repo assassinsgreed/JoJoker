@@ -7,6 +7,7 @@ JokerSprites = {
         -- Part 2: Battle Tendency
         {name = "joseph_joestar", base = {pos = {x = 0, y = 0}}, part_atlas = "battle_tendency" },
         {name = "esidisi", base = {pos = {x = 1, y = 0}}, part_atlas = "battle_tendency" },
+        {name = "german_engineering", base = {pos = {x = 2, y = 0}}, part_atlas = "battle_tendency" },
         -- Part 3: Stardust Crusaders
         {name = "magician_red", base = {pos = {x = 0, y = 0}}, part_atlas = "stardust_crusaders" },
         -- Part 4: Diamond is Unbreakable
@@ -15,7 +16,8 @@ JokerSprites = {
         {name = "red_hot_chili_pepper", base = {pos = {x = 2, y = 0}}, part_atlas = "diamond_is_unbreakable" },
         -- Part 5: Golden Wind
         {name = "sex_pistols", base = {pos = {x = 0, y = 0}}, part_atlas = "golden_wind" },
-        {name = "spice_girl", base = {pos = {x = 1, y = 0}}, part_atlas = "golden_wind" },
+        {name = "grateful_dead", base = {pos = {x = 1, y = 0}}, part_atlas = "golden_wind" },
+        {name = "spice_girl", base = {pos = {x = 2, y = 0}}, part_atlas = "golden_wind" },
         -- Part 6: Stone Ocean
         {name = "goo_goo_dolls", base = {pos = {x = 0, y = 0}}, part_atlas = "stone_ocean" },
         {name = "stone_free", base = {pos = {x = 1, y = 0}}, part_atlas = "stone_ocean" },

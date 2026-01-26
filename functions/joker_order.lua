@@ -5,6 +5,7 @@ jojoker.joker_order = {
     -- Part 2: Battle Tendency
     "joseph_joestar",
     "esidisi",
+    "german_engineering",
     -- Part 3: Stardust Crusaders
     "magician_red",
     -- Part 4: Diamond is Unbreakable
@@ -13,6 +14,7 @@ jojoker.joker_order = {
     "red_hot_chili_pepper",
     -- Part 5: Golden Wind
     "sex_pistols",
+    "grateful_dead",
     "spice_girl",
     -- Part 6: Stone Ocean
     "goo_goo_dolls",

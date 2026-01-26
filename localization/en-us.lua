@@ -39,6 +39,14 @@ return {
                     "{C:inactive}Currently: {C:mult}#1#x{}"
                 }
             },
+            j_jojoker_german_engineering = {
+                name = "German Engineering",
+                text = {
+                    "If scoring hand is a single {C:attention}9{},",
+                    "adds a duplicate to the deck",
+                    "and levels up {C:attention}High Card{}"
+                }
+            },
             -- Part 3: Stardust Crusaders
             j_jojoker_magician_red = {
                 name = "Magician's Red",
@@ -80,6 +88,15 @@ return {
                     "{br:2}line break",
                     "{C:inactive}Currently: {C:mult}+#1#",
                     "{C:inactive}Chosen rank: {C:green}#2#",
+                }
+            },
+            j_jojoker_grateful_dead = {
+                name = "Grateful Dead",
+                text = {
+                    "Starts with {C:mult}+#1#{} mult.",
+                    "{C:mult}-#2# mult{} at the end of each blind.",
+                    "{br:2}line break",
+                    "{C:inactive}Remaining: {C:mult}+#3#",
                 }
             },
             j_jojoker_spice_girl = {

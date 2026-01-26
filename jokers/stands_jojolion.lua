@@ -8,7 +8,7 @@ local soft_and_wet = {
     jclass = "Close Range",
     part = "jojolion",
     blueprint_compat = false,
-    config = { extra = { mult = 0, mult_mod = 8 } },
+    config = { extra = { mult = 0, mult_mod = 10 } },
     loc_vars = function(self, info_queue, center)
      return {vars = {center.ability.extra.mult, center.ability.extra.mult_mod}}
    end,
