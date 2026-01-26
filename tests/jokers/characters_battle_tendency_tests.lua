@@ -81,3 +81,38 @@ Balatest.TestPlay {
     end
 }
 --#endregion
+--#region Speedwagon
+Balatest.TestPlay {
+    name = 'speedwagon_gives_no_money_when_discarding',
+    category = { 'jokers', 'battle_tendency', 'speedwagon_bt' },
+    jokers = { 'j_jojoker_speedwagon_bt' },
+    execute = function()
+        Balatest.discard { '2S' }
+    end,
+    assert = function()
+        Balatest.assert_dollars(0, "Speedwagon gave money when not playing a hand")
+    end
+}
+Balatest.TestPlay {
+    name = 'speedwagon_gives_money_when_hand_played',
+    category = { 'jokers', 'battle_tendency', 'speedwagon_bt' },
+    jokers = { 'j_jojoker_speedwagon_bt' },
+    execute = function()
+        Balatest.play_hand { '2S' }
+    end,
+    assert = function()
+        Balatest.assert_dollars(G.jokers.cards[1].ability.extra.money_mod, "Speedwagon did not give money when playing a hand")
+    end
+}
+Balatest.TestPlay {
+    name = 'speedwagon_gives_money_regardless_of_number_of_scored_cards',
+    category = { 'jokers', 'battle_tendency', 'speedwagon_bt' },
+    jokers = { 'j_jojoker_speedwagon_bt' },
+    execute = function()
+        Balatest.play_hand { '2S', '2C' }
+    end,
+    assert = function()
+        Balatest.assert_dollars(G.jokers.cards[1].ability.extra.money_mod, "Speedwagon gave too much money when playing a hand")
+    end
+}
+--#endregion

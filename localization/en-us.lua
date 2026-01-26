@@ -53,6 +53,12 @@ return {
                     "and levels up {C:attention}High Card{}"
                 }
             },
+            j_jojoker_speedwagon_bt = {
+                name = "Robert E. O. Speedwagon",
+                text = {
+                    "Gives {C:money}$#1#{} per played hand."
+                }
+            },
             -- Part 3: Stardust Crusaders
             j_jojoker_magician_red = {
                 name = "Magician's Red",

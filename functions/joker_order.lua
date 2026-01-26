@@ -7,6 +7,7 @@ jojoker.joker_order = {
     "joseph_joestar",
     "esidisi",
     "german_engineering",
+    "speedwagon_bt",
     -- Part 3: Stardust Crusaders
     "magician_red",
     -- Part 4: Diamond is Unbreakable

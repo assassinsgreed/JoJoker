@@ -91,7 +91,34 @@ local esidisi = {
     end
 }
 
+local speedwagon_bt = {
+    name = "speedwagon_bt",
+    rarity = 1,
+    cost = 4,
+    jtype = "Character",
+    part = "battle_tendency",
+    blueprint_compat = true,
+    perishable_compat = true,
+    eternal_compat = true,
+    config = { extra = { money_mod = 1 } },
+    loc_vars = function(self, info_queue, center)
+      return {vars = { center.ability.extra.money_mod }}
+    end,
+    calculate = function(self, card, context)
+        if context.before and context.scoring_hand then
+            ease_dollars(card.ability.extra.money_mod)
+            sendDebugMessage("Speedwagon: Gave $"..card.ability.extra.money_mod.." for played hand.")
+
+            return {
+                message = localize('$').."$",
+                colour = G.C.MONEY,
+                card = card
+            }
+        end
+    end
+}
+
 return {
     name = "Battle Tendency Character Jokers",
-    list = { joseph_joestar, esidisi },
+    list = { joseph_joestar, esidisi, speedwagon_bt },
 }
