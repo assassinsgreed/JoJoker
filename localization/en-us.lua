@@ -82,6 +82,18 @@ return {
                     "{C:inactive}Chosen rank: {C:green}#2#",
                 }
             },
+            j_jojoker_spice_girl = {
+                name = "Spice Girl",
+                text = {
+                    "When a {C:attention}stone card{} is scored,",
+                    "removes enhancement and joker gains {C:chips}+#1#{}.",
+                    "When a {C:attention}steel card{} is scored,",
+                    "removes enhancement and joker gains {C:mult}#2#x{}.",
+                    "{br:2}line break",
+                    "{C:inactive}Current chips: {C:chips}+#3#{}",
+                    "{C:inactive}Current mult: {C:mult}#4#x{}",
+                }
+            },
             -- Part 6: Stone Ocean
             j_jojoker_goo_goo_dolls = {
                 name = "Goo Goo Dolls",

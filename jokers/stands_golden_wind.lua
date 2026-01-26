@@ -71,7 +71,60 @@ local sex_pistols = {
     end
 }
 
+local spice_girl = {
+    name = "spice_girl",
+    rarity = 2,
+    cost = 6,
+    jtype = "Stand",
+    jclass = "Close Range",
+    part = "golden_wind",
+    blueprint_compat = true,
+    perishable_compat = true,
+    eternal_compat = true,
+    config = { extra = { chips_mod = 25, Xmult_mod = 0.25, chips = 0, Xmult = 1 } },
+    loc_vars = function(self, info_queue, card)
+      return {vars = {card.ability.extra.chips_mod, card.ability.extra.Xmult_mod, card.ability.extra.chips, card.ability.extra.Xmult}}
+    end,
+    calculate = function(self, card, context)
+        -- When a stone card or steel card is scored, remove it's enhancement and boost joker chips and mult
+        if context.cardarea == G.play then
+            if not context.blueprint then
+                for k, v in pairs(context.scoring_hand) do
+                    -- Handle stone and steel cards
+                    if v.config.center == G.P_CENTERS.m_stone or v.config.center == G.P_CENTERS.m_steel then
+                        if v.config.center == G.P_CENTERS.m_stone then
+                            card.ability.extra.chips = card.ability.extra.chips + card.ability.extra.chips_mod
+                            sendDebugMessage("Spice Girl removed stone enhancement. Chips are now "..card.ability.extra.chips)
+                        else
+                            card.ability.extra.Xmult = card.ability.extra.Xmult + card.ability.extra.Xmult_mod
+                            sendDebugMessage("Spice Girl removed steel enhancement. Xmult is now "..card.ability.extra.Xmult)
+                        end
+                        
+                        v:set_ability(G.P_CENTERS.c_base, nil, true)
+                        G.E_MANAGER:add_event(Event({
+                            func = function()
+                                v:juice_up()
+                                v.vampired = nil
+                                return true
+                            end
+                        }))
+                    end
+                end
+            end
+
+            if context.joker_main then
+                return {
+                    message = localize{type='variable', key='a_chips', vars={card.ability.extra.chips}},
+                    colour=G.C.CHIPS,
+                    chips_mod=card.ability.extra.chips,
+                    mult_mod=card.ability.extra.Xmult,
+                }
+            end
+        end
+    end
+}
+
 return {
     name = "Golden Wind Stand Jokers",
-    list = { sex_pistols },
+    list = { sex_pistols, spice_girl },
 }

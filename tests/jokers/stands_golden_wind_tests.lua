@@ -50,3 +50,53 @@ Balatest.TestPlay {
     end
 }
 --#endregion
+--#region Spice Girl
+Balatest.TestPlay {
+    name = 'spice_girl_increases_chips_for_each_scored_stone_cards',
+    category = { 'jokers', 'golden_wind', 'spice_girl' },
+    jokers = { 'j_jojoker_spice_girl' },
+    deck = { cards = {
+        { r = '2', s = 'S', e = 'm_stone' },
+        { r = '2', s = 'C', e = 'm_stone' },
+        { r = '2', s = 'H' } } },
+    execute = function()
+        Balatest.play_hand { '2S', '2C' }
+    end,
+    assert = function()
+        local expected_chips = G.jokers.cards[1].ability.extra.chips_mod * 2
+        Balatest.assert_eq(G.jokers.cards[1].ability.extra.chips, expected_chips, "Spice Girl chips wasn't "..expected_chips.." after playing two stone cards")
+    end
+}
+Balatest.TestPlay {
+    name = 'spice_girl_increases_xmult_for_single_scored_steel_card',
+    category = { 'jokers', 'golden_wind', 'spice_girl' },
+    jokers = { 'j_jojoker_spice_girl' },
+    deck = { cards = {
+        { r = '2', s = 'S', e = 'm_steel' },
+        { r = '3', s = 'C', e = 'm_steel' },
+        { r = '2', s = 'H' } } },
+    execute = function()
+        Balatest.play_hand { '2S', '3C' }
+    end,
+    assert = function()
+        local expected_xmult = G.jokers.cards[1].ability.extra.Xmult_mod + 1
+        Balatest.assert_eq(G.jokers.cards[1].ability.extra.Xmult, expected_xmult, "Spice Girl xmult wasn't "..expected_xmult.." after scoring one steel card")
+    end
+}
+Balatest.TestPlay {
+    name = 'spice_girl_increases_xmult_for_each_scored_steel_cards',
+    category = { 'jokers', 'golden_wind', 'spice_girl' },
+    jokers = { 'j_jojoker_spice_girl' },
+    deck = { cards = {
+        { r = '2', s = 'S', e = 'm_steel' },
+        { r = '2', s = 'C', e = 'm_steel' },
+        { r = '2', s = 'H' } } },
+    execute = function()
+        Balatest.play_hand { '2S', '2C' }
+    end,
+    assert = function()
+        local expected_xmult = G.jokers.cards[1].ability.extra.Xmult_mod * 2 + 1
+        Balatest.assert_eq(G.jokers.cards[1].ability.extra.Xmult, expected_xmult, "Spice Girl xmult wasn't "..expected_xmult.." after scoring one steel card")
+    end
+}
+--#endregion

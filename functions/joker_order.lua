@@ -13,6 +13,7 @@ jojoker.joker_order = {
     "red_hot_chili_pepper",
     -- Part 5: Golden Wind
     "sex_pistols",
+    "spice_girl",
     -- Part 6: Stone Ocean
     "goo_goo_dolls",
     "stone_free",

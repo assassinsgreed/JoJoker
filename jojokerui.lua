@@ -100,7 +100,7 @@ SMODS.current_mod.config_tab = jojokerconfig
 -- Credits
 local jojoker_credits = function()
     local creditsText = {
-        { "Programming", "Assassins_Greed", "PurpleHaunter" }
+        { "Programming ", "Assassins_Greed ", "PurpleHaunter" }
     }
     local content_nodes = {}
 

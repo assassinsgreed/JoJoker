@@ -42,4 +42,5 @@ JoJo's Bizarre Adventure is property of Hirohiko Araki.
 - Basic Jimbo joker keeps appearing (maybe will do this until there are enough common jokers??)
 - Better localization for jokers with initial text strings (joseph pt 2, sex pistols, etc)
 - Add new title screen art
+- Add config for developer mode (off by default, includes tests when on)
 - Add more jokers
