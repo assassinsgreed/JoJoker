@@ -2,6 +2,7 @@ jojoker.joker_order = {
     -- Part 1: Phantom Blood
     "danny",
     "baron_zeppeli",
+    "speedwagon",
     -- Part 2: Battle Tendency
     "joseph_joestar",
     "esidisi",

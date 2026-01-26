@@ -46,3 +46,38 @@ Balatest.TestPlay {
     end
 }
 --#endregion
+--#region Speedwagon
+Balatest.TestPlay {
+    name = 'speedwagon_gives_no_money_when_no_discards_used',
+    category = { 'jokers', 'phantom_blood', 'speedwagon' },
+    jokers = { 'j_jojoker_speedwagon' },
+    execute = function()
+        Balatest.play_hand { '2S' }
+    end,
+    assert = function()
+        Balatest.assert_dollars(0, "Speedwagon gave money when discards were not used")
+    end
+}
+Balatest.TestPlay {
+    name = 'speedwagon_gives_money_when_discard_is_used',
+    category = { 'jokers', 'phantom_blood', 'speedwagon' },
+    jokers = { 'j_jojoker_speedwagon' },
+    execute = function()
+        Balatest.discard { '2S' }
+    end,
+    assert = function()
+        Balatest.assert_dollars(G.jokers.cards[1].ability.extra.money_mod, "Speedwagon did not give money when discard was used")
+    end
+}
+Balatest.TestPlay {
+    name = 'speedwagon_gives_money_regardless_of_number_of_discarded_cards',
+    category = { 'jokers', 'phantom_blood', 'speedwagon' },
+    jokers = { 'j_jojoker_speedwagon' },
+    execute = function()
+        Balatest.discard { '2S', '3S' }
+    end,
+    assert = function()
+        Balatest.assert_dollars(G.jokers.cards[1].ability.extra.money_mod, "Speedwagon did not give money when discard was used")
+    end
+}
+--#endregion

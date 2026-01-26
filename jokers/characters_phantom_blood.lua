@@ -82,7 +82,34 @@ local baron_zeppeli = {
     end
 }
 
+local speedwagon = {
+    name = "speedwagon",
+    rarity = 1,
+    cost = 4,
+    jtype = "Character",
+    part = "phantom_blood",
+    blueprint_compat = true,
+    perishable_compat = true,
+    eternal_compat = true,
+    config = { extra = { money_mod = 1 } },
+    loc_vars = function(self, info_queue, center)
+      return {vars = { center.ability.extra.money_mod }}
+    end,
+    calculate = function(self, card, context)
+        if context.pre_discard then
+            ease_dollars(card.ability.extra.money_mod)
+            sendDebugMessage("Speedwagon: Gave $"..card.ability.extra.money_mod.." for used discard.")
+
+            return {
+                message = localize('$').."$",
+                colour = G.C.MONEY,
+                card = card
+            }
+        end
+    end
+}
+
 return {
     name = "Phantom Blood Effect Jokers",
-    list = { danny, baron_zeppeli },
+    list = { danny, baron_zeppeli, speedwagon },
 }

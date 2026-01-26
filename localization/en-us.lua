@@ -19,6 +19,12 @@ return {
                     "Adds {C:mult}mult{} equal to {C:attention}10%{} of original chips."
                 }
             },
+            j_jojoker_speedwagon = {
+                name = "Robert E. O. Speedwagon",
+                text = {
+                    "Gives {C:money}$#1#{} per used discard."
+                }
+            },
             -- Part 2: Battle Tendency
             j_jojoker_joseph_joestar = {
                 name = "Joseph Joestar",
