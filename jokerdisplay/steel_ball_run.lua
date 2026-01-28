@@ -22,3 +22,9 @@ jd_def["j_jojoker_mandom"] = {
         return 0
     end,
 }
+
+jd_def["j_jojoker_the_fifth_lesson"] = {
+    text = {
+        { text = "Shortcut Active", colour = G.C.GREY },
+    }
+}

@@ -31,8 +31,7 @@ local mandom = {
     end
 }
 
-
 return {
-    name = "Stardust Crusaders Stand Jokers",
+    name = "Steel Ball Run Stand Jokers",
     list = { mandom },
 }

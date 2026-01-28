@@ -147,6 +147,12 @@ return {
                     "{C:inactive}Remaining: {C:attention}#3# {C:inactive}times{}"
                 }
             },
+            j_jojoker_the_fifth_lesson = {
+                name = "The Fifth Lesson",
+                text = {
+                    "Applies {C:attention}Shortcut{}."
+                }
+            },
             -- Part 8: Jojolion
             j_jojoker_soft_and_wet = {
                 name = "Soft & Wet",
