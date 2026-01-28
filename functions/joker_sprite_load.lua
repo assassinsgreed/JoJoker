@@ -29,6 +29,7 @@ JokerSprites = {
         {name = "the_fifth_lesson", base = {pos = {x = 1, y = 0}}, part_atlas = "steel_ball_run" },
         -- Part 8: Jojolion
         {name = "soft_and_wet", base = {pos = {x = 0, y = 0}}, part_atlas = "jojolion" },
+        {name = "paper_moon_king", base = {pos = {x = 1, y = 0}}, part_atlas = "jojolion" },
         -- Part 9: THE JOJOLands
         {name = "smooth_operator", base = {pos = {x = 0, y = 0}}, part_atlas = "the_jojolands" },
         -- Other

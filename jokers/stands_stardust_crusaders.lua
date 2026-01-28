@@ -70,7 +70,6 @@ local yellow_temperance = {
     end
 }
 
-
 return {
     name = "Stardust Crusaders Stand Jokers",
     list = { magician_red, yellow_temperance },

@@ -44,3 +44,16 @@ Balatest.TestPlay {
     end
 }
 --#endregion
+--#region Paper Moon King
+Balatest.TestPlay {
+    name = 'paper_moon_king_enables_pareidolia',
+    category = { 'jokers', 'jojolion', 'paper_moon_king' },
+    jokers = { 'j_jojoker_paper_moon_king', 'j_jojoker_yellow_temperance' }, -- Tested with yellow temperance to ensure cards are considered face cards
+    execute = function()
+        Balatest.play_hand { '2S' }
+    end,
+    assert = function()
+        Balatest.assert_chips(9, "Paper Moon King did not see played 2 as a face card")
+    end
+}
+--#endregion

@@ -70,7 +70,7 @@ return {
             j_jojoker_yellow_temperance = {
                 name = "Yellow Temperance",
                 text = {
-                    "Retriggers all scored {C:attention}face cards{}."
+                    "Retriggers all scored {C:attention}face{} cards."
                 }
             },
             -- Part 4: Diamond is Unbreakable
@@ -167,6 +167,12 @@ return {
                     "Gain {C:mult}+#2#{} for each.",
                     "{br:2}line break",
                     "{C:inactive}Currently {C:mult}+#1#"
+                }
+            },
+            j_jojoker_paper_moon_king = {
+                name = "Paper Moon King",
+                text = {
+                    "Applies {C:attention}pareidolia{}."
                 }
             },
             -- Part 9: THE JOJOLands

@@ -65,7 +65,24 @@ local soft_and_wet = {
     end
 }
 
+local paper_moon_king = {
+    name = "paper_moon_king",
+    rarity = 2,
+    cost = 5,
+    jtype = "Stand",
+    jclass = "Long Range",
+    part = "jojolion",
+    blueprint_compat = true,
+    perishable_compat = true,
+    eternal_compat = true,
+    config = { extra = {} },
+    loc_vars = function(self, info_queue, center)
+      info_queue[#info_queue + 1] = { set = 'Joker', key = 'j_pareidolia', config = {} }
+      return {vars = {}}
+    end
+}
+
 return {
     name = "Jojolion Stands Jokers",
-    list = { soft_and_wet },
+    list = { soft_and_wet, paper_moon_king },
 }
