@@ -9,3 +9,9 @@ jd_def["j_jojoker_magician_red"] = {
         { text = "on fire score", colour = G.C.GREY, },
     },
 }
+
+jd_def["j_jojoker_yellow_temperance"] = {
+    text = {
+        { text = "Retrigger face cards", colour = G.C.GREY },
+    },
+}

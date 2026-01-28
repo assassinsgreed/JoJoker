@@ -67,6 +67,12 @@ return {
                     "score catches fire."
                 }
             },
+            j_jojoker_yellow_temperance = {
+                name = "Yellow Temperance",
+                text = {
+                    "Retriggers all scored {C:attention}face cards{}."
+                }
+            },
             -- Part 4: Diamond is Unbreakable
             j_jojoker_voice_of_love = {
                 name = "Voice of Love",

@@ -22,3 +22,38 @@ Balatest.TestPlay {
     end
 }
 --#endregion
+--#region Yellow Temperance
+Balatest.TestPlay {
+    name = 'yellow_temperance_retriggers_scored_face_cards',
+    category = { 'jokers', 'stardust_crusaders', 'yellow_temperance' },
+    jokers = { 'j_jojoker_yellow_temperance' },
+    execute = function()
+        Balatest.play_hand { 'KS', 'KC' }
+    end,
+    assert = function()
+        Balatest.assert_chips(100, "Yellow Temperance did not retrigger scored face cards")
+    end
+}
+Balatest.TestPlay {
+    name = 'yellow_temperance_does_not_retrigger_unscored_face_cards',
+    category = { 'jokers', 'stardust_crusaders', 'yellow_temperance' },
+    jokers = { 'j_jojoker_yellow_temperance' },
+    execute = function()
+        Balatest.play_hand { 'AS', 'KC' }
+    end,
+    assert = function()
+        Balatest.assert_chips(16, "Yellow Temperance retrigger unscored face cards")
+    end
+}
+Balatest.TestPlay {
+    name = 'yellow_temperance_does_not_retrigger_non_face_cards',
+    category = { 'jokers', 'stardust_crusaders', 'yellow_temperance' },
+    jokers = { 'j_jojoker_yellow_temperance' },
+    execute = function()
+        Balatest.play_hand { '2S' }
+    end,
+    assert = function()
+        Balatest.assert_chips(7, "Yellow Temperance retriggered scored non-face cards")
+    end
+}
+--#endregion

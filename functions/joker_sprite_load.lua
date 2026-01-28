@@ -12,6 +12,7 @@ JokerSprites = {
         {name = "speedwagon_bt", base = {pos = {x = 3, y = 0}}, part_atlas = "battle_tendency" },
         -- Part 3: Stardust Crusaders
         {name = "magician_red", base = {pos = {x = 0, y = 0}}, part_atlas = "stardust_crusaders" },
+        {name = "yellow_temperance", base = {pos = {x = 1, y = 0}}, part_atlas = "stardust_crusaders" },
         -- Part 4: Diamond is Unbreakable
         {name = "voice_of_love", base = {pos = {x = 0, y = 0}}, part_atlas = "diamond_is_unbreakable" },
         {name = "shizuka", base = {pos = {x = 1, y = 0}}, part_atlas = "diamond_is_unbreakable" },
