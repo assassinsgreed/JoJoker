@@ -43,4 +43,5 @@ JoJo's Bizarre Adventure is property of Hirohiko Araki.
 - Better localization for jokers with initial text strings (joseph pt 2, sex pistols, etc)
 - Add new title screen art
 - Add config for developer mode (off by default, includes tests when on)
+- Add a card holo effect for legendary jokers
 - Add more jokers

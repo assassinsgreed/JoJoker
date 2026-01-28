@@ -34,7 +34,7 @@ Balatest.TestPlay {
 }
 --#endregion
 
--- #region Stone Free
+--#region Stone Free
 Balatest.TestPlay {
     name = 'stone_free_retriggers_each_stone_card_when_played',
     category = { 'jokers', 'stone_ocean', 'stone_free' },
@@ -50,4 +50,46 @@ Balatest.TestPlay {
         Balatest.assert_chips(205, "Stone Free did not retrigger each stone card when played")
     end
 }
--- #endregion
+--#endregion
+--#region Made in Heaven
+Balatest.TestPlay {
+    name = 'made_in_heaven_reduces_hands_and_discards',
+    category = { 'jokers', 'stone_ocean', 'made_in_heaven' },
+    jokers = { 'j_jojoker_made_in_heaven' },
+    hands = 4,
+    discards = 3,
+    execute = function()
+        Balatest.highlight { '2S' } -- Needed to complete execute block
+    end,
+    assert = function()
+        Balatest.assert_eq(G.GAME.current_round.hands_left, G.jokers.cards[1].ability.extra.hands, "Made in Heaven did not reduce hands")
+        Balatest.assert_eq(G.GAME.current_round.discards_left, G.jokers.cards[1].ability.extra.discards, "Made in Heaven did not reduce discards")
+    end
+}
+Balatest.TestPlay {
+    name = 'made_in_heaven_sets_xmult_to_total_lost_hands_and_discards',
+    category = { 'jokers', 'stone_ocean', 'made_in_heaven' },
+    jokers = { 'j_jojoker_made_in_heaven' },
+    hands = 4,
+    discards = 3,
+    execute = function()
+        Balatest.highlight { '2S' } -- Needed to complete execute block
+    end,
+    assert = function()
+        Balatest.assert_eq(G.jokers.cards[1].ability.extra.Xmult, 6, "Made in Heaven did not gain XMult for each lost hand and discard")
+    end
+}
+Balatest.TestPlay {
+    name = 'made_in_heaven_sets_hand_size_to_deck_size',
+    category = { 'jokers', 'stone_ocean', 'made_in_heaven' },
+    jokers = { 'j_jojoker_made_in_heaven' },
+    hands = 4,
+    discards = 3,
+    execute = function()
+        Balatest.highlight { '2S' } -- Needed to complete execute block
+    end,
+    assert = function()
+        Balatest.assert_eq(#G.hand.cards, 52, "Made in Heaven did not set hand size to deck size")
+    end
+}
+--#endregion

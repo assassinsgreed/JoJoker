@@ -149,6 +149,16 @@ return {
                     "{C:attention}Stone{} card.",
                 }
             },
+            j_jojoker_made_in_heaven = {
+                name = "Made in Heaven",
+                text = {
+                    "Reduces hands to {C:attention}#1#{} and discards to {C:attention}#2#{},",
+                    "increases hand size to the {C:attention}size of your deck{}.",
+                    "Gains {C:mult}#4#x{} for each lost hand and discard.",
+                    "{br:2}line break",
+                    "{C:inactive}Currently: {C:mult}#3#x"
+                }
+            },
             -- Part 7: Steel Ball Run
             j_jojoker_mandom = {
                 name = "Mandom",
