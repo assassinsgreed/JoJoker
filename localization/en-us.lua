@@ -172,7 +172,13 @@ return {
             j_jojoker_paper_moon_king = {
                 name = "Paper Moon King",
                 text = {
-                    "Applies {C:attention}pareidolia{}."
+                    "Applies {C:attention}Pareidolia{}."
+                }
+            },
+            j_jojoker_josuke_higashikata_jjl = {
+                name = "Paper Moon King",
+                text = {
+                    "Applies {C:attention}Four Fingers{}."
                 }
             },
             -- Part 9: THE JOJOLands

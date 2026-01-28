@@ -80,13 +80,13 @@ if name == "Shortcut" then
   local joker_one = find_joker("the_fifth_lesson")
   return (next(shortcut) and shortcut) or (next(joker_one) and joker_one) or {}
 elseif name == "Pareidolia" then
-  local shortcut = find_joker("jojoker_Pareidolia")
+  local pareidolia = find_joker("jojoker_Pareidolia")
   local joker_one = find_joker("paper_moon_king")
-  return (next(shortcut) and shortcut) or (next(joker_one) and joker_one) or {}
+  return (next(pareidolia) and pareidolia) or (next(joker_one) and joker_one) or {}
 elseif name == "Four Fingers" then
-  local shortcut = find_joker("jojoker_Four_Fingers")
+  local four_fingers = find_joker("jojoker_Four_Fingers")
   local joker_one = find_joker("josuke_higashikata_jjl")
-  return (next(shortcut) and shortcut) or (next(joker_one) and joker_one) or {}
+  return (next(four_fingers) and four_fingers) or (next(joker_one) and joker_one) or {}
 elseif name == "Smeared Joker" then
   local smeared = find_joker("jojoker_Smeared_Joker")
   local joker_one = find_joker("ndoul")

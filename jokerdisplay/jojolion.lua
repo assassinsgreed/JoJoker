@@ -12,3 +12,9 @@ jd_def["j_jojoker_paper_moon_king"] = {
         { text = "Pareidolia enabled", colour = G.C.GREY },
     },
 }
+
+jd_def["j_jojoker_josuke_higashikata_jjl"] = {
+    text = {
+        { text = "Four Fingers enabled", colour = G.C.GREY },
+    },
+}

@@ -82,6 +82,7 @@ if Balatest then
     SMODS.load_file('tests/jokers/stands_stone_ocean_tests.lua')()
     SMODS.load_file('tests/jokers/effects_steel_ball_run_tests.lua')()
     SMODS.load_file('tests/jokers/stands_steel_ball_run_tests.lua')()
+    SMODS.load_file('tests/jokers/characters_jojolion_tests.lua')()
     SMODS.load_file('tests/jokers/stands_jojolion_tests.lua')()
     SMODS.load_file('tests/jokers/stands_the_jojolands_tests.lua')()
 end
@@ -146,13 +147,13 @@ function SMODS.find_card(key, count_debuffed)
 	if key == "j_shortcut" then
 		return find_joker("Shortcut")
     elseif key == "j_four_fingers" then
-        local ret = find_card_with_joker("josuke_higashikata_jjl")
+        local ret = find_joker("Four Fingers")
         if #ret > 0 then return ret end
     elseif key == "j_pareidolia" then
-        local ret = find_card_with_joker("paper_moon_king")
+        local ret = find_joker("Pareidolia")
         if #ret > 0 then return ret end
     elseif key == "j_smeared" then
-        local ret = find_card_with_joker("ndoul")
+        local ret = find_joker("Smeared")
         if #ret > 0 then return ret end
     end
 	return find_card_with_joker(key, count_debuffed)
