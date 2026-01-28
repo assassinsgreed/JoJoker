@@ -8,14 +8,14 @@ return {
             j_jojoker_danny = {
                 name = "Danny (Pt 1)",
                 text = {
-                    "Gives {C:mult}+#1#{} mult.",
+                    "Gives {C:mult}+#1#{}.",
                     "{S:1.1,C:red,E:2}Self destructs{} if score catches fire."
                 }
             },
             j_jojoker_baron_zeppeli = {
                 name = "Baron Zeppeli",
                 text = {
-                    "Cuts scored {C:chips}chips in half{} when scored.",
+                    "Cuts scored {C:chips}chips{} in half when scored.",
                     "Adds {C:mult}mult{} equal to {C:attention}10%{} of original chips."
                 }
             },
@@ -33,13 +33,13 @@ return {
                     "a random {C:attention}poker hand{}.",
                     "Levels up that hand if played.",
                     "{br:2}line break",
-                    "{C:inactive}Currently: {C:green}#1#"
+                    "{C:inactive}Currently: {C:attention}#1#"
                 }
             },
             j_jojoker_esidisi = {
                 name = "Esidisi",
                 text = {
-                    "Gains {C:mult}+#2#x{} mult whenever",
+                    "Gains {C:mult}+#2#x{} whenever",
                     "score catches fire.",
                     "{br:2}line break",
                     "{C:inactive}Currently: {C:mult}#1#x{}"
@@ -50,7 +50,7 @@ return {
                 text = {
                     "If scoring hand is a single {C:attention}9{},",
                     "adds a duplicate to the deck",
-                    "and levels up {C:attention}High Card{}"
+                    "and levels up {C:attention}High Card{}."
                 }
             },
             j_jojoker_speedwagon_bt = {
@@ -71,8 +71,8 @@ return {
             j_jojoker_voice_of_love = {
                 name = "Voice of Love",
                 text = {
-                    "Each scored {C:mult}Heart{} card",
-                    "gives {C:mult}+#1#{} mult.",
+                    "Each scored {C:hearts}Heart{} card",
+                    "gives {C:mult}+#1#{}.",
                 }
             },
             j_jojoker_shizuka = {
@@ -86,8 +86,7 @@ return {
             j_jojoker_red_hot_chili_pepper = {
                 name = "Red Hot Chili Pepper",
                 text = {
-                    "{C:mult}+#1# mult{} per",
-                    "{C:money}$#2#{} held."
+                    "{C:mult}+#1#{} per {C:money}$#2#{} held."
                 }
             },
             -- Part 5: Golden Wind
@@ -99,14 +98,14 @@ return {
                     "Increases mult by rank the first time it is scored per blind.",
                     "{br:2}line break",
                     "{C:inactive}Currently: {C:mult}+#1#",
-                    "{C:inactive}Chosen rank: {C:green}#2#",
+                    "{C:inactive}Chosen rank: {C:attention}#2#",
                 }
             },
             j_jojoker_grateful_dead = {
                 name = "Grateful Dead",
                 text = {
-                    "Starts with {C:mult}+#1#{} mult.",
-                    "{C:mult}-#2# mult{} at the end of each blind.",
+                    "Starts with {C:mult}+#1#{}.",
+                    "{C:mult}-#2#{} at the end of each blind.",
                     "{br:2}line break",
                     "{C:inactive}Remaining: {C:mult}+#3#",
                 }
@@ -127,8 +126,8 @@ return {
             j_jojoker_goo_goo_dolls = {
                 name = "Goo Goo Dolls",
                 text = {
-                    "Each rank 2-6 card scored",
-                    "gives {C:mult}+#1#{} mult.",
+                    "Each scored {C:attention}2-6{}",
+                    "gives {C:mult}+#1#{}.",
                 }
             },
             j_jojoker_stone_free = {
@@ -145,7 +144,7 @@ return {
                     "Retrigger the first {C:attention}#2#{}",
                     "cards scored each round.",
                     "{br:2}line break",
-                    "{C:inactive}Triggered: {C:green}#2#/#3# times{}"
+                    "{C:inactive}Remaining: {C:attention}#3# {C:inactive}times{}"
                 }
             },
             -- Part 8: Jojolion
@@ -153,9 +152,9 @@ return {
                 name = "Soft & Wet",
                 text = {
                     "Removes scoring card enhancements.",
-                    "Gain {C:mult}+#2#{} mult for each.",
+                    "Gain {C:mult}+#2#{} for each.",
                     "{br:2}line break",
-                    "{C:inactive}Currently {C:mult}+#1#{C:inactive}"
+                    "{C:inactive}Currently {C:mult}+#1#"
                 }
             },
             -- Part 9: THE JOJOLands

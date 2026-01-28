@@ -80,12 +80,12 @@ local esidisi = {
                 if SMODS.calculate_round_score() > G.GAME.blind.chips then
                     card.ability.extra.Xmult = card.ability.extra.Xmult + 1
                     sendDebugMessage("Esidisi: Score caught fire, increasing Xmult to "..card.ability.extra.Xmult)
-                    return {
-                        message = localize{type = 'variable', key = 'a_mult', vars = {1}},
-                        colour = G.C.XMULT,
-                        Xmult_mod = 1
-                    }
                 end
+                return {
+                    message = localize{type = 'variable', key = 'a_xmult', vars = {card.ability.extra.Xmult}},
+                    colour = G.C.XMULT,
+                    Xmult_mod = card.ability.extra.Xmult
+                }
             end
         end
     end

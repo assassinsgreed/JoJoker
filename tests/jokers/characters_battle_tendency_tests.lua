@@ -80,6 +80,18 @@ Balatest.TestPlay {
         Balatest.assert_eq(G.jokers.cards[1].ability.extra.Xmult, 2, "Esidisi didn't increase Xmult when score caught fire")
     end
 }
+Balatest.TestPlay {
+    name = 'esidisi_gives_enhanced_xmult_when_score_does_not_catch_fire',
+    category = { 'jokers', 'phantom_blood', 'esidisi' },
+    jokers = { 'j_jojoker_esidisi' },
+    execute = function()
+        G.jokers.cards[1].ability.extra.Xmult = 2
+        Balatest.play_hand { '2S' }
+    end,
+    assert = function()
+        Balatest.assert_chips(14, "Esidisi didn't apply increased Xmult when score was not on fire")
+    end
+}
 --#endregion
 --#region Speedwagon
 Balatest.TestPlay {
