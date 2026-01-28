@@ -15,3 +15,9 @@ jd_def["j_jojoker_yellow_temperance"] = {
         { text = "Retrigger face cards", colour = G.C.GREY },
     },
 }
+
+jd_def["j_jojoker_ndoul"] = {
+    text = {
+        { text = "Smeared enabled", colour = G.C.GREY },
+    },
+}

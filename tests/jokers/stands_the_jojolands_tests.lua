@@ -14,7 +14,7 @@ Balatest.TestPlay {
     category = { 'jokers', 'the_jojolands', 'smooth_operator' },
     jokers = { 'j_jojoker_soft_and_wet', 'j_jojoker_smooth_operator', 'j_jojoker_soft_and_wet' },
     execute = function()
-        Balatest.play_hand { '2H', '3H', '4H', '5H', '6H' }
+        Balatest.end_round()
     end,
     assert = function()
         Balatest.assert_eq(G.jokers.cards[1].ability.extra.mult, 3, "Smooth Operator did not gain mult for each held joker.")
@@ -26,7 +26,7 @@ Balatest.TestPlay {
     jokers = { 'j_jojoker_soft_and_wet', 'j_jojoker_smooth_operator', },
     execute = function()
         G.jokers.cards[2].ability.extra.manually_repositioned = true
-        Balatest.play_hand { '2H', '3H', '4H', '5H', '6H' }
+        Balatest.end_round()
     end,
     assert = function()
         Balatest.assert_eq(G.jokers.cards[2].ability.extra.mult, 0, "Smooth Operator gained mult but shouldn't have, due to being moved.")

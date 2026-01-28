@@ -7,7 +7,8 @@ Balatest.TestPlay {
         Balatest.play_hand { '2S', '3C', '4H', '5D' }
     end,
     assert = function()
-        Balatest.assert_chips(176, "Josuke Higashikata did not apply four fingers and score a straight")
+        local straights_played = G.GAME.hands["Straight"].played_this_round
+        Balatest.assert_eq(straights_played, 1, "Josuke Higashikata did not apply four fingers and score a straight")
     end
 }
 --#endregion

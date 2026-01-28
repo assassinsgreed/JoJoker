@@ -73,6 +73,12 @@ return {
                     "Retriggers all scored {C:attention}face{} cards."
                 }
             },
+            j_jojoker_ndoul = {
+                name = "N'Doul",
+                text = {
+                    "Applies {C:attention}Smeared{}."
+                }
+            },
             -- Part 4: Diamond is Unbreakable
             j_jojoker_voice_of_love = {
                 name = "Voice of Love",
