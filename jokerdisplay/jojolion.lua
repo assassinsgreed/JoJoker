@@ -18,3 +18,9 @@ jd_def["j_jojoker_josuke_higashikata_jjl"] = {
         { text = "Four Fingers enabled", colour = G.C.GREY },
     },
 }
+
+jd_def["j_jojoker_milagro_man"] = {
+    text = {
+        { text = "Doubles interest", colour = G.C.GREY },
+    },
+}

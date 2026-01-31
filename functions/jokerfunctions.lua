@@ -112,3 +112,26 @@ pick_random_hand_type = function()
   end
   return nil
 end
+
+ease_joker_dollars = function(card, seed, amt, calc_only)
+  local earned = amt
+  if card.ability.extra and type(card.ability.extra) == "table" then
+    if card.ability.money_frac then
+      if card.ability.money_frac > pseudorandom(pseudoseed(seed)) then
+        earned = earned + 1
+      end
+    end
+    if card.ability.money1_frac then
+      if card.ability.money1_frac > pseudorandom(pseudoseed(seed)) then
+        earned = earned + 1
+      end
+    end
+    if card.ability.money2_frac then
+      if card.ability.money2_frac > pseudorandom(pseudoseed(seed)) then
+        earned = earned + 1
+      end
+    end
+  end
+  if not calc_only then ease_dollars(earned) end
+  return earned
+end

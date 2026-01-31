@@ -197,6 +197,12 @@ return {
                     "Applies {C:attention}Four Fingers{}."
                 }
             },
+            j_jojoker_milagro_man = {
+                name = "Milagro Man",
+                text = {
+                    "Doubles earned {C:attention}interest{}."
+                }
+            },
             -- Part 9: THE JOJOLands
             j_jojoker_smooth_operator = {
                 name = "Smooth Operator",

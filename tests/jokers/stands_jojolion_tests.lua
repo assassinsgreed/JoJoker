@@ -57,3 +57,18 @@ Balatest.TestPlay {
     end
 }
 --#endregion
+--#region Milagro Man
+Balatest.TestPlay {
+    name = 'milagro_man_doubles_earned_interest',
+    category = { 'jokers', 'jojolion', 'milagro_man' },
+    jokers = { 'j_jojoker_milagro_man' },
+    dollars = 10,
+    execute = function()
+        Balatest.end_round()
+        Balatest.cash_out()
+    end,
+    assert = function()
+        Balatest.assert_dollars(12, "Milagro Man did not double earned interest") -- 10 / 5 + starting money
+    end
+}
+--#endregion

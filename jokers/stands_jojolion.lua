@@ -82,7 +82,24 @@ local paper_moon_king = {
     end
 }
 
+local milagro_man = {
+    name = "milagro_man",
+    rarity = 2,
+    cost = 5,
+    jtype = "Stand",
+    jclass = "Long Range",
+    part = "jojolion",
+    blueprint_compat = false,
+    perishable_compat = true,
+    eternal_compat = true,
+    calc_dollar_bonus = function(self, card)
+        local doubled_up = G.GAME.interest_amount*math.min(math.floor(G.GAME.dollars/5), G.GAME.interest_cap/5)
+        sendDebugMessage("Milagro Man: Doubling interest to $"..doubled_up)
+        return ease_joker_dollars(card, "Milagro Man", doubled_up, true)
+	end
+}
+
 return {
     name = "Jojolion Stands Jokers",
-    list = { soft_and_wet, paper_moon_king },
+    list = { soft_and_wet, paper_moon_king, milagro_man },
 }
