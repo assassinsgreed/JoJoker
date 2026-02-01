@@ -298,6 +298,7 @@ return {
     },
     misc = {
         dictionary = {
+            sound_pop = "Pop!",
             sound_ora = "Ora Ora Ora!", -- TODO: Use this somewhere?
             sound_yip = "Yip!",
             sound_prediction = "Your next line is...",

@@ -14,6 +14,7 @@ local soft_and_wet = {
    end,
     calculate = function(self, card, context)
         local m_count = 0
+        local popped = false
 
         -- Apply mult
         if context.cardarea == G.jokers and context.before and not context.blueprint then
@@ -35,14 +36,16 @@ local soft_and_wet = {
                     
                     if mult_centers[v.config.center] then
                         m_count = m_count + 1
+                        popped = true
+                        v:set_ability(G.P_CENTERS.c_base, nil, true)
+                        G.E_MANAGER:add_event(Event({
+                            func = function()
+                                v:juice_up()
+                                v.vampired = nil
+                                return true
+                            end
+                        }))
                     end
-                    v:set_ability(G.P_CENTERS.c_base, nil, true)
-                    G.E_MANAGER:add_event(Event({
-                        func = function()
-                            v.vampired = nil
-                            return true
-                        end
-                    }))
                 end
             end
 
@@ -50,6 +53,13 @@ local soft_and_wet = {
                 card.ability.extra.mult = card.ability.extra.mult + card.ability.extra.mult_mod * m_count
             end
             sendDebugMessage("Soft & Wet removed " .. #enhanced .. " enhancements. Mult is now " .. card.ability.extra.mult)
+
+            if popped then
+                popped = false
+                return {
+                    message = localize("sound_pop")
+                }
+            end
         end
 
         -- Sound effect

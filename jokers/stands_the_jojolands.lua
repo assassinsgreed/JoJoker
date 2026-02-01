@@ -37,7 +37,7 @@ local smooth_operator = {
             end
         end
 
-        if context.scoring_hand then
+        if context.cardarea == G.jokers and context.scoring_hand then
             local card_index = find_joker_pos(card)
             if card_index and card.ability.extra.position ~= card_index then
                 card.ability.extra.manually_repositioned = true
@@ -54,7 +54,11 @@ local smooth_operator = {
                 local held_jokers = #G.jokers.cards
                 card.ability.extra.mult = card.ability.extra.mult + held_jokers
                 sendDebugMessage("Smooth Operator: Not relocated, adding "..held_jokers.." to mult. Mult is now ".. card.ability.extra.mult)
-                
+            end
+        end
+
+        if context.joker_main then
+            if card.ability.extra.mult > 0 then
                 return {
                     message = localize{type = 'variable', key = 'a_mult', vars = {card.ability.extra.mult}},
                     colour = G.C.MULT,
