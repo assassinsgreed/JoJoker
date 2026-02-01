@@ -1,7 +1,7 @@
 local jd_def = JokerDisplay.Definitions
 
 jd_def["j_jojoker_mandom"] = {
-     text = {
+    text = {
         { ref_table = "card.joker_display_values", ref_value = "status", retrigger_type = "mult" },
         { text = " Left" },
     },
@@ -27,4 +27,34 @@ jd_def["j_jojoker_the_fifth_lesson"] = {
     text = {
         { text = "Shortcut Active", colour = G.C.GREY },
     }
+}
+
+jd_def["j_jojoker_chocolate_disco"] = {
+    text = {
+        { text = "+" },
+        { ref_table = "card.joker_display_values", ref_value = "ante_value", retrigger_type = "ante_value" },
+    },
+    reminder_text = {
+        { ref_table = "card.joker_display_values", ref_value = "rank_type", retrigger_type = "rank_type", colour = G.C.GREY },
+        { text = " this blind", colour = G.C.GREY }
+    },
+    calc_function = function(card)
+        local isOddAnte = G.GAME.round_resets.blind_ante % 2 == 1
+
+        if isOddAnte then
+            card.joker_display_values.ante_value = card.ability.extra.chips
+            card.joker_display_values.rank_type = "Odd"
+        else
+            card.joker_display_values.ante_value = card.ability.extra.mult
+            card.joker_display_values.rank_type = "Even"
+        end
+    end,
+    style_function = function(card, text, reminder_text, extra)
+        local isOddAnte = G.GAME and G.GAME.round_resets.blind_ante % 2 == 1
+        text.children[1].config.colour = isOddAnte and G.C.CHIPS or G.C.MULT
+        if text and text.children[2] then
+            text.children[2].config.colour = isOddAnte and G.C.CHIPS or G.C.MULT
+        end
+        return false
+    end
 }

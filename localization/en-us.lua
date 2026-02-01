@@ -175,6 +175,13 @@ return {
                     "Applies {C:attention}Shortcut{}."
                 }
             },
+            j_jojoker_chocolate_disco = {
+                name = "Chocolate Disco",
+                text = {
+                    "On {C:attention}odd{} antes, {C:attention}odd ranks{} give {C:chips}+25{} chips.",
+                    "On {C:attention}even{} antes, {C:attention}even ranks{} give {C:mult}+5{} mult."
+                }
+            },
             -- Part 8: Jojolion
             j_jojoker_soft_and_wet = {
                 name = "Soft & Wet",

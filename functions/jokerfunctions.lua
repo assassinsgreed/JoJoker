@@ -135,3 +135,11 @@ ease_joker_dollars = function(card, seed, amt, calc_only)
   if not calc_only then ease_dollars(earned) end
   return earned
 end
+
+function card_is_even(card)
+  return card:get_id() % 2 == 0
+end
+
+function card_is_odd(card)
+  return card:get_id() % 2 == 1
+end

@@ -31,7 +31,48 @@ local mandom = {
     end
 }
 
+local chocolate_disco = {
+    name = "chocolate_disco",
+    rarity = 2,
+    cost = 5,
+    jtype = "Stand",
+    jclass = "Close Range",
+    part = "steel_ball_run",
+    blueprint_compat = true,
+    perishable_compat = true,
+    eternal_compat = true,
+    config = {extra = {chips = 25, mult = 5}},
+    loc_vars = function(self, info_queue, center)
+        return {vars = {center.ability.extra.chips, center.ability.extra.mult}}
+    end,
+    calculate = function(self, card, context)
+        if context.individual and context.cardarea == G.play and not context.other_card.debuff then
+            local anteIsOdd = G.GAME.round_resets.blind_ante % 2 == 1
+            if anteIsOdd then
+                -- In odd antes, give scored odd cards chips
+                sendDebugMessage("Chocolate Disco: Adding "..card.ability.extra.chips.." chips to odd cards during odd ante.")
+                if card_is_odd(context.other_card) then
+                    return {
+                        h_chips = card.ability.extra.chips,
+                        card = card,
+                    }
+                end
+            else
+                -- In even antes, give scored even cards mult
+                sendDebugMessage("Chocolate Disco: Adding "..card.ability.extra.mult.." mult to even cards during even ante.")
+                if card_is_even(context.other_card) then
+                    return {
+                        message = localize{type = 'variable', key = 'a_mult', vars = {card.ability.extra.mult}},
+                        colour = G.C.MULT,
+                        mult_mod = card.ability.extra.mult
+                    }
+                end
+            end
+        end
+    end
+}
+
 return {
     name = "Steel Ball Run Stand Jokers",
-    list = { mandom },
+    list = { mandom, chocolate_disco },
 }
