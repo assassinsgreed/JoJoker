@@ -39,10 +39,10 @@ return {
             j_jojoker_esidisi = {
                 name = "Esidisi",
                 text = {
-                    "Gains {C:mult}+#2#x{} whenever",
+                    "Gains {X:mult,C:white} X#2# {} whenever",
                     "score catches fire.",
                     "{br:2}line break",
-                    "{C:inactive}Currently: {C:mult}#1#x{}"
+                    "{C:inactive}Currently: {X:mult,C:white}X#1#{}"
                 }
             },
             j_jojoker_german_engineering = {
@@ -125,13 +125,13 @@ return {
             j_jojoker_spice_girl = {
                 name = "Spice Girl",
                 text = {
-                    "When a {C:attention}stone card{} is scored,",
-                    "removes enhancement and joker gains {C:chips}+#1#{}.",
-                    "When a {C:attention}steel card{} is scored,",
-                    "removes enhancement and joker gains {C:mult}#2#x{}.",
+                    "Removes scored {C:attention}stone card{}",
+                    "enhancement and gains {C:chips}+#1#{}.",
+                    "Removes scored {C:attention}steel card{}",
+                    "enhancement and gains {X:mult,C:white} X#2# {}.",
                     "{br:2}line break",
                     "{C:inactive}Current chips: {C:chips}+#3#{}",
-                    "{C:inactive}Current mult: {C:mult}#4#x{}",
+                    "{C:inactive}Current mult: {X:mult,C:white} X#4# {}",
                 }
             },
             -- Part 6: Stone Ocean
@@ -154,9 +154,9 @@ return {
                 text = {
                     "Reduces hands to {C:attention}#1#{} and discards to {C:attention}#2#{},",
                     "increases hand size to the {C:attention}size of your deck{}.",
-                    "Gains {C:mult}#4#x{} for each lost hand and discard.",
+                    "Gains {X:mult,C:white} X#4# {} for each lost hand and discard.",
                     "{br:2}line break",
-                    "{C:inactive}Currently: {C:mult}#3#x"
+                    "{C:inactive}Currently: {X:mult,C:white} X#3#"
                 }
             },
             -- Part 7: Steel Ball Run
@@ -212,7 +212,7 @@ return {
                     "gains {C:mult}mult{} equal to the",
                     "number of held jokers.",
                     "{br:2}line break",
-                    "{C:inactive}Currently {C:mult}#1#"
+                    "{C:inactive}Currently {C:mult}+#1#"
                 }
             },
         },

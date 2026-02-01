@@ -12,7 +12,7 @@ jd_def["j_jojoker_voice_of_love"] = {
 
 jd_def["j_jojoker_shizuka"] = {
     text = {
-        { text = "Secret hand", colour = G.C.GREY }        
+        { text = "Secret hand", colour = G.C.GREEN }
     },
     reminder_text = {
         { text = "+", colour = G.C.GREY, },
