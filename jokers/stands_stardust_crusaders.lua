@@ -92,7 +92,7 @@ local star_platinum = {
                 G.GAME.current_round.hands_left = G.GAME.current_round.hands_left + 1
 
                 return {
-                    message = localize("sound_star_platinum_the_world")
+                    message = localize("sound_time_moves")
                 }
             end
         end

@@ -321,7 +321,7 @@ return {
             sound_tick = "Tick",
             sound_hey_baby = "Hey, baby!",
             sound_gaa = "Gaa!",
-            sound_star_platinum_the_world = "Star Platinum: The World!",
+            sound_time_moves = "Time has started to move...",
 
             -- Common strings
             a_hand = "a hand",
