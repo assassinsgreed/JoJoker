@@ -118,7 +118,37 @@ local speedwagon_bt = {
     end
 }
 
+local caesar = {
+    name = "caesar",
+    rarity = 2,
+    cost = 4,
+    jtype = "Character",
+    part = "battle_tendency",
+    blueprint_compat = true,
+    perishable_compat = true,
+    eternal_compat = true,
+    config = { extra = { Xmult_mod = 3 } },
+    loc_vars = function(self, info_queue, card)
+      return {vars = {card.ability.extra.Xmult_mod}}
+    end,
+    calculate = function(self, card, context)
+        -- For each scored stone card, give it 3x mult then destroy it
+        if context.individual and not context.end_of_round and context.cardarea == G.play then
+            if context.other_card.config.center == G.P_CENTERS.m_stone then
+                sendDebugMessage("Caesar: Triggering 3x mult on stone card and destroying it")
+                remove_playing_card(context.other_card, card)
+
+                return {
+                    message = localize{type = 'variable', key = 'a_xmult', vars = {card.ability.extra.Xmult_mod}},
+                    colour = G.C.XMULT,
+                    Xmult_mod = card.ability.extra.Xmult_mod
+                }
+            end
+        end
+    end
+}
+
 return {
     name = "Battle Tendency Character Jokers",
-    list = { joseph_joestar, esidisi, speedwagon_bt },
+    list = { joseph_joestar, esidisi, speedwagon_bt, caesar },
 }

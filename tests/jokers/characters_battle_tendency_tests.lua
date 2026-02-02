@@ -128,3 +128,22 @@ Balatest.TestPlay {
     end
 }
 --#endregion
+--#region Caesar
+Balatest.TestPlay {
+    name = 'caesar_gives_stone_cards_xmult_and_destroys_them',
+    category = { 'jokers', 'golden_wind', 'caesar' },
+    jokers = { 'j_jojoker_caesar' },
+    deck = { cards = {
+        { r = '2', s = 'S', e = 'm_stone' },
+        { r = '2', s = 'C', e = 'm_stone' },
+        { r = '2', s = 'H' } } },
+    execute = function()
+        Balatest.play_hand { '2S', '2C', '2H' }
+    end,
+    assert = function()
+        local expectdMult = G.jokers.cards[1].ability.extra.Xmult_mod ^ 2
+        Balatest.assert_chips(expectdMult * 107, "Caesar didn't give xmult for each stone card") -- (7 from hand + 50 per stone card) * xmult from 2 stone cards
+        Balatest.assert_eq(#G.deck.cards, 1, "Caesar didn't destroy stone cards after scoring")
+    end
+}
+--#endregion

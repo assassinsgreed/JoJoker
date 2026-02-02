@@ -34,3 +34,13 @@ jd_def["j_jojoker_speedwagon_bt"] = {
         { text = "Per played hand", colour = G.C.GREY },
     }
 }
+
+jd_def["j_jojoker_caesar"] = {
+    text = {
+        { text = "X", colour = G.C.MULT },
+        { ref_table = "card.ability.extra", ref_value = "Xmult_mod", retrigger_type = "Xmult_mod",  colour = G.C.MULT },
+    },
+    reminder_text = {
+        { text = "Per scored stone card", colour = G.C.GREY },
+    }
+}

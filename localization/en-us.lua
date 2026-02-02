@@ -59,6 +59,13 @@ return {
                     "Gives {C:money}$#1#{} per played hand."
                 }
             },
+            j_jojoker_caesar = {
+                name = "Caesar Zeppeli",
+                text = {
+                    "Gives each scored {C:attention}stone{} card",
+                    "{X:mult,C:white} X#1# {} mult, then destroyes them."
+                }
+            },
             -- Part 3: Stardust Crusaders
             j_jojoker_magician_red = {
                 name = "Magician's Red",
@@ -322,7 +329,7 @@ return {
             sound_hey_baby = "Hey, baby!",
             sound_gaa = "Gaa!",
             sound_time_moves = "Time has started to move...",
-
+            
             -- Common strings
             a_hand = "a hand",
             undecided = "undecided",

@@ -10,6 +10,7 @@ JokerSprites = {
         {name = "esidisi", base = {pos = {x = 1, y = 0}}, part_atlas = "battle_tendency" },
         {name = "german_engineering", base = {pos = {x = 2, y = 0}}, part_atlas = "battle_tendency" },
         {name = "speedwagon_bt", base = {pos = {x = 3, y = 0}}, part_atlas = "battle_tendency" },
+        {name = "caesar", base = {pos = {x = 4, y = 0}}, part_atlas = "battle_tendency" },
         -- Part 3: Stardust Crusaders
         {name = "magician_red", base = {pos = {x = 0, y = 0}}, part_atlas = "stardust_crusaders" },
         {name = "yellow_temperance", base = {pos = {x = 1, y = 0}}, part_atlas = "stardust_crusaders" },
