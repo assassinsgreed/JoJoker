@@ -71,7 +71,7 @@ return {
                 text = {
                     "Gains {X:mult,C:white} X#1# {} for each unique",
                     "planet card played this round.",
-                    "Debuffs after {C:attention}#2#{} rounds.",
+                    "Stops thinking after {C:attention}#2#{} rounds.",
                     "{br:2}line break",
                     "{C:inactive}Currently: {X:mult,C:white} X#3#",
                     "{C:attention}#4# round(s) left.",
