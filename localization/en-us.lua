@@ -79,6 +79,13 @@ return {
                     "Applies {C:attention}Smeared{}."
                 }
             },
+            j_jojoker_star_platinum = {
+                name = "Star Platinum",
+                text = {
+                    "{C:attention}#1# in #2#{} chance to not consume",
+                    "a hand when playing one."
+                }
+            },
             -- Part 4: Diamond is Unbreakable
             j_jojoker_voice_of_love = {
                 name = "Voice of Love",
@@ -314,6 +321,7 @@ return {
             sound_tick = "Tick",
             sound_hey_baby = "Hey, baby!",
             sound_gaa = "Gaa!",
+            sound_star_platinum_the_world = "Star Platinum: The World!",
 
             -- Common strings
             a_hand = "a hand",

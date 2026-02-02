@@ -57,3 +57,18 @@ Balatest.TestPlay {
     end
 }
 --#endregion
+--#region Star Platinum
+Balatest.TestPlay {
+    name = 'star_platinum_gives_one_extra_hand_when_triggered',
+    category = { 'jokers', 'stardust_crusaders', 'star_platinum' },
+    jokers = { 'j_jojoker_star_platinum' },
+    hands = 3,
+    execute = function()
+        G.jokers.cards[1].ability.extra.denominator = G.jokers.cards[1].ability.extra.numerator
+        Balatest.play_hand { '2S' }
+    end,
+    assert = function()
+        Balatest.assert_eq(G.GAME.current_round.hands_left, 3, "Star Platinum did not give a hand when triggering")
+    end
+}
+--#endregion

@@ -70,7 +70,36 @@ local yellow_temperance = {
     end
 }
 
+local star_platinum = {
+    name = "star_platinum",
+    rarity = 1,
+    cost = 5,
+    jtype = "Stand",
+    jclass = "Close Range",
+    part = "stardust_crusaders",
+    blueprint_compat = false,
+    perishable_compat = true,
+    eternal_compat = true,
+    config = { extra = { numerator = 1, denominator = 4 } },
+    loc_vars = function(self, info_queue, center)
+      return {vars = {center.ability.extra.numerator, center.ability.extra.denominator}}
+    end,
+    calculate = function(self, card, context)
+        -- Potentially preserve hand when playing a hand (by adding 1 to remaining hands)
+        if context.before and context.scoring_hand then
+            if SMODS.pseudorandom_probability(card, 'star_platinum', card.ability.extra.numerator, card.ability.extra.denominator, 'star_platinum') then
+                sendDebugMessage("Star Platinum: Preserving hand on played hand")
+                G.GAME.current_round.hands_left = G.GAME.current_round.hands_left + 1
+
+                return {
+                    message = localize("sound_star_platinum_the_world")
+                }
+            end
+        end
+    end
+}
+
 return {
     name = "Stardust Crusaders Stand Jokers",
-    list = { magician_red, yellow_temperance },
+    list = { magician_red, yellow_temperance, star_platinum },
 }

@@ -21,3 +21,14 @@ jd_def["j_jojoker_ndoul"] = {
         { text = "Smeared enabled", colour = G.C.GREY },
     },
 }
+
+jd_def["j_jojoker_star_platinum"] = {
+    text = {
+        { ref_table = "card.ability.extra", ref_value = "numerator", retrigger_type = "numerator",  colour = G.C.GOLD },
+        { text = " in ", colour = G.C.GOLD },
+        { ref_table = "card.ability.extra", ref_value = "denominator", retrigger_type = "denominator",  colour = G.C.GOLD },
+    },
+    reminder_text = {
+        { text = "to not use hand", colour = G.C.GREY, },
+    },
+}
