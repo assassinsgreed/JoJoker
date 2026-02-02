@@ -66,6 +66,23 @@ return {
                     "{X:mult,C:white} X#1# {} mult, then destroyes them."
                 }
             },
+            j_jojoker_kars_ultimate_lifeform = {
+                name = "Kars (Ultimate Lifeform)",
+                text = {
+                    "Gains {X:mult,C:white} X#1# {} for each unique",
+                    "planet card played this round.",
+                    "Debuffs after {C:attention}#2#{} rounds.",
+                    "{br:2}line break",
+                    "{C:inactive}Currently: {X:mult,C:white} X#3#",
+                    "{C:attention}#4# round(s) left.",
+                }
+            },
+            j_jojoker_kars_stopped_thinking = {
+                name = "Kars (Ultimate Lifeform)",
+                text = {
+                    "{C:inactive}Stopped thinking{}",
+                }
+            },
             -- Part 3: Stardust Crusaders
             j_jojoker_magician_red = {
                 name = "Magician's Red",
@@ -329,6 +346,7 @@ return {
             sound_hey_baby = "Hey, baby!",
             sound_gaa = "Gaa!",
             sound_time_moves = "Time has started to move...",
+            sound_stopped_thinking = "Eventually Kars stopped thinking",
             
             -- Common strings
             a_hand = "a hand",

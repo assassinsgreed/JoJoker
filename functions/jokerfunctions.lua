@@ -136,10 +136,54 @@ ease_joker_dollars = function(card, seed, amt, calc_only)
   return earned
 end
 
-function card_is_even(card)
-  return card:get_id() % 2 == 0
-end
+transform_joker = function(card, target_key)
+    local new_card = G.P_CENTERS[target_key]
+    local trigger_add = nil
+    if card.config.center == new_card then return end
+    
+    -- If it's perishable, reset it's perish counter
+    if card.ability.perishable then
+        if card.ability.perish_tally == 0 then trigger_add = true end
+        card.ability.perish_tally = G.GAME.perishable_rounds
+        card.debuff = false
+    end
 
-function card_is_odd(card)
-  return card:get_id() % 2 == 1
+    -- Perform transformation
+    card.children.center = Sprite(card.T.x, card.T.y, card.T.w, card.T.h, G.ASSET_ATLAS[new_card.atlas or "Joker"], new_card.pos)
+    card.children.center.states.hover = card.states.hover
+    card.children.center.states.click = card.states.click
+    card.children.center.states.drag = card.states.drag
+    card.children.center.states.collide.can = false
+    card.children.center:set_role({major = card, role_type = 'Glued', draw_major = card})
+    card:set_ability(new_card, true)
+    card:set_cost()
+
+    if new_card.soul_pos then
+        card.children.floating_sprite = Sprite(card.T.x, card.T.y, card.T.w, card.T.h, G.ASSET_ATLAS[new_card.atlas or "Joker"], new_card.soul_pos)
+        card.children.floating_sprite.role.draw_major = card
+        card.children.floating_sprite.states.hover.can = false
+        card.children.floating_sprite.states.click.can = false
+    elseif card.children.floating_sprite then
+        card.children.floating_sprite:remove()
+        card.children.floating_sprite = nil
+    end
+
+    if not card.edition then
+        card:juice_up()
+        play_sound('generic1')
+    else
+        card:juice_up(1, 0.5)
+        if card.edition.foil then play_sound('foil1', 1.2, 0.4) end
+        if card.edition.holo then play_sound('holo1', 1.2*1.58, 0.4) end
+        if card.edition.polychrome then play_sound('polychrome1', 1.2, 0.7) end
+        if card.edition.negative then play_sound('negative', 1.5, 0.4) end
+        if card.edition.poke_shiny then
+            play_sound('poke_e_shiny', 1, 0.2)
+            G.P_CENTERS.e_poke_shiny.on_load(card)
+        end
+    end
+    
+    if trigger_add then
+        card:add_to_deck()
+    end
 end

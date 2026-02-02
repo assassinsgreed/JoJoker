@@ -147,3 +147,56 @@ Balatest.TestPlay {
     end
 }
 --#endregion
+--#region Kars (Ultimate Lifeform)
+Balatest.TestPlay {
+    name = 'kars_gives_1x_mult_by_default',
+    category = { 'jokers', 'battle_tendency', 'kars_ultimate_lifeform' },
+    jokers = { 'j_jojoker_kars_ultimate_lifeform' },
+    execute = function()
+        Balatest.highlight { '2S' } -- Needed to complete execute block
+    end,
+    assert = function()
+        Balatest.assert_eq(G.jokers.cards[1].ability.extra.Xmult, 1, "Kars (Ultimate Lifeform) does not start with 1x mult")
+    end
+}
+Balatest.TestPlay {
+    name = 'kars_gives_xmult_boost_once_with_duplicate_planets_played',
+    category = { 'jokers', 'battle_tendency', 'kars_ultimate_lifeform' },
+    jokers = { 'j_jojoker_kars_ultimate_lifeform' },
+    consumeables = { 'c_mars', 'c_mars' },
+    execute = function()
+        Balatest.use(G.consumeables.cards[1])
+        Balatest.use(G.consumeables.cards[2])
+    end,
+    assert = function()
+        local expectedXmult = G.jokers.cards[1].ability.extra.Xmult_mod * 1 + 1
+        Balatest.assert_eq(G.jokers.cards[1].ability.extra.Xmult, expectedXmult, "Kars (Ultimate Lifeform) did not give expected xmult for duplicate planet cards")
+    end
+}
+Balatest.TestPlay {
+    name = 'kars_gives_xmult_boost_for_each_unique_played_planet',
+    category = { 'jokers', 'battle_tendency', 'kars_ultimate_lifeform' },
+    jokers = { 'j_jojoker_kars_ultimate_lifeform' },
+    consumeables = { 'c_mars', 'c_earth' },
+    execute = function()
+        Balatest.use(G.consumeables.cards[1])
+        Balatest.use(G.consumeables.cards[2])
+    end,
+    assert = function()
+        local expectedXmult = G.jokers.cards[1].ability.extra.Xmult_mod * 2 + 1
+        Balatest.assert_eq(G.jokers.cards[1].ability.extra.Xmult, expectedXmult, "Kars (Ultimate Lifeform) did not give expected xmult for unique planet cards")
+    end
+}
+Balatest.TestPlay {
+    name = 'kars_transforms_to_stop_thinking_when_expired',
+    category = { 'jokers', 'battle_tendency', 'kars_ultimate_lifeform' },
+    jokers = { 'j_jojoker_kars_ultimate_lifeform' },
+    execute = function()
+        G.jokers.cards[1].ability.extra.current_rounds_left = 1
+        Balatest.end_round()
+    end,
+    assert = function()
+        Balatest.assert_eq(G.jokers.cards[1].config.center, G.P_CENTERS['j_jojoker_kars_stopped_thinking'], "Kars (Ultimate Lifeform) did not transform to Kars (Stopped Thinking) once expired")
+    end
+}
+--#endregion

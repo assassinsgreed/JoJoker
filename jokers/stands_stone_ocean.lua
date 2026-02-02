@@ -91,6 +91,9 @@ local made_in_heaven = {
                 Xmult_mod = card.ability.extra.Xmult
             }
         end
+    end,
+    in_pool = function(self, args)
+        return not args or args.source ~= "jud"
     end
 }
 

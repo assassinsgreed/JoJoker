@@ -1,3 +1,11 @@
+function card_is_even(card)
+  return card:get_id() % 2 == 0
+end
+
+function card_is_odd(card)
+  return card:get_id() % 2 == 1
+end
+
 remove_playing_card = function(target, card, trigger)
       if target.ability.name == 'Glass Card' then
           target.shattered = true

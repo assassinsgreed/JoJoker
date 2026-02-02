@@ -11,6 +11,8 @@ JokerSprites = {
         {name = "german_engineering", base = {pos = {x = 2, y = 0}}, part_atlas = "battle_tendency" },
         {name = "speedwagon_bt", base = {pos = {x = 3, y = 0}}, part_atlas = "battle_tendency" },
         {name = "caesar", base = {pos = {x = 4, y = 0}}, part_atlas = "battle_tendency" },
+        {name = "kars_ultimate_lifeform", base = {pos = {x = 0, y = 1}}, part_atlas = "battle_tendency" },
+        {name = "kars_stopped_thinking", base = {pos = {x = 1, y = 1}}, part_atlas = "battle_tendency" },
         -- Part 3: Stardust Crusaders
         {name = "magician_red", base = {pos = {x = 0, y = 0}}, part_atlas = "stardust_crusaders" },
         {name = "yellow_temperance", base = {pos = {x = 1, y = 0}}, part_atlas = "stardust_crusaders" },
