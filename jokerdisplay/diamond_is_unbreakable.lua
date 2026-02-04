@@ -34,3 +34,18 @@ jd_def["j_jojoker_red_hot_chili_pepper"] = {
         end
     end
 }
+
+jd_def["j_jojoker_the_hand"] = {
+    text = {
+        { text = "+", colour = G.C.MULT },
+        { ref_table = "card.ability.extra", ref_value = "mult_mod", retrigger_type = "mult_mod",  colour = G.C.MULT },
+    },
+    reminder_text = {
+        { text = "Debffed ", colour = G.C.GREY, },
+        { ref_table = "card.ability.extra", ref_value = "debuff_rank", colour = G.C.RED},
+        { text = ", boosted ", colour = G.C.GREY },
+        { ref_table = "card.ability.extra", ref_value = "buffed_rank_one", colour = G.C.GREEN},
+        { text = " and ", colour = G.C.GREY },
+        { ref_table = "card.ability.extra", ref_value = "buffed_rank_two", colour = G.C.GREEN},
+    }
+}

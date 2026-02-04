@@ -132,6 +132,17 @@ return {
                     "{C:mult}+#1#{} per {C:money}$#2#{} held."
                 }
             },
+            j_jojoker_the_hand = {
+                name = "The Hand",
+                text = {
+                    "Picks a random {C:attention}rank{} to debuff.",
+                    "The rank on either side gives {C:mult}+#1#{}.",
+                    "Chosen rank changes each round.",
+                    "{br:2}line break",
+                    "{C:inactive}Chosen rank: {C:attention}#2#",
+                    "{C:inactive}Buffed ranks: {C:attention}#3#{} and {C:attention}#4#{}"
+                }
+            },
             -- Part 5: Golden Wind
             j_jojoker_sex_pistols = {
                 name = "Sex Pistols",
