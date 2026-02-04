@@ -51,7 +51,7 @@ jd_def["j_jojoker_kars_ultimate_lifeform"] = {
         { ref_table = "card.ability.extra", ref_value = "Xmult", retrigger_type = "Xmult",  colour = G.C.MULT },
     },
     reminder_text = {
-        { text = "Debuffs after ", colour = G.C.GREY },
+        { text = "Stops thinking after ", colour = G.C.GREY },
         { ref_table = "card.ability.extra", ref_value = "current_rounds_left", retrigger_type = "current_rounds_left",  colour = G.C.MULT },
         { text = " round(s)", colour = G.C.GREY },
     }
