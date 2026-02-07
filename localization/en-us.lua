@@ -143,6 +143,13 @@ return {
                     "{C:inactive}Buffed ranks: {C:attention}#3#{} and {C:attention}#4#{}"
                 }
             },
+            j_jojoker_superfly = {
+                name = "Superfly",
+                text = {
+                    "When sold, disables the {C:attention}active boss blind{}.",
+                    "Only works on boss blinds."
+                }
+            },
             -- Part 5: Golden Wind
             j_jojoker_sex_pistols = {
                 name = "Sex Pistols",

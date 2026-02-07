@@ -41,11 +41,20 @@ jd_def["j_jojoker_the_hand"] = {
         { ref_table = "card.ability.extra", ref_value = "mult_mod", retrigger_type = "mult_mod",  colour = G.C.MULT },
     },
     reminder_text = {
-        { text = "Debffed ", colour = G.C.GREY, },
+        { text = "Debuffed ", colour = G.C.GREY, },
         { ref_table = "card.ability.extra", ref_value = "debuff_rank", colour = G.C.RED},
         { text = ", boosted ", colour = G.C.GREY },
         { ref_table = "card.ability.extra", ref_value = "buffed_rank_one", colour = G.C.GREEN},
         { text = " and ", colour = G.C.GREY },
         { ref_table = "card.ability.extra", ref_value = "buffed_rank_two", colour = G.C.GREEN},
+    }
+}
+
+jd_def["j_jojoker_superfly"] = {
+    text = {
+        { text = "Disable boss blind", colour = G.C.GREY }
+    },
+    reminder_text = {
+        { text = "When sold", colour = G.C.GREY, }
     }
 }

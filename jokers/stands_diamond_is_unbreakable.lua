@@ -94,7 +94,29 @@ local the_hand = {
     end
 }
 
+local superfly = {
+    name = "superfly",
+    rarity = 2,
+    cost = 5,
+    jtype = "Stand",
+    jclass = "Automatic",
+    part = "diamond_is_unbreakable",
+    blueprint_compat = false,
+    perishable_compat = true,
+    eternal_compat = false,
+    config = { extra = { } },
+    calculate = function(self, card, context)
+        -- When sold, disables active boss blind
+        if context.selling_self and not context.blueprint then
+            if G.GAME.blind and G.GAME.blind:get_type() == 'Boss' then
+                card_eval_status_text(context.blueprint_card or card, 'extra', nil, nil, nil, {message = localize('ph_boss_disabled')})
+                G.GAME.blind:disable()
+            end
+        end
+    end
+}
+
 return {
     name = "Diamond is Unbreakable Stand Jokers",
-    list = { red_hot_chili_pepper, the_hand },
+    list = { red_hot_chili_pepper, the_hand, superfly },
 }

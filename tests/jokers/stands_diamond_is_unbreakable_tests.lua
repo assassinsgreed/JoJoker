@@ -74,3 +74,19 @@ Balatest.TestPlay {
     end
 }
 --#endregion
+--#region Superfly
+Balatest.TestPlay {
+    name = 'superfly_disables_boss_blind_on_sell',
+    category = { 'jokers', 'diamond_is_unbreakable', 'superfly' },
+    jokers = { 'j_jojoker_superfly' },
+    dollars = 10,
+    blind = 'bl_wheel',
+    execute = function()
+        Balatest.assert_eq(G.GAME.blind.disabled, false, "Superfly didn't start on an enabled boss blind")
+        Balatest.sell(function() return G.jokers.cards[1] end)
+    end,
+    assert = function()
+        Balatest.assert_eq(G.GAME.blind.disabled, true, "Superfly didn't disable boss blind on sell")
+    end
+}
+--#endregion

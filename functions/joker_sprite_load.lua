@@ -23,6 +23,7 @@ JokerSprites = {
         {name = "shizuka", base = {pos = {x = 1, y = 0}}, part_atlas = "diamond_is_unbreakable" },
         {name = "red_hot_chili_pepper", base = {pos = {x = 2, y = 0}}, part_atlas = "diamond_is_unbreakable" },
         {name = "the_hand", base = {pos = {x = 3, y = 0}}, part_atlas = "diamond_is_unbreakable" },
+        {name = "superfly", base = {pos = {x = 4, y = 0}}, part_atlas = "diamond_is_unbreakable" },
         -- Part 5: Golden Wind
         {name = "sex_pistols", base = {pos = {x = 0, y = 0}}, part_atlas = "golden_wind" },
         {name = "grateful_dead", base = {pos = {x = 1, y = 0}}, part_atlas = "golden_wind" },
