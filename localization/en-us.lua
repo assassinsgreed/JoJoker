@@ -259,6 +259,13 @@ return {
                     "Doubles earned {C:attention}interest{}."
                 }
             },
+            j_jojoker_higashikata_house = {
+                name = "Higashikata House",
+                text = {
+                    "Gives {C:chips}+#1#{} chips for each",
+                    "played {C:attention}Full House{}."
+                }
+            },
             -- Part 9: THE JOJOLands
             j_jojoker_smooth_operator = {
                 name = "Smooth Operator",

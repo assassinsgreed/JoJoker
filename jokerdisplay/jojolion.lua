@@ -24,3 +24,13 @@ jd_def["j_jojoker_milagro_man"] = {
         { text = "Doubles interest", colour = G.C.GREY },
     },
 }
+
+jd_def["j_jojoker_higashikata_house"] = {
+    text = {
+        { text = "+", colour = G.C.CHIPS },
+        { ref_table = "card.ability.extra", ref_value = "chips", retrigger_type = "chips",  colour = G.C.CHIPS },
+    },
+    reminder_text = {
+        { text = "Full House", colour = G.C.GREY },
+    }
+}

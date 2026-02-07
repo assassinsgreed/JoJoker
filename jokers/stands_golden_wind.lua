@@ -150,7 +150,7 @@ local spice_girl = {
                 return {
                     message = localize{type='variable', key='a_chips', vars={card.ability.extra.chips}},
                     colour=G.C.CHIPS,
-                    chips_mod=card.ability.extra.chips,
+                    chip_mod=card.ability.extra.chips,
                     mult_mod=card.ability.extra.Xmult,
                 }
             end

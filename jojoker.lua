@@ -85,6 +85,7 @@ if Balatest then
     SMODS.load_file('tests/jokers/effects_steel_ball_run_tests.lua')()
     SMODS.load_file('tests/jokers/stands_steel_ball_run_tests.lua')()
     SMODS.load_file('tests/jokers/characters_jojolion_tests.lua')()
+    SMODS.load_file('tests/jokers/effects_jojolion_tests.lua')()
     SMODS.load_file('tests/jokers/stands_jojolion_tests.lua')()
     SMODS.load_file('tests/jokers/stands_the_jojolands_tests.lua')()
 end
