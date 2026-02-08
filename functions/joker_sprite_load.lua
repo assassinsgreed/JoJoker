@@ -5,6 +5,7 @@ JokerSprites = {
         {name = "danny", base = {pos = {x = 0, y = 0}}, part_atlas = "phantom_blood" },
         {name = "baron_zeppeli", base = {pos = {x = 1, y = 0}}, part_atlas = "phantom_blood" },
         {name = "speedwagon", base = {pos = {x = 2, y = 0}}, part_atlas = "phantom_blood" },
+        {name = "zombies", base = {pos = {x = 3, y = 0}}, part_atlas = "phantom_blood" },
         -- Part 2: Battle Tendency
         {name = "joseph_joestar", base = {pos = {x = 0, y = 0}}, part_atlas = "battle_tendency" },
         {name = "esidisi", base = {pos = {x = 1, y = 0}}, part_atlas = "battle_tendency" },

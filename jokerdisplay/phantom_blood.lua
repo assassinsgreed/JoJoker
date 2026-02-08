@@ -28,3 +28,14 @@ jd_def["j_jojoker_speedwagon"] = {
         { text = "Per used discard", colour = G.C.GREY },
     }
 }
+
+jd_def["j_jojoker_zombies"] = {
+    text = {
+        { text = "+", colour = G.C.MULT },
+        { ref_table = "card.ability.extra", ref_value = "current_mult", retrigger_type = "current_mult", colour = G.C.MULT },
+    },
+    reminder_text = {
+        { ref_table = "card.ability.extra", ref_value = "mult_per", retrigger_type = "mult_per", colour = G.C.GREY },
+        { text = "^{held Zombies}", colour = G.C.GREY },
+    }
+}

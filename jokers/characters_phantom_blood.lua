@@ -109,7 +109,59 @@ local speedwagon = {
     end
 }
 
+local zombies = {
+    name = "zombies",
+    rarity = 1,
+    cost = 4,
+    jtype = "Character",
+    part = "phantom_blood",
+    blueprint_compat = true,
+    perishable_compat = true,
+    eternal_compat = false,
+    config = { extra = { mult_per = 2, current_mult = 2, numerator = 1, denominator = 4, } },
+    loc_vars = function(self, info_queue, center)
+      return {vars = { center.ability.extra.mult_per, center.ability.extra.current_mult, center.ability.extra.numerator, center.ability.extra.denominator }}
+    end,
+    calculate = function(self, card, context)
+        -- On scoring, give mult_per mult for each held joker and calculate (in the event of special jokers)
+        if context.cardarea == G.jokers and context.scoring_hand then
+            if context.joker_main then
+                sendDebugMessage("Zombies: Giving mult of "..card.ability.extra.current_mult.." for count of held zombie jokers.")
+                return {
+                    message = localize{type = 'variable', key = 'a_mult', vars = {card.ability.extra.current_mult}},
+                    colour = G.C.MULT,
+                    mult_mod = card.ability.extra.current_mult
+                }
+            end
+        end
+
+        -- Potentially duplicate joker at end of small/big blind
+        if context.end_of_round and not context.individual and not context.repetition and not context.blueprint then
+            if #G.jokers.cards < G.jokers.config.card_limit then
+                sendDebugMessage("Zombies: "..#G.jokers.cards.." jokers in play, below limit of "..G.jokers.config.card_limit..", considering replicating.")
+                if SMODS.pseudorandom_probability(card, 'zombies', card.ability.extra.numerator, card.ability.extra.denominator, 'zombies') then
+                    sendDebugMessage("Zombies: Replicated!")
+                    
+                    play_sound('tarot1')
+                    local new_card = SMODS.create_card({set = "Joker", area = G.jokers, key = "j_jojoker_zombies", no_edition = true})
+                    new_card:add_to_deck()
+                    G.jokers:emplace(new_card)
+
+                    return {
+                        message = localize("sound_grr")
+                    }
+                end
+            end
+        end
+    end,
+    update = function(self, card, dt)
+        if G.STAGE == G.STAGES.RUN and card.area == G.jokers then
+            card.ability.extra.current_mult = card.ability.extra.mult_per ^ get_joker_count("zombies")
+        end
+    end
+}
+
 return {
     name = "Phantom Blood Effect Jokers",
-    list = { danny, baron_zeppeli, speedwagon },
+    list = { danny, baron_zeppeli, speedwagon, zombies },
 }

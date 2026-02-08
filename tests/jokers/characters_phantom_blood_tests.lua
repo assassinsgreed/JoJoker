@@ -81,3 +81,31 @@ Balatest.TestPlay {
     end
 }
 --#endregion
+--#region Zombies
+Balatest.TestPlay {
+    name = 'zombies_gives_mult_for_each_held_Zombies_joker',
+    category = { 'jokers', 'phantom_blood', 'zombies' },
+    jokers = { 'j_jojoker_zombies', 'j_jojoker_zombies', 'j_jojoker_zombies' },
+    execute = function()
+        Balatest.highlight { '2S' } -- Needed to complete execute block
+    end,
+    assert = function()
+        local zombie_mult = G.jokers.cards[1].ability.extra.current_mult
+        Balatest.assert_eq(zombie_mult, G.jokers.cards[1].ability.extra.mult_per ^ #G.jokers.cards, "Zombies did not give correct mult for held Zombies jokers")
+    end
+}
+
+Balatest.TestPlay {
+    name = 'zombies_replicate_at_end_of_round',
+    category = { 'jokers', 'phantom_blood', 'zombies' },
+    jokers = { 'j_jojoker_zombies' },
+    execute = function()
+        G.jokers.cards[1].ability.extra.numerator = 1
+        G.jokers.cards[1].ability.extra.denominator = 1
+        Balatest.end_round()
+    end,
+    assert = function()
+        Balatest.assert_eq(#G.jokers.cards, 2, "Zombies did not replicate at the end of the round")
+    end
+}
+--#endregion

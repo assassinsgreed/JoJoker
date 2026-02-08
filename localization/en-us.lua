@@ -25,6 +25,16 @@ return {
                     "Gives {C:money}$#1#{} per used discard."
                 }
             },
+            j_jojoker_zombies = {
+                name = "Zombies",
+                text = {
+                    "Gives {C:mult}#1#^[number of zombies]{} for each {C:attention}Zombie{} joker held.",
+                    "Has a {C:attention}#3# in #4#{} chance to create another {C:attention}Zombie{}",
+                    "at the end of small and big blinds, if there is room.",
+                    "{br:2}line break",
+                    "{C:inactive}Currently: {C:mult}+#2#"
+                }
+            },
             -- Part 2: Battle Tendency
             j_jojoker_joseph_joestar = {
                 name = "Joseph Joestar",
@@ -372,6 +382,7 @@ return {
             sound_gaa = "Gaa!",
             sound_time_moves = "Time has started to move...",
             sound_stopped_thinking = "Eventually Kars stopped thinking",
+            sound_grr = "Grr!",
             
             -- Common strings
             a_hand = "a hand",

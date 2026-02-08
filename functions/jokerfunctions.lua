@@ -187,3 +187,16 @@ transform_joker = function(card, target_key)
         card:add_to_deck()
     end
 end
+
+get_joker_count = function (name)
+  if G.jokers and #G.jokers.cards > 0 then
+      local jokerCount = 0
+      for _, joker in ipairs(G.jokers.cards) do
+          if joker.config.center.name == name then
+              jokerCount = jokerCount + 1
+          end
+      end
+      return jokerCount
+  end
+  return 0
+end
