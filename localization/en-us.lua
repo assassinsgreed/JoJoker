@@ -199,6 +199,13 @@ return {
                     "Applies {C:attention}Four Fingers{}."
                 }
             },
+            j_jojoker_leaky_eye_luca = {
+                name = "Leaky Eye Luca",
+                text = {
+                    "Each scored {C:spades}Spade{} card",
+                    "gives {C:mult}+#1#{}.",
+                }
+            },
             -- Part 6: Stone Ocean
             j_jojoker_goo_goo_dolls = {
                 name = "Goo Goo Dolls",

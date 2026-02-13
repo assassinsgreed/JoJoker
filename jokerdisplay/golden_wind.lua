@@ -39,3 +39,13 @@ jd_def["j_jojoker_sticky_fingers"] = {
         { text = "Four Fingers enabled", colour = G.C.GREY },
     },
 }
+
+jd_def["j_jojoker_leaky_eye_luca"] = {
+    text = {
+        { text = "+", colour = G.C.MULT },
+        { ref_table = "card.ability.extra", ref_value = "mult", retrigger_type = "mult",  colour = G.C.MULT },
+    },
+    reminder_text = {
+        { text = "Spades only", colour = G.C.GREY, },
+    },
+}
