@@ -158,7 +158,23 @@ local spice_girl = {
     end
 }
 
+local sticky_fingers = {
+    name = "sticky_fingers",
+    rarity = 2,
+    cost = 5,
+    jtype = "Character",
+    part = "golden_wind",
+    blueprint_compat = true,
+    perishable_compat = true,
+    eternal_compat = true,
+    config = { extra = {} },
+    loc_vars = function(self, info_queue, center)
+      info_queue[#info_queue + 1] = { set = 'Joker', key = 'j_four_fingers', config = {} }
+      return {vars = {}}
+    end
+}
+
 return {
     name = "Golden Wind Stand Jokers",
-    list = { sex_pistols, grateful_dead, spice_girl },
+    list = { sex_pistols, grateful_dead, spice_girl, sticky_fingers },
 }

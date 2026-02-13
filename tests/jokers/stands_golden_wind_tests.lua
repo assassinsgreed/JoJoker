@@ -139,3 +139,17 @@ Balatest.TestPlay {
     end
 }
 --#endregion
+--#region Sticky Fingers
+Balatest.TestPlay {
+    name = 'sticky_fingers_applies_four_fingers',
+    category = { 'jokers', 'golden_wind', 'sticky_fingers' },
+    jokers = { 'j_jojoker_sticky_fingers' },
+    execute = function()
+        Balatest.play_hand { '2S', '3C', '4H', '5D' }
+    end,
+    assert = function()
+        local straights_played = G.GAME.hands["Straight"].played_this_round
+        Balatest.assert_eq(straights_played, 1, "Sticky Fingers did not apply four fingers and score a straight")
+    end
+}
+--#endregion

@@ -16,7 +16,7 @@ local higashikata_house = {
     calculate = function(self, card, context)
         if context.cardarea == G.jokers and context.scoring_hand and context.scoring_name == "Full House" then
             if context.joker_main then
-                sendDebugMessage("higashikata House: Giving "..card.ability.extra.chips.." chips for Full House")
+                sendDebugMessage("Higashikata House: Giving "..card.ability.extra.chips.." chips for Full House")
                 return {
                     message = localize{type='variable', key='a_chips', vars={card.ability.extra.chips}},
                     colour=G.C.CHIPS,

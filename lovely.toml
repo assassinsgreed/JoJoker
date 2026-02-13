@@ -85,7 +85,7 @@ elseif name == "Pareidolia" then
   return (next(pareidolia) and pareidolia) or (next(joker_one) and joker_one) or {}
 elseif name == "Four Fingers" then
   local four_fingers = find_joker("jojoker_Four_Fingers")
-  local joker_one = find_joker("josuke_higashikata_jjl")
+  local joker_one = find_joker("sticky_fingers")
   return (next(four_fingers) and four_fingers) or (next(joker_one) and joker_one) or {}
 elseif name == "Smeared Joker" then
   local smeared = find_joker("jojoker_Smeared_Joker")

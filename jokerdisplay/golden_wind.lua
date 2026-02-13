@@ -33,3 +33,9 @@ jd_def["j_jojoker_spice_girl"] = {
         { ref_table = "card.ability.extra", ref_value = "Xmult", retrigger_type = "Xmult",  colour = G.C.MULT },
     }
 }
+
+jd_def["j_jojoker_sticky_fingers"] = {
+    text = {
+        { text = "Four Fingers enabled", colour = G.C.GREY },
+    },
+}

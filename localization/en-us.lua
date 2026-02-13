@@ -193,6 +193,12 @@ return {
                     "{C:inactive}Current mult: {X:mult,C:white} X#4# {}",
                 }
             },
+            j_jojoker_sticky_fingers = {
+                name = "Sticky Fingers",
+                text = {
+                    "Applies {C:attention}Four Fingers{}."
+                }
+            },
             -- Part 6: Stone Ocean
             j_jojoker_goo_goo_dolls = {
                 name = "Goo Goo Dolls",
@@ -258,9 +264,10 @@ return {
                 }
             },
             j_jojoker_josuke_higashikata_jjl = {
-                name = "Paper Moon King",
+                name = "Josuke Higashikata",
                 text = {
-                    "Applies {C:attention}Four Fingers{}."
+                    "Gives {C:chips}+#1#{} if scoring hand",
+                    "contains a {C:attention}Two Pair{}."
                 }
             },
             j_jojoker_milagro_man = {

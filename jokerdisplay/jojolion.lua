@@ -15,7 +15,11 @@ jd_def["j_jojoker_paper_moon_king"] = {
 
 jd_def["j_jojoker_josuke_higashikata_jjl"] = {
     text = {
-        { text = "Four Fingers enabled", colour = G.C.GREY },
+        { text = "+", colour = G.C.CHIPS },
+        { ref_table = "card.ability.extra", ref_value = "chips", retrigger_type = "chips",  colour = G.C.CHIPS },
+    },
+    reminder_text = {
+        { text = "Two Pair", colour = G.C.GREY },
     },
 }
 
