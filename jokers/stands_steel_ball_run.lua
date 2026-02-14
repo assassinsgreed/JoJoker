@@ -72,7 +72,29 @@ local chocolate_disco = {
     end
 }
 
+local oh_lonesome_me = {
+    name = "oh_lonesome_me",
+    rarity = 2,
+    cost = 6,
+    jtype = "Stand",
+    jclass = "Long Range",
+    part = "steel_ball_run",
+    blueprint_compat = false,
+    perishable_compat = true,
+    eternal_compat = false,
+    config = {extra = {hand_size = 2}},
+    loc_vars = function(self, info_queue, center)
+        return {vars = {center.ability.extra.hand_size}}
+    end,
+    add_to_deck = function(self, card, from_debuff)
+        G.hand:change_size(card.ability.extra.hand_size)
+    end,
+    remove_from_deck = function(self, card, from_debuff)
+        G.hand:change_size(-card.ability.extra.hand_size)
+    end
+}
+
 return {
     name = "Steel Ball Run Stand Jokers",
-    list = { mandom, chocolate_disco },
+    list = { mandom, chocolate_disco, oh_lonesome_me },
 }

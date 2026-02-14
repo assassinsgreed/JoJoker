@@ -58,3 +58,13 @@ jd_def["j_jojoker_chocolate_disco"] = {
         return false
     end
 }
+
+jd_def["j_jojoker_oh_lonesome_me"] = {
+    text = {
+        { text = "+", colour = G.C.GREEN },
+        { ref_table = "card.ability.extra", ref_value = "hand_size", retrigger_type = "hand_size", colour = G.C.GREEN },
+    },
+    reminder_text = {
+        { text = "Hand Size", colour = G.C.GREY }
+    },
+}

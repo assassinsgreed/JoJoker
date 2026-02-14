@@ -90,3 +90,43 @@ Balatest.TestPlay {
     end
 }
 --#endregion
+--#region Oh Lonesome Me
+Balatest.TestPlay {
+    name = 'oh_lonesome_me_increases_hand_size',
+    category = { 'jokers', 'steel_ball_run', 'oh_lonesome_me' },
+    jokers = { 'j_jojoker_oh_lonesome_me' },
+    hand_size = 8,
+    execute = function()
+        Balatest.unhighlight_all() -- Needed to complete execute block
+    end,
+    assert = function()
+        Balatest.assert_eq(G.hand.config.card_limit, 8 + G.jokers.cards[1].ability.extra.hand_size, "Oh Lonesome Me did not increase hand size correctly")
+    end
+}
+
+Balatest.TestPlay {
+    name = 'oh_lonesome_me_decreases_hand_size_when_sold',
+    category = { 'jokers', 'steel_ball_run', 'oh_lonesome_me' },
+    jokers = { 'j_jojoker_oh_lonesome_me' },
+    hand_size = 8,
+    execute = function()
+        Balatest.sell(function() return G.jokers.cards[1] end)
+    end,
+    assert = function()
+        Balatest.assert_eq(G.hand.config.card_limit, 8, "Oh Lonesome Me did not decrease hand size correctly when sold")
+    end
+}
+
+Balatest.TestPlay {
+    name = 'oh_lonesome_me_does_not_decrease_hand_size_when_debuffed',
+    category = { 'jokers', 'steel_ball_run', 'oh_lonesome_me' },
+    jokers = { 'j_jojoker_oh_lonesome_me' },
+    hand_size = 8,
+    execute = function()
+        G.jokers.cards[1].debuff = true
+    end,
+    assert = function()
+        Balatest.assert_eq(G.hand.config.card_limit, 8 + G.jokers.cards[1].ability.extra.hand_size, "Oh Lonesome Me decreased hand size when debuffed, but should not have")
+    end
+}
+--#endregion

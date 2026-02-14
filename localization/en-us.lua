@@ -254,6 +254,13 @@ return {
                     "On {C:attention}even{} antes, {C:attention}even ranks{} give {C:mult}+5{} mult."
                 }
             },
+            j_jojoker_oh_lonesome_me = {
+                name = "Oh! Lonesome Me",
+                text = {
+                    "Increases {C:attention}hand size{} by {C:attention}#1#{}.",
+                    "Effect persists while debuffed."
+                }
+            },
             -- Part 8: Jojolion
             j_jojoker_soft_and_wet = {
                 name = "Soft & Wet",
