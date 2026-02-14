@@ -29,8 +29,12 @@ jd_def["j_jojoker_spice_girl"] = {
         { ref_table = "card.ability.extra", ref_value = "chips", retrigger_type = "chips",  colour = G.C.CHIPS },
     },
     reminder_text = {
-        { text = "X", colour = G.C.MULT },
-        { ref_table = "card.ability.extra", ref_value = "Xmult", retrigger_type = "Xmult",  colour = G.C.MULT },
+        {
+            border_nodes = {
+                { text = "X", colour = G.C.WHITE },
+                { ref_table = "card.ability.extra", ref_value = "Xmult", colour = G.C.WHITE }
+            }
+        }
     }
 }
 

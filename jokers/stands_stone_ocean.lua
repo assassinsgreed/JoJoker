@@ -97,7 +97,84 @@ local made_in_heaven = {
     end
 }
 
+local dragons_dream = {
+    name = "dragons_dream",
+    rarity = 2,
+    cost = 7,
+    jtype = "Stand",
+    jclass = "Automatic",
+    part = "stone_ocean",
+    blueprint_compat = true,
+    perishable_compat = true,
+    eternal_compat = true,
+    config = {extra = {
+        chip_mod = 15,
+        mult_mod = 5,
+        money_mod = 1,
+        xmult_mod = 0.2,
+        curr_chips = 15,
+        curr_mult = 5,
+        curr_money = 1,
+        curr_Xmult = 1}},
+    loc_vars = function(self, info_queue, center)
+        return {vars = {
+            center.ability.extra.chip_mod,
+            center.ability.extra.mult_mod,
+            center.ability.extra.money_mod,
+            center.ability.extra.xmult_mod,
+            center.ability.extra.curr_chips,
+            center.ability.extra.curr_mult,
+            center.ability.extra.curr_money,
+            center.ability.extra.curr_Xmult}}
+    end,
+    calculate = function(self, card, context)
+        -- When hand played, randomly change values
+        if context.before and context.scoring_hand then
+            if not context.blueprint then
+                local chosenValue = math.random(0, 3)
+                local add_remove = math.random(0, 1) == 0 and -1 or 1
+                local modValue = nil
+                local modText = nil
+                
+                if (chosenValue == 0) then
+                    modValue = add_remove * card.ability.extra.chip_mod
+                    card.ability.extra.curr_chips = math.max(0, card.ability.extra.curr_chips + modValue)
+                    modText = (add_remove == 1 and "+" or "-")..math.abs(modValue).." "..localize("chips")
+                    sendDebugMessage("Dragon's Dream: Changing chips by "..modValue..", new value: "..card.ability.extra.curr_chips)
+                elseif (chosenValue == 1) then
+                    modValue = add_remove * card.ability.extra.mult_mod
+                    card.ability.extra.curr_mult = math.max(0, card.ability.extra.curr_mult + modValue)
+                    modText = (add_remove == 1 and "+" or "-")..math.abs(modValue).." "..localize("k_mult")
+                    sendDebugMessage("Dragon's Dream: Changing mult by "..modValue..", new value: "..card.ability.extra.curr_mult)
+                elseif (chosenValue == 2) then
+                    modValue = add_remove * card.ability.extra.money_mod
+                    card.ability.extra.curr_money = math.max(0, card.ability.extra.curr_money + modValue)
+                    modText = (add_remove == 1 and "+" or "-")..localize('$')..math.abs(modValue)
+                    sendDebugMessage("Dragon's Dream: Changing money by "..modValue..", new value: "..card.ability.extra.curr_money)
+                elseif (chosenValue == 3) then
+                    modValue = add_remove * card.ability.extra.xmult_mod
+                    card.ability.extra.curr_Xmult = math.max(0, card.ability.extra.curr_Xmult + modValue)
+                    modText = (add_remove == 1 and "+" or "-")..math.abs(modValue).." "..localize("xmult")
+                    sendDebugMessage("Dragon's Dream: Changing Xmult by "..modValue..", new value: "..card.ability.extra.curr_Xmult)
+                end
+
+                card:juice_up()
+                return {
+                    message = localize(add_remove == 1 and 'sound_lucky' or 'sound_unlucky').." "..modText,
+                }
+            end
+        end
+
+        -- Print out result on joker application
+        if context.joker_main then
+            return {
+                message = localize('sound_neutral')
+            }
+        end
+    end
+}
+
 return {
     name = "Stone Ocean Stands Jokers",
-    list = { goo_goo_dolls, stone_free, made_in_heaven },
+    list = { goo_goo_dolls, stone_free, made_in_heaven, dragons_dream },
 }

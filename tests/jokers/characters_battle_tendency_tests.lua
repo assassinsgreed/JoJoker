@@ -60,7 +60,7 @@ Balatest.TestPlay {
 --#region Esidisi
 Balatest.TestPlay {
     name = 'esidisi_xmult_does_not_increase_when_score_on_fire',
-    category = { 'jokers', 'phantom_blood', 'esidisi' },
+    category = { 'jokers', 'battle_tendency', 'esidisi' },
     jokers = { 'j_jojoker_esidisi' },
     execute = function()
         Balatest.play_hand { '2S' }
@@ -71,7 +71,7 @@ Balatest.TestPlay {
 }
 Balatest.TestPlay {
     name = 'esidisi_xmult_increases_when_score_on_fire',
-    category = { 'jokers', 'phantom_blood', 'esidisi' },
+    category = { 'jokers', 'battle_tendency', 'esidisi' },
     jokers = { 'j_jojoker_esidisi' },
     execute = function()
         Balatest.play_hand { 'AS', 'KS', 'QS', 'JS', '10S' }
@@ -82,7 +82,7 @@ Balatest.TestPlay {
 }
 Balatest.TestPlay {
     name = 'esidisi_xmult_increases_when_score_on_fire_in_subsequent_rounds',
-    category = { 'jokers', 'phantom_blood', 'esidisi' },
+    category = { 'jokers', 'battle_tendency', 'esidisi' },
     jokers = { 'j_jojoker_esidisi' },
     execute = function()
         Balatest.play_hand { 'AS', 'KS', 'QS', 'JS', '10S' }
@@ -95,7 +95,7 @@ Balatest.TestPlay {
 }
 Balatest.TestPlay {
     name = 'esidisi_gives_enhanced_xmult_when_score_does_not_catch_fire',
-    category = { 'jokers', 'phantom_blood', 'esidisi' },
+    category = { 'jokers', 'battle_tendency', 'esidisi' },
     jokers = { 'j_jojoker_esidisi' },
     execute = function()
         G.jokers.cards[1].ability.extra.Xmult = 2

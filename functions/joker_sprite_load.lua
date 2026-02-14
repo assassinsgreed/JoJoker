@@ -35,6 +35,7 @@ JokerSprites = {
         {name = "goo_goo_dolls", base = {pos = {x = 0, y = 0}}, part_atlas = "stone_ocean" },
         {name = "stone_free", base = {pos = {x = 1, y = 0}}, part_atlas = "stone_ocean" },
         {name = "made_in_heaven", base = {pos = {x = 2, y = 0}}, part_atlas = "stone_ocean" },
+        {name = "dragons_dream", base = {pos = {x = 3, y = 0}}, part_atlas = "stone_ocean" },
         -- Part 7: Steel Ball Run
         {name = "mandom", base = {pos = {x = 0, y = 0}}, part_atlas = "steel_ball_run" },
         {name = "the_fifth_lesson", base = {pos = {x = 1, y = 0}}, part_atlas = "steel_ball_run" },

@@ -231,6 +231,16 @@ return {
                     "{C:inactive}Currently: {X:mult,C:white} X#3#"
                 }
             },
+            j_jojoker_dragons_dream = {
+                name = "Dragon's Dream",
+                text = {
+                    "Randomly gains or loses {C:chips}+/- #1#{}, {C:mult}+/- #2#{},",
+                    "{C:money} +/- $#3#{}, or {X:mult,C:white} X#4# {} mult per played hand.",
+                    "All values cannot drop below 0.",
+                    "{br:2}line break",
+                    "{C:inactive}Currently: {C:chips}+#5#{}, {C:mult}+#6#{}, {C:money}$#7#{}, {X:mult,C:white} X#8# {}",
+                }
+            },
             -- Part 7: Steel Ball Run
             j_jojoker_mandom = {
                 name = "Mandom",
@@ -404,10 +414,15 @@ return {
             sound_time_moves = "Time has started to move...",
             sound_stopped_thinking = "Eventually Kars stopped thinking",
             sound_grr = "Grr!",
+            sound_lucky = "Lucky!",
+            sound_unlucky = "Unlucky...",
+            sound_neutral = "I'm neutral, remember?",
             
             -- Common strings
             a_hand = "a hand",
             undecided = "undecided",
+            chips = "chips",
+            xmult = "Xmult",
 
             -- Joker badges
             joker_type_stand_badge = "Stand",

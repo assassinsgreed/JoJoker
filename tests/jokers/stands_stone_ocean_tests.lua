@@ -93,3 +93,26 @@ Balatest.TestPlay {
     end
 }
 --#endregion
+--#region Dragon's Dream
+Balatest.TestPlay {
+    name = 'dragons_dream_randomly_gains_or_loses_values_on_hand_played',
+    category = { 'jokers', 'stone_ocean', 'dragons_dream' },
+    jokers = { 'j_jojoker_dragons_dream' },
+    execute = function()
+        Original_chips = G.jokers.cards[1].ability.extra.curr_chips
+        Original_mult = G.jokers.cards[1].ability.extra.curr_mult
+        Original_money = G.jokers.cards[1].ability.extra.curr_money
+        Original_xmult = G.jokers.cards[1].ability.extra.curr_Xmult
+
+        Balatest.play_hand { '2S' }
+    end,
+    assert = function()
+        local valuesChanged = Original_chips ~= G.jokers.cards[1].ability.extra.curr_chips or
+            Original_mult ~= G.jokers.cards[1].ability.extra.curr_mult or
+            Original_money ~= G.jokers.cards[1].ability.extra.curr_money or
+            Original_xmult ~= G.jokers.cards[1].ability.extra.curr_Xmult
+
+        Balatest.assert_eq(valuesChanged, true, "Dragon's Dream did not change any values on hand played")
+    end
+}
+--#endregion

@@ -11,8 +11,12 @@ jd_def["j_jojoker_joseph_joestar"] = {
 
 jd_def["j_jojoker_esidisi"] = {
     text = {
-        { text = "X", colour = G.C.MULT },
-        { ref_table = "card.ability.extra", ref_value = "Xmult", retrigger_type = "Xmult",  colour = G.C.MULT },
+        {
+            border_nodes = {
+                { text = "X" },
+                { ref_table = "card.ability.extra", ref_value = "Xmult" }
+            }
+        }
     }
 }
 
@@ -37,8 +41,12 @@ jd_def["j_jojoker_speedwagon_bt"] = {
 
 jd_def["j_jojoker_caesar"] = {
     text = {
-        { text = "X", colour = G.C.MULT },
-        { ref_table = "card.ability.extra", ref_value = "Xmult_mod", retrigger_type = "Xmult_mod",  colour = G.C.MULT },
+        {
+            border_nodes = {
+                { text = "X" },
+                { ref_table = "card.ability.extra", ref_value = "Xmult_mod" }
+            }
+        }
     },
     reminder_text = {
         { text = "Per scored stone card", colour = G.C.GREY },
@@ -47,13 +55,16 @@ jd_def["j_jojoker_caesar"] = {
 
 jd_def["j_jojoker_kars_ultimate_lifeform"] = {
     text = {
-        { text = "X", colour = G.C.MULT },
-        { ref_table = "card.ability.extra", ref_value = "Xmult", retrigger_type = "Xmult",  colour = G.C.MULT },
+        {
+            border_nodes = {
+                { text = "X" },
+                { ref_table = "card.ability.extra", ref_value = "Xmult" }
+            }
+        }
     },
     reminder_text = {
-        { text = "Stops thinking after ", colour = G.C.GREY },
+        { text = "Stops thinking in: ", colour = G.C.GREY },
         { ref_table = "card.ability.extra", ref_value = "current_rounds_left", retrigger_type = "current_rounds_left",  colour = G.C.MULT },
-        { text = " round(s)", colour = G.C.GREY },
     }
 }
 
