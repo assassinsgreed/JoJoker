@@ -81,6 +81,19 @@ Balatest.TestPlay {
     end
 }
 Balatest.TestPlay {
+    name = 'esidisi_xmult_increases_when_score_on_fire_in_subsequent_rounds',
+    category = { 'jokers', 'phantom_blood', 'esidisi' },
+    jokers = { 'j_jojoker_esidisi' },
+    execute = function()
+        Balatest.play_hand { 'AS', 'KS', 'QS', 'JS', '10S' }
+        Balatest.next_round()
+        Balatest.play_hand { 'AS', 'KS', 'QS', 'JS', '10S' }
+    end,
+    assert = function()
+        Balatest.assert_eq(G.jokers.cards[1].ability.extra.Xmult, 3, "Esidisi didn't increase Xmult when score caught fire")
+    end
+}
+Balatest.TestPlay {
     name = 'esidisi_gives_enhanced_xmult_when_score_does_not_catch_fire',
     category = { 'jokers', 'phantom_blood', 'esidisi' },
     jokers = { 'j_jojoker_esidisi' },
