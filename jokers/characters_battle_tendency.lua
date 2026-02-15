@@ -222,7 +222,36 @@ local kars_stopped_thinking = {
     end,
 }
 
+local suzie_q = {
+    name = "suzie_q",
+    rarity = 1,
+    cost = 5,
+    jtype = "Character",
+    part = "battle_tendency",
+    blueprint_compat = true,
+    perishable_compat = true,
+    eternal_compat = true,
+    config = { },
+    loc_vars = function(self, info_queue, card)
+      return {vars = { }}
+    end,
+    calculate = function(self, card, context)
+        -- For each scored queen, give it a gold seal if it has no other seals
+        if context.individual and not context.end_of_round and context.cardarea == G.play then
+            if context.other_card:get_id() == 12 then
+                if context.other_card.seal == nil then
+                    sendDebugMessage("Suzie Q: Giving gold seal to scored queen")
+                    context.other_card:set_seal("Gold")
+                    card:juice_up()
+                else
+                    sendDebugMessage("Suzie Q: Scored queen already has a seal, skipping")
+                end
+            end
+        end
+    end
+}
+
 return {
     name = "Battle Tendency Character Jokers",
-    list = { joseph_joestar, esidisi, speedwagon_bt, caesar, kars_ultimate_lifeform, kars_stopped_thinking },
+    list = { joseph_joestar, esidisi, speedwagon_bt, caesar, kars_ultimate_lifeform, kars_stopped_thinking, suzie_q },
 }

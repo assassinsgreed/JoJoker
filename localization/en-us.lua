@@ -93,6 +93,13 @@ return {
                     "{C:inactive}Stopped thinking{}",
                 }
             },
+            j_jojoker_suzie_q = {
+                name = "Suzie Q",
+                text = {
+                    "Scored {C:attention}Queens{} are given a",
+                    "{C:attention}Gold Seal{} if it has no other seals."
+                }
+            },
             -- Part 3: Stardust Crusaders
             j_jojoker_magician_red = {
                 name = "Magician's Red",

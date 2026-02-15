@@ -73,3 +73,12 @@ jd_def["j_jojoker_kars_stopped_thinking"] = {
         { text = "Stopped thinking", colour = G.C.GREY }
     }
 }
+
+jd_def["j_jojoker_suzie_q"] = {
+    text = {
+        { text = "Gold Seal", colour = G.C.GREY }
+    },
+    reminder_text = {
+        { text = "Queens only", colour = G.C.GREY }
+    },
+}

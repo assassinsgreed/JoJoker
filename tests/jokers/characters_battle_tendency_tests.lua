@@ -144,7 +144,7 @@ Balatest.TestPlay {
 --#region Caesar
 Balatest.TestPlay {
     name = 'caesar_gives_stone_cards_xmult_and_destroys_them',
-    category = { 'jokers', 'golden_wind', 'caesar' },
+    category = { 'jokers', 'battle_tendency', 'caesar' },
     jokers = { 'j_jojoker_caesar' },
     deck = { cards = {
         { r = '2', s = 'S', e = 'm_stone' },
@@ -210,6 +210,82 @@ Balatest.TestPlay {
     end,
     assert = function()
         Balatest.assert_eq(G.jokers.cards[1].config.center, G.P_CENTERS['j_jojoker_kars_stopped_thinking'], "Kars (Ultimate Lifeform) did not transform to Kars (Stopped Thinking) once expired")
+    end
+}
+--#endregion
+--#region Suzie Q
+Balatest.TestPlay {
+    name = 'suzie_q_gives_gold_seal_to_scored_queen_with_no_other_seals',
+    category = { 'jokers', 'battle_tendency', 'suzie_q' },
+    jokers = { 'j_jojoker_suzie_q' },
+    deck = { cards = {
+        { r = 'Q', s = 'S' },
+        { r = 'Q', s = 'C' },
+        { r = '5', s = 'H' } } },
+    execute = function()
+        Balatest.play_hand { 'QS' }
+        Balatest.end_round() -- End round to return cards to deck
+    end,
+    assert = function()
+        local queenSeal = G.deck.cards[1].seal
+        Balatest.assert_eq(queenSeal, 'Gold', "Suzie Q didn't give gold seal to scored queen with no other seals")
+    end
+}
+
+Balatest.TestPlay {
+    name = 'suzie_q_gives_gold_seal_to_every_scored_queen_with_no_other_seals',
+    category = { 'jokers', 'battle_tendency', 'suzie_q' },
+    jokers = { 'j_jojoker_suzie_q' },
+    deck = { cards = {
+        { r = 'Q', s = 'S' },
+        { r = 'Q', s = 'C' },
+        { r = '5', s = 'H' } } },
+    execute = function()
+        Balatest.play_hand { 'QS', 'QC' }
+        Balatest.end_round() -- End round to return cards to deck
+    end,
+    assert = function()
+        local queenSeal1 = G.deck.cards[1].seal
+        local queenSeal2 = G.deck.cards[2].seal
+        Balatest.assert_eq(queenSeal1, 'Gold', "Suzie Q didn't give gold seal to scored queen with no other seals")
+        Balatest.assert_eq(queenSeal2, 'Gold', "Suzie Q didn't give gold seal to scored queen with no other seals")
+    end
+}
+
+Balatest.TestPlay {
+    name = 'suzie_q_does_not_give_gold_seal_to_scored_queen_with_other_seals',
+    category = { 'jokers', 'battle_tendency', 'suzie_q' },
+    jokers = { 'j_jojoker_suzie_q' },
+    deck = { cards = {
+        { r = 'Q', s = 'S' },
+        { r = 'Q', s = 'C' },
+        { r = '5', s = 'H' } } },
+    execute = function()
+        G.hand.cards[1].seal = 'Red' -- Manually give non-gold seal to queen to test that gold seal is not given
+        Balatest.play_hand { 'QS' }
+        Balatest.end_round() -- End round to return cards to deck
+    end,
+    assert = function()
+        local queenSeal = G.deck.cards[1].seal
+        Balatest.assert_eq(queenSeal, 'Red', "Suzie Q incorrectly gave gold seal to scored queen with other seals")
+    end
+}
+
+Balatest.TestPlay {
+    name = 'suzie_q_does_not_give_gold_seal_to_scored_non_queen',
+    category = { 'jokers', 'battle_tendency', 'suzie_q' },
+    jokers = { 'j_jojoker_suzie_q' },
+    deck = { cards = {
+        { r = 'Q', s = 'S', seal = 'Red' },
+        { r = 'Q', s = 'C' },
+        { r = '5', s = 'H' } } },
+    execute = function()
+        Balatest.play_hand { '5H' }
+        Balatest.end_round() -- End round to return cards to deck
+    end,
+    assert = function()
+        local fiveSeal = G.deck.cards[3].seal
+        Balatest.assert_eq(fiveSeal, nil, "Suzie Q incorrectly gave gold seal to scored non-queen")
     end
 }
 --#endregion
