@@ -130,3 +130,78 @@ Balatest.TestPlay {
     end
 }
 --#endregion
+--#region Hey Ya!
+Balatest.TestPlay {
+    name = 'hey_ya_converts_scored_cards_to_lucky',
+    category = { 'jokers', 'steel_ball_run', 'hey_ya' },
+    jokers = { 'j_jojoker_hey_ya' },
+    deck = { cards = {
+        { r = 'Q', s = 'S' },
+        { r = 'Q', s = 'C' },
+        { r = '5', s = 'H' } } },
+    execute = function()
+        G.jokers.cards[1].ability.extra.numerator = 1
+        G.jokers.cards[1].ability.extra.denominator = 1
+        Balatest.play_hand { 'QS' }
+        Balatest.end_round() -- End round to return cards to deck
+    end,
+    assert = function()
+        Balatest.assert_eq(G.deck.cards[1].config.center, G.P_CENTERS.m_lucky, "Hey Ya! didn't convert scored card to lucky edition")
+    end
+}
+
+Balatest.TestPlay {
+    name = 'hey_ya_converts_multiple_scored_cards_to_lucky',
+    category = { 'jokers', 'steel_ball_run', 'hey_ya' },
+    jokers = { 'j_jojoker_hey_ya' },
+    deck = { cards = {
+        { r = 'Q', s = 'S' },
+        { r = 'Q', s = 'C' },
+        { r = '5', s = 'H' } } },
+    execute = function()
+        G.jokers.cards[1].ability.extra.numerator = 1
+        G.jokers.cards[1].ability.extra.denominator = 1
+        Balatest.play_hand { 'QS', 'QC' }
+        Balatest.end_round() -- End round to return cards to deck
+    end,
+    assert = function()
+        Balatest.assert_eq(G.deck.cards[1].config.center, G.P_CENTERS.m_lucky, "Hey Ya! didn't convert scored card to lucky edition")
+        Balatest.assert_eq(G.deck.cards[2].config.center, G.P_CENTERS.m_lucky, "Hey Ya! didn't convert scored card to lucky edition")
+    end
+}
+
+Balatest.TestPlay {
+    name = 'hey_ya_does_not_convert_card_with_existing_center_to_lucky',
+    category = { 'jokers', 'steel_ball_run', 'hey_ya' },
+    jokers = { 'j_jojoker_hey_ya' },
+    deck = { cards = {
+        { r = 'Q', s = 'S', e = 'm_stone' },
+        { r = 'Q', s = 'C' },
+        { r = '5', s = 'H' } } },
+    execute = function()
+        G.jokers.cards[1].ability.extra.numerator = 1
+        G.jokers.cards[1].ability.extra.denominator = 1
+        Balatest.play_hand { 'QS' }
+        Balatest.end_round() -- End round to return cards to deck
+    end,
+    assert = function()
+        Balatest.assert_eq(G.deck.cards[1].config.center, G.P_CENTERS.m_stone, "Hey Ya! converted scored stone card to lucky edition but should not have")
+    end
+}
+
+Balatest.TestPlay {
+    name = 'hey_ya_always_triggers_lucky_cards',
+    category = { 'jokers', 'steel_ball_run', 'hey_ya' },
+    jokers = { 'j_jojoker_hey_ya' },
+    deck = { cards = {
+        { r = 'Q', s = 'S', e = 'm_lucky' },
+        { r = 'Q', s = 'C' },
+        { r = '5', s = 'H' } } },
+    execute = function()
+        Balatest.play_hand { 'QS' }
+    end,
+    assert = function()
+        Balatest.assert_chips(315, "Hey Ya! did not trigger mult bonus from lucky card")
+    end
+}
+--#endregion

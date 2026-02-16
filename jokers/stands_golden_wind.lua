@@ -177,7 +177,7 @@ local sticky_fingers = {
 local gold_experience = {
     name = "gold_experience",
     rarity = 3,
-    cost = 8,
+    cost = 7,
     jtype = "Stand",
     jclass = "Close Range",
     part = "golden_wind",
@@ -200,7 +200,7 @@ local gold_experience = {
 
                     return {
                         message = localize('k_upgrade_ex'),
-                        colour = G.C.MULT
+                        colour = G.C.GOLD
                     }
                 end
             end

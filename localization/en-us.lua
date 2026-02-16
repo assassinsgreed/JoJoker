@@ -286,6 +286,16 @@ return {
                     "Effect persists while debuffed."
                 }
             },
+            j_jojoker_hey_ya = {
+                name = "Hey Ya!",
+                text = {
+                    "Scored cards have a {C:attention}#1# in #2#{}",
+                    "chance to become {C:attention}Lucky Cards{} if",
+                    "they do not have an edition.",
+                    "{C:attention}Lucky Cards{} always trigger {C:mult}mult{} bonus,",
+                    "and {C:money}money{} bonus becomes {C:attention}1 in 5{}."
+                }
+            },
             -- Part 8: Jojolion
             j_jojoker_soft_and_wet = {
                 name = "Soft & Wet",

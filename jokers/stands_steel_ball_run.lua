@@ -94,7 +94,56 @@ local oh_lonesome_me = {
     end
 }
 
+local hey_ya = {
+    name = "hey_ya",
+    rarity = 3,
+    cost = 9,
+    jtype = "Stand",
+    jclass = "Close Range",
+    part = "steel_ball_run",
+    blueprint_compat = true,
+    perishable_compat = true,
+    eternal_compat = true,
+    config = { extra = { numerator = 1, denominator = 10 } },
+    loc_vars = function(self, info_queue, center)
+      return {vars = { center.ability.extra.numerator, center.ability.extra.denominator }}
+    end,
+    calculate = function(self, card, context)
+        -- If a lucky card is being scored, it always triggers
+        if context.fix_probability then
+            if context.identifier == 'lucky_mult' then
+                return {
+                    numerator = 1,
+                    denominator = 1,
+                }
+            elseif context.identifier == 'lucky_money' then
+                return {
+                    numerator = 1,
+                    denominator = 5,
+                }
+            end
+        end
+      
+        -- For each scored queen, card, potentially make it lucky if it doesn't have an edition
+        if context.individual and context.cardarea == G.play and not context.other_card.debuff then
+            if context.other_card.config.center == G.P_CENTERS.c_base then
+                if SMODS.pseudorandom_probability(card, 'hey_ya', card.ability.extra.numerator, card.ability.extra.denominator, 'hey_ya') then
+                    card:juice_up()
+                    context.other_card:juice_up()
+                    context.other_card:set_ability(G.P_CENTERS.m_lucky, nil, true)
+                    sendDebugMessage("Hey Ya: Scored card being set to lucky card")
+
+                    return {
+                        message = localize('k_upgrade_ex'),
+                        colour = G.C.GOLD
+                    }
+                end
+            end
+        end
+    end
+}
+
 return {
     name = "Steel Ball Run Stand Jokers",
-    list = { mandom, chocolate_disco, oh_lonesome_me },
+    list = { mandom, chocolate_disco, oh_lonesome_me, hey_ya },
 }
