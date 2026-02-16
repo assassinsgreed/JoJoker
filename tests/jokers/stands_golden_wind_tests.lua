@@ -153,3 +153,67 @@ Balatest.TestPlay {
     end
 }
 --#endregion
+--#region Gold Experience
+Balatest.TestPlay {
+    name = 'gold_experience_gives_polychrome_edition_to_scored_card_without_edition',
+    category = { 'jokers', 'golden_wind', 'gold_experience' },
+    jokers = { 'j_jojoker_gold_experience' },
+    deck = { cards = {
+        { r = 'Q', s = 'S' },
+        { r = 'Q', s = 'C' },
+        { r = '5', s = 'H' } } },
+    execute = function()
+        G.jokers.cards[1].ability.extra.numerator = 1
+        G.jokers.cards[1].ability.extra.denominator = 1
+        Balatest.play_hand { 'QS' }
+        Balatest.end_round() -- End round to return cards to deck
+    end,
+    assert = function()
+        local queenEdition = G.deck.cards[1].edition.key
+        Balatest.assert_eq(queenEdition, 'e_polychrome', "Gold Experience didn't give polychrome edition to scored card with no other editions")
+    end
+}
+
+Balatest.TestPlay {
+    name = 'gold_experience_gives_polychrome_edition_to_multiple_scored_cards_without_edition',
+    category = { 'jokers', 'golden_wind', 'gold_experience' },
+    jokers = { 'j_jojoker_gold_experience' },
+    deck = { cards = {
+        { r = 'Q', s = 'S' },
+        { r = 'Q', s = 'C' },
+        { r = '5', s = 'H' } } },
+    execute = function()
+        G.jokers.cards[1].ability.extra.numerator = 1
+        G.jokers.cards[1].ability.extra.denominator = 1
+        Balatest.play_hand { 'QS', 'QC' }
+        Balatest.end_round() -- End round to return cards to deck
+    end,
+    assert = function()
+        local queenEdition1 = G.deck.cards[1].edition.key
+        local queenEdition2 = G.deck.cards[2].edition.key
+        Balatest.assert_eq(queenEdition1, 'e_polychrome', "Gold Experience didn't give polychrome edition to scored card with no other editions")
+        Balatest.assert_eq(queenEdition2, 'e_polychrome', "Gold Experience didn't give polychrome edition to scored card with no other editions")
+    end
+}
+
+Balatest.TestPlay {
+    name = 'gold_experience_does_not_give_polychrome_to_card_with_an_existing_edition',
+    category = { 'jokers', 'golden_wind', 'gold_experience' },
+    jokers = { 'j_jojoker_gold_experience' },
+    deck = { cards = {
+        { r = 'Q', s = 'S' },
+        { r = 'Q', s = 'C' },
+        { r = '5', s = 'H' } } },
+    execute = function()
+        G.jokers.cards[1].ability.extra.numerator = 1
+        G.jokers.cards[1].ability.extra.denominator = 1
+        G.hand.cards[1]:set_edition("e_foil")
+        Balatest.play_hand { 'QS' }
+        Balatest.end_round() -- End round to return cards to deck
+    end,
+    assert = function()
+        local queenEdition1 = G.deck.cards[1].edition.key
+        Balatest.assert_eq(queenEdition1, 'e_foil', "Gold Experience incorrectly gave polychrome edition to card with existing edition")
+    end
+}
+--#endregion

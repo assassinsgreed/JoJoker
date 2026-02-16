@@ -213,6 +213,14 @@ return {
                     "gives {C:mult}+#1#{}.",
                 }
             },
+            j_jojoker_gold_experience = {
+                name = "Gold Experience",
+                text = {
+                    "Scored cards have a {C:attention}#1# in #2#{}",
+                    "chance to become {C:dark_edition}Polychrome{} if",
+                    "they do not have an edition."
+                }
+            },
             -- Part 6: Stone Ocean
             j_jojoker_goo_goo_dolls = {
                 name = "Goo Goo Dolls",

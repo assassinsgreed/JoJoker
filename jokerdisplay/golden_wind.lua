@@ -53,3 +53,14 @@ jd_def["j_jojoker_leaky_eye_luca"] = {
         { text = "Spades only", colour = G.C.GREY, },
     },
 }
+
+jd_def["j_jojoker_gold_experience"] = {
+    text = {
+        { text = "Convert Polychrome", colour = G.C.GREY }
+    },
+    reminder_text = {
+        { ref_table = "card.ability.extra", ref_value = "numerator", retrigger_type = "numerator",  colour = G.C.GOLD },
+        { text = " in ", colour = G.C.GOLD },
+        { ref_table = "card.ability.extra", ref_value = "denominator", retrigger_type = "denominator",  colour = G.C.GOLD },
+    },
+}

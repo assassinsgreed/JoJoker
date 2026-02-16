@@ -174,7 +174,41 @@ local sticky_fingers = {
     end
 }
 
+local gold_experience = {
+    name = "gold_experience",
+    rarity = 3,
+    cost = 8,
+    jtype = "Stand",
+    jclass = "Close Range",
+    part = "golden_wind",
+    blueprint_compat = true,
+    perishable_compat = true,
+    eternal_compat = true,
+    config = { extra = { numerator = 1, denominator = 10 } },
+    loc_vars = function(self, info_queue, center)
+      return {vars = { center.ability.extra.numerator, center.ability.extra.denominator }}
+    end,
+    calculate = function(self, card, context)
+        -- For each scored queen, card, potentially make it polychrome if it doesn't have an edition
+        if context.individual and context.cardarea == G.play and not context.other_card.debuff then
+            if not context.other_card.edition then
+                if SMODS.pseudorandom_probability(card, 'gold_experience', card.ability.extra.numerator, card.ability.extra.denominator, 'gold_experience') then
+                    card:juice_up()
+                    context.other_card:juice_up()
+                    context.other_card:set_edition("e_polychrome")
+                    sendDebugMessage("Gold Experience: Scored card being set to polychrome")
+
+                    return {
+                        message = localize('k_upgrade_ex'),
+                        colour = G.C.MULT
+                    }
+                end
+            end
+        end
+    end
+}
+
 return {
     name = "Golden Wind Stand Jokers",
-    list = { sex_pistols, grateful_dead, spice_girl, sticky_fingers },
+    list = { sex_pistols, grateful_dead, spice_girl, sticky_fingers, gold_experience },
 }
