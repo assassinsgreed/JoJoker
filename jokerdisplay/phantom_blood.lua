@@ -15,7 +15,7 @@ jd_def["j_jojoker_baron_zeppeli"] = {
         { text = "-50% scored chips", colour = G.C.CHIPS },
     },
     reminder_text = {
-        { text = "+10% original chips", colour = G.C.MULT },
+        { text = "+20% original chips", colour = G.C.MULT },
     }
 }
 

@@ -16,7 +16,7 @@ return {
                 name = "Baron Zeppeli",
                 text = {
                     "Cuts scored {C:chips}chips{} in half when scored.",
-                    "Adds {C:mult}mult{} equal to {C:attention}10%{} of original chips."
+                    "Adds {C:mult}mult{} equal to {C:attention}20%{} of original chips."
                 }
             },
             j_jojoker_speedwagon = {

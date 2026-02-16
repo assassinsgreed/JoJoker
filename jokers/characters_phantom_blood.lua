@@ -70,7 +70,7 @@ local baron_zeppeli = {
         if context.final_scoring_step then
             local currentChips = hand_chips or 0
             hand_chips = math.floor(currentChips / 2)
-            local addedMult = math.floor(currentChips * 0.1)
+            local addedMult = math.floor(currentChips * 0.2)
             mult = mult + addedMult
             sendDebugMessage("Baron Zeppeli: Cut chips to "..hand_chips.." and added "..addedMult.." to mult, new mult is "..(mult))
 

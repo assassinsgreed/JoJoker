@@ -10,7 +10,7 @@ local red_hot_chili_pepper = {
     blueprint_compat = true,
     perishable_compat = true,
     eternal_compat = true,
-    config = { extra = { mult_mod = 1, money_mod = 1, mult = 0 } },
+    config = { extra = { mult_mod = 0.5, money_mod = 1, mult = 0 } },
     loc_vars = function(self, info_queue, card)
       return {vars = { card.ability.extra.mult_mod, card.ability.extra.money_mod, card.ability.extra.mult }}
     end,
