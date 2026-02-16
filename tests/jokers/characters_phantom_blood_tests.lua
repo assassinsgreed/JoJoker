@@ -35,14 +35,14 @@ Balatest.TestPlay {
 --#endregion
 --#region Baron Zeppeli
 Balatest.TestPlay {
-    name = 'baron_zeppeli_cuts_chips_by_50_percent_and_increases_mult_by_15_percent_of_original_chips',
+    name = 'baron_zeppeli_cuts_chips_by_50_percent_and_increases_mult_by_20_percent_of_original_chips',
     category = { 'jokers', 'phantom_blood', 'baron_zeppeli' },
     jokers = { 'j_jojoker_baron_zeppeli' },
     execute = function()
         Balatest.play_hand { '2S', '3S', '4S', '5S', '6S' }
     end,
     assert = function()
-        Balatest.assert_chips(1200, "Baron Zeppeli didn't cut chips in half")
+        Balatest.assert_chips(1920, "Baron Zeppeli didn't cut chips in half")
     end
 }
 --#endregion
