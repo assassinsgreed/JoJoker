@@ -127,6 +127,12 @@ return {
                     "a hand when playing one."
                 }
             },
+            j_jojoker_wheel_of_fortune = {
+                name = "Wheel of Fortune",
+                text = {
+                    "{C:attention}Wheel of Fortune{} tarot cards always trigger."
+                }
+            },
             -- Part 4: Diamond is Unbreakable
             j_jojoker_voice_of_love = {
                 name = "Voice of Love",

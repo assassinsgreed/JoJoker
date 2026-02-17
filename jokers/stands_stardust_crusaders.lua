@@ -99,7 +99,35 @@ local star_platinum = {
     end
 }
 
+local wheel_of_fortune = {
+    name = "wheel_of_fortune",
+    rarity = 1,
+    cost = 5,
+    jtype = "Stand",
+    jclass = "Close Range",
+    part = "stardust_crusaders",
+    blueprint_compat = false,
+    perishable_compat = true,
+    eternal_compat = true,
+    config = { extra = { } },
+    loc_vars = function(self, info_queue, center)
+      return {vars = {}}
+    end,
+    calculate = function(self, card, context)
+        -- Wheel of Fortune cards are guaranteed to trigger
+        if context.fix_probability then
+            if context.identifier == 'wheel_of_fortune' then
+                sendDebugMessage("Wheel of Fortune is guaranteeing Wheel of Fortune tarot effect (if possible)")
+                return {
+                    numerator = 1,
+                    denominator = 1,
+                }
+            end
+        end
+    end
+}
+
 return {
     name = "Stardust Crusaders Stand Jokers",
-    list = { magician_red, yellow_temperance, star_platinum },
+    list = { magician_red, yellow_temperance, star_platinum, wheel_of_fortune },
 }

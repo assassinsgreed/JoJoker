@@ -32,3 +32,9 @@ jd_def["j_jojoker_star_platinum"] = {
         { ref_table = "card.ability.extra", ref_value = "denominator", retrigger_type = "denominator",  colour = G.C.GOLD },
     },
 }
+
+jd_def["j_jojoker_wheel_of_fortune"] = {
+    text = {
+        { text = "Wheel of Fortune", colour = G.C.GREY },
+    },
+}

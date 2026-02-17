@@ -72,3 +72,18 @@ Balatest.TestPlay {
     end
 }
 --#endregion
+--#region Wheel of Fortune
+Balatest.TestPlay {
+    name = 'wheel_of_fortune_guarantees_tarot_effect',
+    category = { 'jokers', 'stardust_crusaders', 'wheel_of_fortune' },
+    jokers = { 'j_jojoker_wheel_of_fortune' },
+    consumeables = { 'c_wheel_of_fortune' },
+    execute = function()
+        Balatest.use(G.consumeables.cards[1])
+    end,
+    assert = function()
+        local has_edition = G.jokers.cards[1].edition.key ~= nil -- Could be multiple effects
+        Balatest.assert(has_edition, "Wheel of Fortune did not guarantee tarot effect")
+    end
+}
+--#endregion
