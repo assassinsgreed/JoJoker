@@ -163,7 +163,7 @@ local zombies = {
 
 local straizo = {
     name = "straizo",
-    rarity = 2,
+    rarity = 1,
     cost = 5,
     jtype = "Character",
     part = "phantom_blood",
