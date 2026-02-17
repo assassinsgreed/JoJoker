@@ -59,7 +59,7 @@ Balatest.TestPlay {
     hands = 4,
     discards = 3,
     execute = function()
-        Balatest.highlight { '2S' } -- Needed to complete execute block
+        Balatest.wait()
     end,
     assert = function()
         Balatest.assert_eq(G.GAME.current_round.hands_left, G.jokers.cards[1].ability.extra.hands, "Made in Heaven did not reduce hands")
@@ -73,7 +73,7 @@ Balatest.TestPlay {
     hands = 4,
     discards = 3,
     execute = function()
-        Balatest.highlight { '2S' } -- Needed to complete execute block
+        Balatest.wait()
     end,
     assert = function()
         Balatest.assert_eq(G.jokers.cards[1].ability.extra.Xmult, 6, "Made in Heaven did not gain XMult for each lost hand and discard")
@@ -86,7 +86,7 @@ Balatest.TestPlay {
     hands = 4,
     discards = 3,
     execute = function()
-        Balatest.highlight { '2S' } -- Needed to complete execute block
+        Balatest.wait()
     end,
     assert = function()
         Balatest.assert_eq(#G.hand.cards, 52, "Made in Heaven did not set hand size to deck size")

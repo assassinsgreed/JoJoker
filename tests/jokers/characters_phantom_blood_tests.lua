@@ -87,7 +87,7 @@ Balatest.TestPlay {
     category = { 'jokers', 'phantom_blood', 'zombies' },
     jokers = { 'j_jojoker_zombies', 'j_jojoker_zombies', 'j_jojoker_zombies' },
     execute = function()
-        Balatest.highlight { '2S' } -- Needed to complete execute block
+        Balatest.wait()
     end,
     assert = function()
         local zombie_mult = G.jokers.cards[1].ability.extra.current_mult

@@ -15,8 +15,8 @@ local smooth_operator = {
      return {vars = {center.ability.extra.mult}}
    end,
     calculate = function(self, card, context)
-        -- At the start of blind, relocate and reset position state
-        if context.setting_blind then
+        -- When ending a shop, relocate and reset position state (done instead of when starting blind because repositioning can break other jokers' initialization logic!)
+        if context.ending_shop then
             if not card.ability.extra.relocated_this_blind then
                 local card_index = find_joker_pos(card)
                 sendDebugMessage("Smooth Operator: Found at position "..card_index)

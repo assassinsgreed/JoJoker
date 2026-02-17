@@ -97,7 +97,7 @@ Balatest.TestPlay {
     jokers = { 'j_jojoker_oh_lonesome_me' },
     hand_size = 8,
     execute = function()
-        Balatest.unhighlight_all() -- Needed to complete execute block
+        Balatest.wait()
     end,
     assert = function()
         Balatest.assert_eq(G.hand.config.card_limit, 8 + G.jokers.cards[1].ability.extra.hand_size, "Oh Lonesome Me did not increase hand size correctly")

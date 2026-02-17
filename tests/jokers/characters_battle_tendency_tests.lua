@@ -166,7 +166,7 @@ Balatest.TestPlay {
     category = { 'jokers', 'battle_tendency', 'kars_ultimate_lifeform' },
     jokers = { 'j_jojoker_kars_ultimate_lifeform' },
     execute = function()
-        Balatest.highlight { '2S' } -- Needed to complete execute block
+        Balatest.wait()
     end,
     assert = function()
         Balatest.assert_eq(G.jokers.cards[1].ability.extra.Xmult, 1, "Kars (Ultimate Lifeform) does not start with 1x mult")

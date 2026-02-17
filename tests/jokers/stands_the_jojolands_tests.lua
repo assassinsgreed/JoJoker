@@ -3,7 +3,7 @@ Balatest.TestPlay {
     category = { 'jokers', 'the_jojolands', 'smooth_operator' },
     jokers = { 'j_jojoker_smooth_operator' },
     execute = function()
-        Balatest.end_round()
+        Balatest.next_round()
     end,
     assert = function()
         Balatest.assert_eq(G.jokers.cards[1].ability.extra.mult, 0, "Smooth Operator gained mult after round ended as sole joker.")
@@ -14,6 +14,7 @@ Balatest.TestPlay {
     category = { 'jokers', 'the_jojolands', 'smooth_operator' },
     jokers = { 'j_jojoker_soft_and_wet', 'j_jojoker_smooth_operator', 'j_jojoker_soft_and_wet' },
     execute = function()
+        Balatest.next_round() -- Move to next round to reset manual positioning flag
         Balatest.end_round()
     end,
     assert = function()
@@ -26,7 +27,7 @@ Balatest.TestPlay {
     jokers = { 'j_jojoker_soft_and_wet', 'j_jojoker_smooth_operator', },
     execute = function()
         G.jokers.cards[2].ability.extra.manually_repositioned = true
-        Balatest.end_round()
+        Balatest.next_round()
     end,
     assert = function()
         Balatest.assert_eq(G.jokers.cards[2].ability.extra.mult, 0, "Smooth Operator gained mult but shouldn't have, due to being moved.")
@@ -37,9 +38,11 @@ Balatest.TestPlay {
     category = { 'jokers', 'the_jojolands', 'smooth_operator' },
     jokers = { 'j_jojoker_soft_and_wet', 'j_jojoker_smooth_operator', },
     execute = function()
-        Balatest.wait()
+        Balatest.end_round()
+        Balatest.cash_out()
+        Balatest.exit_shop()
     end,
     assert = function()
-        Balatest.assert_eq(G.jokers.cards[1].ability.extra.position, 1, "Smooth Operator did not move on blind start.")
+        Balatest.assert_eq(G.jokers.cards[1].ability.extra.position, 1, "Smooth Operator did not move on shop end.")
     end
 }
