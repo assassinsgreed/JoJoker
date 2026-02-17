@@ -35,6 +35,15 @@ return {
                     "{C:inactive}Currently: {C:mult}+#2#"
                 }
             },
+            j_jojoker_straizo = {
+                name = "Straizo",
+                text = {
+                    "Gives {C:chips}+#1#{} chips for each",
+                    "played {C:attention}Straight{}.",
+                    "Gives {C:chips}+#2#{} chips for each",
+                    "played {C:attention}Straight / Royal Flush{}."
+                }
+            },
             -- Part 2: Battle Tendency
             j_jojoker_joseph_joestar = {
                 name = "Joseph Joestar",

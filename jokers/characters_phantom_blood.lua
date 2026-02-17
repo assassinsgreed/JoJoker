@@ -161,7 +161,42 @@ local zombies = {
     end
 }
 
+local straizo = {
+    name = "straizo",
+    rarity = 2,
+    cost = 5,
+    jtype = "Character",
+    part = "phantom_blood",
+    blueprint_compat = true,
+    perishable_compat = true,
+    eternal_compat = true,
+    config = { extra = { chips_straight = 80, chips_straight_flush = 200 } },
+    loc_vars = function(self, info_queue, center)
+      return {vars = { center.ability.extra.chips_straight, center.ability.extra.chips_straight_flush }}
+    end,
+    calculate = function(self, card, context)
+        if context.cardarea == G.jokers and context.scoring_hand then
+            local hand_chips_map = {
+                ["Straight"] = card.ability.extra.chips_straight,
+                ["Straight Flush"] = card.ability.extra.chips_straight_flush
+            }
+            
+            if context.joker_main then
+                local chips = hand_chips_map[context.scoring_name]
+                if chips then
+                    sendDebugMessage("Straizo: Giving "..chips.." chips for "..context.scoring_name)
+                    return {
+                        message = localize{type='variable', key='a_chips', vars={chips}},
+                        colour=G.C.CHIPS,
+                        chip_mod=chips,
+                    }
+                end
+            end
+        end
+    end
+}
+
 return {
     name = "Phantom Blood Effect Jokers",
-    list = { danny, baron_zeppeli, speedwagon, zombies },
+    list = { danny, baron_zeppeli, speedwagon, zombies, straizo },
 }

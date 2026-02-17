@@ -109,3 +109,43 @@ Balatest.TestPlay {
     end
 }
 --#endregion
+--#region Straizo
+Balatest.TestPlay {
+    name = 'straizo_gives_chips_for_straights',
+    category = { 'jokers', 'phantom_blood', 'straizo' },
+    jokers = { 'j_jojoker_straizo' },
+    execute = function()
+        Balatest.play_hand { '2S', '3H', '4D', '5C', '6S' }
+    end,
+    assert = function()
+        local expected_chips = (50 + G.jokers.cards[1].ability.extra.chips_straight) * 4
+        Balatest.assert_chips(expected_chips, "Straizo did not give correct chips for straights")
+    end
+}
+
+Balatest.TestPlay {
+    name = 'straizo_gives_chips_for_straight_flushes',
+    category = { 'jokers', 'phantom_blood', 'straizo' },
+    jokers = { 'j_jojoker_straizo' },
+    execute = function()
+        Balatest.play_hand { '2S', '3S', '4S', '5S', '6S' }
+    end,
+    assert = function()
+        local expected_chips = (120 + G.jokers.cards[1].ability.extra.chips_straight_flush) * 8
+        Balatest.assert_chips(expected_chips, "Straizo did not give correct chips for straight flushes")
+    end
+}
+
+Balatest.TestPlay {
+    name = 'straizo_gives_chips_for_royal_flushes',
+    category = { 'jokers', 'phantom_blood', 'straizo' },
+    jokers = { 'j_jojoker_straizo' },
+    execute = function()
+        Balatest.play_hand { '10S', 'JS', 'QS', 'KS', 'AS' }
+    end,
+    assert = function()
+        local expected_chips = (151 + G.jokers.cards[1].ability.extra.chips_straight_flush) * 8
+        Balatest.assert_chips(expected_chips, "Straizo did not give correct chips for royal flushes")
+    end
+}
+--#endregion

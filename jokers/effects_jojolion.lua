@@ -3,7 +3,7 @@
 local higashikata_house = {
     name = "higashikata_house",
     rarity = 1,
-    cost = 6,
+    cost = 5,
     jtype = "Effect",
     part = "jojolion",
     blueprint_compat = true,

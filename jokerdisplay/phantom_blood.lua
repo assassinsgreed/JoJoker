@@ -39,3 +39,15 @@ jd_def["j_jojoker_zombies"] = {
         { text = "^{held Zombies}", colour = G.C.GREY },
     }
 }
+
+jd_def["j_jojoker_straizo"] = {
+    text = {
+        { text = "+", colour = G.C.CHIPS },
+        { ref_table = "card.ability.extra", ref_value = "chips_straight", retrigger_type = "chips_straight",  colour = G.C.CHIPS },
+        { text = " / ", colour = G.C.CHIPS },
+        { ref_table = "card.ability.extra", ref_value = "chips_straight_flush", retrigger_type = "chips_straight_flush",  colour = G.C.CHIPS },
+    },
+    reminder_text = {
+        { text = "Straight / Straight Flush", colour = G.C.GREY },
+    }
+}
