@@ -87,3 +87,76 @@ Balatest.TestPlay {
     end
 }
 --#endregion
+--#region The Lovers
+Balatest.TestPlay {
+    name = 'the_lovers_increases_multiplier_of_scored_heart_cards',
+    category = { 'jokers', 'stardust_crusaders', 'the_lovers' },
+    jokers = { 'j_jojoker_the_lovers' },
+    deck = { cards = {
+        { r = 'Q', s = 'H' },
+        { r = 'Q', s = 'H' },
+        { r = '5', s = 'H' },
+        { r = '2', s = 'C' } } },
+    execute = function()
+        Balatest.play_hand { 'QH', 'QH', '5H' } -- Play all and check the deck afterward
+        Balatest.end_round() -- Get all cards back into the deck for comparision
+            
+    end,
+    assert = function()
+        local firstQueenPermaMult = G.deck.cards[1].ability.perma_mult
+        local secondQueenPermaMult = G.deck.cards[2].ability.perma_mult
+        local fivePermaMult = G.deck.cards[3].ability.perma_mult
+        Balatest.assert_eq(firstQueenPermaMult, 3, "The Lovers did not permanently increase mult of first scored heart.")
+        Balatest.assert_eq(secondQueenPermaMult, 3, "The Lovers did not permanently increase mult of second scored heart.")
+        Balatest.assert_eq(fivePermaMult, 0, "The Lovers incorrectly increased mult of non-scored heart card.")
+    end
+}
+
+Balatest.TestPlay {
+    name = 'the_lovers_further_increases_multiplier_of_already_increased_heart_cards',
+    category = { 'jokers', 'stardust_crusaders', 'the_lovers' },
+    jokers = { 'j_jojoker_the_lovers' },
+    deck = { cards = {
+        { r = 'Q', s = 'H' },
+        { r = 'Q', s = 'H' },
+        { r = '5', s = 'H' },
+        { r = '2', s = 'C' } } },
+    execute = function()
+        Balatest.play_hand { 'QH', 'QH', '5H' } -- Play all and check the deck afterward
+        Balatest.next_round()
+        Balatest.play_hand { 'QH', 'QH', '5H' } -- Play all and check the deck afterward
+        Balatest.end_round() -- Get all cards back into the deck for comparision
+    end,
+    assert = function()
+        local firstQueenPermaMult = G.deck.cards[1].ability.perma_mult
+        local secondQueenPermaMult = G.deck.cards[2].ability.perma_mult
+        local fivePermaMult = G.deck.cards[3].ability.perma_mult
+        Balatest.assert_eq(firstQueenPermaMult, 6, "The Lovers did not permanently increase mult of first scored heart.")
+        Balatest.assert_eq(secondQueenPermaMult, 6, "The Lovers did not permanently increase mult of second scored heart.")
+        Balatest.assert_eq(fivePermaMult, 0, "The Lovers incorrectly increased mult of non-scored heart card.")
+    end
+}
+
+Balatest.TestPlay {
+    name = 'the_lovers_does_not_increase_multiplier_of_non_heart_cards',
+    category = { 'jokers', 'stardust_crusaders', 'the_lovers' },
+    jokers = { 'j_jojoker_the_lovers' },
+    deck = { cards = {
+        { r = 'Q', s = 'C' },
+        { r = 'Q', s = 'C' },
+        { r = '5', s = 'C' },
+        { r = '2', s = 'C' } } },
+    execute = function()
+        Balatest.play_hand { 'QC', 'QC', '5C' } -- Play all and check the deck afterward
+        Balatest.end_round() -- Get all cards back into the deck for comparision
+    end,
+    assert = function()
+        local firstQueenPermaMult = G.deck.cards[1].ability.perma_mult
+        local secondQueenPermaMult = G.deck.cards[2].ability.perma_mult
+        local fivePermaMult = G.deck.cards[3].ability.perma_mult
+        Balatest.assert_eq(firstQueenPermaMult, 0, "The Lovers incorrectly increased mult of first non-heart card.")
+        Balatest.assert_eq(secondQueenPermaMult, 0, "The Lovers incorrectly increased mult of second non-heart card.")
+        Balatest.assert_eq(fivePermaMult, 0, "The Lovers incorrectly increased mult of third non-heart card.")
+    end
+}
+--#endregion

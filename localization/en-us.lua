@@ -133,6 +133,13 @@ return {
                     "{C:attention}Wheel of Fortune{} tarot cards always trigger."
                 }
             },
+            j_jojoker_the_lovers = {
+                name = "The Lovers",
+                text = {
+                    "Each scored {C:hearts}Heart{} card permanently",
+                    "gains {C:mult}+#1#{}."
+                }
+            },
             -- Part 4: Diamond is Unbreakable
             j_jojoker_voice_of_love = {
                 name = "Voice of Love",

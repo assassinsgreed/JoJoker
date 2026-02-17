@@ -38,3 +38,13 @@ jd_def["j_jojoker_wheel_of_fortune"] = {
         { text = "Wheel of Fortune", colour = G.C.GREY },
     },
 }
+
+jd_def["j_jojoker_the_lovers"] = {
+    text = {
+        { text = "+", colour = G.C.MULT },
+        { ref_table = "card.ability.extra", ref_value = "mult_mod", retrigger_type = "mult_mod",  colour = G.C.MULT },
+    },
+    reminder_text = {
+        { text = "Per scored Heart", colour = G.C.GREY, },
+    }
+}

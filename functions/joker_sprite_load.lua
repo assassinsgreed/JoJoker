@@ -21,6 +21,7 @@ JokerSprites = {
         {name = "ndoul", base = {pos = {x = 2, y = 0}}, part_atlas = "stardust_crusaders" },
         {name = "star_platinum", base = {pos = {x = 3, y = 0}}, part_atlas = "stardust_crusaders" },
         {name = "wheel_of_fortune", base = {pos = {x = 4, y = 0}}, part_atlas = "stardust_crusaders" },
+        {name = "the_lovers", base = {pos = {x = 0, y = 1}}, part_atlas = "stardust_crusaders" },
         -- Part 4: Diamond is Unbreakable
         {name = "voice_of_love", base = {pos = {x = 0, y = 0}}, part_atlas = "diamond_is_unbreakable" },
         {name = "shizuka", base = {pos = {x = 1, y = 0}}, part_atlas = "diamond_is_unbreakable" },

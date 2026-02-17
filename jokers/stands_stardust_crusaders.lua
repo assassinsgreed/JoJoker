@@ -127,7 +127,46 @@ local wheel_of_fortune = {
     end
 }
 
+local the_lovers = {
+    name = "the_lovers",
+    rarity = 1,
+    cost = 4,
+    jtype = "Stand",
+    jclass = "Long Range",
+    part = "stardust_crusaders",
+    blueprint_compat = true,
+    perishable_compat = true,
+    eternal_compat = true,
+    config = { extra = { mult_mod = 3 } },
+    loc_vars = function(self, info_queue, center)
+      return {vars = { center.ability.extra.mult_mod }}
+    end,
+    calculate = function(self, card, context)
+        -- Permanently gives +3 mult to each scored heart card
+        if context.individual and not context.end_of_round and context.cardarea == G.play then
+            if context.other_card:is_suit("Hearts") then
+                if context.other_card.debuff then
+                    return {
+                        message = localize("k_debuffed"),
+                        colour = G.C.RED,
+                        card = card,
+                    }
+                else
+                    context.other_card.ability.perma_mult = (context.other_card.ability.perma_mult or 0) + card.ability.extra.mult_mod
+                    context.other_card:juice_up()
+                    sendDebugMessage("The Lovers: Increasing multiplier of scored heart to "..tostring(context.other_card.ability.perma_mult))
+
+                    return {
+                        message = localize('k_upgrade_ex'),
+                        colour = G.C.GOLD
+                    }
+                end
+            end
+        end
+    end
+}
+
 return {
     name = "Stardust Crusaders Stand Jokers",
-    list = { magician_red, yellow_temperance, star_platinum, wheel_of_fortune },
+    list = { magician_red, yellow_temperance, star_platinum, wheel_of_fortune, the_lovers },
 }
