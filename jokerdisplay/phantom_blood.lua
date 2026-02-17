@@ -51,3 +51,13 @@ jd_def["j_jojoker_straizo"] = {
         { text = "Straight / Straight Flush", colour = G.C.GREY },
     }
 }
+
+jd_def["j_jojoker_george_joestar"] = {
+    text = {
+        { text = "$", colour = G.C.MONEY },
+        { ref_table = "card.ability.extra", ref_value = "money_mod", retrigger_type = "money_mod", colour = G.C.MONEY },
+    },
+    reminder_text = {
+        { text = "Per held joker", colour = G.C.GREY },
+    }
+}

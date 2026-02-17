@@ -149,3 +149,17 @@ Balatest.TestPlay {
     end
 }
 --#endregion
+--#region George Joestar
+Balatest.TestPlay {
+    name = 'george_joestar_gives_money_for_each_held_joker_at_end_of_round',
+    category = { 'jokers', 'phantom_blood', 'george_joestar' },
+    jokers = { 'j_jojoker_george_joestar', 'j_jojoker_speedwagon', 'j_jojoker_speedwagon' },
+    execute = function()
+        Balatest.end_round()
+        Balatest.cash_out()
+    end,
+    assert = function()
+        Balatest.assert_dollars(#G.jokers.cards * G.jokers.cards[1].ability.extra.money_mod, "George Joestar did not give correct money for each held joker")
+    end
+}
+--#endregion

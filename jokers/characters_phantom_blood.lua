@@ -196,7 +196,27 @@ local straizo = {
     end
 }
 
+local george_joestar = {
+    name = "george_joestar",
+    rarity = 1,
+    cost = 4,
+    jtype = "Character",
+    part = "phantom_blood",
+    blueprint_compat = true,
+    perishable_compat = true,
+    eternal_compat = true,
+    config = { extra = { money_mod = 1 } },
+    loc_vars = function(self, info_queue, center)
+      return {vars = { center.ability.extra.money_mod }}
+    end,
+    calc_dollar_bonus = function(self, card)
+        local moneyGiven = #G.jokers.cards * card.ability.extra.money_mod
+        sendDebugMessage("George Joestar: Giving $"..moneyGiven.." based on count of held jokers.")
+        return ease_joker_dollars(card, "George Joestar", moneyGiven, true)
+	end
+}
+
 return {
     name = "Phantom Blood Effect Jokers",
-    list = { danny, baron_zeppeli, speedwagon, zombies, straizo },
+    list = { danny, baron_zeppeli, speedwagon, zombies, straizo, george_joestar },
 }

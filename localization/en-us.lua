@@ -44,6 +44,13 @@ return {
                     "played {C:attention}Straight / Royal Flush{}."
                 }
             },
+            j_jojoker_george_joestar = {
+                name = "George Joestar",
+                text = {
+                    "Gives {C:money}$#1#{} per held joker",
+                    "at the end of the round."
+                }
+            },
             -- Part 2: Battle Tendency
             j_jojoker_joseph_joestar = {
                 name = "Joseph Joestar",
