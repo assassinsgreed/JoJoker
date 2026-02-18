@@ -251,7 +251,41 @@ local suzie_q = {
     end
 }
 
+local nypd = {
+    name = "nypd",
+    rarity = 1,
+    cost = 5,
+    jtype = "Character",
+    part = "battle_tendency",
+    blueprint_compat = false,
+    perishable_compat = true,
+    eternal_compat = false,
+    config = { extra = { mult = 4 } },
+    loc_vars = function(self, info_queue, center)
+      return {vars = {center.ability.extra.mult}}
+    end,
+    calculate = function(self, card, context)
+        -- Each club gives +4 mult
+        if context.individual and not context.end_of_round and context.cardarea == G.play then
+            if context.other_card:is_suit("Clubs") then
+                if context.other_card.debuff then
+                    return {
+                        message = localize("k_debuffed"),
+                        colour = G.C.RED,
+                        card = card,
+                    }
+                else
+                    return {
+                        mult = card.ability.extra.mult,
+                        card = card
+                    }
+                end
+            end
+        end
+    end
+}
+
 return {
     name = "Battle Tendency Character Jokers",
-    list = { joseph_joestar, esidisi, speedwagon_bt, caesar, kars_ultimate_lifeform, kars_stopped_thinking, suzie_q },
+    list = { joseph_joestar, esidisi, speedwagon_bt, caesar, kars_ultimate_lifeform, kars_stopped_thinking, suzie_q, nypd },
 }

@@ -289,3 +289,39 @@ Balatest.TestPlay {
     end
 }
 --#endregion
+
+--#region NYPD
+Balatest.TestPlay {
+    name = 'nypd_gives_no_mult_for_non_clubs_cards',
+    category = { 'jokers', 'battle_tendency', 'nypd' },
+    jokers = { 'j_jojoker_nypd' },
+    execute = function()
+        Balatest.play_hand { '2S' }
+    end,
+    assert = function()
+        Balatest.assert_chips(7, "NYPD incorrectly gave mult for non-clubs card")
+    end
+}
+Balatest.TestPlay {
+    name = 'nypd_gives_mult_for_single_clubs_card',
+    category = { 'jokers', 'battle_tendency', 'nypd' },
+    jokers = { 'j_jojoker_nypd' },
+    execute = function()
+        Balatest.play_hand { '2C' }
+    end,
+    assert = function()
+        Balatest.assert_chips(7 * (G.jokers.cards[1].ability.extra.mult + 1), "NYPD incorrectly gave mult for single clubs card")
+    end
+}
+Balatest.TestPlay {
+    name = 'nypd_gives_mult_for_each_scored_clubs_card',
+    category = { 'jokers', 'battle_tendency', 'nypd' },
+    jokers = { 'j_jojoker_nypd' },
+    execute = function()
+        Balatest.play_hand { '2C', '3C', '5C', '7C', '8C' }
+    end,
+    assert = function()
+        Balatest.assert_chips(60 * (G.jokers.cards[1].ability.extra.mult * 5 + 4), "NYPD incorrectly gave mult for multiple scored clubs cards")
+    end
+}
+--#endregion

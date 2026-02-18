@@ -116,6 +116,13 @@ return {
                     "{C:attention}Gold Seal{} if it has no other seals."
                 }
             },
+            j_jojoker_nypd = {
+                name = "N.Y.P.D",
+                text = {
+                    "Each scored {C:clubs}Club{} card",
+                    "gives {C:mult}+#1#{}.",
+                }
+            },
             -- Part 3: Stardust Crusaders
             j_jojoker_magician_red = {
                 name = "Magician's Red",
