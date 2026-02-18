@@ -311,6 +311,12 @@ return {
                     "Doubles scored {C:chips}chips{} if a {C:attention}High Card{} is played.",
                 }
             },
+            j_jojoker_survivor = {
+                name = "Survivor",
+                text = {
+                    "Applies {C:attention}Splash{}."
+                }
+            },
             -- Part 7: Steel Ball Run
             j_jojoker_mandom = {
                 name = "Mandom",

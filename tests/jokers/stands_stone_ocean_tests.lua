@@ -140,3 +140,16 @@ Balatest.TestPlay {
     end
 }
 --#endregion
+--#region Survivor
+Balatest.TestPlay {
+    name = 'survivor_causes_all_played_cards_to_be_scored',
+    category = { 'jokers', 'stone_ocean', 'survivor' },
+    jokers = { 'j_jojoker_survivor' },
+    execute = function()
+        Balatest.play_hand { '2S', '3C' }
+    end,
+    assert = function()
+        Balatest.assert_chips(10, "Survivor did not cause all played cards to be scored.")
+    end
+}
+--#endregion

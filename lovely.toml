@@ -91,12 +91,18 @@ elseif name == "Smeared Joker" then
   local smeared = find_joker("jojoker_Smeared_Joker")
   local joker_one = find_joker("ndoul")
   return (next(smeared) and smeared) or (next(joker_one) and joker_one) or {}
+elseif name == "Splash" then
+  local splash = find_joker("jojoker_Splash")
+  local joker_one = find_joker("survivor")
+  return (next(splash) and splash) or (next(joker_one) and joker_one) or {}
 elseif name == "jojoker_Pareidolia" then
   name = "Pareidolia"
 elseif name == "jojoker_Four_Fingers" then
   name = "Four Fingers"
 elseif name == "jojoker_Smeared_Joker" then
   name = "Smeared Joker"
+elseif name == "jojoker_Splash" then
+  name = "Splash"
 end
 '''
 match_indent = true

@@ -206,7 +206,24 @@ local green_baby = {
     end
 }
 
+local survivor = {
+    name = "survivor",
+    rarity = 1,
+    cost = 3,
+    jtype = "Stand",
+    jclass = "Automatic",
+    part = "stone_ocean",
+    blueprint_compat = false,
+    perishable_compat = true,
+    eternal_compat = true,
+    config = { extra = {} },
+    loc_vars = function(self, info_queue, center)
+      info_queue[#info_queue + 1] = { set = 'Joker', key = 'j_splash', config = {} }
+      return {vars = {}}
+    end
+}
+
 return {
     name = "Stone Ocean Stands Jokers",
-    list = { goo_goo_dolls, stone_free, made_in_heaven, dragons_dream, green_baby },
+    list = { goo_goo_dolls, stone_free, made_in_heaven, dragons_dream, green_baby, survivor },
 }

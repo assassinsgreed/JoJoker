@@ -72,3 +72,9 @@ jd_def["j_jojoker_green_baby"] = {
         { text = "High Card", colour = G.C.GREY }
     }
 }
+
+jd_def["j_jojoker_survivor"] = {
+    text = {
+        { text = "Splash enabled", colour = G.C.GREY },
+    },
+}
