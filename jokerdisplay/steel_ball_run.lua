@@ -84,3 +84,10 @@ jd_def["j_jojoker_hey_ya"] = {
         { ref_table = "card.ability.extra", ref_value = "denominator", retrigger_type = "denominator",  colour = G.C.GOLD },
     },
 }
+
+jd_def["j_jojoker_tattoo_you"] = {
+    text = {
+        { text = "Convert 1 to ", colour = G.C.GREY },
+        { text = "Jack", colour = G.C.GREEN },
+    }
+}

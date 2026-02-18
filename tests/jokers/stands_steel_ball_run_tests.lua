@@ -205,3 +205,51 @@ Balatest.TestPlay {
     end
 }
 --#endregion
+
+--#region TATTOO YOU!
+Balatest.TestPlay {
+    name = 'tattoo_you_converts_exactly_one_scored_non_jack_to_jack',
+    category = { 'jokers', 'steel_ball_run', 'tattoo_you' },
+    jokers = { 'j_jojoker_tattoo_you' },
+    deck = { cards = {
+        { r = '5', s = 'H' },
+        { r = 'Q', s = 'S' },
+        { r = '2', s = 'C' } } },
+    execute = function()
+        Balatest.play_hand { '5H', 'QS' }
+        Balatest.end_round() -- End round to return cards to deck
+    end,
+    assert = function()
+        local jack_count = 0
+        for _, v in pairs(G.deck.cards) do
+            if v:get_id() == 11 then
+                jack_count = jack_count + 1
+            end
+        end
+        Balatest.assert_eq(jack_count, 1, "TATTOO YOU! did not convert exactly one scored non-Jack to Jack")
+    end
+}
+
+Balatest.TestPlay {
+    name = 'tattoo_you_does_not_convert_when_only_jacks_scored',
+    category = { 'jokers', 'steel_ball_run', 'tattoo_you' },
+    jokers = { 'j_jojoker_tattoo_you' },
+    deck = { cards = {
+        { r = 'J', s = 'S' },
+        { r = 'J', s = 'C' },
+        { r = '2', s = 'H' } } },
+    execute = function()
+        Balatest.play_hand { 'JS', 'JC' }
+        Balatest.end_round() -- End round to return cards to deck
+    end,
+    assert = function()
+        local jack_count = 0
+        for _, v in pairs(G.deck.cards) do
+            if v:get_id() == 11 then
+                jack_count = jack_count + 1
+            end
+        end
+        Balatest.assert_eq(jack_count, 2, "TATTOO YOU! converted cards when only Jacks were scored")
+    end
+}
+--#endregion

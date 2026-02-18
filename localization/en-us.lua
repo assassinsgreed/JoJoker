@@ -357,6 +357,13 @@ return {
                     "and {C:money}money{} bonus becomes {C:attention}1 in 5{}."
                 }
             },
+            j_jojoker_tattoo_you = {
+                name = "TATTOO YOU!",
+                text = {
+                    "Converts one scored card that is not a {C:attention}Jack{}",
+                    "into a {C:attention}Jack{} after hand is scored."
+                }
+            },
             -- Part 8: Jojolion
             j_jojoker_soft_and_wet = {
                 name = "Soft & Wet",

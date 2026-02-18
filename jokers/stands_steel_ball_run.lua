@@ -143,7 +143,63 @@ local hey_ya = {
     end
 }
 
+local tattoo_you = {
+    name = "tattoo_you",
+    rarity = 1,
+    cost = 4,
+    jtype = "Stand",
+    jclass = "Close Range",
+    part = "steel_ball_run",
+    blueprint_compat = true,
+    perishable_compat = true,
+    eternal_compat = true,
+    config = {extra = { }},
+    loc_vars = function(self, info_queue, center)
+        return {vars = { }}
+    end,
+    calculate = function(self, card, context)
+        -- Convert a random scored non-Jack to a Jack
+        if context.final_scoring_step and not context.blueprint then
+            if context.scoring_hand then
+                local non_jacks = {}
+                for i = 1, #context.scoring_hand do
+                    if context.scoring_hand[i]:get_id() ~= 11 then
+                        non_jacks[#non_jacks + 1] = context.scoring_hand[i]
+                    end
+                end
+
+                if #non_jacks == 0 then
+                    sendDebugMessage("TATTOO YOU!: No non-Jack cards in scored hand, cannot convert to Jack.")
+                    return
+                end
+
+                local chosen_card = non_jacks[math.random(#non_jacks)]
+                local suit_to_prefix = { Spades = 'S', Hearts = 'H', Clubs = 'C', Diamonds = 'D' }
+                local suit_prefix = suit_to_prefix[chosen_card.base.suit]
+
+                -- Trigger event to convert the chosen card to a Jack after scoring has completed
+                G.E_MANAGER:add_event(Event({
+                    trigger = 'after',
+                    delay = 0,
+                    func = function()
+                        chosen_card:set_base(G.P_CARDS[suit_prefix..'_J'])
+                        chosen_card:juice_up()
+                        sendDebugMessage("TATTOO YOU!: Converted a non-Jack card to Jack.")
+                        return true
+                    end
+                }))
+
+                return {
+                    message = localize('k_upgrade_ex'),
+                    colour = G.C.GOLD,
+                    card = chosen_card
+                }
+            end
+        end
+    end
+}
+
 return {
     name = "Steel Ball Run Stand Jokers",
-    list = { mandom, chocolate_disco, oh_lonesome_me, hey_ya },
+    list = { mandom, chocolate_disco, oh_lonesome_me, hey_ya, tattoo_you },
 }
