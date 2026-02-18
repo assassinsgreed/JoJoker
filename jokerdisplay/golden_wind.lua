@@ -64,3 +64,9 @@ jd_def["j_jojoker_gold_experience"] = {
         { ref_table = "card.ability.extra", ref_value = "denominator", retrigger_type = "denominator",  colour = G.C.GOLD },
     },
 }
+
+jd_def["j_jojoker_gold_experience_requiem"] = {
+    text = {
+        { text = "Disable boss blinds", colour = G.C.GREY }
+    }
+}

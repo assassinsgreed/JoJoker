@@ -264,6 +264,12 @@ return {
                     "they do not have an edition."
                 }
             },
+            j_jojoker_gold_experience_requiem = {
+                name = "Gold Experience Requiem",
+                text = {
+                    "Disables all {C:attention}active boss blinds{}."
+                }
+            },
             -- Part 6: Stone Ocean
             j_jojoker_goo_goo_dolls = {
                 name = "Goo Goo Dolls",

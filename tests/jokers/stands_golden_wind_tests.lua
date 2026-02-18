@@ -217,3 +217,18 @@ Balatest.TestPlay {
     end
 }
 --#endregion
+--#region Gold Experience Requiem
+Balatest.TestPlay {
+    name = 'gold_experience_requiem_disables_boss_blinds',
+    category = { 'jokers', 'golden_wind', 'gold_experience_requiem' },
+    jokers = { 'j_jojoker_gold_experience_requiem' },
+    dollars = 10,
+    blind = 'bl_wheel',
+    execute = function()
+        Balatest.wait()
+    end,
+    assert = function()
+        Balatest.assert_eq(G.GAME.blind.disabled, true, "Gold Experience Requiem didn't disable boss blind automatically")
+    end
+}
+--#endregion

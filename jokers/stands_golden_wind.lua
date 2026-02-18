@@ -208,7 +208,29 @@ local gold_experience = {
     end
 }
 
+local gold_experience_requiem = {
+    name = "gold_experience_requiem",
+    rarity = 3,
+    cost = 7,
+    jtype = "Stand",
+    jclass = "Close Range",
+    part = "golden_wind",
+    blueprint_compat = false,
+    perishable_compat = true,
+    eternal_compat = true,
+    config = { extra = { } },
+    calculate = function(self, card, context)
+        -- Disables active boss blinds
+        if context.setting_blind then
+            if G.GAME.blind and G.GAME.blind:get_type() == 'Boss' then
+                card_eval_status_text(context.blueprint_card or card, 'extra', nil, nil, nil, {message = localize('ph_boss_disabled')})
+                G.GAME.blind:disable()
+            end
+        end
+    end
+}
+
 return {
     name = "Golden Wind Stand Jokers",
-    list = { sex_pistols, grateful_dead, spice_girl, sticky_fingers, gold_experience },
+    list = { sex_pistols, grateful_dead, spice_girl, sticky_fingers, gold_experience, gold_experience_requiem },
 }
