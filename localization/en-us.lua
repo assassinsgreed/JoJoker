@@ -203,6 +203,13 @@ return {
                     "Only works on boss blinds."
                 }
             },
+            j_jojoker_crazy_diamond = {
+                name = "Crazy Diamond",
+                text = {
+                    "Each scored {C:diamonds}Diamond{} card",
+                    "gives {C:mult}+#1#{}.",
+                }
+            },
             -- Part 5: Golden Wind
             j_jojoker_sex_pistols = {
                 name = "Sex Pistols",

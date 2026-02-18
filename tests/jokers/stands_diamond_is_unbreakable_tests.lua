@@ -90,3 +90,38 @@ Balatest.TestPlay {
     end
 }
 --#endregion
+--#region Crazy Diamond
+Balatest.TestPlay {
+    name = 'crazy_diamond_gives_no_mult_for_non_diamonds_cards',
+    category = { 'jokers', 'diamond_is_unbreakable', 'crazy_diamond' },
+    jokers = { 'j_jojoker_crazy_diamond' },
+    execute = function()
+        Balatest.play_hand { '2S' }
+    end,
+    assert = function()
+        Balatest.assert_chips(7, "Crazy Diamond incorrectly gave mult for non-diamonds card")
+    end
+}
+Balatest.TestPlay {
+    name = 'crazy_diamond_gives_mult_for_single_diamonds_card',
+    category = { 'jokers', 'diamond_is_unbreakable', 'crazy_diamond' },
+    jokers = { 'j_jojoker_crazy_diamond' },
+    execute = function()
+        Balatest.play_hand { '2D' }
+    end,
+    assert = function()
+        Balatest.assert_chips(7 * (G.jokers.cards[1].ability.extra.mult + 1), "Crazy Diamond incorrectly gave mult for single diamonds card")
+    end
+}
+Balatest.TestPlay {
+    name = 'crazy_diamond_gives_mult_for_each_scored_diamonds_card',
+    category = { 'jokers', 'diamond_is_unbreakable', 'crazy_diamond' },
+    jokers = { 'j_jojoker_crazy_diamond' },
+    execute = function()
+        Balatest.play_hand { '2D', '3D', '5D', '7D', '8D' }
+    end,
+    assert = function()
+        Balatest.assert_chips(60 * (G.jokers.cards[1].ability.extra.mult * 5 + 4), "Crazy Diamond incorrectly gave mult for multiple scored diamonds cards")
+    end
+}
+--#endregion

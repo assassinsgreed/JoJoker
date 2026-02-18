@@ -58,3 +58,13 @@ jd_def["j_jojoker_superfly"] = {
         { text = "When sold", colour = G.C.GREY, }
     }
 }
+
+jd_def["j_jojoker_crazy_diamond"] = {
+    text = {
+        { text = "+", colour = G.C.MULT },
+        { ref_table = "card.ability.extra", ref_value = "mult", retrigger_type = "mult",  colour = G.C.MULT },
+    },
+    reminder_text = {
+        { text = "Diamonds only", colour = G.C.GREY, },
+    },
+}
