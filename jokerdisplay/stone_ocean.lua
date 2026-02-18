@@ -57,3 +57,18 @@ jd_def["j_jojoker_dragons_dream"] = {
         { text = "Changes when hand played", colour = G.C.GREY }
     }
 }
+
+jd_def["j_jojoker_green_baby"] = {
+    text = {
+        {
+            border_nodes = {
+                { text = "X" },
+                { ref_table = "card.ability.extra", ref_value = "Xchips" }
+            },
+            border_colour = G.C.CHIPS
+        }
+    },
+    reminder_text = {
+        { text = "High Card", colour = G.C.GREY }
+    }
+}

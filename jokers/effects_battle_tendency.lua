@@ -16,10 +16,8 @@ local german_engineering = {
     calculate = function(self, card, context)
         -- If scoring hand is a single 9, duplicate it and level up High Card
         if context.cardarea == G.jokers and context.scoring_hand then
-            -- if context.joker_main and not context.blueprint then
                 if #context.scoring_hand == 1 and context.scoring_hand[1]:get_id() == 9 then
                     if context.before and context.scoring_name == "High Card" then
-                        sendDebugMessage("In loop")
                         local copy = copy_card(context.scoring_hand[1], nil, nil, G.playing_card)
                         copy:add_to_deck()
                         G.deck.config.card_limit = G.deck.config.card_limit + 1

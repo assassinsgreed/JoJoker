@@ -299,6 +299,12 @@ return {
                     "{C:inactive}Currently: {C:chips}+#5#{}, {C:mult}+#6#{}, {C:money}$#7#{}, {X:mult,C:white} X#8# {}",
                 }
             },
+            j_jojoker_green_baby = {
+                name = "Green Baby",
+                text = {
+                    "Doubles scored {C:chips}chips{} if a {C:attention}High Card{} is played.",
+                }
+            },
             -- Part 7: Steel Ball Run
             j_jojoker_mandom = {
                 name = "Mandom",
