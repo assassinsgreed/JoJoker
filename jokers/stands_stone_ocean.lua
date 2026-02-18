@@ -159,6 +159,7 @@ local dragons_dream = {
                 end
 
                 card:juice_up()
+                ease_dollars(card.ability.extra.curr_money)
                 return {
                     message = localize(add_remove == 1 and 'sound_lucky' or 'sound_unlucky').." "..modText,
                 }
@@ -168,7 +169,10 @@ local dragons_dream = {
         -- Print out result on joker application
         if context.joker_main then
             return {
-                message = localize('sound_neutral')
+                message = localize('sound_neutral'),
+                chip_mod = card.ability.extra.curr_chips,
+                mult_mod = card.ability.extra.curr_mult,
+                Xmult_mod = card.ability.extra.curr_Xmult,
             }
         end
     end
