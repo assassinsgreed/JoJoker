@@ -68,3 +68,23 @@ jd_def["j_jojoker_crazy_diamond"] = {
         { text = "Diamonds only", colour = G.C.GREY, },
     },
 }
+
+jd_def["j_jojoker_bad_company"] = {
+    text = {
+        { text = "+", colour = G.C.MULT },
+        { ref_table ="card.joker_display_values", ref_value = "mult", colour = G.C.MULT }
+    },
+    reminder_text = {
+        { text = ">", colour = G.C.GREY, },
+        { ref_table = "card.joker_display_values", ref_value = "starting_deck_size", retrigger_type = "starting_deck_size",  colour = G.C.GREY },
+        { text = " in deck", colour = G.C.GREY, },
+    },
+    calc_function = function(card)
+        local mult = 0
+        if #G.playing_cards > G.GAME.starting_deck_size then
+            mult = card.ability.extra.mult * (#G.playing_cards - G.GAME.starting_deck_size)
+        end
+        card.joker_display_values.mult = mult
+        card.joker_display_values.starting_deck_size = G.GAME.starting_deck_size
+    end
+}

@@ -125,3 +125,34 @@ Balatest.TestPlay {
     end
 }
 --#endregion
+--#region Bad Company
+Balatest.TestPlay {
+    name = 'bad_company_gives_no_mult_if_deck_size_is_same_as_starting_deck_size',
+    category = { 'jokers', 'diamond_is_unbreakable', 'bad_company' },
+    jokers = { 'j_jojoker_bad_company' },
+    execute = function()
+        Balatest.play_hand { '2S' }
+    end,
+    assert = function()
+        Balatest.assert_chips(7, "Bad Company incorrectly gave mult for deck size same as starting deck size")
+    end
+}
+Balatest.TestPlay {
+    name = 'bad_company_gives_mult_if_deck_size_exceeds_starting_deck_size',
+    category = { 'jokers', 'diamond_is_unbreakable', 'bad_company' },
+    jokers = { 'j_jojoker_bad_company' },
+    execute = function()
+        for i = 1, 2 do
+            local copy = copy_card(G.hand.cards[1], nil, nil, G.playing_card)
+            copy:add_to_deck()
+            G.deck.config.card_limit = G.deck.config.card_limit + 1
+            table.insert(G.playing_cards, copy)
+            G.deck:emplace(copy)
+        end
+        Balatest.play_hand { '2D' }
+    end,
+    assert = function()
+        Balatest.assert_chips(7 * (G.jokers.cards[1].ability.extra.mult * 2 + 1), "Bad Company did not give mult when deck size exceeded starting deck size")
+    end
+}
+--#endregion

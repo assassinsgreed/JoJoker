@@ -150,7 +150,37 @@ local crazy_diamond = {
     end
 }
 
+local bad_company = {
+    name = "bad_company",
+    rarity = 2,
+    cost = 5,
+    jtype = "Stand",
+    jclass = "Close Range",
+    part = "diamond_is_unbreakable",
+    blueprint_compat = true,
+    perishable_compat = true,
+    eternal_compat = true,
+    config = { extra = { mult = 5 } },
+    loc_vars = function(self, info_queue, center)
+      return {vars = {center.ability.extra.mult, G.GAME.starting_deck_size}}
+    end,
+    calculate = function(self, card, context)
+        -- Each card above 52 gives +5 mult
+        if context.cardarea == G.jokers and context.scoring_hand then
+            if context.joker_main and #G.playing_cards > G.GAME.starting_deck_size then
+                local mult_given = card.ability.extra.mult * (#G.playing_cards - G.GAME.starting_deck_size)
+                sendDebugMessage("Bad Company: Giviing "..mult_given.." mult based on current deck size of "..#G.playing_cards..".")
+                return {
+                    message = localize{type = 'variable', key = 'a_mult', vars = {mult_given}},
+                    colour = G.C.MULT,
+                    mult_mod = mult_given
+                }
+            end
+        end
+    end
+}
+
 return {
     name = "Diamond is Unbreakable Stand Jokers",
-    list = { red_hot_chili_pepper, the_hand, superfly, crazy_diamond },
+    list = { red_hot_chili_pepper, the_hand, superfly, crazy_diamond, bad_company },
 }

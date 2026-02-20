@@ -210,6 +210,13 @@ return {
                     "gives {C:mult}+#1#{}.",
                 }
             },
+            j_jojoker_bad_company = {
+                name = "Bad Company",
+                text = {
+                    "Gives {C:mult}+#1#{} for each card",
+                    "over {C:attention}#2#{} in the deck.",
+                }
+            },
             -- Part 5: Golden Wind
             j_jojoker_sex_pistols = {
                 name = "Sex Pistols",
