@@ -45,4 +45,5 @@ JoJo's Bizarre Adventure is property of Hirohiko Araki.
 - Add config for developer mode (off by default, includes tests when on)
 - Add option to show localized stand names instead of official ones (https://github.com/nh6574/VanillaRemade/wiki#how-do-i-change-the-name-or-description-of-a-card-dynamically)
 - Add a card holo effect for legendary jokers
+- Fix joker order in collection
 - Add more jokers
