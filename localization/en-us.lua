@@ -535,6 +535,13 @@ return {
                     "played {C:attention}Full House{}."
                 }
             },
+            j_jojoker_higashikata_fruit_parlor = {
+                name = "Higashikata Fruit Parlor",
+                text = {
+                    "Gives {C:money}$#1#{} for each played {C:attention}Pair{}.",
+                    "Gives {C:money}$#2#{} for each played {C:attention}Two Pair{}.",
+                }
+            },
             -- Part 9: THE JOJOLands
             j_jojoker_smooth_operator = {
                 name = "Smooth Operators",

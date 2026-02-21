@@ -24,6 +24,7 @@ jojoker.joker_order = {
     -- Effects
     "german_engineering",
     "higashikata_house",
+    "higashikata_fruit_parlor",
     "the_fifth_lesson",
     "voice_of_love",
 

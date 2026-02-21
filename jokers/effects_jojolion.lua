@@ -27,7 +27,35 @@ local higashikata_house = {
     end
 }
 
+local higashikata_fruit_parlor = {
+    name = "higashikata_fruit_parlor",
+    rarity = 2,
+    cost = 5,
+    jtype = "Effect",
+    part = "jojolion",
+    blueprint_compat = true,
+    perishable_compat = true,
+    eternal_compat = true,
+    config = { extra = { pair_money = 2, two_pair_money = 4 } },
+    loc_vars = function(self, info_queue, center)
+      return {vars = { center.ability.extra.pair_money, center.ability.extra.two_pair_money }}
+    end,
+    calculate = function(self, card, context)
+        if context.cardarea == G.jokers and context.scoring_hand then
+            if context.joker_main then
+                if context.scoring_name == "Pair" then
+                    sendDebugMessage("Higashikata Fruit Parlor: Giving "..card.ability.extra.pair_money.." money for Pair")
+                    ease_dollars(card.ability.extra.pair_money)
+                elseif context.scoring_name == "Two Pair" then
+                    sendDebugMessage("Higashikata Fruit Parlor: Giving "..card.ability.extra.two_pair_money.." money for Two Pair")
+                    ease_dollars(card.ability.extra.two_pair_money)
+                end
+            end
+        end
+    end
+}
+
 return {
     name = "Jojolion Effects Jokers",
-    list = { higashikata_house },
+    list = { higashikata_house, higashikata_fruit_parlor },
 }

@@ -23,3 +23,27 @@ Balatest.TestPlay {
     end
 }
 --#endregion
+--#region Higashikata Fruit Parlor
+Balatest.TestPlay {
+    name = 'higashikata_fruit_parlor_gives_money_for_pair',
+    category = { 'jokers', 'jojolion', 'higashikata_fruit_parlor' },
+    jokers = { 'j_jojoker_higashikata_fruit_parlor' },
+    execute = function()
+        Balatest.play_hand { '2S', '2H', '4C', '5D', '7C' }
+    end,
+    assert = function()
+        Balatest.assert_dollars(2, "Higashikata Fruit Parlor incorrectly gave money for Pair")
+    end
+}
+Balatest.TestPlay {
+    name = 'higashikata_fruit_parlor_gives_money_for_two_pair',
+    category = { 'jokers', 'jojolion', 'higashikata_fruit_parlor' },
+    jokers = { 'j_jojoker_higashikata_fruit_parlor' },
+    execute = function()
+        Balatest.play_hand { '2S', '2H', '4C', '4D', '7C' }
+    end,
+    assert = function()
+        Balatest.assert_dollars(4, "Higashikata Fruit Parlor incorrectly gave money for Two Pair")
+    end
+}
+--#endregion

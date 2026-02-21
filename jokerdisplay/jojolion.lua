@@ -38,3 +38,15 @@ jd_def["j_jojoker_higashikata_house"] = {
         { text = "Full House", colour = G.C.GREY },
     }
 }
+
+jd_def["j_jojoker_higashikata_fruit_parlor"] = {
+    text = {
+        { text = "$", colour = G.C.MONEY },
+        { ref_table = "card.ability.extra", ref_value = "pair_money", retrigger_type = "pair_money",  colour = G.C.MONEY },
+        { text = " / $", colour = G.C.MONEY },
+        { ref_table = "card.ability.extra", ref_value = "two_pair_money", retrigger_type = "two_pair_money",  colour = G.C.MONEY },
+    },
+    reminder_text = {
+        { text = "Pair / Two Pair", colour = G.C.GREY },
+    }
+}
