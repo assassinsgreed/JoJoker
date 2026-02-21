@@ -6,7 +6,7 @@ return {
         Joker = {
             -- Part 1: Phantom Blood
             j_jojoker_danny = {
-                name = "Danny (Pt 1)",
+                name = "Danny",
                 text = {
                     "Gives {C:mult}+#1#{}.",
                     "{S:1.1,C:red,E:2}Self destructs{} if score catches fire."

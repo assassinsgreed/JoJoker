@@ -82,6 +82,7 @@ if Balatest then
     SMODS.load_file('tests/jokers/stands_diamond_is_unbreakable_tests.lua')()
     SMODS.load_file('tests/jokers/characters_golden_wind_tests.lua')()
     SMODS.load_file('tests/jokers/stands_golden_wind_tests.lua')()
+    SMODS.load_file('tests/jokers/characters_stone_ocean_tests.lua')()
     SMODS.load_file('tests/jokers/stands_stone_ocean_tests.lua')()
     SMODS.load_file('tests/jokers/effects_steel_ball_run_tests.lua')()
     SMODS.load_file('tests/jokers/stands_steel_ball_run_tests.lua')()
