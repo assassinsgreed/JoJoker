@@ -12,7 +12,10 @@ local red_hot_chili_pepper = {
     eternal_compat = true,
     config = { extra = { mult_mod = 0.5, money_mod = 1, mult = 0 } },
     loc_vars = function(self, info_queue, card)
-      return {vars = { card.ability.extra.mult_mod, card.ability.extra.money_mod, card.ability.extra.mult }}
+      return {
+        vars = { card.ability.extra.mult_mod, card.ability.extra.money_mod, card.ability.extra.mult },
+        key = jojoker_config.use_localized_names and self.key..'_alt' or self.key
+    }
     end,
     calculate = function(self, card, context)
         if G.GAME and G.GAME.dollars > 0 and card.ability then
@@ -127,7 +130,10 @@ local crazy_diamond = {
     eternal_compat = false,
     config = { extra = { mult = 4 } },
     loc_vars = function(self, info_queue, center)
-      return {vars = {center.ability.extra.mult}}
+      return {
+        vars = {center.ability.extra.mult},
+        key = jojoker_config.use_localized_names and self.key..'_alt' or self.key
+    }
     end,
     calculate = function(self, card, context)
         -- Each diamond gives +4 mult
@@ -162,7 +168,10 @@ local bad_company = {
     eternal_compat = true,
     config = { extra = { mult = 5 } },
     loc_vars = function(self, info_queue, center)
-      return {vars = {center.ability.extra.mult, G.GAME.starting_deck_size}}
+      return {
+        vars = {center.ability.extra.mult, G.GAME.starting_deck_size},
+        key = jojoker_config.use_localized_names and self.key..'_alt' or self.key
+    }
     end,
     calculate = function(self, card, context)
         -- Each card above 52 gives +5 mult

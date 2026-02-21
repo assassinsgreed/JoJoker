@@ -109,7 +109,14 @@ return {
                     "{C:inactive}Stopped thinking{}",
                 }
             },
-            j_jojoker_suzie_q = {
+            j_jojoker_suzi_q = {
+                name = "Suzi Q",
+                text = {
+                    "Scored {C:attention}Queens{} are given a",
+                    "{C:attention}Gold Seal{} if it has no other seals."
+                }
+            },
+            j_jojoker_suzi_q_alt = {
                 name = "Suzie Q",
                 text = {
                     "Scored {C:attention}Queens{} are given a",
@@ -143,6 +150,12 @@ return {
                     "Applies {C:attention}Smeared{}."
                 }
             },
+            j_jojoker_ndoul_alt = {
+                name = "N'Dool",
+                text = {
+                    "Applies {C:attention}Smeared{}."
+                }
+            },
             j_jojoker_star_platinum = {
                 name = "Star Platinum",
                 text = {
@@ -157,7 +170,7 @@ return {
                 }
             },
             j_jojoker_the_lovers = {
-                name = "The Lovers",
+                name = "Lovers",
                 text = {
                     "Each scored {C:hearts}Heart{} card permanently",
                     "gains {C:mult}+#1#{}."
@@ -172,7 +185,7 @@ return {
                 }
             },
             j_jojoker_shizuka = {
-                name = "Shizuka",
+                name = "Shizuka Joestar",
                 text = {
                     "Picks a random {C:attention}poker hand{}.",
                     "Levels up that hand {C:attention}#1# times{} if played,",
@@ -181,6 +194,12 @@ return {
             },
             j_jojoker_red_hot_chili_pepper = {
                 name = "Red Hot Chili Pepper",
+                text = {
+                    "{C:mult}+#1#{} per {C:money}$#2#{} held."
+                }
+            },
+            j_jojoker_red_hot_chili_pepper_alt = {
+                name = "Chili Pepper",
                 text = {
                     "{C:mult}+#1#{} per {C:money}$#2#{} held."
                 }
@@ -210,8 +229,22 @@ return {
                     "gives {C:mult}+#1#{}.",
                 }
             },
+            j_jojoker_crazy_diamond_alt = {
+                name = "Shining Diamond",
+                text = {
+                    "Each scored {C:diamonds}Diamond{} card",
+                    "gives {C:mult}+#1#{}.",
+                }
+            },
             j_jojoker_bad_company = {
                 name = "Bad Company",
+                text = {
+                    "Gives {C:mult}+#1#{} for each card",
+                    "over {C:attention}#2#{} in the deck.",
+                }
+            },
+            j_jojoker_bad_company_alt = {
+                name = "Worse Company",
                 text = {
                     "Gives {C:mult}+#1#{} for each card",
                     "over {C:attention}#2#{} in the deck.",
@@ -229,8 +262,28 @@ return {
                     "{C:inactive}Chosen rank: {C:attention}#2#",
                 }
             },
+            j_jojoker_sex_pistols_alt = {
+                name = "Six Bullets",
+                text = {
+                    "When {C:attention}Blind{} is selected, randomly picks from",
+                    "{C:attention}[Ace, 2, 3, 5, 6, 7]{}.",
+                    "Increases mult by rank the first time it is scored per blind.",
+                    "{br:2}line break",
+                    "{C:inactive}Currently: {C:mult}+#1#",
+                    "{C:inactive}Chosen rank: {C:attention}#2#",
+                }
+            },
             j_jojoker_grateful_dead = {
-                name = "Grateful Dead",
+                name = "The Grateful Dead",
+                text = {
+                    "Starts with {C:mult}+#1#{}.",
+                    "{C:mult}-#2#{} at the end of each blind.",
+                    "{br:2}line break",
+                    "{C:inactive}Remaining: {C:mult}+#3#",
+                }
+            },
+            j_jojoker_grateful_dead_alt = {
+                name = "The Thankful Dead",
                 text = {
                     "Starts with {C:mult}+#1#{}.",
                     "{C:mult}-#2#{} at the end of each blind.",
@@ -250,8 +303,26 @@ return {
                     "{C:inactive}Current mult: {X:mult,C:white} X#4# {}",
                 }
             },
+            j_jojoker_spice_girl_alt = {
+                name = "Spicy Lady",
+                text = {
+                    "Removes scored {C:attention}stone card{}",
+                    "enhancement and gains {C:chips}+#1#{}.",
+                    "Removes scored {C:attention}steel card{}",
+                    "enhancement and gains {X:mult,C:white} X#2# {}.",
+                    "{br:2}line break",
+                    "{C:inactive}Current chips: {C:chips}+#3#{}",
+                    "{C:inactive}Current mult: {X:mult,C:white} X#4# {}",
+                }
+            },
             j_jojoker_sticky_fingers = {
                 name = "Sticky Fingers",
+                text = {
+                    "Applies {C:attention}Four Fingers{}."
+                }
+            },
+            j_jojoker_sticky_fingers_alt = {
+                name = "Zipper Man",
                 text = {
                     "Applies {C:attention}Four Fingers{}."
                 }
@@ -271,8 +342,16 @@ return {
                     "they do not have an edition."
                 }
             },
-            j_jojoker_gold_experience_requiem = {
-                name = "Gold Experience Requiem",
+            j_jojoker_gold_experience_alt = {
+                name = "Golden Wind",
+                text = {
+                    "Scored cards have a {C:attention}#1# in #2#{}",
+                    "chance to become {C:dark_edition}Polychrome{} if",
+                    "they do not have an edition."
+                }
+            },
+            j_jojoker_gold_experience_requiem_alt = {
+                name = "Golden Wind Requiem",
                 text = {
                     "Disables all {C:attention}active boss blinds{}."
                 }
@@ -285,6 +364,13 @@ return {
                     "gives {C:mult}+#1#{}.",
                 }
             },
+            j_jojoker_goo_goo_dolls_alt = {
+                name = "G.G. Dolls",
+                text = {
+                    "Each scored {C:attention}2-6{}",
+                    "gives {C:mult}+#1#{}.",
+                }
+            },
             j_jojoker_stone_free = {
                 name = "Stone Free",
                 text = {
@@ -292,8 +378,25 @@ return {
                     "{C:attention}Stone{} card.",
                 }
             },
+            j_jojoker_stone_free_alt = {
+                name = "Stone Ocean",
+                text = {
+                    "Retriggers each scored",
+                    "{C:attention}Stone{} card.",
+                }
+            },
             j_jojoker_made_in_heaven = {
                 name = "Made in Heaven",
+                text = {
+                    "Reduces hands to {C:attention}#1#{} and discards to {C:attention}#2#{},",
+                    "increases hand size to the {C:attention}size of your deck{}.",
+                    "Gains {X:mult,C:white} X#4# {} for each lost hand and discard.",
+                    "{br:2}line break",
+                    "{C:inactive}Currently: {X:mult,C:white} X#3#"
+                }
+            },
+            j_jojoker_made_in_heaven_alt = {
+                name = "Maiden Heaven",
                 text = {
                     "Reduces hands to {C:attention}#1#{} and discards to {C:attention}#2#{},",
                     "increases hand size to the {C:attention}size of your deck{}.",
@@ -312,8 +415,24 @@ return {
                     "{C:inactive}Currently: {C:chips}+#5#{}, {C:mult}+#6#{}, {C:money}$#7#{}, {X:mult,C:white} X#8# {}",
                 }
             },
+            j_jojoker_dragons_dream_alt = {
+                name = "Drake's Dream",
+                text = {
+                    "Randomly gains or loses {C:chips}+/- #1#{}, {C:mult}+/- #2#{},",
+                    "{C:money} +/- $#3#{}, or {X:mult,C:white} X#4# {} mult per played hand.",
+                    "All values cannot drop below 0.",
+                    "{br:2}line break",
+                    "{C:inactive}Currently: {C:chips}+#5#{}, {C:mult}+#6#{}, {C:money}$#7#{}, {X:mult,C:white} X#8# {}",
+                }
+            },
             j_jojoker_green_baby = {
                 name = "Green Baby",
+                text = {
+                    "Doubles scored {C:chips}chips{} if a {C:attention}High Card{} is played.",
+                }
+            },
+            j_jojoker_green_baby_alt = {
+                name = "Green Child",
                 text = {
                     "Doubles scored {C:chips}chips{} if a {C:attention}High Card{} is played.",
                 }
@@ -327,6 +446,15 @@ return {
             -- Part 7: Steel Ball Run
             j_jojoker_mandom = {
                 name = "Mandom",
+                text = {
+                    "Retrigger the first {C:attention}#2#{}",
+                    "cards scored each round.",
+                    "{br:2}line break",
+                    "{C:inactive}Remaining: {C:attention}#3# {C:inactive}times{}"
+                }
+            },
+            j_jojoker_mandom_alt = {
+                name = "Mando",
                 text = {
                     "Retrigger the first {C:attention}#2#{}",
                     "cards scored each round.",
@@ -409,7 +537,7 @@ return {
             },
             -- Part 9: THE JOJOLands
             j_jojoker_smooth_operator = {
-                name = "Smooth Operator",
+                name = "Smooth Operators",
                 text = {
                     "Relocates itself at the start of",
                     "each blind. If not manually relocated,",
@@ -498,6 +626,13 @@ return {
                     "appear in the collection"
                 }
             },
+            use_localized_names_tooltip = {
+                name = "Use Localized Names",
+                text = {
+                    "Display joker cards with their",
+                    "localized names, whenever possible."
+                }
+            },
         }
     },
     misc = {
@@ -548,6 +683,7 @@ return {
 
             -- Misc config options
             jojoker_settings_jojoker_only_collection = "Only JoJoker Jokers in Collection?",
+            jojoker_settings_use_localized_names = "Use Localized Joker Names?",
         },
         quips = {
             jojoker_lose_quip1 = {"You thought you could beat me?", "Yare yare daze...",},

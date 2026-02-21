@@ -215,9 +215,9 @@ Balatest.TestPlay {
 --#endregion
 --#region Suzie Q
 Balatest.TestPlay {
-    name = 'suzie_q_gives_gold_seal_to_scored_queen_with_no_other_seals',
-    category = { 'jokers', 'battle_tendency', 'suzie_q' },
-    jokers = { 'j_jojoker_suzie_q' },
+    name = 'suzi_q_gives_gold_seal_to_scored_queen_with_no_other_seals',
+    category = { 'jokers', 'battle_tendency', 'suzi_q' },
+    jokers = { 'j_jojoker_suzi_q' },
     deck = { cards = {
         { r = 'Q', s = 'S' },
         { r = 'Q', s = 'C' },
@@ -233,9 +233,9 @@ Balatest.TestPlay {
 }
 
 Balatest.TestPlay {
-    name = 'suzie_q_gives_gold_seal_to_every_scored_queen_with_no_other_seals',
-    category = { 'jokers', 'battle_tendency', 'suzie_q' },
-    jokers = { 'j_jojoker_suzie_q' },
+    name = 'suzi_q_gives_gold_seal_to_every_scored_queen_with_no_other_seals',
+    category = { 'jokers', 'battle_tendency', 'suzi_q' },
+    jokers = { 'j_jojoker_suzi_q' },
     deck = { cards = {
         { r = 'Q', s = 'S' },
         { r = 'Q', s = 'C' },
@@ -253,9 +253,9 @@ Balatest.TestPlay {
 }
 
 Balatest.TestPlay {
-    name = 'suzie_q_does_not_give_gold_seal_to_scored_queen_with_other_seals',
-    category = { 'jokers', 'battle_tendency', 'suzie_q' },
-    jokers = { 'j_jojoker_suzie_q' },
+    name = 'suzi_q_does_not_give_gold_seal_to_scored_queen_with_other_seals',
+    category = { 'jokers', 'battle_tendency', 'suzi_q' },
+    jokers = { 'j_jojoker_suzi_q' },
     deck = { cards = {
         { r = 'Q', s = 'S' },
         { r = 'Q', s = 'C' },
@@ -272,9 +272,9 @@ Balatest.TestPlay {
 }
 
 Balatest.TestPlay {
-    name = 'suzie_q_does_not_give_gold_seal_to_scored_non_queen',
-    category = { 'jokers', 'battle_tendency', 'suzie_q' },
-    jokers = { 'j_jojoker_suzie_q' },
+    name = 'suzi_q_does_not_give_gold_seal_to_scored_non_queen',
+    category = { 'jokers', 'battle_tendency', 'suzi_q' },
+    jokers = { 'j_jojoker_suzi_q' },
     deck = { cards = {
         { r = 'Q', s = 'S', seal = 'Red' },
         { r = 'Q', s = 'C' },

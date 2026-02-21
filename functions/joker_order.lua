@@ -18,7 +18,7 @@ jojoker.joker_order = {
     "speedwagon",
     "speedwagon_bt",
     "straizo",
-    "suzie_q",
+    "suzi_q",
     "zombies",
 
     -- Effects

@@ -222,8 +222,8 @@ local kars_stopped_thinking = {
     end,
 }
 
-local suzie_q = {
-    name = "suzie_q",
+local suzi_q = {
+    name = "suzi_q",
     rarity = 1,
     cost = 5,
     jtype = "Character",
@@ -233,7 +233,10 @@ local suzie_q = {
     eternal_compat = true,
     config = { },
     loc_vars = function(self, info_queue, card)
-      return {vars = { }}
+      return {
+        vars = { },
+        key = jojoker_config.use_localized_names and self.key..'_alt' or self.key
+    }
     end,
     calculate = function(self, card, context)
         -- For each scored queen, give it a gold seal if it has no other seals
@@ -287,5 +290,5 @@ local nypd = {
 
 return {
     name = "Battle Tendency Character Jokers",
-    list = { joseph_joestar, esidisi, speedwagon_bt, caesar, kars_ultimate_lifeform, kars_stopped_thinking, suzie_q, nypd },
+    list = { joseph_joestar, esidisi, speedwagon_bt, caesar, kars_ultimate_lifeform, kars_stopped_thinking, suzi_q, nypd },
 }

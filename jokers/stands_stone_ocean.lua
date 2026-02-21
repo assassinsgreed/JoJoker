@@ -10,7 +10,10 @@ local goo_goo_dolls = {
     blueprint_compat = true,
     config = { extra = { mult = 4 } },
     loc_vars = function(self, info_queue, center)
-     return {vars = {center.ability.extra.mult}}
+     return {
+        vars = {center.ability.extra.mult},
+        key = jojoker_config.use_localized_names and self.key..'_alt' or self.key
+    }
    end,
     calculate = function(self, card, context)
         if context.individual and context.cardarea == G.play and not context.other_card.debuff then
@@ -36,7 +39,10 @@ local stone_free = {
     blueprint_compat = true,
     config = {extra = {retriggers = 1}},
     loc_vars = function(self, info_queue, center)
-        return {vars = {center.ability.extra.retriggers}}
+        return {
+            vars = {center.ability.extra.retriggers},
+            key = jojoker_config.use_localized_names and self.key..'_alt' or self.key
+        }
     end,
     calculate = function(self, card, context)
         if context.repetition and context.cardarea == G.play then
@@ -64,7 +70,10 @@ local made_in_heaven = {
     eternal_compat = false,
     config = {extra = {hands = 1, discards = 0, Xmult = 1, Xmult_mod = 1}},
     loc_vars = function(self, info_queue, center)
-        return {vars = {center.ability.extra.hands, center.ability.extra.discards, center.ability.extra.Xmult, center.ability.extra.Xmult_mod}}
+        return {
+            vars = {center.ability.extra.hands, center.ability.extra.discards, center.ability.extra.Xmult, center.ability.extra.Xmult_mod},
+            key = jojoker_config.use_localized_names and self.key..'_alt' or self.key
+        }
     end,
     calculate = function(self, card, context)
         -- Reduce hands to 1, discards to 0, and increase hand size to deck size. Gains 0.5x mult per hand and discard lost
@@ -117,15 +126,18 @@ local dragons_dream = {
         curr_money = 1,
         curr_Xmult = 1}},
     loc_vars = function(self, info_queue, center)
-        return {vars = {
-            center.ability.extra.chip_mod,
-            center.ability.extra.mult_mod,
-            center.ability.extra.money_mod,
-            center.ability.extra.xmult_mod,
-            center.ability.extra.curr_chips,
-            center.ability.extra.curr_mult,
-            center.ability.extra.curr_money,
-            center.ability.extra.curr_Xmult}}
+        return {
+            vars = {
+                center.ability.extra.chip_mod,
+                center.ability.extra.mult_mod,
+                center.ability.extra.money_mod,
+                center.ability.extra.xmult_mod,
+                center.ability.extra.curr_chips,
+                center.ability.extra.curr_mult,
+                center.ability.extra.curr_money,
+                center.ability.extra.curr_Xmult},
+            key = jojoker_config.use_localized_names and self.key..'_alt' or self.key
+            }
     end,
     calculate = function(self, card, context)
         -- When hand played, randomly change values

@@ -14,6 +14,7 @@ local joker_pool_toggles = {
 
 local misc_no_restart_toggles = {
     { ref_value = "jojoker_only_collection", label = "jojoker_settings_jojoker_only_collection", tooltip = { set = 'Other', key = 'jojoker_only_collection_tooltip' } },
+    { ref_value = "use_localized_names", label = "jojoker_settings_use_localized_names", tooltip = { set = 'Other', key = 'use_localized_names_tooltip' } },
 }
 
 local create_menu_toggles = function(parent, toggles)

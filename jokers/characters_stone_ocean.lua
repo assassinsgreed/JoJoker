@@ -11,7 +11,10 @@ local green_baby = {
     eternal_compat = true,
     config = {extra = { Xchips = 2 }},
     loc_vars = function(self, info_queue, center)
-        return {vars = { center.ability.extra.Xchips }}
+        return {
+            vars = { center.ability.extra.Xchips },
+            key = jojoker_config.use_localized_names and self.key..'_alt' or self.key
+        }
     end,
     calculate = function(self, card, context)
         -- When high card is played, double earned chips

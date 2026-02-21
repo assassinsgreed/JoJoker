@@ -74,7 +74,7 @@ jd_def["j_jojoker_kars_stopped_thinking"] = {
     }
 }
 
-jd_def["j_jojoker_suzie_q"] = {
+jd_def["j_jojoker_suzi_q"] = {
     text = {
         { text = "Gold Seal", colour = G.C.GREY }
     },

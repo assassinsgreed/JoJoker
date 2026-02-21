@@ -12,7 +12,10 @@ local mandom = {
     eternal_compat = true,
     config = {extra = {retriggers = 1, card_max = 6, cards = 0}},
     loc_vars = function(self, info_queue, center)
-        return {vars = {center.ability.extra.retriggers, center.ability.extra.card_max, center.ability.extra.card_max - center.ability.extra.cards}}
+        return {
+            vars = {center.ability.extra.retriggers, center.ability.extra.card_max, center.ability.extra.card_max - center.ability.extra.cards},
+            key = jojoker_config.use_localized_names and self.key..'_alt' or self.key
+        }
     end,
     calculate = function(self, card, context)
         if context.repetition and not context.end_of_round and context.cardarea == G.play and card.ability.extra.cards < card.ability.extra.card_max then

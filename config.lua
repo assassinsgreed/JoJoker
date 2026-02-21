@@ -9,4 +9,5 @@ return {
     ["steel_ball_run"] = true,
     ["jojolion"] = true,
     ["the_jojolands"] = true,
+    ["use_localized_names"] = false,
 }

@@ -12,7 +12,10 @@ local sex_pistols = {
     eternal_compat = true,
     config = { extra = { mult = 0, chosen_rank = "undecided", deactivated = false } }, -- Default for displayed strings in desc
     loc_vars = function(self, info_queue, card)
-      return {vars = {card.ability.extra.mult, card.ability.extra.chosen_rank}}
+        return {
+            vars = {card.ability.extra.mult, card.ability.extra.chosen_rank},
+            key = jojoker_config.use_localized_names and self.key..'_alt' or self.key
+        }
     end,
     calculate = function(self, card, context)
         -- When blind is starting, choose a random rank
@@ -83,7 +86,10 @@ local grateful_dead = {
     eternal_compat = false,
     config = { extra = { starting_mult = 25, mult_decay = 5, mult = 25, } },
     loc_vars = function(self, info_queue, card)
-      return {vars = {card.ability.extra.starting_mult, card.ability.extra.mult_decay, card.ability.extra.mult}}
+        return {
+            vars = {card.ability.extra.starting_mult, card.ability.extra.mult_decay, card.ability.extra.mult},
+            key = jojoker_config.use_localized_names and self.key..'_alt' or self.key
+        }
     end,
     calculate = function(self, card, context)
         -- Give mult during scoring
@@ -117,7 +123,10 @@ local spice_girl = {
     eternal_compat = true,
     config = { extra = { chips_mod = 25, Xmult_mod = 0.25, chips = 0, Xmult = 1 } },
     loc_vars = function(self, info_queue, card)
-      return {vars = {card.ability.extra.chips_mod, card.ability.extra.Xmult_mod, card.ability.extra.chips, card.ability.extra.Xmult}}
+        return {
+            vars = {card.ability.extra.chips_mod, card.ability.extra.Xmult_mod, card.ability.extra.chips, card.ability.extra.Xmult},
+            key = jojoker_config.use_localized_names and self.key..'_alt' or self.key
+        }
     end,
     calculate = function(self, card, context)
         -- When a stone card or steel card is scored, remove it's enhancement and boost joker chips and mult
@@ -169,8 +178,11 @@ local sticky_fingers = {
     eternal_compat = true,
     config = { extra = {} },
     loc_vars = function(self, info_queue, center)
-      info_queue[#info_queue + 1] = { set = 'Joker', key = 'j_four_fingers', config = {} }
-      return {vars = {}}
+        info_queue[#info_queue + 1] = { set = 'Joker', key = 'j_four_fingers', config = {} }
+        return {
+            vars = {},
+            key = jojoker_config.use_localized_names and self.key..'_alt' or self.key
+        }
     end
 }
 
@@ -186,7 +198,10 @@ local gold_experience = {
     eternal_compat = true,
     config = { extra = { numerator = 1, denominator = 10 } },
     loc_vars = function(self, info_queue, center)
-      return {vars = { center.ability.extra.numerator, center.ability.extra.denominator }}
+      return {
+        vars = { center.ability.extra.numerator, center.ability.extra.denominator },
+        key = jojoker_config.use_localized_names and self.key..'_alt' or self.key
+    }
     end,
     calculate = function(self, card, context)
         -- For each scored queen, card, potentially make it polychrome if it doesn't have an edition
@@ -219,6 +234,12 @@ local gold_experience_requiem = {
     perishable_compat = true,
     eternal_compat = true,
     config = { extra = { } },
+    loc_vars = function(self, info_queue, center)
+      return {
+        vars = {},
+        key = jojoker_config.use_localized_names and self.key..'_alt' or self.key
+    }
+    end,
     calculate = function(self, card, context)
         -- Disables active boss blinds
         if context.setting_blind then
