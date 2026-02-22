@@ -109,7 +109,46 @@ local milagro_man = {
 	end
 }
 
+local i_am_a_rock = {
+    name = "i_am_a_rock",
+    rarity = 2,
+    cost = 6,
+    jtype = "Stand",
+    jclass = "Close Range",
+    part = "jojolion",
+    blueprint_compat = false,
+    perishable_compat = true,
+    eternal_compat = true,
+    loc_vars = function(self, info_queue, center)
+      return {key = jojoker_config.use_localized_names and self.key..'_alt' or self.key}
+    end,
+    calculate = function(self, card, context)
+        if context.first_hand_drawn and not context.blueprint then
+            local eval = function() return not G.RESET_JIGGLES end
+            juice_card_until(card, eval, true)
+        end
+
+        -- Set unscored cards to stone cards, if they don't have another enhancement
+        if context.before and context.cardarea == G.jokers and not context.blueprint then
+            for _, unscored_card in pairs(context.full_hand) do
+                if not SMODS.in_scoring(unscored_card, context.scoring_hand) then
+                    if unscored_card.config.center == G.P_CENTERS.c_base and not unscored_card.debuff and not unscored_card.vampired then
+                        unscored_card:set_ability(G.P_CENTERS.m_stone, nil, true)
+                        G.E_MANAGER:add_event(Event({
+                            func = function()
+                                unscored_card:juice_up()
+                                return true
+                            end
+                        }))
+                        sendDebugMessage("I Am A Rock: Unscored card being set to stone")
+                    end
+                end
+            end
+        end
+    end
+}
+
 return {
     name = "Jojolion Stands Jokers",
-    list = { soft_and_wet, paper_moon_king, milagro_man },
+    list = { soft_and_wet, paper_moon_king, milagro_man, i_am_a_rock },
 }

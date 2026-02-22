@@ -542,6 +542,18 @@ return {
                     "Gives {C:money}$#2#{} for each played {C:attention}Two Pair{}.",
                 }
             },
+            j_jojoker_i_am_a_rock = {
+                name = "I Am a Rock",
+                text = {
+                    "Converts unscored cards to {C:attention}stone{} cards.",
+                }
+            },
+            j_jojoker_i_am_a_rock_alt = {
+                name = "I, Rock",
+                text = {
+                    "Converts unscored cards to {C:attention}stone{} cards.",
+                }
+            },
             -- Part 9: THE JOJOLands
             j_jojoker_smooth_operator = {
                 name = "Smooth Operators",

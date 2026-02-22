@@ -72,3 +72,43 @@ Balatest.TestPlay {
     end
 }
 --#endregion
+--#region I Am A Rock
+Balatest.TestPlay {
+    name = 'i_am_a_rock_adds_stone_enhancement_to_unenhanced_and_unscored_cards',
+    category = { 'jokers', 'jojolion', 'i_am_a_rock' },
+    jokers = { 'j_jojoker_i_am_a_rock' },
+    deck = { cards = {
+        { r = '2', s = 'C' },
+        { r = '3', s = 'C' },
+        { r = '4', s = 'C' },
+        { r = '5', s = 'C' } } },
+    execute = function()
+        Balatest.play_hand { '2C', '3C', '4C' }
+        Balatest.end_round() -- To check deck contents
+    end,
+    assert = function()
+        local isTwoStone = G.deck.cards[1].config.center == G.P_CENTERS.m_stone
+        local isThreeStone = G.deck.cards[2].config.center == G.P_CENTERS.m_stone
+        local isFourStone = G.deck.cards[3].config.center == G.P_CENTERS.m_stone
+        local isFiveStone = G.deck.cards[4].config.center == G.P_CENTERS.m_stone
+        Balatest.assert(isTwoStone and isThreeStone and not isFourStone and not isFiveStone, "I Am A Rock did not convert unscored 2 and 3 to stone cards")
+    end
+}
+Balatest.TestPlay {
+    name = 'i_am_a_rock_does_not_enhance_unscored_cards_with_enhancements',
+    category = { 'jokers', 'jojolion', 'i_am_a_rock' },
+    jokers = { 'j_jojoker_i_am_a_rock' },
+    deck = { cards = {
+        { r = '2', s = 'C', e = 'm_lucky' },
+        { r = '3', s = 'C' },
+        { r = '4', s = 'C' } } },
+    execute = function()
+        Balatest.play_hand { '2C', '3C' }
+        Balatest.end_round() -- To check deck contents
+    end,
+    assert = function()
+        local isTwoStone = G.deck.cards[1].config.center == G.P_CENTERS.m_stone
+        Balatest.assert(not isTwoStone, "I Am A Rock converted unscored 2 with an existing enhancement")
+    end
+}
+--#endregion

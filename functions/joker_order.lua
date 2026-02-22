@@ -38,6 +38,7 @@ jojoker.joker_order = {
     "goo_goo_dolls",
     "grateful_dead",
     "hey_ya",
+    "i_am_a_rock",
     "made_in_heaven",
     "magician_red",
     "mandom",

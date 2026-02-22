@@ -50,3 +50,9 @@ jd_def["j_jojoker_higashikata_fruit_parlor"] = {
         { text = "Pair / Two Pair", colour = G.C.GREY },
     }
 }
+
+jd_def["j_jojoker_i_am_a_rock"] = {
+    text = {
+        { text = "Unscored to Stone", colour = G.C.GREY }
+    },
+}
