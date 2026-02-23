@@ -372,6 +372,22 @@ return {
                     "{C:inactive}Currently: {X:mult,C:white} X#2#",
                 }
             },
+            j_jojoker_epitaph = {
+                name = "Epitaph",
+                text = {
+                    "Shows the next {C:attention}#1#{} cards in",
+                    "the deck as a prediction, then adds their",
+                    "total {C:chips}chips{} to the scoring hand.",
+                }
+            },
+            j_jojoker_epitaph_alt = {
+                name = "Eulogy",
+                text = {
+                    "Shows the next {C:attention}#1#{} cards in",
+                    "the deck as a prediction, then adds their",
+                    "total {C:chips}chips{} to the scoring hand.",
+                }
+            },
             -- Part 6: Stone Ocean
             j_jojoker_goo_goo_dolls = {
                 name = "Goo Goo Dolls",
@@ -591,6 +607,13 @@ return {
             },
         },
         Other = {
+            scan_cards = {
+                name = "Scan",
+                text = {
+                    "View top cards",
+                    "of your deck"
+                }
+            },
             jojoker_only_tooltip = {
                 name = "JoJoker Only",
                 text = {

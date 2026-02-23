@@ -113,6 +113,17 @@ pick_random_hand_type = function()
   return nil
 end
 
+joker_total_chips = function(card)
+  local total_chips = (card.ability.bonus) + (card.ability.perma_bonus or 0)
+  if card.ability.effect ~= 'Stone Card' and not card.config.center.replace_base_card then
+    total_chips = total_chips + (card.base.nominal)
+  end
+  if card.edition then
+    total_chips = total_chips + (card.edition.chips or 0)
+  end
+  return total_chips
+end
+
 ease_joker_dollars = function(card, seed, amt, calc_only)
   local earned = amt
   if card.ability.extra and type(card.ability.extra) == "table" then
@@ -177,10 +188,6 @@ transform_joker = function(card, target_key)
         if card.edition.holo then play_sound('holo1', 1.2*1.58, 0.4) end
         if card.edition.polychrome then play_sound('polychrome1', 1.2, 0.7) end
         if card.edition.negative then play_sound('negative', 1.5, 0.4) end
-        if card.edition.poke_shiny then
-            play_sound('poke_e_shiny', 1, 0.2)
-            G.P_CENTERS.e_poke_shiny.on_load(card)
-        end
     end
     
     if trigger_add then

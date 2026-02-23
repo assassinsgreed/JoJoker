@@ -23,6 +23,7 @@ jojoker.joker_order = {
     "zombies",
 
     -- Effects
+    "epitaph",
     "german_engineering",
     "higashikata_house",
     "higashikata_fruit_parlor",
