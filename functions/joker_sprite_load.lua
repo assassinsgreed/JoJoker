@@ -44,6 +44,7 @@ JokerSprites = {
         {name = "gold_experience_requiem", base = {pos = {x = 1, y = 1}}, part_atlas = "golden_wind" },
         {name = "king_crimson", base = {pos = {x = 2, y = 1}}, part_atlas = "golden_wind" },
         {name = "epitaph", base = {pos = {x = 3, y = 1}}, part_atlas = "golden_wind" },
+        {name = "moody_blues", base = {pos = {x = 4, y = 1}}, part_atlas = "golden_wind" },
         -- Part 6: Stone Ocean
         {name = "goo_goo_dolls", base = {pos = {x = 0, y = 0}}, part_atlas = "stone_ocean" },
         {name = "stone_free", base = {pos = {x = 1, y = 0}}, part_atlas = "stone_ocean" },

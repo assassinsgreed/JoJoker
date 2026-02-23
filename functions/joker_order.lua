@@ -48,6 +48,7 @@ jojoker.joker_order = {
     "magician_red",
     "mandom",
     "milagro_man",
+    "moody_blues",
     "oh_lonesome_me",
     "paper_moon_king",
     "red_hot_chili_pepper",

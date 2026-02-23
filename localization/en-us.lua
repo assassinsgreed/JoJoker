@@ -404,6 +404,20 @@ return {
                     "total {C:chips}chips{} to the scoring hand.",
                 }
             },
+            j_jojoker_moody_blues = {
+                name = "Moody Blues",
+                text = {
+                    "Scored cards have a {C:attention}#1# in #2#{}",
+                    "chance to retrigger."
+                }
+            },
+            j_jojoker_moody_blues_alt = {
+                name = "Moody Jazz",
+                text = {
+                    "Scored cards have a {C:attention}#1# in #2#{}",
+                    "chance to retrigger."
+                }
+            },
             -- Part 6: Stone Ocean
             j_jojoker_goo_goo_dolls = {
                 name = "Goo Goo Dolls",

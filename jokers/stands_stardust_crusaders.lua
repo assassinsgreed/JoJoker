@@ -61,9 +61,9 @@ local yellow_temperance = {
         if context.repetition and not context.end_of_round and context.cardarea == G.play then
             if context.other_card:is_face() then
                 return {
-                message = localize('k_again_ex'),
-                repetitions = card.ability.extra.retriggers,
-                card = card
+                    message = localize('k_again_ex'),
+                    repetitions = card.ability.extra.retriggers,
+                    card = card
                 }
             end
         end

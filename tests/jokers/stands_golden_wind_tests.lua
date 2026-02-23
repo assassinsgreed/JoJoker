@@ -247,3 +247,18 @@ Balatest.TestPlay {
     end
 }
 --#endregion
+--#region Moody Blues
+Balatest.TestPlay {
+    name = 'moody_blues_retriggers_scored_cards',
+    category = { 'jokers', 'golden_wind', 'moody_blues' },
+    jokers = { 'j_jojoker_moody_blues' },
+    hands = 3,
+    execute = function()
+        G.jokers.cards[1].ability.extra.denominator = G.jokers.cards[1].ability.extra.numerator
+        Balatest.play_hand { '2S' }
+    end,
+    assert = function()
+        Balatest.assert_chips(5 + 2 * 2, "Moody Blues did not retrigger scored cards correctly")
+    end
+}
+--#endregion

@@ -288,7 +288,42 @@ local king_crimson = {
     end
 }
 
+local moody_blues = {
+    name = "moody_blues",
+    rarity = 2,
+    cost = 5,
+    jtype = "Stand",
+    jclass = "Close Range",
+    part = "golden_wind",
+    blueprint_compat = true,
+    perishable_compat = true,
+    eternal_compat = true,
+    config = { extra = { numerator = 1, denominator = 3, retriggers = 1 } },
+    loc_vars = function(self, info_queue, center)
+      return {
+        vars = {center.ability.extra.numerator, center.ability.extra.denominator},
+        key = jojoker_config.use_localized_names and self.key..'_alt' or self.key
+    }
+    end,
+    calculate = function(self, card, context)
+        -- Potentially retrigger a card during scoring
+        if context.repetition and not context.end_of_round and context.cardarea == G.play then
+            if SMODS.pseudorandom_probability(card, 'moody_blues', card.ability.extra.numerator, card.ability.extra.denominator, 'moody_blues') then
+                card:juice_up()
+                context.other_card:juice_up()
+                sendDebugMessage("Moody Blues: Retriggering scored card")
+                
+                return {
+                    message = localize('k_again_ex'),
+                    repetitions = card.ability.extra.retriggers,
+                    card = card
+                }
+            end
+        end
+    end
+}
+
 return {
     name = "Golden Wind Stand Jokers",
-    list = { sex_pistols, grateful_dead, spice_girl, sticky_fingers, gold_experience, gold_experience_requiem, king_crimson },
+    list = { sex_pistols, grateful_dead, spice_girl, sticky_fingers, gold_experience, gold_experience_requiem, king_crimson, moody_blues },
 }
