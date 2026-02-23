@@ -88,3 +88,14 @@ jd_def["j_jojoker_bad_company"] = {
         card.joker_display_values.starting_deck_size = G.GAME.starting_deck_size
     end
 }
+
+jd_def["j_jojoker_cheap_trick"] = {
+    text = {
+        {
+            border_nodes = {
+                { text = "X" },
+                { ref_table = "card.ability.extra", ref_value = "Xmult" }
+            }
+        }
+    }
+}

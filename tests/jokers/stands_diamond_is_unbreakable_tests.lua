@@ -156,3 +156,28 @@ Balatest.TestPlay {
     end
 }
 --#endregion
+--#region Cheap Trick
+Balatest.TestPlay {
+    name = 'cheap_trick_gives_default_xmult_when_no_jokers_destroyed',
+    category = { 'jokers', 'diamond_is_unbreakable', 'cheap_trick' },
+    jokers = { 'j_jojoker_cheap_trick' },
+    execute = function()
+        Balatest.play_hand { '2S' }
+    end,
+    assert = function()
+        Balatest.assert_chips(7, "Cheap Trick did not give correct xmult when no jokers were destroyed")
+    end
+}
+Balatest.TestPlay {
+    name = 'cheap_trick_gives_xmult_for_each_joker_destroyed',
+    category = { 'jokers', 'diamond_is_unbreakable', 'cheap_trick' },
+    jokers = { 'j_jojoker_cheap_trick', 'j_jojoker_crazy_diamond' },
+    execute = function()
+        SMODS.destroy_cards(G.jokers.cards[2])
+        Balatest.play_hand { '2S' }
+    end,
+    assert = function()
+        Balatest.assert_chips(7 * G.jokers.cards[1].ability.extra.Xmult, "Cheap Trick did not give correct xmult when a joker was destroyed")
+    end
+}
+--#endregion

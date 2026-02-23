@@ -189,7 +189,45 @@ local bad_company = {
     end
 }
 
+local cheap_trick = {
+    name = "cheap_trick",
+    rarity = 1,
+    cost = 4,
+    jtype = "Stand",
+    jclass = "Automatic",
+    part = "diamond_is_unbreakable",
+    blueprint_compat = true,
+    perishable_compat = true,
+    eternal_compat = true,
+    config = { extra = { Xmult_mod = 2, Xmult = 1 } },
+    loc_vars = function(self, info_queue, card)
+      return {
+        vars = {card.ability.extra.Xmult_mod, card.ability.extra.Xmult},
+        key = jojoker_config.use_localized_names and self.key..'_alt' or self.key
+    }
+    end,
+    calculate = function(self, card, context)
+        -- When a joker is destroyed, increase XMult
+        if context.joker_type_destroyed and context.card ~= card then
+            card.ability.extra.Xmult = card.ability.extra.Xmult + card.ability.extra.Xmult_mod
+            sendDebugMessage("Cheap Trick: A joker was destroyed, increasing XMult to "..card.ability.extra.Xmult)
+        end
+
+        -- Give XMult during scoring
+        if context.cardarea == G.jokers and context.scoring_hand then
+            if context.joker_main then
+                sendDebugMessage("Cheap Trick: Giving XMult of "..card.ability.extra.Xmult)
+                return {
+                    message = localize{type = 'variable', key = 'a_xmult', vars = {card.ability.extra.Xmult}},
+                    colour = G.C.XMULT,
+                    Xmult_mod = card.ability.extra.Xmult
+                }
+            end
+        end
+    end
+}
+
 return {
     name = "Diamond is Unbreakable Stand Jokers",
-    list = { red_hot_chili_pepper, the_hand, superfly, crazy_diamond, bad_company },
+    list = { red_hot_chili_pepper, the_hand, superfly, crazy_diamond, bad_company, cheap_trick },
 }

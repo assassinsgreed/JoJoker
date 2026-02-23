@@ -250,6 +250,22 @@ return {
                     "over {C:attention}#2#{} in the deck.",
                 }
             },
+            j_jojoker_cheap_trick = {
+                name = "Cheap Trick",
+                text = {
+                    "Gains {X:mult,C:white} X#1# {} whenever a joker is destroyed.",
+                    "{br:2}line break",
+                    "{C:inactive}Currently: {X:mult,C:white}X#2#{}"
+                }
+            },
+            j_jojoker_cheap_trick_alt = {
+                name = "Cheap Trap",
+                text = {
+                    "Gains {X:mult,C:white} X#1# {} whenever a joker is destroyed.",
+                    "{br:2}line break",
+                    "{C:inactive}Currently: {X:mult,C:white}X#2#{}"
+                }
+            },
             -- Part 5: Golden Wind
             j_jojoker_sex_pistols = {
                 name = "Sex Pistols",
