@@ -39,6 +39,9 @@ local danny = {
                 -- Destroy Danny        
                 G.E_MANAGER:add_event(Event({
                   func = function()
+                    G.GAME.joker_buffer = 0
+                    card:start_dissolve({ HEX("57ecab") }, nil, 1.6)
+                    play_sound('slice1', 0.96 + math.random() * 0.08)
                     remove(self, card, context, true)
                     return true
                   end
@@ -216,7 +219,69 @@ local george_joestar = {
 	end
 }
 
+local dario_brando = {
+    name = "dario_brando",
+    rarity = 1,
+    cost = 4,
+    jtype = "Character",
+    part = "phantom_blood",
+    blueprint_compat = true,
+    perishable_compat = true,
+    eternal_compat = true,
+    config = { extra = { money_mod = 1, sell_value_mult = 1.2, numerator = 1, denominator = 4 } },
+    loc_vars = function(self, info_queue, center)
+      return {vars = { center.ability.extra.money_mod, center.ability.extra.sell_value_mult, center.ability.extra.numerator, center.ability.extra.denominator }}
+    end,
+    calculate = function(self, card, context)
+        -- Per hand played, steal up to $1 from player money
+        if context.cardarea == G.jokers and context.scoring_hand then
+            if not context.blueprint and context.joker_main then
+                if G.GAME.dollars > 0 then
+                    G.GAME.dollars = G.GAME.dollars - card.ability.extra.money_mod
+                    card.ability.extra_value = (card.ability.extra_value or 0) + card.ability.extra.money_mod
+                    card:set_cost()
+                    G.E_MANAGER:add_event(Event(
+                    {
+                        func = function() card_eval_status_text(card, 'extra', nil, nil, nil, {message = localize('k_val_up')}); return true
+                        end
+                    }))
+                end
+            end
+        end
+
+        -- On blind end, multiply sell value and potentially destroy self
+        if context.end_of_round and not context.individual and not context.repetition and not context.blueprint then
+             if SMODS.pseudorandom_probability(card, 'dario_brando', card.ability.extra.numerator, card.ability.extra.denominator, 'dario_brando') then
+                sendDebugMessage("Dario Brando: Destroyed by pseudorandom chance at end of blind.")
+
+                G.E_MANAGER:add_event(Event({
+                  func = function()
+                    G.GAME.joker_buffer = 0
+                    card:start_dissolve({ HEX("57ecab") }, nil, 1.6)
+                    play_sound('slice1', 0.96 + math.random() * 0.08)
+                    remove(self, card, context, true)
+                    return true
+                  end
+                }))
+
+                return {
+                    message = localize("sound_perished")
+                }
+            else
+                card.ability.extra_value = math.floor(card.ability.extra_value * card.ability.extra.sell_value_mult)
+                card:set_cost()
+                sendDebugMessage("Dario Brando: Multiplied sell value to "..card.ability.extra_value.." at end of round.")
+                G.E_MANAGER:add_event(Event(
+                {
+                    func = function() card_eval_status_text(card, 'extra', nil, nil, nil, {message = localize('k_val_up')}); return true
+                    end
+                }))
+            end
+        end
+    end
+}
+
 return {
     name = "Phantom Blood Effect Jokers",
-    list = { danny, baron_zeppeli, speedwagon, zombies, straizo, george_joestar },
+    list = { danny, baron_zeppeli, speedwagon, zombies, straizo, george_joestar, dario_brando },
 }

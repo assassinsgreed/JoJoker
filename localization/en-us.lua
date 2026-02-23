@@ -51,6 +51,14 @@ return {
                     "at the end of the round."
                 }
             },
+            j_jojoker_dario_brando = {
+                name = "Dario Brando",
+                text = {
+                    "Steals up to {C:money}$#1#{} for each hand played into sell value.",
+                    "At the end of the round, multiplies extra sell value by {C:attention}#2#{},",
+                    "but has a {C:attention}#3# in #4#{} chance to be {S:1.1,C:red,E:2}destroyed{}."
+                }
+            },
             -- Part 2: Battle Tendency
             j_jojoker_joseph_joestar = {
                 name = "Joseph Joestar",
@@ -89,7 +97,7 @@ return {
                 name = "Caesar Zeppeli",
                 text = {
                     "Gives each scored {C:attention}stone{} card",
-                    "{X:mult,C:white} X#1# {} mult, then destroyes them."
+                    "{X:mult,C:white} X#1# {} mult, then {S:1.1,C:red,E:2}destroyes{} them."
                 }
             },
             j_jojoker_kars_ultimate_lifeform = {
@@ -253,7 +261,7 @@ return {
             j_jojoker_cheap_trick = {
                 name = "Cheap Trick",
                 text = {
-                    "Gains {X:mult,C:white} X#1# {} whenever a joker is destroyed.",
+                    "Gains {X:mult,C:white} X#1# {} whenever a joker is {S:1.1,C:red,E:2}destroyed{}.",
                     "{br:2}line break",
                     "{C:inactive}Currently: {X:mult,C:white}X#2#{}"
                 }
@@ -261,7 +269,7 @@ return {
             j_jojoker_cheap_trick_alt = {
                 name = "Cheap Trap",
                 text = {
-                    "Gains {X:mult,C:white} X#1# {} whenever a joker is destroyed.",
+                    "Gains {X:mult,C:white} X#1# {} whenever a joker is {S:1.1,C:red,E:2}destroyed{}.",
                     "{br:2}line break",
                     "{C:inactive}Currently: {X:mult,C:white}X#2#{}"
                 }
@@ -564,7 +572,7 @@ return {
             j_jojoker_danny_sbr = {
                 name = "Danny",
                 text = {
-                    "When added, destroys a {C:attention}random joker{}.",
+                    "When added, {S:1.1,C:red,E:2}destroys{} a {C:attention}random joker{}.",
                     "Gives {X:mult,C:white} X#1# {}.",
                 }
             },
@@ -756,6 +764,7 @@ return {
             sound_unlucky = "Unlucky...",
             sound_neutral = "I'm neutral, remember?",
             sound_retired = "Retired!",
+            sound_perished = "Perished!",
             
             -- Common strings
             a_hand = "a hand",

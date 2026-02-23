@@ -163,3 +163,46 @@ Balatest.TestPlay {
     end
 }
 --#endregion
+--#region Dario Brando
+Balatest.TestPlay {
+    name = 'dario_brando_steals_money_for_each_hand_played',
+    category = { 'jokers', 'phantom_blood', 'dario_brando' },
+    jokers = { 'j_jojoker_dario_brando' },
+    dollars = 10,
+    execute = function()
+        Balatest.play_hand { '2S' }
+    end,
+    assert = function()
+        Balatest.assert_dollars(10 - G.jokers.cards[1].ability.extra.money_mod, "Dario Brando did not steal correct money for each hand played")
+    end
+}
+
+Balatest.TestPlay {
+    name = 'dario_brando_multiplies_sell_value_at_end_of_round',
+    category = { 'jokers', 'phantom_blood', 'dario_brando' },
+    jokers = { 'j_jojoker_dario_brando' },
+    dollars = 10,
+    execute = function()
+        G.jokers.cards[1].ability.extra.numerator = 0
+        G.jokers.cards[1].ability.extra_value = 10
+        Balatest.end_round()
+    end,
+    assert = function()
+        Balatest.assert_eq(G.jokers.cards[1].ability.extra_value, 10 * G.jokers.cards[1].ability.extra.sell_value_mult, "Dario Brando did not multiply sell value correctly at the end of the round")
+    end
+}
+
+Balatest.TestPlay {
+    name = 'dario_brando_destroys_himself_at_end_of_round',
+    category = { 'jokers', 'phantom_blood', 'dario_brando' },
+    jokers = { 'j_jojoker_dario_brando' },
+    dollars = 10,
+    execute = function()
+        G.jokers.cards[1].ability.extra.numerator = G.jokers.cards[1].ability.extra.denominator
+        Balatest.end_round()
+    end,
+    assert = function()
+        Balatest.assert_eq(#G.jokers.cards, 0, "Dario Brando did not destroy himself at the end of the round")
+    end
+}
+--#endregion
