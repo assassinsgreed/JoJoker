@@ -538,6 +538,14 @@ return {
                     "Gives {X:mult,C:white} X#1# {}.",
                 }
             },
+            j_jojoker_turbo_eyes = {
+                name = "Turbo Eyes",
+                text = {
+                    "Shows the next {C:attention}#1#{} cards in",
+                    "the deck as a prediction, then adds their",
+                    "total {C:chips}chips{} to the scoring hand.",
+                }
+            },
             -- Part 8: Jojolion
             j_jojoker_soft_and_wet = {
                 name = "Soft & Wet",

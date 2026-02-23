@@ -28,6 +28,7 @@ jojoker.joker_order = {
     "higashikata_house",
     "higashikata_fruit_parlor",
     "the_fifth_lesson",
+    "turbo_eyes",
     "voice_of_love",
 
     -- Stands

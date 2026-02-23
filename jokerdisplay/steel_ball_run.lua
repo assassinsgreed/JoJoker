@@ -102,3 +102,22 @@ jd_def["j_jojoker_danny_sbr"] = {
         }
     }
 }
+
+jd_def["j_jojoker_turbo_eyes"] = {
+    text = {
+        { text = "+" },
+        { ref_table = "card.joker_display_values", ref_value = "chips", retrigger_type = "mult" }
+    },
+    text_config = { colour = G.C.CHIPS },
+    calc_function = function(card)
+        local chips = 0
+        if G.scan_view then
+            for k, v in pairs(G.scan_view.cards) do
+                chips = chips + joker_total_chips(v) * (v:get_seal() == 'Red' and 2 or 1)
+            end
+            card.joker_display_values.chips = chips
+        else
+            card.joker_display_values.chips = 0
+        end
+    end
+}

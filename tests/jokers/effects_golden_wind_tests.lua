@@ -16,7 +16,7 @@ Balatest.TestPlay {
         Balatest.play_hand { '4S' }
     end,
     assert = function()
-        -- 5 from base score + 4 from Queen high card + 4 4s
+        -- 5 from base score + 4 from 4 high card + 4 4s
         Balatest.assert_chips(9 + 4 * 4, "Epitaph did not give correct chips based on top 4 cards of deck")
     end
 }
@@ -36,7 +36,7 @@ Balatest.TestPlay {
         Balatest.play_hand { '4S' }
     end,
     assert = function()
-        -- 5 from base score + 4 from Queen high card + 2 4s
+        -- 5 from base score + 4 from 4 high card + 2 4s
         Balatest.assert_chips(9 + 4 * 2, "Epitaph did not give correct chips based on up to top 4 cards of deck")
     end
 }
@@ -54,7 +54,7 @@ Balatest.TestPlay {
         Balatest.play_hand { '4S' }
     end,
     assert = function()
-        -- 5 from base score + 4 from Queen high card
+        -- 5 from base score + 4 from 4 high card
         Balatest.assert_chips(9 + 4 * 0, "Epitaph did not give correct chips based on 0 cards remaining in deck")
     end
 }
