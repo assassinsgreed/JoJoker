@@ -198,10 +198,7 @@ local kars_ultimate_lifeform = {
             end
             card.ability.extra.Xmult = 1 + planets_used * card.ability.extra.Xmult_mod
         end
-    end,
-    in_pool = function(self, args)
-        return not args or args.source ~= "jud"
-    end,
+    end
 }
 
 local kars_stopped_thinking = {

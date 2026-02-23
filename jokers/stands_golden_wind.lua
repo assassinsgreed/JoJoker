@@ -251,7 +251,44 @@ local gold_experience_requiem = {
     end
 }
 
+local king_crimson = {
+    name = "king_crimson",
+    rarity = 4,
+    cost = 10,
+    jtype = "Stand",
+    jclass = "Close Range",
+    part = "golden_wind",
+    blueprint_compat = false,
+    perishable_compat = false,
+    eternal_compat = false,
+    config = { extra = { Xmult_mod = 2, Xmult = 1, } },
+    loc_vars = function(self, info_queue, center)
+      return {
+        vars = { center.ability.extra.Xmult_mod, center.ability.extra.Xmult },
+        key = jojoker_config.use_localized_names and self.key..'_alt' or self.key
+    }
+    end,
+    calculate = function(self, card, context)
+        -- Gives 2x mult for each skipped blind
+        if context.cardarea == G.jokers and context.scoring_hand then
+            if context.joker_main then
+                sendDebugMessage("King Crimson: Giving "..card.ability.extra.Xmult.."x mult for "..G.GAME.skips.." skips")
+                return {
+                    message = localize{type = 'variable', key = 'a_xmult', vars = {card.ability.extra.Xmult}},
+                    colour = G.C.XMULT,
+                    Xmult_mod = card.ability.extra.Xmult
+                }
+            end
+        end
+    end,
+    update = function(self, card, dt)
+        if G.STAGE == G.STAGES.RUN then
+            card.ability.extra.Xmult = 1 + card.ability.extra.Xmult_mod * G.GAME.skips
+        end
+    end
+}
+
 return {
     name = "Golden Wind Stand Jokers",
-    list = { sex_pistols, grateful_dead, spice_girl, sticky_fingers, gold_experience, gold_experience_requiem },
+    list = { sex_pistols, grateful_dead, spice_girl, sticky_fingers, gold_experience, gold_experience_requiem, king_crimson },
 }

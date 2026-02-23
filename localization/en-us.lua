@@ -356,6 +356,22 @@ return {
                     "Disables all {C:attention}active boss blinds{}."
                 }
             },
+            j_jojoker_king_crimson = {
+                name = "King Crimson",
+                text = {
+                    "Gains {X:mult,C:white} X#1# {} for each skipped blind.",
+                    "{br:2}line break",
+                    "{C:inactive}Currently: {X:mult,C:white} X#2#",
+                }
+            },
+            j_jojoker_king_crimson_alt = {
+                name = "Emperor Crimson",
+                text = {
+                    "Gains {X:mult,C:white} X#1# {} for each skipped blind.",
+                    "{br:2}line break",
+                    "{C:inactive}Currently: {X:mult,C:white} X#2#",
+                }
+            },
             -- Part 6: Stone Ocean
             j_jojoker_goo_goo_dolls = {
                 name = "Goo Goo Dolls",

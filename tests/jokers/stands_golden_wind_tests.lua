@@ -232,3 +232,18 @@ Balatest.TestPlay {
     end
 }
 --#endregion
+--#region King Crimson
+Balatest.TestPlay {
+    name = 'king_crimson_gives_xmult_for_each_skipped_blind',
+    category = { 'jokers', 'golden_wind', 'king_crimson' },
+    jokers = { 'j_jojoker_king_crimson' },
+    execute = function()
+        G.GAME.skips = 2
+        Balatest.wait()
+    end,
+    assert = function()
+        local king_crimson_xmult = G.jokers.cards[1].ability.extra.Xmult
+        Balatest.assert_eq(king_crimson_xmult, 1 + G.jokers.cards[1].ability.extra.Xmult_mod * 2, "King Crimson doesn't have expected xmult for 2 skipped blinds")
+    end
+}
+--#endregion

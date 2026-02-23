@@ -70,3 +70,17 @@ jd_def["j_jojoker_gold_experience_requiem"] = {
         { text = "Disable boss blinds", colour = G.C.GREY }
     }
 }
+
+jd_def["j_jojoker_king_crimson"] = {
+    text = {
+        {
+            border_nodes = {
+                { text = "X" },
+                { ref_table = "card.ability.extra", ref_value = "Xmult" }
+            }
+        }
+    },
+    reminder_text = {
+        { text = "Skipped Blinds", colour = G.C.GREY },
+    }
+}
