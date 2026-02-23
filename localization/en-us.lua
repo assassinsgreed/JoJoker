@@ -515,6 +515,13 @@ return {
                     "into a {C:attention}Jack{} after hand is scored."
                 }
             },
+            j_jojoker_danny_sbr = {
+                name = "Danny",
+                text = {
+                    "When added, destroys a {C:attention}random joker{}.",
+                    "Gives {X:mult,C:white} X#1# {}.",
+                }
+            },
             -- Part 8: Jojolion
             j_jojoker_soft_and_wet = {
                 name = "Soft & Wet",
@@ -687,6 +694,7 @@ return {
             sound_lucky = "Lucky!",
             sound_unlucky = "Unlucky...",
             sound_neutral = "I'm neutral, remember?",
+            sound_retired = "Retired!",
             
             -- Common strings
             a_hand = "a hand",

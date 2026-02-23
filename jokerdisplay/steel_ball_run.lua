@@ -91,3 +91,14 @@ jd_def["j_jojoker_tattoo_you"] = {
         { text = "Jack", colour = G.C.GREEN },
     }
 }
+
+jd_def["j_jojoker_danny_sbr"] = {
+    text = {
+        {
+            border_nodes = {
+                { text = "X" },
+                { ref_table = "card.ability.extra", ref_value = "Xmult" }
+            }
+        }
+    }
+}

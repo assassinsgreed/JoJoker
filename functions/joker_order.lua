@@ -4,6 +4,7 @@ jojoker.joker_order = {
     "baron_zeppeli",
     "caesar",
     "danny",
+    "danny_sbr",
     "esidisi",
     "george_joestar",
     "green_baby",
