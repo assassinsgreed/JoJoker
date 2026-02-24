@@ -274,6 +274,14 @@ return {
                     "{C:inactive}Currently: {X:mult,C:white}X#2#{}"
                 }
             },
+            j_jojoker_yoshikage_kira = {
+                name = "Yoshikage Kira",
+                text = {
+                    "Gives {C:attention}+#1# hands{}.",
+                    "If all other {C:attention}Joker slots{} are filled",
+                    "with {C:attention}stands{}, gives {C:attention}+#2# hands{} instead.",
+                }
+            },
             -- Part 5: Golden Wind
             j_jojoker_sex_pistols = {
                 name = "Sex Pistols",

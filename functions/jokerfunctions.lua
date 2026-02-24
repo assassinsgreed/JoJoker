@@ -207,3 +207,16 @@ get_joker_count = function (name)
   end
   return 0
 end
+
+get_joker_count_by_type = function (jtype)
+  if G.jokers and #G.jokers.cards > 0 then
+      local jokerCount = 0
+      for _, joker in ipairs(G.jokers.cards) do
+          if joker.ability and joker.ability.extra and joker.ability.extra.jtype == jtype then
+              jokerCount = jokerCount + 1
+          end
+      end
+      return jokerCount
+  end
+  return 0
+end
