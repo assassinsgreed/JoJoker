@@ -503,14 +503,14 @@ return {
                     "{C:inactive}Currently: {C:chips}+#5#{}, {C:mult}+#6#{}, {C:money}$#7#{}, {X:mult,C:white} X#8# {}",
                 }
             },
-            j_jojoker_green_baby = {
-                name = "Green Baby",
+            j_jojoker_green_green_grass_of_home = {
+                name = "Green, Green Grass of Home",
                 text = {
                     "Doubles scored {C:chips}chips{} if a {C:attention}High Card{} is played.",
                 }
             },
-            j_jojoker_green_baby_alt = {
-                name = "Green Child",
+            j_jojoker_green_green_grass_of_home_alt = {
+                name = "Green, Green, Green Home",
                 text = {
                     "Doubles scored {C:chips}chips{} if a {C:attention}High Card{} is played.",
                 }

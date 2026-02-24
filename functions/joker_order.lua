@@ -8,7 +8,6 @@ jojoker.joker_order = {
     "dario_brando",
     "esidisi",
     "george_joestar",
-    "green_baby",
     "joseph_joestar",
     "josuke_higashikata_jjl",
     "kars_stopped_thinking",
@@ -23,7 +22,7 @@ jojoker.joker_order = {
     "suzi_q",
     "yoshikage_kira",
     "zombies",
-
+    
     -- Effects
     "epitaph",
     "german_engineering",
@@ -32,7 +31,7 @@ jojoker.joker_order = {
     "the_fifth_lesson",
     "turbo_eyes",
     "voice_of_love",
-
+    
     -- Stands
     "bad_company",
     "cheap_trick",
@@ -43,6 +42,7 @@ jojoker.joker_order = {
     "gold_experience_requiem",
     "goo_goo_dolls",
     "grateful_dead",
+    "green_green_grass_of_home",
     "hey_ya",
     "i_am_a_rock",
     "king_crimson",

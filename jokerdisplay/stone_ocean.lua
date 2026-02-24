@@ -58,7 +58,7 @@ jd_def["j_jojoker_dragons_dream"] = {
     }
 }
 
-jd_def["j_jojoker_green_baby"] = {
+jd_def["j_jojoker_green_green_grass_of_home"] = {
     text = {
         {
             border_nodes = {
