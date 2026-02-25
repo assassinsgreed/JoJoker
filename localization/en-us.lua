@@ -391,6 +391,12 @@ return {
                     "they do not have an edition."
                 }
             },
+            j_jojoker_gold_experience_requiem = {
+                name = "Gold Experience Requiem",
+                text = {
+                    "Disables all {C:attention}active boss blinds{}."
+                }
+            },
             j_jojoker_gold_experience_requiem_alt = {
                 name = "Golden Wind Requiem",
                 text = {
