@@ -110,7 +110,7 @@ local speedwagon_bt = {
             sendDebugMessage("Speedwagon: Gave $"..card.ability.extra.money_mod.." for played hand.")
 
             return {
-                message = localize('$').."$",
+                message = localize('$')..card.ability.extra.money_mod,
                 colour = G.C.MONEY,
                 card = card
             }

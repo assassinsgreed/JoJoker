@@ -43,12 +43,23 @@ local higashikata_fruit_parlor = {
     calculate = function(self, card, context)
         if context.cardarea == G.jokers and context.scoring_hand then
             if context.joker_main then
+                local money_given = 0
                 if context.scoring_name == "Pair" then
                     sendDebugMessage("Higashikata Fruit Parlor: Giving "..card.ability.extra.pair_money.." money for Pair")
                     ease_dollars(card.ability.extra.pair_money)
+                    money_given = card.ability.extra.pair_money
                 elseif context.scoring_name == "Two Pair" then
                     sendDebugMessage("Higashikata Fruit Parlor: Giving "..card.ability.extra.two_pair_money.." money for Two Pair")
                     ease_dollars(card.ability.extra.two_pair_money)
+                    money_given = card.ability.extra.two_pair_money
+                end
+
+                if money_given > 0 then
+                    return {
+                        message = localize('$')..money_given,
+                        colour = G.C.MONEY,
+                        card = card
+                    }
                 end
             end
         end

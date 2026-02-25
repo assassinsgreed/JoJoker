@@ -33,7 +33,7 @@ local magician_red = {
                 -- Destroy magician_red
                 ease_dollars(card.ability.extra.money_mod)
                 return {
-                    message = localize('$').."$",
+                    message = localize('$')..card.ability.extra.money_mod,
                     colour = G.C.MONEY,
                     card = card
                 }

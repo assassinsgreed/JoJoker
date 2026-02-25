@@ -104,7 +104,7 @@ local speedwagon = {
             sendDebugMessage("Speedwagon: Gave $"..card.ability.extra.money_mod.." for used discard.")
 
             return {
-                message = localize('$').."$",
+                message = localize('$')..card.ability.extra.money_mod,
                 colour = G.C.MONEY,
                 card = card
             }

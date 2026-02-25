@@ -123,24 +123,23 @@ local i_am_a_rock = {
       return {key = jojoker_config.use_localized_names and self.key..'_alt' or self.key}
     end,
     calculate = function(self, card, context)
-        if context.first_hand_drawn and not context.blueprint then
-            local eval = function() return not G.RESET_JIGGLES end
-            juice_card_until(card, eval, true)
-        end
-
         -- Set unscored cards to stone cards, if they don't have another enhancement
         if context.before and context.cardarea == G.jokers and not context.blueprint then
             for _, unscored_card in pairs(context.full_hand) do
                 if not SMODS.in_scoring(unscored_card, context.scoring_hand) then
                     if unscored_card.config.center == G.P_CENTERS.c_base and not unscored_card.debuff and not unscored_card.vampired then
+                        sendDebugMessage("I Am A Rock: Unscored card being set to stone")
                         unscored_card:set_ability(G.P_CENTERS.m_stone, nil, true)
                         G.E_MANAGER:add_event(Event({
                             func = function()
                                 unscored_card:juice_up()
-                                return true
+                                card:juice_up()
+                                return {
+                                    message = localize('k_upgrade_ex'),
+                                    colour = G.C.GOLD
+                                }
                             end
                         }))
-                        sendDebugMessage("I Am A Rock: Unscored card being set to stone")
                     end
                 end
             end
