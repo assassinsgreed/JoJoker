@@ -74,7 +74,7 @@ return {
                 name = "Esidisi",
                 text = {
                     "Gains {X:mult,C:white} X#2# {} whenever",
-                    "score catches fire.",
+                    "score catches fire before Esidisi triggers.",
                     "{br:2}line break",
                     "{C:inactive}Currently: {X:mult,C:white}X#1#{}"
                 }
