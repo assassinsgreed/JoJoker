@@ -166,7 +166,46 @@ local the_lovers = {
     end
 }
 
+local anubis = {
+    name = "anubis",
+    rarity = 2,
+    cost = 4,
+    jtype = "Stand",
+    jclass = "Close Range",
+    part = "stardust_crusaders",
+    blueprint_compat = true,
+    perishable_compat = true,
+    eternal_compat = true,
+    config = { extra = { chips_mod = 30, chips = 0 } },
+    loc_vars = function(self, info_queue, center)
+      return {vars = { center.ability.extra.chips_mod, center.ability.extra.chips }}
+    end,
+    calculate = function(self, card, context)
+        -- When a Joker is sold, gain 30 chips.
+        if context.selling_card and not context.selling_self then
+            sendDebugMessage("Anubis: Gaining "..card.ability.extra.chips_mod.." chips from selling a joker")
+            card.ability.extra.chips = card.ability.extra.chips + card.ability.extra.chips_mod
+
+            return {
+                message = localize('k_upgrade_ex'),
+                colour = G.C.GOLD
+            }
+        end
+
+        -- Give accumulated chips when scoring a hand
+        if context.cardarea == G.jokers and context.scoring_hand then
+            if context.joker_main and card.ability.extra.chips > 0 then
+                return {
+                    message = localize{type='variable', key='a_chips', vars={card.ability.extra.chips}},
+                    colour = G.C.CHIPS,
+                    chip_mod = card.ability.extra.chips,
+                }
+            end
+        end
+    end
+}
+
 return {
     name = "Stardust Crusaders Stand Jokers",
-    list = { magician_red, yellow_temperance, star_platinum, wheel_of_fortune, the_lovers },
+    list = { magician_red, yellow_temperance, star_platinum, wheel_of_fortune, the_lovers, anubis },
 }

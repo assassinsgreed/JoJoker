@@ -193,6 +193,14 @@ return {
                     "{C:inactive}Currently: {X:mult,C:white} X#4#"
                 }
             },
+            j_jojoker_anubis = {
+                name = "Anubis",
+                text = {
+                    "Gains {C:chips}#1#{} whenever a joker is sold.",
+                    "{br:2}line break",
+                    "{C:inactive}Currently: {C:chips}#2#"
+                }
+            },
             -- Part 4: Diamond is Unbreakable
             j_jojoker_voice_of_love = {
                 name = "Voice of Love",

@@ -160,3 +160,30 @@ Balatest.TestPlay {
     end
 }
 --#endregion
+--#region Anubis
+Balatest.TestPlay {
+    name = 'anubis_does_not_give_chips_when_no_jokers_sold',
+    category = { 'jokers', 'stardust_crusaders', 'anubis' },
+    jokers = { 'j_jojoker_anubis' },
+    execute = function()
+        Balatest.play_hand { '2S' }
+    end,
+    assert = function()
+        Balatest.assert_chips(7, "Anubis incorrectly gave extra chips when no jokers were sold")
+    end
+}
+Balatest.TestPlay {
+    name = 'anubis_gives_additional_chips_when_a_joker_is_sold',
+    category = { 'jokers', 'stardust_crusaders', 'anubis' },
+    jokers = { 'j_jojoker_anubis', 'j_jojoker_old_joseph_joestar' },
+    execute = function()
+        Balatest.sell(function() return G.jokers.cards[2] end)
+        G.jokers.cards[1].ability.extra.chips = G.jokers.cards[1].ability.extra.chips_mod -- Set chips to gain for easier assertion; Balatest sell does not proc selling_card context
+        Balatest.play_hand { '2S' }
+    end,
+    assert = function()
+        Balatest.assert_chips(7 + G.jokers.cards[1].ability.extra.chips, "Anubis did not give extra chips when a joker was sold")
+        Balatest.assert_neq(7, "Anubis did not give extra chips when a joker was sold")
+    end
+}
+--#endregion

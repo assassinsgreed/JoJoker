@@ -59,3 +59,10 @@ jd_def["j_jojoker_old_joseph_joestar"] = {
         }
     }
 }
+
+jd_def["j_jojoker_anubis"] = {
+    text = {
+        { text = "+", colour = G.C.CHIPS },
+        { ref_table = "card.ability.extra", ref_value = "chips", retrigger_type = "chips",  colour = G.C.CHIPS },
+    }
+}

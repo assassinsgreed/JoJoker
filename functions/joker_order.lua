@@ -34,6 +34,7 @@ jojoker.joker_order = {
     "voice_of_love",
     
     -- Stands
+    "anubis",
     "bad_company",
     "california_king_bed",
     "cheap_trick",
