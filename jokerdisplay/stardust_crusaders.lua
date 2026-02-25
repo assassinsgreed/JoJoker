@@ -48,3 +48,14 @@ jd_def["j_jojoker_the_lovers"] = {
         { text = "Per scored Heart", colour = G.C.GREY, },
     }
 }
+
+jd_def["j_jojoker_old_joseph_joestar"] = {
+    text = {
+        {
+            border_nodes = {
+                { text = "X" },
+                { ref_table = "card.ability.extra", ref_value = "Xmult" }
+            }
+        }
+    }
+}

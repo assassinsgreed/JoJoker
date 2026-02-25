@@ -15,6 +15,7 @@ jojoker.joker_order = {
     "leaky_eye_luca",
     "ndoul",
     "nypd",
+    "old_joseph_joestar",
     "shizuka",
     "speedwagon",
     "speedwagon_bt",

@@ -184,6 +184,15 @@ return {
                     "gains {C:mult}+#1#{}."
                 }
             },
+            j_jojoker_old_joseph_joestar = {
+                name = "Old Joseph Joestar",
+                text = {
+                    "Has a {C:attention}#1# in #2#{} chance to quip on discard.",
+                    "Gives {X:mult,C:white} X#3# {} per quip.",
+                    "{br:2}line break",
+                    "{C:inactive}Currently: {X:mult,C:white} X#4#"
+                }
+            },
             -- Part 4: Diamond is Unbreakable
             j_jojoker_voice_of_love = {
                 name = "Voice of Love",
@@ -791,6 +800,10 @@ return {
             sound_neutral = "I'm neutral, remember?",
             sound_retired = "Retired!",
             sound_perished = "Perished!",
+            sound_joseph_quip_oh_my_god = "Oh my gawwwd!",
+            sound_joseph_quip_oh_no = "Oh nooooo!",
+            sound_joseph_quip_holy_shit = "Holy shiiiittt!",
+            sound_joseph_quip_son_of_a_bitch = "Sonuva biiittch!",
             
             -- Common strings
             a_hand = "a hand",

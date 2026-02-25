@@ -19,7 +19,53 @@ local ndoul = {
     end
 }
 
+local old_joseph_joestar = {
+    name = "old_joseph_joestar",
+    rarity = 3,
+    cost = 5,
+    jtype = "Character",
+    part = "stardust_crusaders",
+    blueprint_compat = true,
+    perishable_compat = true,
+    eternal_compat = true,
+    config = { extra = { numerator = 1, denominator = 2, Xmult_mod = 0.15, Xmult = 1 } },
+    loc_vars = function(self, info_queue, center)
+      return {vars = {center.ability.extra.numerator, center.ability.extra.denominator, center.ability.extra.Xmult_mod, center.ability.extra.Xmult}, key = self.key}
+    end,
+    calculate = function(self, card, context)
+        -- On discard, have a chance to quip and increase XMult
+        if context.pre_discard then
+            if SMODS.pseudorandom_probability(card, 'old_joseph_joestar', card.ability.extra.numerator, card.ability.extra.denominator, 'old_joseph_joestar') then
+                sendDebugMessage("Old Joesph Joestar: Quipping and increasing Xmult")
+                card.ability.extra.Xmult = card.ability.extra.Xmult + card.ability.extra.Xmult_mod
+
+                local quips = {
+                    "sound_joseph_quip_oh_my_god",
+                    "sound_joseph_quip_oh_no",
+                    "sound_joseph_quip_holy_shit",
+                    "sound_joseph_quip_son_of_a_bitch"
+                }
+                return {
+                    message = localize(quips[math.random(#quips)]),
+                    colour = G.C.GOLD
+                }
+            end
+        end
+
+        -- On scoring, apply Xmult
+        if context.cardarea == G.jokers and context.scoring_hand then
+            if context.joker_main then
+                return {
+                    message = localize{type = 'variable', key = 'a_xmult', vars = {card.ability.extra.Xmult}},
+                    colour = G.C.XMULT,
+                    Xmult_mod = card.ability.extra.Xmult
+                }
+            end
+        end
+    end
+}
+
 return {
     name = "Stardust Crusaders Character Jokers",
-    list = { ndoul },
+    list = { ndoul, old_joseph_joestar },
 }

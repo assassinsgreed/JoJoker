@@ -24,3 +24,18 @@ Balatest.TestPlay {
     end
 }
 --#endregion
+--#region Old Joseph Joestar
+Balatest.TestPlay {
+    name = 'old_joseph_joestar_gains_xmult_on_discard',
+    category = { 'jokers', 'stardust_crusaders', 'old_joseph_joestar' },
+    jokers = { 'j_jojoker_old_joseph_joestar' },
+    hands = 3,
+    execute = function()
+        G.jokers.cards[1].ability.extra.denominator = G.jokers.cards[1].ability.extra.numerator
+        Balatest.discard { '2S' }
+    end,
+    assert = function()
+        Balatest.assert_eq(G.jokers.cards[1].ability.extra.Xmult, 1 + G.jokers.cards[1].ability.extra.Xmult_mod, "Old Joseph Joestar did not gain Xmult on discard while quipping")
+    end
+}
+--#endregion
