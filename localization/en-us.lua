@@ -15,7 +15,7 @@ return {
             j_jojoker_baron_zeppeli = {
                 name = "Baron Zeppeli",
                 text = {
-                    "Cuts scored {C:chips}chips{} in half when scored.",
+                    "During final scoring, cuts scored {C:chips}chips{} in half.",
                     "Adds {C:mult}mult{} equal to {C:attention}20%{} of original chips."
                 }
             },
@@ -97,7 +97,7 @@ return {
                 name = "Caesar Zeppeli",
                 text = {
                     "Gives each scored {C:attention}stone{} card",
-                    "{X:mult,C:white} X#1# {} mult, then {S:1.1,C:red,E:2}destroyes{} them."
+                    "{X:mult,C:white} X#1# {} mult, then {S:1.1,C:red,E:2}destroys{} them."
                 }
             },
             j_jojoker_kars_ultimate_lifeform = {
