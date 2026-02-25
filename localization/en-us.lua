@@ -647,6 +647,24 @@ return {
                     "Converts unscored cards to {C:attention}stone{} cards.",
                 }
             },
+            j_jojoker_california_king_bed = {
+                name = "California King Bed",
+                text = {
+                    "Before scoring, gains {X:mult,C:white} X#1# {} for each {C:attention}unique hand type{}",
+                    "played this round. Resets at the end of the round.",
+                    "{br:2}line break",
+                    "{C:inactive}Currently: {X:mult,C:white} X#2#"
+                }
+            },
+            j_jojoker_california_king_bed_alt = {
+                name = "King Bed",
+                text = {
+                    "Before scoring, gains {X:mult,C:white} X#1# {} for each {C:attention}unique hand type{}",
+                    "played this round. Resets at the end of the round.",
+                    "{br:2}line break",
+                    "{C:inactive}Currently: {X:mult,C:white} X#2#"
+                }
+            },
             -- Part 9: THE JOJOLands
             j_jojoker_smooth_operator = {
                 name = "Smooth Operators",

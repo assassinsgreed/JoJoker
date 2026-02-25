@@ -34,6 +34,7 @@ jojoker.joker_order = {
     
     -- Stands
     "bad_company",
+    "california_king_bed",
     "cheap_trick",
     "chocolate_disco",
     "crazy_diamond",

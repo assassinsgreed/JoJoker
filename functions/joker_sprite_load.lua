@@ -71,6 +71,7 @@ JokerSprites = {
         {name = "higashikata_house", base = {pos = {x = 4, y = 0}}, part_atlas = "jojolion" },
         {name = "higashikata_fruit_parlor", base = {pos = {x = 0, y = 1}}, part_atlas = "jojolion" },
         {name = "i_am_a_rock", base = {pos = {x = 1, y = 1}}, part_atlas = "jojolion" },
+        {name = "california_king_bed", base = {pos = {x = 2, y = 1}}, part_atlas = "jojolion" },
         -- Part 9: THE JOJOLands
         {name = "smooth_operator", base = {pos = {x = 0, y = 0}}, part_atlas = "the_jojolands" },
         -- Other

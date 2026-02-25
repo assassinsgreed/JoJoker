@@ -56,3 +56,14 @@ jd_def["j_jojoker_i_am_a_rock"] = {
         { text = "Unscored to Stone", colour = G.C.GREY }
     },
 }
+
+jd_def["j_jojoker_california_king_bed"] = {
+    text = {
+        {
+            border_nodes = {
+                { text = "X" },
+                { ref_table = "card.ability.extra", ref_value = "Xmult" }
+            }
+        }
+    }
+}

@@ -112,3 +112,41 @@ Balatest.TestPlay {
     end
 }
 --#endregion
+--#region California King Bed
+Balatest.TestPlay {
+    name = 'california_king_bed_adds_xmult_before_scoring',
+    category = { 'jokers', 'jojolion', 'california_king_bed' },
+    jokers = { 'j_jojoker_california_king_bed' },
+    execute = function()
+        Balatest.play_hand { '2C', '2S', '2H' }
+    end,
+    assert = function()
+        Balatest.assert_chips(162, "California King Bed did not add mult before scoring")
+    end
+}
+Balatest.TestPlay {
+    name = 'california_king_bed_adds_xmult_for_each_unique_hand',
+    category = { 'jokers', 'jojolion', 'california_king_bed' },
+    jokers = { 'j_jojoker_california_king_bed' },
+    execute = function()
+        Balatest.play_hand { '2C' }
+        Balatest.play_hand { '2D' }
+        Balatest.play_hand { '3C', '3H' }
+    end,
+    assert = function()
+        Balatest.assert_eq(G.jokers.cards[1].ability.extra.Xmult, 1 + 2 * G.jokers.cards[1].ability.extra.Xmult_mod, "California King Bed did not earn XMult for two unique hand types")
+    end
+}
+Balatest.TestPlay {
+    name = 'california_king_bed_resets_xmult_at_end_of_round',
+    category = { 'jokers', 'jojolion', 'california_king_bed' },
+    jokers = { 'j_jojoker_california_king_bed' },
+    execute = function()
+        G.jokers.cards[1].ability.extra.XMult = 3
+        Balatest.end_round()
+    end,
+    assert = function()
+        Balatest.assert_eq(G.jokers.cards[1].ability.extra.Xmult, 1, "California King Bed did not reset XMult at end of round")
+    end
+}
+--#endregion

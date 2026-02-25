@@ -148,7 +148,57 @@ local i_am_a_rock = {
     end
 }
 
+local california_king_bed = {
+    name = "california_king_bed",
+    rarity = 2,
+    cost = 6,
+    jtype = "Stand",
+    jclass = "Close Range",
+    part = "jojolion",
+    blueprint_compat = true,
+    perishable_compat = true,
+    eternal_compat = true,
+    config = { extra = { Xmult_mod = 0.5, Xmult = 1, tracked_hands = {} } },
+    loc_vars = function(self, info_queue, center)
+     return {
+        vars = {center.ability.extra.Xmult_mod, center.ability.extra.Xmult},
+        key = jojoker_config.use_localized_names and self.key..'_alt' or self.key
+    }
+    end,
+    calculate = function(self, card, context)
+        -- Before scoring, increase XMult if hand has not been played this round
+        if context.cardarea == G.jokers and context.scoring_hand then
+            if not context.blueprint then
+                if context.before and card.ability.extra.tracked_hands[context.scoring_name] == nil then
+                    card.ability.extra.tracked_hands[context.scoring_name] = true
+                    card.ability.extra.Xmult = card.ability.extra.Xmult + card.ability.extra.Xmult_mod
+                    sendDebugMessage("California King Bed: Adding scoring hand '"..context.scoring_name.."' to tracked hands and increasing XMult")
+                    return {
+                        message = localize('k_upgrade_ex')
+                    }
+                end
+
+                -- During scoring, give XMult
+                if context.joker_main then
+                    return {
+                        message = localize{type = 'variable', key = 'a_xmult', vars = {card.ability.extra.Xmult}},
+                        colour = G.C.XMULT,
+                        Xmult_mod = card.ability.extra.Xmult
+                    }
+                end
+            end
+        end
+
+        -- When blind ends, reset XMult and pool of tracked hands
+        if context.end_of_round and not context.individual and not context.repetition and not context.blueprint then
+            card.ability.extra.Xmult = 1
+            card.ability.extra.tracked_hands = {}
+            sendDebugMessage("California King Bed: Resetting joker at the end of the round.")
+        end
+    end
+}
+
 return {
     name = "Jojolion Stands Jokers",
-    list = { soft_and_wet, paper_moon_king, milagro_man, i_am_a_rock },
+    list = { soft_and_wet, paper_moon_king, milagro_man, i_am_a_rock, california_king_bed },
 }
