@@ -295,8 +295,6 @@ return {
                 name = "Yoshikage Kira",
                 text = {
                     "Gives {C:attention}+#1# hands{}.",
-                    "If all other {C:attention}Joker slots{} are filled",
-                    "with {C:attention}stands{}, gives {C:attention}+#2# hands{} instead.",
                 }
             },
             -- Part 5: Golden Wind

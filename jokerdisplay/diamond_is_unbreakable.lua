@@ -103,15 +103,7 @@ jd_def["j_jojoker_cheap_trick"] = {
 jd_def["j_jojoker_yoshikage_kira"] = {
     text = {
         { text = "+", colour = G.C.GREY },
-        { ref_table ="card.joker_display_values", ref_value = "hands", colour = G.C.GREY },
+        { ref_table = "card.ability.extra", ref_value = "hands", colour = G.C.GREY },
         { text = " hands", colour = G.C.GREY },
-    },
-    calc_function = function(card)
-        local stand_jokers_count = get_joker_count_by_type("Stand")
-        if #G.jokers.cards == G.jokers.config.card_limit and stand_jokers_count == #G.jokers.cards - 1 then -- Ignore held Yoshikage Kira
-            card.joker_display_values.hands = card.ability.extra.hands_all_stands
-        else
-            card.joker_display_values.hands = card.ability.extra.hands
-        end
-    end
+    }
 }
