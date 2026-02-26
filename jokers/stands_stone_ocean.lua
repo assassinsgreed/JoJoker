@@ -205,7 +205,7 @@ local green_green_grass_of_home = {
         }
     end,
     calculate = function(self, card, context)
-        -- When high card is played, double earned chips
+       -- When high card is played, double earned chips
        if context.cardarea == G.jokers and context.scoring_hand and context.scoring_name == "High Card" then
             if context.joker_main then
                 sendDebugMessage("Green, Green Grass of Home: Doubling chips for high card")
@@ -236,7 +236,47 @@ local survivor = {
     end
 }
 
+local foo_fighters = {
+    name = "foo_fighters",
+    rarity = 1,
+    cost = 5,
+    jtype = "Stand",
+    jclass = "Close Range",
+    part = "stone_ocean",
+    blueprint_compat = true,
+    perishable_compat = true,
+    eternal_compat = true,
+    config = { extra = { chips_mod = 2, chips = 0 } },
+    loc_vars = function(self, info_queue, center)
+        return {
+            vars = {center.ability.extra.chips_mod, center.ability.extra.chips},
+            key = jojoker_config.use_localized_names and self.key..'_alt' or self.key
+        }
+    end,
+    calculate = function(self, card, context)
+        -- When high card is played, double earned chips
+       if context.cardarea == G.jokers and context.scoring_hand then
+            if context.joker_main then
+                sendDebugMessage("Foo Fighters: Giving chips based on unique cards played this ante. Chips to add: "..card.ability.extra.chips)
+
+                return {
+                    message = localize{type='variable', key='a_chips', vars={card.ability.extra.chips}},
+                    colour = G.C.CHIPS,
+                    chip_mod = card.ability.extra.chips,
+                }
+            end
+        end
+    end,
+    update = function(self, card, dt)
+        local unique_cards_played_this_ante = 0
+        for k, v in ipairs(G.playing_cards) do
+            unique_cards_played_this_ante = unique_cards_played_this_ante + (v.ability.played_this_ante and 1 or 0)
+        end
+        card.ability.extra.chips = card.ability.extra.chips_mod * unique_cards_played_this_ante
+    end
+}
+
 return {
     name = "Stone Ocean Stands Jokers",
-    list = { goo_goo_dolls, stone_free, made_in_heaven, dragons_dream, green_green_grass_of_home, survivor },
+    list = { goo_goo_dolls, stone_free, made_in_heaven, dragons_dream, green_green_grass_of_home, survivor, foo_fighters },
 }

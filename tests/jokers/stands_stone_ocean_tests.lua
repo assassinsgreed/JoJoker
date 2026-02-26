@@ -153,3 +153,32 @@ Balatest.TestPlay {
     end
 }
 --#endregion
+--#region Foo Fighters
+Balatest.TestPlay {
+    name = 'foo_fighters_gives_chips_for_each_unique_played_card_this_blind',
+    category = { 'jokers', 'stone_ocean', 'foo_fighters' },
+    jokers = { 'j_jojoker_foo_fighters' },
+    execute = function()
+        Balatest.play_hand { '2S', '3C' }
+    end,
+    assert = function()
+        local ff_chips = G.jokers.cards[1].ability.extra.chips
+        Balatest.assert_eq(ff_chips, 4, "Foo Fighters did not give chips for each unique played card this blind.")
+    end
+}
+Balatest.TestPlay {
+    name = 'foo_fighters_gives_chips_for_each_unique_played_card_this_ante',
+    category = { 'jokers', 'stone_ocean', 'foo_fighters' },
+    jokers = { 'j_jojoker_foo_fighters' },
+    execute = function()
+        Balatest.play_hand { '2S', '3C' }
+        Balatest.next_round()
+        Balatest.play_hand { '2C', '3C' }
+    end,
+    assert = function()
+        local ff_chips = G.jokers.cards[1].ability.extra.chips
+        Balatest.assert_eq(ff_chips, 6, "Foo Fighters did not give chips for each unique played card this ante.")
+    end
+}
+-- Can't mainuplate antes through Balatest
+--#endregion

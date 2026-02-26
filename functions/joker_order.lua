@@ -41,6 +41,7 @@ jojoker.joker_order = {
     "chocolate_disco",
     "crazy_diamond",
     "dragons_dream",
+    "foo_fighters",
     "gold_experience",
     "gold_experience_requiem",
     "goo_goo_dolls",

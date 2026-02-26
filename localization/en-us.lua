@@ -542,6 +542,22 @@ return {
                     "Applies {C:attention}Splash{}."
                 }
             },
+            j_jojoker_foo_fighters = {
+                name = "Foo Fighters",
+                text = {
+                    "Gives {C:chips}+#1#{} for each {C:attention}unique card played{} this ante.",
+                    "{br:2}line break",
+                    "{C:inactive}Currently: {C:chips}#2#{}"
+                }
+            },
+            j_jojoker_foo_fighters_alt = {
+                name = "F.F.",
+                text = {
+                    "Gives {C:chips}+#1#{} for each {C:attention}unique card played{} this ante.",
+                    "{br:2}line break",
+                    "{C:inactive}Currently: {C:chips}#2#{}"
+                }
+            },
             -- Part 7: Steel Ball Run
             j_jojoker_mandom = {
                 name = "Mandom",
