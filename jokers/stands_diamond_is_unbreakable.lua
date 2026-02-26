@@ -74,17 +74,14 @@ local the_hand = {
         
         -- During scoring, give mult per scored card that is buffed rank
         if context.individual and context.cardarea == G.play then
-            for i = 1, #context.scoring_hand do
-                local scored_card = context.scoring_hand[i]
-                local scored_rank = rank_string_from_id(scored_card:get_id())
-                if scored_rank == card.ability.extra.buffed_rank_one or scored_rank == card.ability.extra.buffed_rank_two then
-                    sendDebugMessage("The Hand: Found buffed rank "..scored_rank.." in scored hand, giving +"..card.ability.extra.mult_mod.." mult.")
-                    return {
-                        message = localize{type = 'variable', key = 'a_mult', vars = {card.ability.extra.mult_mod}},
-                        colour = G.C.MULT,
-                        mult_mod = card.ability.extra.mult_mod
-                    }
-                end
+            local scored_rank = rank_string_from_id(context.other_card:get_id())
+            if scored_rank == card.ability.extra.buffed_rank_one or scored_rank == card.ability.extra.buffed_rank_two then
+                sendDebugMessage("The Hand: Found buffed rank "..scored_rank.." in scored hand, giving +"..card.ability.extra.mult_mod.." mult.")
+                return {
+                    message = localize{type = 'variable', key = 'a_mult', vars = {card.ability.extra.mult_mod}},
+                    colour = G.C.MULT,
+                    mult_mod = card.ability.extra.mult_mod
+                }
             end
         end
 
