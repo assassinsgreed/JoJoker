@@ -181,7 +181,7 @@ return {
                 name = "Lovers",
                 text = {
                     "Each scored {C:hearts}Heart{} card permanently",
-                    "gains {C:mult}+#1#{}."
+                    "gains {C:mult}+#1#{} after scoring."
                 }
             },
             j_jojoker_old_joseph_joestar = {
