@@ -154,7 +154,9 @@ local spice_girl = {
                     end
                 end
             end
+        end
 
+        if context.cardarea == G.jokers and context.scoring_hand then
             if context.joker_main then
                 return {
                     message = localize{type='variable', key='a_chips', vars={card.ability.extra.chips}},
