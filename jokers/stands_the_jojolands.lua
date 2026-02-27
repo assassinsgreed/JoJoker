@@ -10,60 +10,57 @@ local smooth_operator = {
     blueprint_compat = true,
     perishable_compat = true,
     eternal_compat = true,
-        config = { extra = { mult = 0, position = nil, manually_repositioned = false, relocated_this_blind = false } },
+    config = { extra = { chips = 20 } },
     loc_vars = function(self, info_queue, center)
-     return {vars = {center.ability.extra.mult}}
+     return {vars = {center.ability.extra.chips}}
    end,
     calculate = function(self, card, context)
-        -- When ending a shop, relocate and reset position state (done instead of when starting blind because repositioning can break other jokers' initialization logic!)
-        if context.ending_shop then
-            if not card.ability.extra.relocated_this_blind then
-                local card_index = find_joker_pos(card)
-                sendDebugMessage("Smooth Operator: Found at position "..card_index)
+        -- Before scoring, reposition all cards in played hand
+        if context.before and context.cardarea == G.jokers and not context.blueprint and context.full_hand and #context.full_hand > 1 then
+            local full_hand = context.full_hand
+            for i = #full_hand, 2, -1 do
+                local j = math.random(i)
+                full_hand[i], full_hand[j] = full_hand[j], full_hand[i]
+            end
 
-                -- Relocate itself
-                if card_index and #G.jokers.cards > 1 then
-                    table.remove(G.jokers.cards, card_index)
-                    local new_index = card_index
-                    while new_index == card_index do
-                        new_index = math.random(1, #G.jokers.cards + 1)
+            if G.play and G.play.cards then
+                local played_set = {}
+                for i = 1, #full_hand do
+                    played_set[full_hand[i]] = true
+                end
+
+                local next_played_index = 1
+                for i = 1, #G.play.cards do
+                    if played_set[G.play.cards[i]] then
+                        G.play.cards[i] = full_hand[next_played_index]
+                        next_played_index = next_played_index + 1
                     end
-                    table.insert(G.jokers.cards, new_index, card)
-                    card.ability.extra.position = new_index
-                    card.ability.extra.relocated_this_blind = true
-                    card.ability.extra.manually_repositioned = false
-                    sendDebugMessage("Smooth Operator: Relocated to position " .. card.ability.extra.position)
                 end
             end
+
+            if context.scoring_hand then
+                local position = {}
+                for i = 1, #full_hand do
+                    position[full_hand[i]] = i
+                end
+
+                table.sort(context.scoring_hand, function(a, b)
+                    return (position[a] or 999) < (position[b] or 999)
+                end)
+            end
+
+            return {
+                message = localize("shuffled")
+            }
         end
 
         if context.cardarea == G.jokers and context.scoring_hand then
-            local card_index = find_joker_pos(card)
-            if card_index and card.ability.extra.position ~= card_index then
-                card.ability.extra.manually_repositioned = true
-                sendDebugMessage("Smooth Operator: Manually repositioned this blind.")
-            end
-        end
-
-        -- Increase mult by # of jokers at the end of the blind, if this joker hasn't moved
-        if context.end_of_round and not context.individual and not context.repetition then
-            card.ability.extra.relocated_this_blind = false
-            local card_index = find_joker_pos(card)
-            
-            if card.ability.extra.position == card_index and not card.ability.extra.manually_repositioned then
-                local held_jokers = #G.jokers.cards
-                card.ability.extra.mult = card.ability.extra.mult + held_jokers
-                sendDebugMessage("Smooth Operator: Not relocated, adding "..held_jokers.." to mult. Mult is now ".. card.ability.extra.mult)
-            end
-        end
-
-        if context.joker_main then
-            if card.ability.extra.mult > 0 then
-                return {
-                    message = localize{type = 'variable', key = 'a_mult', vars = {card.ability.extra.mult}},
-                    colour = G.C.MULT,
-                }
-            end
+            if context.joker_main then
+                    return {
+                        message = localize{type = 'variable', key = 'a_chips', vars = {#context.scoring_hand * card.ability.extra.chips}},
+                        colour = G.C.CHIPS,
+                    }
+                end
         end
     end
 }

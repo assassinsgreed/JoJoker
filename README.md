@@ -44,4 +44,5 @@ JoJo's Bizarre Adventure is property of Hirohiko Araki.
 - Add new title screen art
 - Add config for developer mode (off by default, includes tests when on)
 - Add a card holo effect for legendary jokers
+- Change which joker appears in the postgame jimbo quip (maybe rolling stones, due to it's relevance to fate)
 - Add more jokers

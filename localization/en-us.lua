@@ -706,12 +706,8 @@ return {
             j_jojoker_smooth_operator = {
                 name = "Smooth Operators",
                 text = {
-                    "Relocates itself at the start of",
-                    "each blind. If not manually relocated,",
-                    "gains {C:mult}mult{} equal to the",
-                    "number of held jokers.",
-                    "{br:2}line break",
-                    "{C:inactive}Currently {C:mult}+#1#"
+                    "Shuffles the order of each card {C:attention}played{},",
+                    "then gives {C:chips}+#1#{} chips for each {C:attention}scored{} card."
                 }
             },
         },
@@ -836,6 +832,7 @@ return {
             -- Common strings
             a_hand = "a hand",
             undecided = "undecided",
+            shuffled = "Shuffled!",
             chips = "chips",
             xmult = "Xmult",
 
