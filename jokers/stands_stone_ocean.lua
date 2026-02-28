@@ -246,7 +246,7 @@ local foo_fighters = {
     blueprint_compat = true,
     perishable_compat = true,
     eternal_compat = true,
-    config = { extra = { chips_mod = 2, chips = 0 } },
+    config = { extra = { chips_mod = 5, chips = 0 } },
     loc_vars = function(self, info_queue, center)
         return {
             vars = {center.ability.extra.chips_mod, center.ability.extra.chips},
