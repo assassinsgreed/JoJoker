@@ -558,6 +558,18 @@ return {
                     "{C:inactive}Currently: {C:chips}#2#{}"
                 }
             },
+            j_jojoker_savage_garden = {
+                name = "Savage Garden",
+                text = {
+                    "Gives {X:mult,C:white} X#1# {} on the {C:attention}final hand{} of round."
+                }
+            },
+            j_jojoker_savage_garden_alt = {
+                name = "Savage Guardian",
+                text = {
+                    "Gives {X:mult,C:white} X#1# {} on the {C:attention}final hand{} of round."
+                }
+            },
             -- Part 7: Steel Ball Run
             j_jojoker_mandom = {
                 name = "Mandom",
