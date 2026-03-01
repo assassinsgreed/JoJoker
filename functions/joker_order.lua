@@ -16,6 +16,7 @@ jojoker.joker_order = {
     "ndoul",
     "nypd",
     "old_joseph_joestar",
+    "pucci",
     "savage_garden",
     "shizuka",
     "speedwagon",

@@ -28,7 +28,36 @@ local savage_garden = {
     end
 }
 
+local pucci = {
+    name = "pucci",
+    rarity = 1,
+    cost = 4,
+    jtype = "Character",
+    part = "stone_ocean",
+    blueprint_compat = true,
+    perishable_compat = true,
+    eternal_compat = true,
+    config = { extra = { retriggers = 1 } },
+    loc_vars = function(self, info_queue, card)
+      return {vars = {}}
+    end,
+    calculate = function(self, card, context)
+        -- Retriggers prime ranks
+        local prime_ranks = { [2] = true, [3] = true, [5] = true, [7] = true, [11] = true, [13] = true }
+        if context.repetition and not context.end_of_round and context.cardarea == G.play then
+            if context.other_card and prime_ranks[context.other_card:get_id()] then
+                sendDebugMessage("Pucci: Retriggering on prime rank "..context.other_card:get_id())
+                return {
+                    message = localize('k_again_ex'),
+                    repetitions = card.ability.extra.retriggers,
+                    card = card
+                }
+            end
+        end
+    end
+}
+
 return {
     name = "Stone Ocean Character Jokers",
-    list = { savage_garden },
+    list = { savage_garden, pucci },
 }

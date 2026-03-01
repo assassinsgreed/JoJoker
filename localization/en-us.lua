@@ -570,6 +570,13 @@ return {
                     "Gives {X:mult,C:white} X#1# {} on the {C:attention}final hand{} of round."
                 }
             },
+            j_jojoker_pucci = {
+                name = "Father Pucci",
+                text = {
+                    "Scored cards with a {C:attention}prime rank{} are retriggered.",
+                    "{C:inactive}Prime ranks: [2, 3, 5, 7, Jack, King]"
+                }
+            },
             -- Part 7: Steel Ball Run
             j_jojoker_mandom = {
                 name = "Mandom",

@@ -27,7 +27,7 @@ local mandom = {
                 repetitions = card.ability.extra.retriggers,
                 card = card
             }
-            end
+        end
         if context.end_of_round and not context.individual and not context.repetition then
             card.ability.extra.cards = 0
         end

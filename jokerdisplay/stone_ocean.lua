@@ -96,3 +96,12 @@ jd_def["j_jojoker_savage_garden"] = {
         }
     }
 }
+
+jd_def["j_jojoker_foo_fighters"] = {
+    text = {
+        { text = "Retrigger primes", colour = G.C.GREY },
+    },
+    reminder_text = {
+        { text = "(2, 3, 5, 7, Jack, King)", colour = G.C.GREY },
+    },
+}
