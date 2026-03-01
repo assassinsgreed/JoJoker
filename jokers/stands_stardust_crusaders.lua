@@ -205,7 +205,68 @@ local anubis = {
     end
 }
 
+local sethan = {
+    name = "sethan",
+    rarity = 3,
+    cost = 7,
+    jtype = "Stand",
+    jclass = "Close Range",
+    part = "stardust_crusaders",
+    blueprint_compat = true,
+    perishable_compat = true,
+    eternal_compat = true,
+    config = { extra = { Xmult_mod = 0.4, Xmult = 1 } },
+    loc_vars = function(self, info_queue, center)
+      return {
+        vars = { center.ability.extra.Xmult_mod, center.ability.extra.Xmult },
+        key = jojoker_config.use_localized_names and self.key..'_alt' or self.key
+    }
+    end,
+    calculate = function(self, card, context)
+        -- When a hand is played, revert it's level to 1 then gain 0.4x multiplier for each level it used to have
+        if context.before and context.scoring_hand then
+            if not context.blueprint then
+                local original_level = G.GAME.hands[context.scoring_name].level
+                if original_level <= 1 then return end
+
+                local downgraded_chips = G.GAME.hands[context.scoring_name].s_chips
+                local downgraded_mult = G.GAME.hands[context.scoring_name].s_mult
+
+                G.GAME.hands[context.scoring_name].level = 1
+                G.GAME.hands[context.scoring_name].chips = downgraded_chips
+                G.GAME.hands[context.scoring_name].mult = downgraded_mult
+
+                local gained_xmult = (original_level - 1) * card.ability.extra.Xmult_mod
+                card.ability.extra.Xmult = card.ability.extra.Xmult + gained_xmult
+                sendDebugMessage("Sethan: Reverting hand level from "..original_level.." to 1 and increasing xmult by "..gained_xmult)
+
+                -- Update the in-game text
+                G.hand_text_area.hand_level:juice_up()
+                update_hand_text(
+                    { sound = 'button', volume = 0.7, pitch = 1.1, delay = 0},
+                    {mult = downgraded_mult, chips = downgraded_chips, handname = context.scoring_name, level = '1'})
+
+                return {
+                    message = localize('k_upgrade_ex'),
+                    colour = G.C.GOLD
+                }
+            end
+        end
+
+        -- Give accumulated xmult when scoring a hand
+        if context.cardarea == G.jokers and context.scoring_hand then
+            if context.joker_main then
+                return {
+                    message = localize{type = 'variable', key = 'a_xmult', vars = {card.ability.extra.Xmult}},
+                    colour = G.C.XMULT,
+                    Xmult_mod = card.ability.extra.Xmult
+                }
+            end
+        end
+    end
+}
+
 return {
     name = "Stardust Crusaders Stand Jokers",
-    list = { magician_red, yellow_temperance, star_platinum, wheel_of_fortune, the_lovers, anubis },
+    list = { magician_red, yellow_temperance, star_platinum, wheel_of_fortune, the_lovers, anubis, sethan },
 }

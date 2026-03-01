@@ -68,7 +68,8 @@ return {
             j_jojoker_jonathan_joestar = {
                 name = "Jonathan Joestar",
                 text = {
-                    "Gives {C:chips}+#1#{} for each {C:attention}unique suit{} scored."
+                    "Gives {C:chips}+#1#{} for each {C:attention}unique suit{} scored.",
+                    "{C:attention}Wild Cards{} contribute up to a limit of {C:attention}4{} unique suits."
                 }
             },
             -- Part 2: Battle Tendency
@@ -211,6 +212,24 @@ return {
                     "Gains {C:chips}#1#{} whenever a joker is sold.",
                     "{br:2}line break",
                     "{C:inactive}Currently: {C:chips}#2#"
+                }
+            },
+            j_jojoker_sethan = {
+                name = "Sethan",
+                text = {
+                    "Reverts level of played hand to {C:attention}Level 1{},",
+                    "then gains {X:mult,C:white} X#1# {} per level lost.",
+                    "{br:2}line break",
+                    "{C:inactive}Currently: {X:mult,C:white} X#2#"
+                }
+            },
+            j_jojoker_sethan_alt = {
+                name = "Set",
+                text = {
+                    "Reverts level of played hand to {C:attention}Level 1{},",
+                    "then gains {X:mult,C:white} X#1# {} per level lost.",
+                    "{br:2}line break",
+                    "{C:inactive}Currently: {X:mult,C:white} X#2#"
                 }
             },
             -- Part 4: Diamond is Unbreakable

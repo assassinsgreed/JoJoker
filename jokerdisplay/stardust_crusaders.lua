@@ -66,3 +66,14 @@ jd_def["j_jojoker_anubis"] = {
         { ref_table = "card.ability.extra", ref_value = "chips", retrigger_type = "chips",  colour = G.C.CHIPS },
     }
 }
+
+jd_def["j_jojoker_sethan"] = {
+    text = {
+        {
+            border_nodes = {
+                { text = "X" },
+                { ref_table = "card.ability.extra", ref_value = "Xmult" }
+            }
+        }
+    }
+}

@@ -187,3 +187,22 @@ Balatest.TestPlay {
     end
 }
 --#endregion
+--#region Sethan
+Balatest.TestPlay {
+    name = 'sethan_reduces_level_of_played_hand_to_1_and_gains_xmult_for_each_level_drained',
+    category = { 'jokers', 'stardust_crusaders', 'sethan' },
+    jokers = { 'j_jojoker_sethan' },
+    consumeables = { 'c_pluto', 'c_pluto' },
+    execute = function()
+        Balatest.use(G.consumeables.cards[1])
+        Balatest.use(G.consumeables.cards[2])
+        Balatest.play_hand { 'KS' }
+    end,
+    assert = function()
+        local highCardLevel = G.GAME.hands["High Card"].level
+        local expectedXmult = G.jokers.cards[1].ability.extra.Xmult_mod * 2 + 1
+        Balatest.assert_eq(highCardLevel, 1, "Sethan did not reduce the level of the played hand to 1")
+        Balatest.assert_eq(G.jokers.cards[1].ability.extra.Xmult, expectedXmult, "Sethan did not gain expected xmult for each level drained")
+    end
+}
+--#endregion
