@@ -206,3 +206,85 @@ Balatest.TestPlay {
     end
 }
 --#endregion
+--#region Erina
+Balatest.TestPlay {
+    name = 'erina_gives_mult_for_herself',
+    category = { 'jokers', 'phantom_blood', 'erina' },
+    jokers = { 'j_jojoker_erina' },
+    execute = function()
+        Balatest.play_hand { '2C' }
+    end,
+    assert = function()
+        Balatest.assert_chips(7 * (1 + G.jokers.cards[1].ability.extra.mult_mod * 1), "Erina did not give mult for herself.")
+    end
+}
+Balatest.TestPlay {
+    name = 'erina_gives_mult_for_each_character_joker',
+    category = { 'jokers', 'phantom_blood', 'erina' },
+    jokers = { 'j_jojoker_erina', 'j_jojoker_speedwagon', 'j_jojoker_straizo' },
+    execute = function()
+        Balatest.play_hand { '2C' }
+    end,
+    assert = function()
+        Balatest.assert_chips(7 * (1 + G.jokers.cards[1].ability.extra.mult_mod * 3), "Erina did not give mult for each character joker.")
+    end
+}
+--#endregion
+--#region Jonathan Joestar
+Balatest.TestPlay {
+    name = 'jonathan_joestar_gives_chips_for_each_unique_suit_in_scored_hand',
+    category = { 'jokers', 'phantom_blood', 'jonathan_joestar' },
+    jokers = { 'j_jojoker_jonathan_joestar' },
+    execute = function()
+        Balatest.play_hand { '2S', '2D' }
+    end,
+    assert = function()
+        Balatest.assert_chips(228, "Jonathan Joestar did not give correct chips for each unique suit in scored hand")
+    end
+}
+
+Balatest.TestPlay {
+    name = 'jonathan_joestar_does_not_give_chips_for_unscored_cards',
+    category = { 'jokers', 'phantom_blood', 'jonathan_joestar' },
+    jokers = { 'j_jojoker_jonathan_joestar' },
+    execute = function()
+        Balatest.play_hand { '2S', '3D' }
+    end,
+    assert = function()
+        Balatest.assert_chips(58, "Jonathan Joestar gave chips for unscored cards")
+    end
+}
+
+Balatest.TestPlay {
+    name = 'jonathan_joestar_gives_chips_for_wild_cards_in_scored_hand',
+    category = { 'jokers', 'phantom_blood', 'jonathan_joestar' },
+    jokers = { 'j_jojoker_jonathan_joestar' },
+    deck = { cards = {
+        { r = '2', s = 'S', e = 'm_wild' },
+        { r = '2', s = 'C' } } },
+    execute = function()
+        Balatest.play_hand { '2S' }
+    end,
+    assert = function()
+        Balatest.assert_chips(57, "Jonathan Joestar did not give correct chips for wild card")
+    end
+}
+
+Balatest.TestPlay {
+    name = 'jonathan_joestar_caps_chips_when_many_unique_suits_in_scored_hand',
+    category = { 'jokers', 'phantom_blood', 'jonathan_joestar' },
+    jokers = { 'j_jojoker_jonathan_joestar' },
+    deck = { cards = {
+        { r = '2', s = 'S', e = 'm_wild' },
+        { r = '2', s = 'C' },
+        { r = '2', s = 'D' },
+        { r = '2', s = 'H' },
+        { r = '2', s = 'S' } } },
+    execute = function()
+        Balatest.play_hand { '2S', '2S', '2C', '2D', '2H' }
+    end,
+    assert = function()
+        Balatest.assert_chips(3960, "Jonathan Joestar did not cap chips based on 5 unique suits (given wild cards)")
+    end
+}
+--#endregion

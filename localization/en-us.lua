@@ -65,6 +65,12 @@ return {
                     "Gives {C:mult}+#1#{} for each {C:attention}Character{} joker held."
                 }
             },
+            j_jojoker_jonathan_joestar = {
+                name = "Jonathan Joestar",
+                text = {
+                    "Gives {C:chips}+#1#{} for each {C:attention}unique suit{} scored."
+                }
+            },
             -- Part 2: Battle Tendency
             j_jojoker_joseph_joestar = {
                 name = "Joseph Joestar",

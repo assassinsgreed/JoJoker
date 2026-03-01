@@ -325,27 +325,3 @@ Balatest.TestPlay {
     end
 }
 --#endregion
---#region Erina
-Balatest.TestPlay {
-    name = 'erina_gives_mult_for_herself',
-    category = { 'jokers', 'battle_tendency', 'erina' },
-    jokers = { 'j_jojoker_erina' },
-    execute = function()
-        Balatest.play_hand { '2C' }
-    end,
-    assert = function()
-        Balatest.assert_chips(7 * (1 + G.jokers.cards[1].ability.extra.mult_mod * 1), "Erina did not give mult for herself.")
-    end
-}
-Balatest.TestPlay {
-    name = 'erina_gives_mult_for_each_character_joker',
-    category = { 'jokers', 'battle_tendency', 'erina' },
-    jokers = { 'j_jojoker_erina', 'j_jojoker_speedwagon', 'j_jojoker_straizo' },
-    execute = function()
-        Balatest.play_hand { '2C' }
-    end,
-    assert = function()
-        Balatest.assert_chips(7 * (1 + G.jokers.cards[1].ability.extra.mult_mod * 3), "Erina did not give mult for each character joker.")
-    end
-}
---#endregion

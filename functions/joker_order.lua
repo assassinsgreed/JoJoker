@@ -9,6 +9,7 @@ jojoker.joker_order = {
     "erina",
     "esidisi",
     "george_joestar",
+    "jonathan_joestar",
     "joseph_joestar",
     "josuke_higashikata_jjl",
     "kars_stopped_thinking",

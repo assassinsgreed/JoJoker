@@ -83,3 +83,13 @@ jd_def["j_jojoker_erina"] = {
         card.joker_display_values.mult_given = character_count * card.ability.extra.mult_mod
     end
 }
+
+jd_def["j_jojoker_jonathan_joestar"] = {
+    text = {
+        { text = "+", colour = G.C.CHIPS },
+        { ref_table = "card.ability.extra", ref_value = "chips", retrigger_type = "chips",  colour = G.C.CHIPS },
+    },
+    reminder_text = {
+        { text = "Per unique suit", colour = G.C.GREY },
+    }
+}

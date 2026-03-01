@@ -312,7 +312,50 @@ local erina = {
     end
 }
 
+local jonathan_joestar = {
+    name = "jonathan_joestar",
+    rarity = 2,
+    cost = 6,
+    jtype = "Character",
+    part = "phantom_blood",
+    blueprint_compat = true,
+    perishable_compat = true,
+    eternal_compat = true,
+    config = { extra = { chips = 50 } },
+    loc_vars = function(self, info_queue, center)
+      return {vars = { center.ability.extra.chips }}
+    end,
+    calculate = function(self, card, context)
+        -- Gives chips for each unique suit in scored hand
+        if context.cardarea == G.jokers and context.scoring_hand then
+            if not context.blueprint and context.joker_main then
+                local unique_suits = {}
+                local suit_count = 0
+
+                for i = 1, #context.scoring_hand do
+                    sendDebugMessage("Jonathan Joestar: Card suit is "..context.scoring_hand[i].base.suit)
+                    if SMODS.has_no_suit(context.scoring_hand[i]) then
+                        suit_count = suit_count + 1
+                    elseif not unique_suits[context.scoring_hand[i].base.suit] then
+                        unique_suits[context.scoring_hand[i].base.suit] = true
+                        suit_count = suit_count + 1
+                    end
+                end
+                local unique_suit_count = math.min(suit_count, 4) -- Cap at 4, if multiple wild cards present
+                local chips_given = unique_suit_count * card.ability.extra.chips
+                sendDebugMessage("Jonathan Joestar: Giving "..chips_given.." chips for "..suit_count.." unique suits (including wild cards, capped at 4).")
+
+                return {
+                    message = localize{type = 'variable', key = 'a_chips', vars = {chips_given}},
+                    colour = G.C.CHIPS,
+                    chip_mod = chips_given
+                }
+            end
+        end
+    end
+}
+
 return {
     name = "Phantom Blood Effect Jokers",
-    list = { danny, baron_zeppeli, speedwagon, zombies, straizo, george_joestar, dario_brando, erina },
+    list = { danny, baron_zeppeli, speedwagon, zombies, straizo, george_joestar, dario_brando, erina, jonathan_joestar },
 }
