@@ -583,6 +583,22 @@ return {
                     "{C:inactive}Prime ranks: [2, 3, 5, 7, Jack, King]"
                 }
             },
+            j_jojoker_white_snake = {
+                name = "White Snake",
+                text = {
+                    "Scored cards have a {C:attention}#1# in #2#{}",
+                    "chance to become {C:dark_edition}Wild{} if",
+                    "they do not have an enhancement."
+                }
+            },
+            j_jojoker_white_snake_alt = {
+                name = "Pale Snake",
+                text = {
+                    "Scored cards have a {C:attention}#1# in #2#{}",
+                    "chance to become {C:dark_edition}Wild{} if",
+                    "they do not have an enhancement."
+                }
+            },
             -- Part 7: Steel Ball Run
             j_jojoker_mandom = {
                 name = "Mandom",

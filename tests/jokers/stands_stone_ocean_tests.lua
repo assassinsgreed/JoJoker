@@ -182,3 +182,67 @@ Balatest.TestPlay {
 }
 -- Can't mainuplate antes through Balatest
 --#endregion
+--#region White Snake
+Balatest.TestPlay {
+    name = 'white_snake_gives_polychrome_enhancement_to_scored_card_without_enhancement',
+    category = { 'jokers', 'stone_ocean', 'white_snake' },
+    jokers = { 'j_jojoker_white_snake' },
+    deck = { cards = {
+        { r = 'Q', s = 'S' },
+        { r = 'Q', s = 'C' },
+        { r = '5', s = 'H' } } },
+    execute = function()
+        G.jokers.cards[1].ability.extra.numerator = 1
+        G.jokers.cards[1].ability.extra.denominator = 1
+        Balatest.play_hand { 'QS' }
+        Balatest.end_round() -- End round to return cards to deck
+    end,
+    assert = function()
+        local queenenhancement = G.deck.cards[1].config.center
+        Balatest.assert_eq(queenenhancement, G.P_CENTERS.m_wild, "White Snake didn't give wild enhancement to scored card with no other enhancements")
+    end
+}
+
+Balatest.TestPlay {
+    name = 'white_snake_gives_wild_enhancement_to_multiple_scored_cards_without_enhancement',
+    category = { 'jokers', 'stone_ocean', 'white_snake' },
+    jokers = { 'j_jojoker_white_snake' },
+    deck = { cards = {
+        { r = 'Q', s = 'S' },
+        { r = 'Q', s = 'C' },
+        { r = '5', s = 'H' } } },
+    execute = function()
+        G.jokers.cards[1].ability.extra.numerator = 1
+        G.jokers.cards[1].ability.extra.denominator = 1
+        Balatest.play_hand { 'QS', 'QC' }
+        Balatest.end_round() -- End round to return cards to deck
+    end,
+    assert = function()
+        local queenenhancement1 = G.deck.cards[1].config.center
+        local queenenhancement2 = G.deck.cards[2].config.center
+        Balatest.assert_eq(queenenhancement1, G.P_CENTERS.m_wild, "White Snake didn't give wild enhancement to scored card with no other enhancements")
+        Balatest.assert_eq(queenenhancement2, G.P_CENTERS.m_wild, "White Snake didn't give wild enhancement to scored card with no other enhancements")
+    end
+}
+
+Balatest.TestPlay {
+    name = 'white_snake_does_not_give_wild_enhancement_to_card_with_an_existing_enhancement',
+    category = { 'jokers', 'stone_ocean', 'white_snake' },
+    jokers = { 'j_jojoker_white_snake' },
+    deck = { cards = {
+        { r = 'Q', s = 'S' },
+        { r = 'Q', s = 'C' },
+        { r = '5', s = 'H' } } },
+    execute = function()
+        G.jokers.cards[1].ability.extra.numerator = 1
+        G.jokers.cards[1].ability.extra.denominator = 1
+        G.hand.cards[1]:set_ability(G.P_CENTERS.m_mult, nil, true)
+        Balatest.play_hand { 'QS' }
+        Balatest.end_round() -- End round to return cards to deck
+    end,
+    assert = function()
+        local queenenhancement1 = G.deck.cards[1].config.center
+        Balatest.assert_eq(queenenhancement1, G.P_CENTERS.m_mult, "White Snake incorrectly gave wild enhancement to card with existing enhancement")
+    end
+}
+--#endregion

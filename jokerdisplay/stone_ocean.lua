@@ -105,3 +105,14 @@ jd_def["j_jojoker_foo_fighters"] = {
         { text = "(2, 3, 5, 7, Jack, King)", colour = G.C.GREY },
     },
 }
+
+jd_def["j_jojoker_white_snake"] = {
+    text = {
+        { text = "Convert Wild", colour = G.C.GREY }
+    },
+    reminder_text = {
+        { ref_table = "card.ability.extra", ref_value = "numerator", retrigger_type = "numerator",  colour = G.C.GOLD },
+        { text = " in ", colour = G.C.GOLD },
+        { ref_table = "card.ability.extra", ref_value = "denominator", retrigger_type = "denominator",  colour = G.C.GOLD },
+    },
+}

@@ -276,7 +276,44 @@ local foo_fighters = {
     end
 }
 
+local white_snake = {
+    name = "white_snake",
+    rarity = 3,
+    cost = 6,
+    jtype = "Stand",
+    jclass = "Long Range",
+    part = "stone_ocean",
+    blueprint_compat = true,
+    perishable_compat = true,
+    eternal_compat = true,
+    config = { extra = { numerator = 1, denominator = 3 } },
+    loc_vars = function(self, info_queue, center)
+      return {
+        vars = { center.ability.extra.numerator, center.ability.extra.denominator },
+        key = jojoker_config.use_localized_names and self.key..'_alt' or self.key
+    }
+    end,
+    calculate = function(self, card, context)
+        -- For each scored queen, card, potentially make it wild if it doesn't have an enhancement
+        if context.individual and context.cardarea == G.play and not context.other_card.debuff then
+            if context.other_card.config.center == G.P_CENTERS.c_base then
+                if SMODS.pseudorandom_probability(card, 'white_snake', card.ability.extra.numerator, card.ability.extra.denominator, 'white_snake') then
+                    card:juice_up()
+                    context.other_card:juice_up()
+                    context.other_card:set_ability(G.P_CENTERS.m_wild, nil, true)
+                    sendDebugMessage("White Snake: Scored card being set to wild")
+
+                    return {
+                        message = localize('k_upgrade_ex'),
+                        colour = G.C.GOLD
+                    }
+                end
+            end
+        end
+    end
+}
+
 return {
     name = "Stone Ocean Stands Jokers",
-    list = { goo_goo_dolls, stone_free, made_in_heaven, dragons_dream, green_green_grass_of_home, survivor, foo_fighters },
+    list = { goo_goo_dolls, stone_free, made_in_heaven, dragons_dream, green_green_grass_of_home, survivor, foo_fighters, white_snake },
 }

@@ -74,6 +74,7 @@ jojoker.joker_order = {
     "the_hand",
     "the_lovers",
     "wheel_of_fortune",
+    "white_snake",
     "yellow_temperance",
 
     -- Other
