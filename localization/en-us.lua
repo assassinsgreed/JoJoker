@@ -599,6 +599,20 @@ return {
                     "they do not have an enhancement."
                 }
             },
+            j_jojoker_burning_down_the_house = {
+                name = "Burning Down the House",
+                text = {
+                    "On loss, is {S:1.1,C:red,E:2}destroyed{}, then skips",
+                    "the current blind."
+                }
+            },
+            j_jojoker_burning_down_the_house_alt = {
+                name = "Burn the House Down",
+                text = {
+                    "On loss, is {S:1.1,C:red,E:2}destroyed{}, then skips",
+                    "the current blind."
+                }
+            },
             -- Part 7: Steel Ball Run
             j_jojoker_mandom = {
                 name = "Mandom",
@@ -869,6 +883,7 @@ return {
             sound_joseph_quip_oh_no = "Oh nooooo!",
             sound_joseph_quip_holy_shit = "Holy shiiiittt!",
             sound_joseph_quip_son_of_a_bitch = "Sonuva biiittch!",
+            sound_saved_by_bdth = "This room belongs in the past...",
             
             -- Common strings
             a_hand = "a hand",

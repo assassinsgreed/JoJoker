@@ -61,6 +61,7 @@ JokerSprites = {
         {name = "savage_garden", base = {pos = {x = 2, y = 1}}, part_atlas = "stone_ocean" },
         {name = "pucci", base = {pos = {x = 3, y = 1}}, part_atlas = "stone_ocean" },
         {name = "white_snake", base = {pos = {x = 4, y = 1}}, part_atlas = "stone_ocean" },
+        {name = "burning_down_the_house", base = {pos = {x = 0, y = 2}}, part_atlas = "stone_ocean" },
         -- Part 7: Steel Ball Run
         {name = "mandom", base = {pos = {x = 0, y = 0}}, part_atlas = "steel_ball_run" },
         {name = "the_fifth_lesson", base = {pos = {x = 1, y = 0}}, part_atlas = "steel_ball_run" },

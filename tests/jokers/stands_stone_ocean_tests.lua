@@ -246,3 +246,18 @@ Balatest.TestPlay {
     end
 }
 --#endregion
+--#region Burning Down the House
+Balatest.TestPlay {
+    name = 'burning_down_the_house_saves_failed_run_and_is_destroyed',
+    category = { 'jokers', 'stone_ocean', 'burning_down_the_house' },
+    jokers = { 'j_jojoker_burning_down_the_house' },
+    hands = 1,
+    execute = function()
+        Balatest.play_hand { 'QS' }
+    end,
+    assert = function()
+        Balatest.assert_eq(#G.jokers.cards, 0, "Burning Down the House was not destroyed after saving failed run")
+        -- If the run was not saved, this assertion could not run
+    end
+}
+--#endregion

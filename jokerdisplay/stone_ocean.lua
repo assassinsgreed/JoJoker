@@ -116,3 +116,12 @@ jd_def["j_jojoker_white_snake"] = {
         { ref_table = "card.ability.extra", ref_value = "denominator", retrigger_type = "denominator",  colour = G.C.GOLD },
     },
 }
+
+jd_def["j_jojoker_burning_down_the_house"] = {
+    text = {
+        { text = "Prevents Death", colour = G.C.GREY }
+    },
+    reminder_text = {
+        { text = "Is destroyed after", colour = G.C.GREY }
+    },
+}

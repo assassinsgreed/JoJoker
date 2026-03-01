@@ -268,11 +268,13 @@ local foo_fighters = {
         end
     end,
     update = function(self, card, dt)
-        local unique_cards_played_this_ante = 0
-        for k, v in ipairs(G.playing_cards) do
-            unique_cards_played_this_ante = unique_cards_played_this_ante + (v.ability.played_this_ante and 1 or 0)
+        if G.STAGE == G.STAGES.RUN then
+            local unique_cards_played_this_ante = 0
+            for k, v in ipairs(G.playing_cards) do
+                unique_cards_played_this_ante = unique_cards_played_this_ante + (v.ability.played_this_ante and 1 or 0)
+            end
+            card.ability.extra.chips = card.ability.extra.chips_mod * unique_cards_played_this_ante
         end
-        card.ability.extra.chips = card.ability.extra.chips_mod * unique_cards_played_this_ante
     end
 }
 
@@ -313,7 +315,50 @@ local white_snake = {
     end
 }
 
+local burning_down_the_house = {
+    name = "burning_down_the_house",
+    rarity = 3,
+    cost = 10,
+    jtype = "Stand",
+    jclass = "Automatic",
+    part = "stone_ocean",
+    blueprint_compat = false,
+    perishable_compat = true,
+    eternal_compat = false,
+    config = { extra = { } },
+    loc_vars = function(self, info_queue, center)
+      return {
+        key = jojoker_config.use_localized_names and self.key..'_alt' or self.key
+    }
+    end,
+    calculate = function(self, card, context)
+        -- If held on loss, is destroyed and skips blind without entering the shop
+        if context.end_of_round and context.main_eval and context.game_over then
+            sendDebugMessage("Burning Down The House: Preventing loss, destroying self, and skipping blind. ")
+
+            G.E_MANAGER:add_event(Event({
+                trigger = 'before',
+                delay = 0.8,
+                blockable = false, 
+                func = function()
+                    -- Destroy Burning Down The House
+                    G.GAME.joker_buffer = 0
+                    card:start_dissolve({ HEX("57ecab") }, nil, 1.6)
+                    play_sound('slice1', 0.96 + math.random() * 0.08)
+                    remove(self, card, context, true)
+                    return true
+                end
+            }))
+
+            return {
+                message = localize('k_saved_ex'),
+                saved = 'sound_saved_by_bdth',
+            }
+        end
+    end
+}
+
 return {
     name = "Stone Ocean Stands Jokers",
-    list = { goo_goo_dolls, stone_free, made_in_heaven, dragons_dream, green_green_grass_of_home, survivor, foo_fighters, white_snake },
+    list = { goo_goo_dolls, stone_free, made_in_heaven, dragons_dream, green_green_grass_of_home, survivor, foo_fighters, white_snake, burning_down_the_house },
 }
