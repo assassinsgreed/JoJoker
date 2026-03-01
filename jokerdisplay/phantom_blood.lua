@@ -72,3 +72,14 @@ jd_def["j_jojoker_dario_brando"] = {
         { text = "Per hand played", colour = G.C.GREY },
     }
 }
+
+jd_def["j_jojoker_erina"] = {
+    text = {
+        { text = "+", colour = G.C.MULT },
+        { ref_table = "card.joker_display_values", ref_value = "mult_given", retrigger_type = "mult_given",  colour = G.C.MULT },
+    },
+    calc_function = function(card)
+        local character_count = get_joker_count_by_type("Character")
+        card.joker_display_values.mult_given = character_count * card.ability.extra.mult_mod
+    end
+}

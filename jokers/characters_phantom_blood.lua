@@ -281,7 +281,38 @@ local dario_brando = {
     end
 }
 
+local erina = {
+    name = "erina",
+    rarity = 1,
+    cost = 4,
+    jtype = "Character",
+    part = "phantom_blood",
+    blueprint_compat = true,
+    perishable_compat = true,
+    eternal_compat = true,
+    config = { extra = { mult_mod = 10 } },
+    loc_vars = function(self, info_queue, center)
+      return {vars = { center.ability.extra.mult_mod }}
+    end,
+    calculate = function(self, card, context)
+        -- Gives mult for each Character joker held_in_hand
+        if context.cardarea == G.jokers and context.scoring_hand then
+            if not context.blueprint and context.joker_main then
+                local character_count = get_joker_count_by_type("Character")
+                local multGiven = character_count * card.ability.extra.mult_mod
+                sendDebugMessage("Erina: Giving "..multGiven.." mult for "..character_count.." Character class jokers.")
+
+                return {
+                    message = localize{type = 'variable', key = 'a_mult', vars = {multGiven}},
+                    colour = G.C.MULT,
+                    mult_mod = multGiven
+                }
+            end
+        end
+    end
+}
+
 return {
     name = "Phantom Blood Effect Jokers",
-    list = { danny, baron_zeppeli, speedwagon, zombies, straizo, george_joestar, dario_brando },
+    list = { danny, baron_zeppeli, speedwagon, zombies, straizo, george_joestar, dario_brando, erina },
 }

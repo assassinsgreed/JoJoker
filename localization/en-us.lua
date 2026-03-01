@@ -59,6 +59,12 @@ return {
                     "but has a {C:attention}#3# in #4#{} chance to be {S:1.1,C:red,E:2}destroyed{}."
                 }
             },
+            j_jojoker_erina = {
+                name = "Erina Pendleton",
+                text = {
+                    "Gives {C:mult}+#1#{} for each {C:attention}Character{} joker held."
+                }
+            },
             -- Part 2: Battle Tendency
             j_jojoker_joseph_joestar = {
                 name = "Joseph Joestar",
