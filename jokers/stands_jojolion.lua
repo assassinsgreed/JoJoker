@@ -197,7 +197,29 @@ local california_king_bed = {
     end
 }
 
+local doctor_wu = {
+    name = "doctor_wu",
+    rarity = 2,
+    cost = 6,
+    jtype = "Stand",
+    jclass = "Close Range",
+    part = "jojolion",
+    blueprint_compat = true,
+    perishable_compat = true,
+    eternal_compat = true,
+    calculate = function(self, card, context)
+        -- Add a stone card to the deck at the start of the blind
+        if context.setting_blind then
+            SMODS.add_card{ area = G.deck, set = "Enhanced", enhancement = "m_stone" }
+
+            return {
+                message = localize("stone_added")
+            }
+        end
+    end
+}
+
 return {
     name = "Jojolion Stands Jokers",
-    list = { soft_and_wet, paper_moon_king, milagro_man, i_am_a_rock, california_king_bed },
+    list = { soft_and_wet, paper_moon_king, milagro_man, i_am_a_rock, california_king_bed, doctor_wu },
 }

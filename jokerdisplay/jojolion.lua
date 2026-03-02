@@ -67,3 +67,9 @@ jd_def["j_jojoker_california_king_bed"] = {
         }
     }
 }
+
+jd_def["j_jojoker_doctor_wu"] = {
+    text = {
+        { text = "Stone card on blind", colour = G.C.GREY },
+    },
+}

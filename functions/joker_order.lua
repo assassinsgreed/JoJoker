@@ -45,6 +45,7 @@ jojoker.joker_order = {
     "cheap_trick",
     "chocolate_disco",
     "crazy_diamond",
+    "doctor_wu",
     "dragons_dream",
     "foo_fighters",
     "gold_experience",

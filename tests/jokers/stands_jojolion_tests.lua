@@ -150,3 +150,20 @@ Balatest.TestPlay {
     end
 }
 --#endregion
+--#region Doctor Wu
+Balatest.TestPlay {
+    name = 'doctor_wu_adds_stone_card_to_deck_at_start_of_blinds',
+    category = { 'jokers', 'jojolion', 'doctor_wu' },
+    jokers = { 'j_jojoker_doctor_wu' },
+    execute = function()
+        Balatest.end_round() -- To get cards back into the deck
+    end,
+    assert = function()
+        local hasStoneCard = false
+        for _, card in pairs(G.deck.cards) do
+            if card.config.center == G.P_CENTERS.m_stone then hasStoneCard = true end
+        end
+        Balatest.assert(hasStoneCard, "Doctor Wu did not add a stone card to the deck at the start of blinds")
+    end
+}
+--#endregion

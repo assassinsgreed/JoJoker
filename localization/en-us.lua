@@ -782,6 +782,12 @@ return {
                     "{C:inactive}Currently: {X:mult,C:white} X#2#"
                 }
             },
+            j_jojoker_doctor_wu = {
+                name = "Doctor Wu",
+                text = {
+                    "Adds a {C:attention}Stone{} card to the deck at the start of blinds."
+                }
+            },
             -- Part 9: THE JOJOLands
             j_jojoker_smooth_operator = {
                 name = "Smooth Operators",
@@ -916,6 +922,7 @@ return {
             shuffled = "Shuffled!",
             chips = "chips",
             xmult = "Xmult",
+            stone_added = "Stone Added",
 
             -- Joker badges
             joker_type_stand_badge = "Stand",
