@@ -262,3 +262,20 @@ Balatest.TestPlay {
     end
 }
 --#endregion
+--#region Baby Face
+Balatest.TestPlay {
+    name = 'baby_face_creates_negative_common_joker',
+    category = { 'jokers', 'golden_wind', 'baby_face' },
+    jokers = { 'j_jojoker_baby_face' },
+    hands = 3,
+    execute = function()
+        G.jokers.cards[1].ability.extra.denominator = G.jokers.cards[1].ability.extra.numerator
+        Balatest.end_round()
+    end,
+    assert = function()
+        Balatest.assert_eq(#G.jokers.cards, 2, "Baby Face did not create negative common joker correctly")
+        Balatest.assert_eq(G.jokers.cards[2].edition.key, "e_negative", "Baby Face did not create negative joker")
+        Balatest.assert_eq(G.jokers.cards[2].config.center.rarity, 1, "Baby Face did not create common joker")
+    end
+}
+--#endregion

@@ -325,7 +325,46 @@ local moody_blues = {
     end
 }
 
+local baby_face = {
+    name = "baby_face",
+    rarity = 3,
+    cost = 9,
+    jtype = "Stand",
+    jclass = "Automatic",
+    part = "golden_wind",
+    blueprint_compat = false,
+    perishable_compat = true,
+    eternal_compat = true,
+    config = { extra = { numerator = 1, denominator = 5 } },
+    loc_vars = function(self, info_queue, center)
+      return {
+        vars = {center.ability.extra.numerator, center.ability.extra.denominator},
+        key = jojoker_config.use_localized_names and self.key..'_alt' or self.key
+    }
+    end,
+    calculate = function(self, card, context)
+        -- At end of blind, have a chance to create a negative common joker
+        if context.end_of_round and not context.individual and not context.repetition and not context.blueprint then
+            if SMODS.pseudorandom_probability(card, 'baby_face', card.ability.extra.numerator, card.ability.extra.denominator, 'baby_face') then
+                card:juice_up()
+                sendDebugMessage("Baby Face: Creating negative common joker")
+
+                SMODS.add_card {
+                    set = "Joker",
+                    rarity = "Common",
+                    edition = "e_negative",
+                }
+
+                return {
+                    message = localize('sound_baby_face_spawn'),
+                    card = card
+                }
+            end
+        end
+    end
+}
+
 return {
     name = "Golden Wind Stand Jokers",
-    list = { sex_pistols, grateful_dead, spice_girl, sticky_fingers, gold_experience, gold_experience_requiem, king_crimson, moody_blues },
+    list = { sex_pistols, grateful_dead, spice_girl, sticky_fingers, gold_experience, gold_experience_requiem, king_crimson, moody_blues, baby_face },
 }

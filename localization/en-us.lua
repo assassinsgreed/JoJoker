@@ -486,6 +486,20 @@ return {
                     "chance to retrigger."
                 }
             },
+            j_jojoker_baby_face = {
+                name = "Baby Face",
+                text = {
+                    "After blinds, has a {C:attention}#1# in #2#{} chance",
+                    "to spawn a {C:dark_edition}Negative{} {C:blue}Common{} Joker."
+                }
+            },
+            j_jojoker_baby_head = {
+                name = "Baby Head",
+                text = {
+                    "After blinds, has a {C:attention}#1# in #2#{} chance",
+                    "to spawn a {C:dark_edition}Negative{} {C:blue}Common{} Joker."
+                }
+            },
             -- Part 6: Stone Ocean
             j_jojoker_goo_goo_dolls = {
                 name = "Goo Goo Dolls",
@@ -915,6 +929,7 @@ return {
             sound_joseph_quip_holy_shit = "Holy shiiiittt!",
             sound_joseph_quip_son_of_a_bitch = "Sonuva biiittch!",
             sound_saved_by_bdth = "This room belongs in the past...",
+            sound_baby_face_spawn = "Simple is best!",
             
             -- Common strings
             a_hand = "a hand",

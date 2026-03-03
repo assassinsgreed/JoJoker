@@ -39,6 +39,7 @@ jojoker.joker_order = {
     
     -- Stands
     "anubis",
+    "baby_face",
     "bad_company",
     "burning_down_the_house",
     "california_king_bed",
