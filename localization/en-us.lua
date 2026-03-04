@@ -802,6 +802,16 @@ return {
                     "Adds a {C:attention}Stone{} card to the deck at the start of blinds."
                 }
             },
+            j_jojoker_wonder_of_u = {
+                name = "Wonder of U",
+                text = {
+                    "After {C:attention}#1#{} blinds, {S:1.1,C:red,E:2}destroys{} all other jokers",
+                    "(including eternal) then gains {X:mult,C:white} X#2# {} for each joker.",
+                    "{br:2}line break",
+                    "{C:attention}#3#{}{C:inactive} rounds remaining",
+                    "{C:inactive}Currently: {X:mult,C:white}X#4#{}"
+                }
+            },
             -- Part 9: THE JOJOLands
             j_jojoker_smooth_operator = {
                 name = "Smooth Operators",
@@ -930,6 +940,8 @@ return {
             sound_joseph_quip_son_of_a_bitch = "Sonuva biiittch!",
             sound_saved_by_bdth = "This room belongs in the past...",
             sound_baby_face_spawn = "Simple is best!",
+            sound_calamity_approaches = "Calamity approaches...",
+            sound_wonder_of_u = "Wonder of U!",
             
             -- Common strings
             a_hand = "a hand",

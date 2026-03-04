@@ -73,3 +73,18 @@ jd_def["j_jojoker_doctor_wu"] = {
         { text = "Stone card on blind", colour = G.C.GREY },
     },
 }
+
+jd_def["j_jojoker_wonder_of_u"] = {
+    text = {
+        {
+            border_nodes = {
+                { text = "X" },
+                { ref_table = "card.ability.extra", ref_value = "Xmult" }
+            }
+        }
+    },
+    reminder_text = {
+        { ref_table = "card.ability.extra", ref_value = "rounds_left", retrigger_type = "rounds_left",  colour = G.C.GREY },
+        { text = " rounds remaining", colour = G.C.GREY }
+    }
+}

@@ -219,7 +219,71 @@ local doctor_wu = {
     end
 }
 
+local wonder_of_u = {
+    name = "wonder_of_u",
+    rarity = 4,
+    cost = 10,
+    jtype = "Stand",
+    jclass = "Automatic",
+    part = "jojolion",
+    blueprint_compat = false,
+    perishable_compat = false,
+    eternal_compat = false,
+    config = { extra = { fresh_rounds = 3, Xmult_mod = 3, rounds_left = 3, Xmult = 1 } },
+    loc_vars = function(self, info_queue, card)
+      return {vars = {card.ability.extra.fresh_rounds, card.ability.extra.Xmult_mod, card.ability.extra.rounds_left, card.ability.extra.Xmult }}
+    end,
+    calculate = function(self, card, context)
+        -- On hand scored, give XMult
+        if context.cardarea == G.jokers and context.scoring_hand then
+            if context.joker_main then
+                return {
+                    message = localize{type = 'variable', key = 'a_xmult', vars = {card.ability.extra.Xmult}},
+                    colour = G.C.XMULT,
+                    Xmult_mod = card.ability.extra.Xmult
+                }
+            end
+        end
+
+        -- At end of round, decrease rounds left. If 0, reset counter, destroy all jokers, and increase XMult
+        if context.end_of_round and not context.individual and not context.repetition and not context.blueprint then
+            card.ability.extra.rounds_left = card.ability.extra.rounds_left - 1
+            sendDebugMessage("Wonder of U: Decreasing rounds left to " .. card.ability.extra.rounds_left)
+
+            if card.ability.extra.rounds_left <= 0 then
+                card.ability.extra.rounds_left = card.ability.extra.fresh_rounds
+                local jokers_to_destroy = {}
+                for _, joker in ipairs(G.jokers.cards) do
+                    if joker ~= card then
+                        jokers_to_destroy[#jokers_to_destroy + 1] = joker
+                    end
+                end
+
+                sendDebugMessage("Wonder of U: Destroying " .. #jokers_to_destroy .. " jokers and increasing XMult by " .. card.ability.extra.Xmult_mod * #jokers_to_destroy)
+                for _, joker in ipairs(jokers_to_destroy) do
+                    joker.ability.eternal = false
+                    G.GAME.joker_buffer = 0
+                    joker:start_dissolve({ HEX("57ecab") }, nil, 1.6)
+                    play_sound('slice1', 0.96 + math.random() * 0.08)
+                    remove(self, joker, context, true)
+                    card.ability.extra.Xmult = card.ability.extra.Xmult + card.ability.extra.Xmult_mod
+                end
+
+                return {
+                    message = localize("sound_wonder_of_u"),
+                    colour = G.C.GOLD,
+                }
+            else
+                return {
+                    message = localize("sound_calamity_approaches"),
+                    colour = G.C.GOLD
+                }
+            end
+        end
+    end
+}
+
 return {
     name = "Jojolion Stands Jokers",
-    list = { soft_and_wet, paper_moon_king, milagro_man, i_am_a_rock, california_king_bed, doctor_wu },
+    list = { soft_and_wet, paper_moon_king, milagro_man, i_am_a_rock, california_king_bed, doctor_wu, wonder_of_u },
 }

@@ -167,3 +167,19 @@ Balatest.TestPlay {
     end
 }
 --#endregion
+--#region Wonder of U
+Balatest.TestPlay {
+    name = 'wonder_of_u_destroys_all_other_jokers_including_eternal_and_gains_xmult_for_each',
+    category = { 'jokers', 'jojolion', 'wonder_of_u' },
+    jokers = { 'j_jojoker_wonder_of_u', 'j_jojoker_soft_and_wet', 'j_jojoker_josuke_higashikata_jjl' },
+    execute = function()
+        G.jokers.cards[3].ability.eternal = true
+        G.jokers.cards[1].ability.extra.rounds_left = 1
+        Balatest.end_round() -- To trigger end of round destruction and check for XMult gain
+    end,
+    assert = function()
+        Balatest.assert_eq(#G.jokers.cards, 1, "Wonder of U did not destroy all other jokers (including eternal)")
+        Balatest.assert_eq(G.jokers.cards[1].ability.extra.Xmult, 1 + 2 * G.jokers.cards[1].ability.extra.Xmult_mod, "Wonder of U did not gain XMult for each destroyed joker")
+    end
+}
+--#endregion

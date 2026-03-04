@@ -80,6 +80,7 @@ jojoker.joker_order = {
     "the_lovers",
     "wheel_of_fortune",
     "white_snake",
+    "wonder_of_u",
     "yellow_temperance",
 
     -- Other
