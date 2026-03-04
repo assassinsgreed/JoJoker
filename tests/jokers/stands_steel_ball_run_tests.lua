@@ -253,3 +253,18 @@ Balatest.TestPlay {
     end
 }
 --#endregion
+--#region Civil War
+-- Can't skip boosters with Civil War so we just validate chip gain in match
+Balatest.TestPlay {
+    name = 'civil_war_gives_extra_chips_after_skipping_booster_pack',
+    category = { 'jokers', 'steel_ball_run', 'civil_war' },
+    jokers = { 'j_jojoker_civil_war' },
+    execute = function()
+        G.jokers.cards[1].ability.extra.chips = 20
+        Balatest.play_hand { '2S' }
+    end,
+    assert = function()
+        Balatest.assert_chips(27, "Civil War did not give extra chips after skipping booster pack")
+    end
+}
+--#endregion

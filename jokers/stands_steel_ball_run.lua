@@ -202,7 +202,46 @@ local tattoo_you = {
     end
 }
 
+local civil_war = {
+    name = "civil_war",
+    rarity = 1,
+    cost = 5,
+    jtype = "Stand",
+    jclass = "Long Range",
+    part = "steel_ball_run",
+    blueprint_compat = true,
+    perishable_compat = true,
+    eternal_compat = true,
+    config = { extra = { chips_mod = 20, chips = 0 } },
+    loc_vars = function(self, info_queue, center)
+      return {vars = { center.ability.extra.chips_mod, center.ability.extra.chips }}
+    end,
+    calculate = function(self, card, context)
+        -- When skipping a booster, gain chips
+        if context.skipping_booster then
+            sendDebugMessage("Civil War: Gaining "..card.ability.extra.chips_mod.." chips for skipping booster.")
+            card.ability.extra.chips = card.ability.extra.chips + card.ability.extra.chips_mod
+            return {
+                message = localize('k_upgrade_ex'),
+                colour = G.C.CHIPS,
+            }
+        end
+
+        -- Give chips during scorinng
+        if context.cardarea == G.jokers and context.scoring_hand then
+            if context.joker_main then
+                sendDebugMessage("Civil War: Adding "..card.ability.extra.chips.." chips to hand during scoring.")
+                return {
+                    message = localize{type='variable', key='a_chips', vars={card.ability.extra.chips}},
+                    colour = G.C.CHIPS,
+                    chip_mod = card.ability.extra.chips,
+                }
+            end
+        end
+    end
+}
+
 return {
     name = "Steel Ball Run Stand Jokers",
-    list = { mandom, chocolate_disco, oh_lonesome_me, hey_ya, tattoo_you },
+    list = { mandom, chocolate_disco, oh_lonesome_me, hey_ya, tattoo_you, civil_war },
 }

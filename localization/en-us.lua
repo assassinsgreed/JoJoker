@@ -732,6 +732,14 @@ return {
                     "{C:inactive}Currently: {X:mult,C:white}X#2#{}"
                 }
             },
+            j_jojoker_civil_war = {
+                name = "Civil War",
+                text = {
+                    "Gains {C:chips}+#1#{} for each {C:attention}skipped Booster Pack{}.",
+                    "{br:2}line break",
+                    "{C:inactive}Currently: {C:chips}#2#{}"
+                }
+            },
             -- Part 8: Jojolion
             j_jojoker_soft_and_wet = {
                 name = "Soft & Wet",

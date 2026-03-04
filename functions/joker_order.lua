@@ -46,6 +46,7 @@ jojoker.joker_order = {
     "california_king_bed",
     "cheap_trick",
     "chocolate_disco",
+    "civil_war",
     "crazy_diamond",
     "doctor_wu",
     "dragons_dream",

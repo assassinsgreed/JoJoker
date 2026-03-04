@@ -132,3 +132,10 @@ jd_def["j_jojoker_the_true_mans_world"] = {
         }
     }
 }
+
+jd_def["j_jojoker_civil_war"] = {
+    text = {
+        { text = "+", colour = G.C.CHIPS },
+        { ref_table = "card.ability.extra", ref_value = "chips", retrigger_type = "chips", colour = G.C.CHIPS },
+    }
+}
