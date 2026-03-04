@@ -95,3 +95,31 @@ Balatest.TestPlay {
     end
 }
 --#endregion
+--#region The True Man's World
+Balatest.TestPlay {
+    name = 'the_true_mans_world_increases_xmult_before_playing_hand',
+    category = { 'jokers', 'steel_ball_run', 'the_true_mans_world' },
+    jokers = { 'j_jojoker_the_true_mans_world' },
+    execute = function()
+        Balatest.play_hand { '2S' }
+    end,
+    assert = function()
+        local joker_xmult = G.jokers.cards[1].ability.extra.Xmult
+        Balatest.assert_eq(1.25, joker_xmult, "The True Man's World did not increase Xmult by 0.25 before playing hand")
+    end
+}
+
+Balatest.TestPlay {
+    name = 'the_true_mans_world_decreases_xmult_when_discarding',
+    category = { 'jokers', 'steel_ball_run', 'the_true_mans_world' },
+    jokers = { 'j_jojoker_the_true_mans_world' },
+    execute = function()
+        G.jokers.cards[1].ability.extra.Xmult = 2
+        Balatest.discard { '2S' }
+    end,
+    assert = function()
+        local joker_xmult = G.jokers.cards[1].ability.extra.Xmult
+        Balatest.assert_eq(1, joker_xmult, "The True Man's World did not reset Xmult to 1 on discard")
+    end
+}
+--#endregion

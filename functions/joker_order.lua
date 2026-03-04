@@ -34,6 +34,7 @@ jojoker.joker_order = {
     "higashikata_house",
     "higashikata_fruit_parlor",
     "the_fifth_lesson",
+    "the_true_mans_world",
     "turbo_eyes",
     "voice_of_love",
     

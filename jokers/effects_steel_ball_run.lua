@@ -57,7 +57,54 @@ local turbo_eyes = {
     end
 }
 
+local the_true_mans_world = {
+    name = "the_true_mans_world",
+    rarity = 2,
+    cost = 5,
+    jtype = "Effect",
+    part = "steel_ball_run",
+    blueprint_compat = true,
+    perishable_compat = true,
+    eternal_compat = true,
+    config = { extra = { Xmult_mod = 0.25, Xmult = 1 } },
+    loc_vars = function(self, info_queue, card)
+      return {vars = {card.ability.extra.Xmult_mod, card.ability.extra.Xmult}}
+    end,
+    calculate = function(self, card, context)
+        -- If playing a hand, increase XMult by 0.25
+        if context.before and context.scoring_hand then
+            card.ability.extra.Xmult = card.ability.extra.Xmult + card.ability.extra.Xmult_mod
+            sendDebugMessage("The True Man's World: Increasing Xmult by " .. card.ability.extra.Xmult_mod .. " to " .. card.ability.extra.Xmult.." before playing hand")
+            return {
+                message = localize('k_upgrade_ex'),
+                colour = G.C.GOLD
+            }
+        end
+
+        -- Reset XMult on discard
+        if context.pre_discard then
+            card.ability.extra.Xmult = 1
+            sendDebugMessage("The True Man's World: Resetting Xmult to 1 on discard")
+            return {
+                message = localize('k_reset'),
+                colour = G.C.RED
+            }
+        end
+    
+        -- Give Xmult on hand scoring
+        if context.cardarea == G.jokers and context.scoring_hand then
+            if context.joker_main then
+                return {
+                    message = localize{type = 'variable', key = 'a_xmult', vars = {card.ability.extra.Xmult}},
+                    colour = G.C.XMULT,
+                    Xmult_mod = card.ability.extra.Xmult
+                }
+            end
+        end
+    end
+}
+
 return {
     name = "Steel Ball Run Effects Jokers",
-    list = { the_fifth_lesson, turbo_eyes },
+    list = { the_fifth_lesson, turbo_eyes, the_true_mans_world },
 }

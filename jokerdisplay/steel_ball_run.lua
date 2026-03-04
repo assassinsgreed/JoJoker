@@ -121,3 +121,14 @@ jd_def["j_jojoker_turbo_eyes"] = {
         end
     end
 }
+
+jd_def["j_jojoker_the_true_mans_world"] = {
+    text = {
+        {
+            border_nodes = {
+                { text = "X" },
+                { ref_table = "card.ability.extra", ref_value = "Xmult" }
+            }
+        }
+    }
+}

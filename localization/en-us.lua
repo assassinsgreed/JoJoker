@@ -723,6 +723,15 @@ return {
                     "total {C:chips}chips{} to the scoring hand.",
                 }
             },
+            j_jojoker_the_true_mans_world = {
+                name = "The True Man's World",
+                text = {
+                    "Gains {X:mult,C:white} X#1# {} for each",
+                    "hand played, but resets on discard.",
+                    "{br:2}line break",
+                    "{C:inactive}Currently: {X:mult,C:white}X#2#{}"
+                }
+            },
             -- Part 8: Jojolion
             j_jojoker_soft_and_wet = {
                 name = "Soft & Wet",
