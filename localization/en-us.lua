@@ -151,6 +151,18 @@ return {
                     "gives {C:mult}+#1#{}.",
                 }
             },
+            j_jojoker_santana = {
+                name = "Santana",
+                text = {
+                    "Each scored {C:attention}face card{} permanently gains {C:chips}+#1#{}."
+                }
+            },
+            j_jojoker_santana_alt = {
+                name = "Santviento",
+                text = {
+                    "Each scored {C:attention}face card{} permanently gains {C:chips}+#1#{}."
+                }
+            },
             -- Part 3: Stardust Crusaders
             j_jojoker_magician_red = {
                 name = "Magician's Red",

@@ -285,7 +285,45 @@ local nypd = {
     end
 }
 
+local santana = {
+    name = "santana",
+    rarity = 2,
+    cost = 5,
+    jtype = "Character",
+    part = "battle_tendency",
+    blueprint_compat = true,
+    perishable_compat = true,
+    eternal_compat = true,
+    config = { extra = { chips_mod = 5 } },
+    loc_vars = function(self, info_queue, center)
+      return {vars = { center.ability.extra.chips_mod }}
+    end,
+    calculate = function(self, card, context)
+        -- Permanently gives +5 chips for each scored face card
+        if context.individual and not context.end_of_round and context.cardarea == G.play then
+            if context.other_card:is_face() then
+                if context.other_card.debuff then
+                    return {
+                        message = localize("k_debuffed"),
+                        colour = G.C.RED,
+                        card = card,
+                    }
+                else
+                    context.other_card.ability.perma_bonus = (context.other_card.ability.perma_bonus or 0) + card.ability.extra.chips_mod
+                    context.other_card:juice_up()
+                    sendDebugMessage("Santana: Increasing additional chips of scored face card to "..tostring(context.other_card.ability.perma_bonus))
+
+                    return {
+                        message = localize('k_upgrade_ex'),
+                        colour = G.C.GOLD
+                    }
+                end
+            end
+        end
+    end
+}
+
 return {
     name = "Battle Tendency Character Jokers",
-    list = { joseph_joestar, esidisi, speedwagon_bt, caesar, kars_ultimate_lifeform, kars_stopped_thinking, suzi_q, nypd },
+    list = { joseph_joestar, esidisi, speedwagon_bt, caesar, kars_ultimate_lifeform, kars_stopped_thinking, suzi_q, nypd, santana },
 }

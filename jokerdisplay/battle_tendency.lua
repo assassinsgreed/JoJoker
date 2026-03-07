@@ -92,3 +92,13 @@ jd_def["j_jojoker_nypd"] = {
         { text = "Clubs only", colour = G.C.GREY, },
     },
 }
+
+jd_def["j_jojoker_santana"] = {
+    text = {
+        { text = "+", colour = G.C.CHIPS },
+        { ref_table = "card.ability.extra", ref_value = "chips_mod", retrigger_type = "chips_mod",  colour = G.C.CHIPS },
+    },
+    reminder_text = {
+        { text = "Added to scored face card", colour = G.C.GREY, },
+    }
+}

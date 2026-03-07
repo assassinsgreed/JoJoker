@@ -325,3 +325,67 @@ Balatest.TestPlay {
     end
 }
 --#endregion
+
+--#region Santana
+Balatest.TestPlay {
+    name = 'santana_increases_chips_of_scored_face_cards',
+    category = { 'jokers', 'stardust_crusaders', 'santana' },
+    jokers = { 'j_jojoker_santana' },
+    deck = { cards = {
+        { r = 'Q', s = 'H' },
+        { r = 'Q', s = 'H' },
+        { r = '5', s = 'H' },
+        { r = '5', s = 'C' },
+        { r = '2', s = 'C' } } },
+    execute = function()
+        Balatest.play_hand { 'QH', 'QH' } -- Play all and check the deck afterward
+        Balatest.end_round() -- Get all cards back into the deck for comparision
+    end,
+    assert = function()
+        local firstFacePermaChips = G.deck.cards[1].ability.perma_bonus
+        local secondFacePermaChips = G.deck.cards[2].ability.perma_bonus
+        Balatest.assert_eq(firstFacePermaChips, G.jokers.cards[1].ability.extra.chips_mod, "Santana did not permanently increase chips of first scored face card.")
+        Balatest.assert_eq(secondFacePermaChips, G.jokers.cards[1].ability.extra.chips_mod, "Santana did not permanently increase chips of second scored face card.")
+    end
+}
+
+Balatest.TestPlay {
+    name = 'santana_further_increases_chips_bonus_of_already_increased_face_cards',
+    category = { 'jokers', 'stardust_crusaders', 'santana' },
+    jokers = { 'j_jojoker_santana' },
+    deck = { cards = {
+        { r = 'Q', s = 'H' },
+        { r = 'Q', s = 'C' },
+        { r = '5', s = 'H' },
+        { r = '2', s = 'C' } } },
+    execute = function()
+        Balatest.play_hand { 'QH' } -- Play all and check the deck afterward
+        Balatest.next_round()
+        Balatest.play_hand { 'QH' } -- Play all and check the deck afterward
+        Balatest.end_round() -- Get all cards back into the deck for comparision
+    end,
+    assert = function()
+        local firstFaceCardPermaChips = G.deck.cards[1].ability.perma_bonus
+        Balatest.assert_eq(firstFaceCardPermaChips, G.jokers.cards[1].ability.extra.chips_mod * 2, "Santana did not permanently increase chips of first scored face card.")
+    end
+}
+
+Balatest.TestPlay {
+    name = 'santana_does_not_increase_bonus_chips_of_non_face_cards',
+    category = { 'jokers', 'stardust_crusaders', 'santana' },
+    jokers = { 'j_jojoker_santana' },
+    deck = { cards = {
+        { r = 'Q', s = 'C' },
+        { r = 'Q', s = 'C' },
+        { r = '5', s = 'C' },
+        { r = '2', s = 'C' } } },
+    execute = function()
+        Balatest.play_hand { '5C' } -- Play all and check the deck afterward
+        Balatest.end_round() -- Get all cards back into the deck for comparision
+    end,
+    assert = function()
+        local fivePermaChips = G.deck.cards[3].ability.perma_bonus
+        Balatest.assert_eq(fivePermaChips, 0, "Santana incorrectly increased chips of non-face card.")
+    end
+}
+--#endregion
