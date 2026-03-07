@@ -329,7 +329,7 @@ Balatest.TestPlay {
 --#region Santana
 Balatest.TestPlay {
     name = 'santana_increases_chips_of_scored_face_cards',
-    category = { 'jokers', 'stardust_crusaders', 'santana' },
+    category = { 'jokers', 'battle_tendency', 'santana' },
     jokers = { 'j_jojoker_santana' },
     deck = { cards = {
         { r = 'Q', s = 'H' },
@@ -351,7 +351,7 @@ Balatest.TestPlay {
 
 Balatest.TestPlay {
     name = 'santana_further_increases_chips_bonus_of_already_increased_face_cards',
-    category = { 'jokers', 'stardust_crusaders', 'santana' },
+    category = { 'jokers', 'battle_tendency', 'santana' },
     jokers = { 'j_jojoker_santana' },
     deck = { cards = {
         { r = 'Q', s = 'H' },
@@ -372,7 +372,7 @@ Balatest.TestPlay {
 
 Balatest.TestPlay {
     name = 'santana_does_not_increase_bonus_chips_of_non_face_cards',
-    category = { 'jokers', 'stardust_crusaders', 'santana' },
+    category = { 'jokers', 'battle_tendency', 'santana' },
     jokers = { 'j_jojoker_santana' },
     deck = { cards = {
         { r = 'Q', s = 'C' },
@@ -386,6 +386,86 @@ Balatest.TestPlay {
     assert = function()
         local fivePermaChips = G.deck.cards[3].ability.perma_bonus
         Balatest.assert_eq(fivePermaChips, 0, "Santana incorrectly increased chips of non-face card.")
+    end
+}
+--#endregion
+
+--#region Stroheim
+Balatest.TestPlay {
+    name = 'stroheim_gives_chips_on_played_hand',
+    category = { 'jokers', 'battle_tendency', 'stroheim' },
+    jokers = { 'j_jojoker_stroheim' },
+    execute = function()
+        Balatest.play_hand { '2C' }
+    end,
+    assert = function()
+        Balatest.assert_chips(7 + G.jokers.cards[1].ability.extra.starting_chips, "Stroheim did not give chips on played hand.")
+    end
+}
+
+Balatest.TestPlay {
+    name = 'stroheim_chips_given_decreases_on_played_hand',
+    category = { 'jokers', 'battle_tendency', 'stroheim' },
+    jokers = { 'j_jojoker_stroheim' },
+    execute = function()
+        Balatest.play_hand { '2C' }
+    end,
+    assert = function()
+        local stroheimChips = G.jokers.cards[1].ability.extra.chips_remaining
+        Balatest.assert_eq(stroheimChips, G.jokers.cards[1].ability.extra.starting_chips - G.jokers.cards[1].ability.extra.chips_loss, "Stroheim did not reduce chip reward on played hand.")
+    end
+}
+
+Balatest.TestPlay {
+    name = 'stroheim_evolves_when_chips_hit_zero',
+    category = { 'jokers', 'battle_tendency', 'stroheim' },
+    jokers = { 'j_jojoker_stroheim' },
+    execute = function()
+        G.jokers.cards[1].ability.extra.chips_remaining = 0 -- Ensure next hand played causes evolution
+        Balatest.play_hand { '2C' }
+    end,
+    assert = function()
+        Balatest.assert_eq(G.jokers.cards[1].config.center, G.P_CENTERS['j_jojoker_stroheim_german_engineering'], "Stroheim did not evolve when chips hit zero.")
+    end
+}
+--#endregion
+
+--#region Stroheim (German Engineering)
+Balatest.TestPlay {
+    name = 'stroheim_german_engineering_gives_mult_on_played_hand',
+    category = { 'jokers', 'battle_tendency', 'stroheim_german_engineering' },
+    jokers = { 'j_jojoker_stroheim_german_engineering' },
+    execute = function()
+        Balatest.play_hand { '2C' }
+    end,
+    assert = function()
+        Balatest.assert_chips(7 * (G.jokers.cards[1].ability.extra.starting_mult + 1), "Stroheim did not give mult on played hand.")
+    end
+}
+
+Balatest.TestPlay {
+    name = 'stroheim_german_engineering_does_not_gain_mult_on_played_hand',
+    category = { 'jokers', 'battle_tendency', 'stroheim_german_engineering' },
+    jokers = { 'j_jojoker_stroheim_german_engineering' },
+    execute = function()
+        Balatest.play_hand { '2C' }
+    end,
+    assert = function()
+        local stroheimMult = G.jokers.cards[1].ability.extra.current_mult
+        Balatest.assert_eq(stroheimMult, G.jokers.cards[1].ability.extra.starting_mult, "Stroheim gained mult on played hand.")
+    end
+}
+
+Balatest.TestPlay {
+    name = 'stroheim_german_engineering_gains_mult_on_blind_end',
+    category = { 'jokers', 'battle_tendency', 'stroheim_german_engineering' },
+    jokers = { 'j_jojoker_stroheim_german_engineering' },
+    execute = function()
+        Balatest.end_round()
+    end,
+    assert = function()
+        local stroheimMult = G.jokers.cards[1].ability.extra.current_mult
+        Balatest.assert_eq(stroheimMult, G.jokers.cards[1].ability.extra.starting_mult + G.jokers.cards[1].ability.extra.mult_gain, "Stroheim did not gain mult on blind end.")
     end
 }
 --#endregion

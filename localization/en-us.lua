@@ -163,6 +163,23 @@ return {
                     "Each scored {C:attention}face card{} permanently gains {C:chips}+#1#{}."
                 }
             },
+            j_jojoker_stroheim = {
+                name = "Rudol Von Stroheim",
+                text = {
+                    "Gives {C:chips}+#1#{}, but loses {C:chips}#2#{} per played hand.",
+                    "{C:inactive}Something may happen once they run out..?{}",
+                    "{br:2}line break",
+                    "{C:inactive}Remaining: {C:chips}+#3#"
+                }
+            },
+            j_jojoker_stroheim_german_engineering = {
+                name = "Rudol Von Stroheim (German Engineering)",
+                text = {
+                    "Gives {C:mult}+#1#{}, and gains {C:mult}+#2#{} per cleared blind.",
+                    "{br:2}line break",
+                    "{C:inactive}Currently: {C:mult}+#3#"
+                }
+            },
             -- Part 3: Stardust Crusaders
             j_jojoker_magician_red = {
                 name = "Magician's Red",
@@ -971,6 +988,7 @@ return {
             sound_baby_face_spawn = "Simple is best!",
             sound_calamity_approaches = "Calamity approaches...",
             sound_wonder_of_u = "Wonder of U!",
+            sound_german_engineering = "German Science is the world's finest!",
             
             -- Common strings
             a_hand = "a hand",

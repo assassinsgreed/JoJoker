@@ -323,7 +323,101 @@ local santana = {
     end
 }
 
+local stroheim = {
+    name = "stroheim",
+    rarity = 1,
+    cost = 5,
+    jtype = "Character",
+    part = "battle_tendency",
+    blueprint_compat = true,
+    perishable_compat = true,
+    eternal_compat = true,
+    config = { extra = { starting_chips = 100, chips_loss = 10, chips_remaining = 100 } },
+    loc_vars = function(self, info_queue, card)
+      return {vars = {card.ability.extra.starting_chips, card.ability.extra.chips_loss, card.ability.extra.chips_remaining }}
+    end,
+    calculate = function(self, card, context)
+        -- Gives chips per played hand, but decreases value. Once value hits 0, evolves to German Engineering
+        if context.cardarea == G.jokers and context.scoring_hand then
+            if context.joker_main then
+                -- After scoring, handle decrease in chips and potential evolution
+            G.E_MANAGER:add_event(Event({
+                trigger = 'after',
+                delay = 0,
+                func = function()
+                    card.ability.extra.chips_remaining = math.max(0, card.ability.extra.chips_remaining - card.ability.extra.chips_loss)
+                    sendDebugMessage("Stroheim: Chips remaining decreased to "..card.ability.extra.chips_remaining)
+
+                    if card.ability.extra.chips_remaining == 0 then
+                        sendDebugMessage("Stroheim: Chips depleted, transforming into German Engineering")
+                        card_eval_status_text(card, 'extra', nil, nil, nil, {message = localize('sound_german_engineering')})
+                        transform_joker(card, "j_jojoker_stroheim_german_engineering")
+                    end
+                    return true
+                end
+            }))
+
+                return {
+                    message = localize{type='variable', key='a_chips', vars={card.ability.extra.chips_remaining}},
+                    colour=G.C.CHIPS,
+                    chip_mod=card.ability.extra.chips_remaining,
+                }
+            end
+        end
+    end,
+    -- Prevent Stroheim from appearing if his evolved form is present
+    in_pool = function(self, args)
+        for _, joker in ipairs(G.jokers.cards) do
+            if joker.config.center == "j_jojoker_stroheim_german_engineering" then
+                return false
+            end
+        end
+        return true
+    end,
+}
+
+local stroheim_german_engineering = {
+    name = "stroheim_german_engineering",
+    rarity = 2,
+    cost = 7,
+    jtype = "Character",
+    part = "battle_tendency",
+    blueprint_compat = true,
+    perishable_compat = true,
+    eternal_compat = true,
+    config = { extra = { starting_mult = 30, mult_gain = 5, current_mult = 30 } },
+    loc_vars = function(self, info_queue, card)
+      return {vars = {card.ability.extra.starting_mult, card.ability.extra.mult_gain, card.ability.extra.current_mult }}
+    end,
+    calculate = function(self, card, context)
+        -- Give mult when scoring
+        if context.cardarea == G.jokers and context.scoring_hand then
+            if context.joker_main then
+                return {
+                    message = localize{type = 'variable', key = 'a_mult', vars = {card.ability.extra.current_mult}},
+                    colour = G.C.MULT,
+                    mult_mod = card.ability.extra.current_mult
+                }
+            end
+        end
+
+        -- On blind end, increase mult gain
+        if context.end_of_round and not context.individual and not context.repetition and not context.blueprint then
+            card.ability.extra.current_mult = card.ability.extra.current_mult + card.ability.extra.mult_gain
+            sendDebugMessage("Stroheim (German Engineering): Increasing mult to "..card.ability.extra.current_mult)
+
+            return {
+                message = localize('k_upgrade_ex'),
+                colour = G.C.GOLD
+            }
+        end
+    end,
+    in_pool = function(self, args)
+        return false
+    end,
+}
+
 return {
     name = "Battle Tendency Character Jokers",
-    list = { joseph_joestar, esidisi, speedwagon_bt, caesar, kars_ultimate_lifeform, kars_stopped_thinking, suzi_q, nypd, santana },
+    list = { joseph_joestar, esidisi, speedwagon_bt, caesar, kars_ultimate_lifeform, kars_stopped_thinking, suzi_q, nypd, santana, stroheim, stroheim_german_engineering },
 }

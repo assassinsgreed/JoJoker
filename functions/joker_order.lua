@@ -25,6 +25,8 @@ jojoker.joker_order = {
     "speedwagon",
     "speedwagon_bt",
     "straizo",
+    "stroheim",
+    "stroheim_german_engineering",
     "suzi_q",
     "yoshikage_kira",
     "zombies",

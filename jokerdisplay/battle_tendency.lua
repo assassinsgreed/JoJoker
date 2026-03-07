@@ -102,3 +102,27 @@ jd_def["j_jojoker_santana"] = {
         { text = "Added to scored face card", colour = G.C.GREY, },
     }
 }
+
+jd_def["j_jojoker_stroheim"] = {
+    text = {
+        { text = "+", colour = G.C.CHIPS },
+        { ref_table = "card.ability.extra", ref_value = "chips_remaining", retrigger_type = "chips_remaining",  colour = G.C.CHIPS },
+    },
+    reminder_text = {
+        { text = "-", colour = G.C.CHIPS },
+        { ref_table = "card.ability.extra", ref_value = "chips_loss", retrigger_type = "chips_loss",  colour = G.C.CHIPS },
+        { text = " per played hand", colour = G.C.GREY, },
+    }
+}
+
+jd_def["j_jojoker_stroheim_german_engineering"] = {
+    text = {
+        { text = "+", colour = G.C.MULT },
+        { ref_table = "card.ability.extra", ref_value = "current_mult", retrigger_type = "current_mult",  colour = G.C.MULT },
+    },
+    reminder_text = {
+        { text = "+", colour = G.C.MULT },
+        { ref_table = "card.ability.extra", ref_value = "mult_gain", retrigger_type = "mult_gain",  colour = G.C.MULT },
+        { text = " per cleared blind", colour = G.C.GREY, },
+    }
+}
