@@ -366,7 +366,7 @@ local baby_face = {
 
 local little_feet = {
     name = "little_feet",
-    rarity = 1,
+    rarity = 3,
     cost = 5,
     jtype = "Stand",
     jclass = "Close Range",
