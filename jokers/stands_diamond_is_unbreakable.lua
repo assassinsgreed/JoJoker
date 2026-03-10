@@ -91,6 +91,33 @@ local the_hand = {
                 SMODS.debuff_card(v, false, card)
             end
         end
+    end,
+    -- Handle card debuffing on add/remove (via Judgment)
+    add_to_deck = function(self, card, from_debuff)
+        if not from_debuff then
+            local ranks = {"2", "3", "4", "5", "6", "7", "8", "9", "10", "Jack", "Queen", "King", "Ace"}
+            local debuff_index = math.random(1, #ranks);
+            card.ability.extra.debuff_rank = ranks[debuff_index]
+            local low_rank = ranks[debuff_index - 1 >= 1 and debuff_index - 1 or #ranks]
+            local high_rank = ranks[debuff_index + 1 <= #ranks and debuff_index + 1 or 1]
+            card.ability.extra.buffed_rank_one = low_rank
+            card.ability.extra.buffed_rank_two = high_rank
+
+            sendDebugMessage("The Hand: Debuffed rank "..card.ability.extra.debuff_rank..", buffed ranks "..low_rank.." and "..high_rank)
+
+            -- Debuff all cards of the debuffed rank
+            for k, v in pairs(G.playing_cards) do
+                if rank_string_from_id(v:get_id()) == card.ability.extra.debuff_rank then
+                    SMODS.debuff_card(v, true, card)
+                end
+            end
+        end
+    end,
+    remove_from_deck = function(self, card, from_debuff)
+        sendDebugMessage("The Hand: Removed from deck, restoring face cards")
+        for k, v in pairs(G.playing_cards) do
+            SMODS.debuff_card(v, false, card)
+        end
     end
 }
 
