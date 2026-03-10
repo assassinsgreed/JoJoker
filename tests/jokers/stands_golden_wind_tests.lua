@@ -279,3 +279,42 @@ Balatest.TestPlay {
     end
 }
 --#endregion
+--#region Little Feet
+Balatest.TestPlay {
+    name = 'little_feet_debuffs_face_cards_in_deck',
+    category = { 'jokers', 'golden_wind', 'little_feet' },
+    jokers = { 'j_jojoker_little_feet' },
+    hands = 3,
+    execute = function()
+        Balatest.play_hand { 'KS' }
+    end,
+    assert = function()
+        Balatest.assert_chips(5, "Little Feet did not debuff face cards in deck correctly")
+    end
+}
+Balatest.TestPlay {
+    name = 'little_feet_restores_face_cards_when_sold',
+    category = { 'jokers', 'golden_wind', 'little_feet' },
+    jokers = { 'j_jojoker_little_feet' },
+    hands = 3,
+    execute = function()
+        Balatest.sell(function() return G.jokers.cards[1] end)
+        Balatest.play_hand { 'KS' }
+    end,
+    assert = function()
+        Balatest.assert_chips(15, "Little Feet did not restore face cards correctly when sold")
+    end
+}
+Balatest.TestPlay {
+    name = 'little_feet_gives_xmult_for_each_low_card',
+    category = { 'jokers', 'golden_wind', 'little_feet' },
+    jokers = { 'j_jojoker_little_feet' },
+    hands = 3,
+    execute = function()
+        Balatest.play_hand { '2S', '2C' }
+    end,
+    assert = function()
+        Balatest.assert_chips(14 * (2 * (G.jokers.cards[1].ability.extra.Xmult ^ 2)), "Little Feet did not give xmult for each low card correctly")
+    end
+}
+--#endregion

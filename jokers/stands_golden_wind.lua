@@ -364,7 +364,55 @@ local baby_face = {
     end
 }
 
+local little_feet = {
+    name = "little_feet",
+    rarity = 1,
+    cost = 5,
+    jtype = "Stand",
+    jclass = "Close Range",
+    part = "golden_wind",
+    blueprint_compat = true,
+    config = { extra = { Xmult = 2 } },
+    loc_vars = function(self, info_queue, center)
+     return {
+        vars = {center.ability.extra.Xmult},
+        key = jojoker_config.use_localized_names and self.key..'_alt' or self.key
+    }
+   end,
+    calculate = function(self, card, context)
+        if context.individual and context.cardarea == G.play and not context.other_card.debuff then
+            local id = context.other_card:get_id()
+            if id and id >= 2 and id <= 5 then
+                sendDebugMessage("Little Feet: Scored card is rank: "..id..", so giving "..card.ability.extra.Xmult.."x mult")
+                return {
+                    message = localize{type = 'variable', key = 'a_xmult', vars = {card.ability.extra.Xmult}},
+                    colour = G.C.XMULT,
+                    Xmult_mod = card.ability.extra.Xmult
+                }
+            end
+        end
+    end,
+    -- Handle when Little Feet specifically is added/removed from joker pool
+    add_to_deck = function(self, card, from_debuff)
+        if not from_debuff then
+            sendDebugMessage("Little Feet: Added to deck, debuffing face cards")
+            for k, v in pairs(G.playing_cards) do
+                local rank = rank_string_from_id(v:get_id())
+                if rank == "Jack" or rank == "Queen" or rank == "King" then
+                    SMODS.debuff_card(v, true, card)
+                end
+            end
+        end
+    end,
+    remove_from_deck = function(self, card, from_debuff)
+        sendDebugMessage("Little Feet: Removed from deck, restoring face cards")
+        for k, v in pairs(G.playing_cards) do
+            SMODS.debuff_card(v, false, card)
+        end
+    end
+}
+
 return {
     name = "Golden Wind Stand Jokers",
-    list = { sex_pistols, grateful_dead, spice_girl, sticky_fingers, gold_experience, gold_experience_requiem, king_crimson, moody_blues, baby_face },
+    list = { sex_pistols, grateful_dead, spice_girl, sticky_fingers, gold_experience, gold_experience_requiem, king_crimson, moody_blues, baby_face, little_feet },
 }

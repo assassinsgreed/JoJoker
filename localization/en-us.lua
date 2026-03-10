@@ -529,6 +529,20 @@ return {
                     "to spawn a {C:dark_edition}Negative{} {C:blue}Common{} Joker."
                 }
             },
+            j_jojoker_little_feet = {
+                name = "Little Feet",
+                text = {
+                    "Each scored {C:attention}2-5{} gives {X:mult,C:white} X#1# {}.",
+                    "{C:attention}Face cards{} are debuffed."
+                }
+            },
+            j_jojoker_little_feet_alt = {
+                name = "Tiny Feet",
+                text = {
+                    "Each scored {C:attention}2-5{} gives {X:mult,C:white} X#1# {}.",
+                    "{C:attention}Face cards{} are debuffed."
+                }
+            },
             -- Part 6: Stone Ocean
             j_jojoker_goo_goo_dolls = {
                 name = "Goo Goo Dolls",

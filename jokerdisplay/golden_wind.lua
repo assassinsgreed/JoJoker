@@ -122,3 +122,17 @@ jd_def["j_jojoker_baby_face"] = {
         { text = "Spawn Joker", colour = G.C.GREY, },
     },
 }
+
+jd_def["j_jojoker_little_feet"] = {
+    text = {
+        {
+            border_nodes = {
+                { text = "X" },
+                { ref_table = "card.ability.extra", ref_value = "Xmult" }
+            }
+        }
+    },
+    reminder_text = {
+        { text = "Per scored 2-5", colour = G.C.GREY, },
+    },
+}
