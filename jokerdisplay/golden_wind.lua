@@ -136,3 +136,16 @@ jd_def["j_jojoker_little_feet"] = {
         { text = "Per scored 2-5", colour = G.C.GREY, },
     },
 }
+
+jd_def["j_jojoker_black_sabbath"] = {
+    extra = {
+        {
+            { text = "+", colour = G.C.MULT },
+            { ref_table = "card.ability.extra", ref_value = "curr_mult", retrigger_type = "curr_mult",  colour = G.C.MULT },
+        },
+        {
+            { text = "+", colour = G.C.CHIPS },
+            { ref_table = "card.ability.extra", ref_value = "curr_chips", retrigger_type = "curr_chips",  colour = G.C.CHIPS },
+        }
+    }
+}

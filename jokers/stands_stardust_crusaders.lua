@@ -29,8 +29,9 @@ local magician_red = {
             local hand_score = (G.GAME.chips or 0) - start
             sendDebugMessage("Magician's Red: Recognized score at hand start as "..start)
             sendDebugMessage("Magician's Red: Resulting chips are "..hand_score.." and blind chips are "..G.GAME.blind.chips)
+            
+            -- Give money on flaming score
             if hand_score > G.GAME.blind.chips then
-                -- Destroy magician_red
                 ease_dollars(card.ability.extra.money_mod)
                 return {
                     message = localize('$')..card.ability.extra.money_mod,

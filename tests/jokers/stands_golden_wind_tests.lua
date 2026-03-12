@@ -318,3 +318,55 @@ Balatest.TestPlay {
     end
 }
 --#endregion
+--#region Black Sabbath
+Balatest.TestPlay {
+    name = 'black_sabbath_gives_chips_and_mult_when_hand_scores',
+    category = { 'jokers', 'golden_wind', 'black_sabbath' },
+    jokers = { 'j_jojoker_black_sabbath' },
+    hands = 3,
+    execute = function()
+        Balatest.play_hand { '2S' }
+    end,
+    assert = function()
+        Balatest.assert_chips(517, "Black Sabbath did not give chips and mult correctly when hand scores")
+    end
+}
+
+Balatest.TestPlay {
+    name = 'black_sabbath_becomes_perishable_with_enhanced_chips_and_mult_when_hand_scores_above_blind_threshold',
+    category = { 'jokers', 'golden_wind', 'black_sabbath' },
+    jokers = { 'j_jojoker_black_sabbath' },
+    hands = 3,
+    execute = function()
+        Balatest.play_hand { 'AS', 'KS', 'QS', 'JS', '10S' }
+    end,
+    assert = function()
+        local isPerishable = G.jokers.cards[1].ability.perishable
+        local newChips = G.jokers.cards[1].ability.extra.curr_chips
+        local newMult = G.jokers.cards[1].ability.extra.curr_mult
+
+        Balatest.assert(isPerishable, "Black Sabbath did not become perishable with enhanced chips and mult when hand scores above blind threshold")
+        Balatest.assert_eq(newChips, G.jokers.cards[1].ability.extra.enhanced_chips, "Black Sabbath did not set enhanced chips correctly when hand scores above blind threshold")
+        Balatest.assert_eq(newMult, G.jokers.cards[1].ability.extra.enhanced_mult, "Black Sabbath did not set enhanced mult correctly when hand scores above blind threshold")
+    end
+}
+
+Balatest.TestPlay {
+    name = 'black_sabbath_does_not_reset_perishable_tally_when_hand_scores_above_blind_threshold',
+    category = { 'jokers', 'golden_wind', 'black_sabbath' },
+    jokers = { 'j_jojoker_black_sabbath' },
+    hands = 3,
+    execute = function()
+        G.jokers.cards[1].ability.perishable = true
+        G.jokers.cards[1].ability.perish_tally = 3
+        Balatest.play_hand { 'AS', 'KS', 'QS', 'JS', '10S' }
+    end,
+    assert = function()
+        local isPerishable = G.jokers.cards[1].ability.perishable
+        local perishTally = G.jokers.cards[1].ability.perish_tally -- Should be 1 less than original, since this hand will clear blind
+
+        Balatest.assert(isPerishable, "Black Sabbath did not become perishable with enhanced chips and mult when hand scores above blind threshold")
+        Balatest.assert_eq(perishTally, 2, "Black Sabbath did not preserve perish tally when hand scores above blind threshold")
+    end
+}
+--#endregion

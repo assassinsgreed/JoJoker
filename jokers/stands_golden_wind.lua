@@ -412,7 +412,66 @@ local little_feet = {
     end
 }
 
+local black_sabbath = {
+    name = "black_sabbath",
+    rarity = 1,
+    cost = 6,
+    jtype = "Stand",
+    jclass = "Automatic",
+    part = "golden_wind",
+    blueprint_compat = true,
+    eternal_compat = false,
+    perishable_compat = false, -- Becomes perishable on scoring if enhanced, but not compatible with perish on creation
+    config = { extra = { curr_chips = 40, curr_mult = 10, enhanced_chips = 200, enhanced_mult = 50 } }, -- x5 for both, but split to separate vars for easier balancing
+    loc_vars = function(self, info_queue, center)
+     return {
+        vars = {center.ability.extra.curr_chips, center.ability.extra.curr_mult, center.ability.extra.enhanced_chips, center.ability.extra.enhanced_mult},
+        key = jojoker_config.use_localized_names and self.key..'_alt' or self.key
+    }
+   end,
+    calculate = function(self, card, context)
+        -- Give chips and mult on scoring.
+        -- If score catches fire, enhnance the chips and mult but become perishable
+        if context.cardarea == G.jokers and context.scoring_hand then
+            if G.GAME.chips then
+                G.GAME._chips_before_hand = G.GAME.chips
+            end
+
+            if context.joker_main then
+                return {
+                    message = localize("sound_ho_ho_ho"),
+                    colour = G.C.BLACK,
+                    chip_mod = card.ability.extra.curr_chips,
+                    mult_mod = card.ability.extra.curr_mult,
+                    card = card
+                }
+            end
+        end
+
+        -- If score catches fire, make Black Sabbath perishable and enhance it's chips and mult.
+        if context.end_of_round and not context.individual and not context.repetition and not context.blueprint then
+            if not G.GAME.chips or not G.GAME.blind.chips then return end
+            local start = G.GAME._chips_before_hand or 0 -- fallback if missing
+            local hand_score = (G.GAME.chips or 0) - start
+
+            sendDebugMessage("Black Sabbath: Hand scored with "..hand_score.." chips, threshold to hit is "..G.GAME.blind.chips)
+            if hand_score > G.GAME.blind.chips and not card.ability.perishable then
+                card.ability.extra.curr_chips = card.ability.extra.enhanced_chips
+                card.ability.extra.curr_mult = card.ability.extra.enhanced_mult
+                card.ability.perishable = true
+                card.ability.perish_tally = G.GAME.perishable_rounds
+                sendDebugMessage("Black Sabbath: Score caught fire, increasing chips to "..card.ability.extra.curr_chips.." and mult to "..card.ability.extra.curr_mult)
+
+                return {
+                    message = localize('k_upgrade_ex'),
+                    colour = G.C.GOLD
+                }
+            end
+        end
+    end
+}
+
 return {
     name = "Golden Wind Stand Jokers",
-    list = { sex_pistols, grateful_dead, spice_girl, sticky_fingers, gold_experience, gold_experience_requiem, king_crimson, moody_blues, baby_face, little_feet },
+    list = { sex_pistols, grateful_dead, spice_girl, sticky_fingers, gold_experience, gold_experience_requiem, king_crimson, moody_blues, baby_face, little_feet, black_sabbath },
 }

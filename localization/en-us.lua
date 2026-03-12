@@ -543,6 +543,20 @@ return {
                     "{C:attention}Face cards{} are debuffed."
                 }
             },
+            j_jojoker_black_sabbath = {
+                name = "Black Sabbath",
+                text = {
+                    "Gives {C:chips}+#1#{} and {C:mult}+#2#{}. If score catches fire,",
+                    "becomes {C:attention}Perishable{} and gives {C:chips}+#3#{} and {C:mult}+#4#{} instead."
+                }
+            },
+            j_jojoker_black_sabbath_alt = {
+                name = "Shadow Sabbath",
+                text = {
+                    "Gives {C:chips}+#1#{} and {C:mult}+#2#{}. If score catches fire,",
+                    "becomes {C:attention}Perishable{} and gives {C:chips}+#3#{} and {C:mult}+#4#{} instead."
+                }
+            },
             -- Part 6: Stone Ocean
             j_jojoker_goo_goo_dolls = {
                 name = "Goo Goo Dolls",
@@ -1003,7 +1017,8 @@ return {
             sound_calamity_approaches = "Calamity approaches...",
             sound_wonder_of_u = "Wonder of U!",
             sound_german_engineering = "German Science is the world's finest!",
-            
+            sound_ho_ho_ho = "Ho ho ho...",
+
             -- Common strings
             a_hand = "a hand",
             undecided = "undecided",

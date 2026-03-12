@@ -45,6 +45,7 @@ jojoker.joker_order = {
     "anubis",
     "baby_face",
     "bad_company",
+    "black_sabbath",
     "burning_down_the_house",
     "california_king_bed",
     "cheap_trick",
