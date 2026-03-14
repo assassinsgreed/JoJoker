@@ -111,3 +111,12 @@ jd_def["j_jojoker_yoshikage_kira"] = {
         { text = " hands", colour = G.C.GREY },
     }
 }
+
+jd_def["j_jojoker_cinderella"] = {
+    text = {
+        { text = "First to Queen/King", colour = G.C.GREY }
+    },
+    reminder_text = {
+        { text = "If not already", colour = G.C.GREY, }
+    }
+}

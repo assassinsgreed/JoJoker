@@ -357,6 +357,20 @@ return {
                     "Gives {C:attention}+#1# hands{}.",
                 }
             },
+            j_jojoker_cinderella = {
+                name = "Cinderella",
+                text = {
+                    "Transforms the first scored card of the blind into either",
+                    "a {C:attention}Queen{} or {C:attention}King{}, if it is not already either rank."
+                }
+            },
+            j_jojoker_cinderella_alt = {
+                name = "Fashionista",
+                text = {
+                    "Transforms the first scored card of the blind into either",
+                    "a {C:attention}Queen{} or {C:attention}King{}, if it is not already either rank."
+                }
+            },
             -- Part 5: Golden Wind
             j_jojoker_sex_pistols = {
                 name = "Sex Pistols",

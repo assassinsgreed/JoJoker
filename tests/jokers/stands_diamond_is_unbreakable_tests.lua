@@ -181,3 +181,73 @@ Balatest.TestPlay {
     end
 }
 --#endregion
+--#region Cinderella
+Balatest.TestPlay {
+    name = 'cinderella_converts_first_scored_card_into_queen_or_king',
+    category = { 'jokers', 'diamond_is_unbreakable', 'cinderella' },
+    jokers = { 'j_jojoker_cinderella' },
+    deck = { cards = {
+        { r = '5', s = 'H' },
+        { r = '2', s = 'C' } } },
+    execute = function()
+        Balatest.play_hand { '5H' }
+        Balatest.end_round() -- End round to return cards to deck
+    end,
+    assert = function()
+        local queen_or_king_count = 0
+        for _, v in pairs(G.deck.cards) do
+            if v:get_id() == 12 or v:get_id() == 13 then
+                queen_or_king_count = queen_or_king_count + 1
+            end
+        end
+        Balatest.assert_eq(queen_or_king_count, 1, "Cinderella did not convert exactly one scored card into Queen or King")
+    end
+}
+
+Balatest.TestPlay {
+    name = 'cinderella_does_not_convert_first_scored_queen',
+    category = { 'jokers', 'diamond_is_unbreakable', 'cinderella' },
+    jokers = { 'j_jojoker_cinderella' },
+    deck = { cards = {
+        { r = 'Q', s = 'S' },
+        { r = 'J', s = 'C' },
+        { r = '2', s = 'H' } } },
+    execute = function()
+        Balatest.play_hand { 'QS' }
+        Balatest.end_round() -- End round to return cards to deck
+    end,
+    assert = function()
+        local queen_or_king_count = 0
+        for _, v in pairs(G.deck.cards) do
+            if v:get_id() == 12 or v:get_id() == 13 then
+                queen_or_king_count = queen_or_king_count + 1
+            end
+        end
+        Balatest.assert_eq(queen_or_king_count, 1, "Cinderella converted cards when only Queens or Kings were scored")
+    end
+}
+
+Balatest.TestPlay {
+    name = 'cinderella_does_not_convert_cards_on_subsequent_hands',
+    category = { 'jokers', 'diamond_is_unbreakable', 'cinderella' },
+    jokers = { 'j_jojoker_cinderella' },
+    deck = { cards = {
+        { r = 'Q', s = 'S' },
+        { r = 'J', s = 'C' },
+        { r = '2', s = 'H' } } },
+    execute = function()
+        Balatest.play_hand { 'QS' }
+        Balatest.play_hand { '2H' }
+        Balatest.end_round() -- End round to return cards to deck
+    end,
+    assert = function()
+        local queen_or_king_count = 0
+        for _, v in pairs(G.deck.cards) do
+            if v:get_id() == 12 or v:get_id() == 13 then
+                queen_or_king_count = queen_or_king_count + 1
+            end
+        end
+        Balatest.assert_eq(queen_or_king_count, 1, "Cinderella converted cards after first hand was played")
+    end
+}
+--#endregion

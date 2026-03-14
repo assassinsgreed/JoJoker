@@ -251,7 +251,62 @@ local cheap_trick = {
     end
 }
 
+local cinderella = {
+    name = "cinderella",
+    rarity = 1,
+    cost = 4,
+    jtype = "Stand",
+    jclass = "Close Range",
+    part = "diamond_is_unbreakable",
+    blueprint_compat = true,
+    perishable_compat = true,
+    eternal_compat = true,
+    config = { extra = { is_disabled = false } },
+    loc_vars = function(self, info_queue, card)
+      return {
+        key = jojoker_config.use_localized_names and self.key..'_alt' or self.key
+    }
+    end,
+    calculate = function(self, card, context)
+        -- When scoring first hand, change first card to queen/king if it isn't already either suit
+        if context.final_scoring_step and not context.blueprint and not card.ability.extra.is_disabled then
+            card.ability.extra.is_disabled = true -- Disable to prevent multiple activations in the same round
+            local first_card = context.scoring_hand[1]
+            local first_card_rank = first_card:get_id()
+            if not first_card.debuff and first_card_rank ~= 12 and first_card_rank ~= 13 then
+                local new_rank = math.random(12, 13)
+                sendDebugMessage("Cinderella: Changing first card rank from "..rank_string_from_id(first_card_rank).." to "..rank_string_from_id(new_rank))
+
+                local suit_to_prefix = { Spades = 'S', Hearts = 'H', Clubs = 'C', Diamonds = 'D' }
+                local suit_prefix = suit_to_prefix[first_card.base.suit]
+
+                -- Trigger event to convert the first_card_rank card to either a Queen or King
+                G.E_MANAGER:add_event(Event({
+                    trigger = 'after',
+                    delay = 0,
+                    func = function()
+                        first_card:set_base(G.P_CARDS[suit_prefix..'_'..(new_rank == 12 and 'Q' or 'K')])
+                        first_card:juice_up()
+                        return true
+                    end
+                }))
+
+                return {
+                    message = localize('k_upgrade_ex'),
+                    colour = G.C.GOLD,
+                    card = first_card
+                }
+            end
+        end
+
+        -- When round ends, reset activation
+        if context.end_of_round and not context.individual and not context.repetition and not context.blueprint then
+            card.ability.extra.is_disabled = false
+        end
+    end
+}
+
 return {
     name = "Diamond is Unbreakable Stand Jokers",
-    list = { red_hot_chili_pepper, the_hand, superfly, crazy_diamond, bad_company, cheap_trick },
+    list = { red_hot_chili_pepper, the_hand, superfly, crazy_diamond, bad_company, cheap_trick, cinderella },
 }
