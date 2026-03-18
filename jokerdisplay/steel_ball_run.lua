@@ -139,3 +139,16 @@ jd_def["j_jojoker_civil_war"] = {
         { ref_table = "card.ability.extra", ref_value = "chips", retrigger_type = "chips", colour = G.C.CHIPS },
     }
 }
+
+jd_def["j_jojoker_the_first_napkin"] = {
+    extra = {
+        {
+            { text = "+ Mult", colour = G.C.MULT },
+            { text = " on first discard", colour = G.C.GREY },
+        },
+        {
+            { text = "+ Chips", colour = G.C.CHIPS },
+            { text = " on first play", colour = G.C.GREY },
+        }
+    }
+}

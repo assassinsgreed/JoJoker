@@ -4,7 +4,7 @@ Balatest.TestPlay {
     category = { 'jokers', 'golden_wind', 'epitaph' },
     jokers = { 'j_jojoker_epitaph' },
     deck = { cards = {
-        -- All cards are the same so we don't have to account for different hands being delt
+        -- All cards are the same so we don't have to account for different hands being dealt
         { r = '4', s = 'S' },
         { r = '4', s = 'S' }, -- In hand
         { r = '4', s = 'S' },
@@ -26,7 +26,7 @@ Balatest.TestPlay {
     category = { 'jokers', 'golden_wind', 'epitaph' },
     jokers = { 'j_jojoker_epitaph' },
     deck = { cards = {
-        -- All cards are the same so we don't have to account for different hands being delt
+        -- All cards are the same so we don't have to account for different hands being dealt
         { r = '4', s = 'S' },
         { r = '4', s = 'S' }, -- In hand
         { r = '4', s = 'S' },
@@ -46,7 +46,7 @@ Balatest.TestPlay {
     category = { 'jokers', 'golden_wind', 'epitaph' },
     jokers = { 'j_jojoker_epitaph' },
     deck = { cards = {
-        -- All cards are the same so we don't have to account for different hands being delt
+        -- All cards are the same so we don't have to account for different hands being dealt
         { r = '4', s = 'S' },
         { r = '4', s = 'S' } } }, -- In hand
     hand_size = 2,

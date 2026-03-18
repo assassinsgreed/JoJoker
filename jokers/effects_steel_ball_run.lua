@@ -90,7 +90,7 @@ local the_true_mans_world = {
                 colour = G.C.RED
             }
         end
-    
+
         -- Give Xmult on hand scoring
         if context.cardarea == G.jokers and context.scoring_hand then
             if context.joker_main then
@@ -104,7 +104,69 @@ local the_true_mans_world = {
     end
 }
 
+local the_first_napkin = {
+    name = "the_first_napkin",
+    rarity = 3,
+    cost = 7,
+    jtype = "Effect",
+    part = "steel_ball_run",
+    blueprint_compat = false,
+    perishable_compat = true,
+    eternal_compat = true,
+    config = { extra = { has_triggered = false } },
+    calculate = function(self, card, context)
+        -- If first hand is played, all cards gain chips == highest rank played
+        if context.before and context.scoring_hand and not card.ability.extra.has_triggered then
+            card.ability.extra.has_triggered = true
+
+            -- Find highest rank
+            local highest_rank = 0
+            for i, c in ipairs(context.full_hand) do
+                if c:get_id() > highest_rank then
+                    highest_rank = c:get_id()
+                end
+            end
+
+            sendDebugMessage("The First Napkin: Giving all played cards +"..highest_rank.." chips before playing hand")
+            for _, c in ipairs(context.full_hand) do
+                c.ability.perma_bonus = (c.ability.perma_bonus or 0) + highest_rank
+            end
+            return {
+                message = localize('sound_left_napkin'),
+                colour = G.C.GOLD
+            }
+        end
+
+        -- If first hand is discarded, all hands gain mult == lowest rank discarded
+        if context.pre_discard and not card.ability.extra.has_triggered then
+            card.ability.extra.has_triggered = true
+
+            -- Copy so sorting doesn't change the original hand order
+            local lowest_rank = 14
+            for i, c in ipairs(context.full_hand) do
+                if c:get_id() < lowest_rank then
+                    lowest_rank = c:get_id()
+                end
+            end
+
+            sendDebugMessage("The First Napkin: Giving all played cards +"..lowest_rank.." mult before playing hand")
+            for _, c in ipairs(context.full_hand) do
+                c.ability.perma_mult = (c.ability.perma_mult or 0) + lowest_rank
+            end
+            return {
+                message = localize('sound_right_napkin'),
+                colour = G.C.GOLD
+            }
+        end
+
+        -- When blind ends, reset has_triggered
+        if context.end_of_round and not context.individual and not context.repetition and not context.blueprint then
+            card.ability.extra.has_triggered = false
+        end
+    end
+}
+
 return {
     name = "Steel Ball Run Effects Jokers",
-    list = { the_fifth_lesson, turbo_eyes, the_true_mans_world },
+    list = { the_fifth_lesson, turbo_eyes, the_true_mans_world, the_first_napkin },
 }

@@ -811,6 +811,15 @@ return {
                     "{C:inactive}Currently: {C:chips}#2#{}"
                 }
             },
+            j_jojoker_the_first_napkin = {
+                name = "The First Napkin",
+                text = {
+                    "When first hand is {C:chips}played{}, all cards permanently",
+                    "gain {C:chips}chips{} equal to {C:attention}highest played rank{}.",
+                    "When first hand is {C:mult}discarded{}, all cards permanently", 
+                    "gain {C:mult}mult{} equal to {C:attention}lowest discarded rank{}.",
+                }
+            },
             -- Part 8: Jojolion
             j_jojoker_soft_and_wet = {
                 name = "Soft & Wet",
@@ -1032,6 +1041,8 @@ return {
             sound_wonder_of_u = "Wonder of U!",
             sound_german_engineering = "German Science is the world's finest!",
             sound_ho_ho_ho = "Ho ho ho...",
+            sound_left_napkin = "I choose the left napkin!",
+            sound_right_napkin = "I choose the right napkin!",
 
             -- Common strings
             a_hand = "a hand",
