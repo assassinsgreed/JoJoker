@@ -47,3 +47,48 @@ Balatest.TestPlay {
     end
 }
 --#endregion
+
+--#region Slow Dancer
+Balatest.TestPlay {
+    name = 'slow_dancer_gives_mult_for_each_scored_card_greater_than_previous_hand',
+    category = { 'jokers', 'steel_ball_run', 'slow_dancer' },
+    jokers = { 'j_jojoker_slow_dancer' },
+    execute = function()
+        G.jokers.cards[1].ability.extra.previous_hand = 1 -- Simulate previous hand having 1 scored card
+        Balatest.play_hand { '9S', '9D', '5D', '5S' }
+    end,
+    assert = function()
+        local previous_hand = G.jokers.cards[1].ability.extra.previous_hand
+        Balatest.assert_eq(previous_hand, 4, "Slow Dancer did not update previous hand scored cards correctly")
+        Balatest.assert_chips(48 * (2 + G.jokers.cards[1].ability.extra.mult * 3), "Slow Dancer did not give the correct multiplier for scored cards greater than previous hand")
+    end
+}
+Balatest.TestPlay {
+    name = 'slow_dancer_does_not_give_mult_for_same_number_of_scored_cards_as_previous_hand',
+    category = { 'jokers', 'steel_ball_run', 'slow_dancer' },
+    jokers = { 'j_jojoker_slow_dancer' },
+    execute = function()
+        G.jokers.cards[1].ability.extra.previous_hand = 1 -- Simulate previous hand having 1 scored card
+        Balatest.play_hand { '2S' }
+    end,
+    assert = function()
+        local previous_hand = G.jokers.cards[1].ability.extra.previous_hand
+        Balatest.assert_eq(previous_hand, 1, "Slow Dancer updated previous hand scored cards when it shouldn't have")
+        Balatest.assert_chips(7, "Slow Dancer did not give the correct multiplier for scored cards greater than previous hand")
+    end
+}
+Balatest.TestPlay {
+    name = 'slow_dancer_does_not_give_mult_for_fewer_scored_cards_than_previous_hand',
+    category = { 'jokers', 'steel_ball_run', 'slow_dancer' },
+    jokers = { 'j_jojoker_slow_dancer' },
+    execute = function()
+        G.jokers.cards[1].ability.extra.previous_hand = 3 -- Simulate previous hand having 3 scored cards
+        Balatest.play_hand { '2S' }
+    end,
+    assert = function()
+        local previous_hand = G.jokers.cards[1].ability.extra.previous_hand
+        Balatest.assert_eq(previous_hand, 1, "Slow Dancer did not updated previous hand scored cards")
+        Balatest.assert_chips(7, "Slow Dancer did not give the correct multiplier for scored cards greater than previous hand")
+    end
+}
+--#endregion

@@ -50,7 +50,45 @@ local danny_sbr = {
     end,
 }
 
+local slow_dancer = {
+    name = "slow_dancer",
+    rarity = 2,
+    cost = 6,
+    jtype = "Character",
+    part = "steel_ball_run",
+    blueprint_compat = true,
+    perishable_compat = true,
+    eternal_compat = true,
+    config = {extra = { mult = 15, previous_hand = 0 }},
+    loc_vars = function(self, info_queue, center)
+        return {vars = { center.ability.extra.mult, center.ability.extra.previous_hand }}
+    end,
+    calculate = function(self, card, context)
+        -- Give mult for each scored card > than the previous hand's scored cards
+        if context.cardarea == G.jokers and context.scoring_hand then
+            if context.joker_main then
+                local scored_cards = #context.scoring_hand
+                local mult_given = 0
+
+                if (scored_cards > card.ability.extra.previous_hand) and card.ability.extra.previous_hand > 0 then
+                    mult_given = (scored_cards - card.ability.extra.previous_hand) * card.ability.extra.mult
+                end
+
+                card.ability.extra.previous_hand = scored_cards
+                sendDebugMessage("Slow Dancer: scored_cards = "..scored_cards..", previous_hand = "..card.ability.extra.previous_hand..", mult_given = "..mult_given)
+                if mult_given > 0 then
+                    return {
+                        message = localize{type = 'variable', key = 'a_mult', vars = {mult_given}},
+                        colour = G.C.MULT,
+                        mult_mod = mult_given
+                    }
+                end
+            end
+        end
+    end,
+}
+
 return {
     name = "Steel Ball Run Characters Jokers",
-    list = { danny_sbr },
+    list = { danny_sbr, slow_dancer },
 }

@@ -22,6 +22,7 @@ jojoker.joker_order = {
     "santana",
     "savage_garden",
     "shizuka",
+    "slow_dancer",
     "speedwagon",
     "speedwagon_bt",
     "straizo",

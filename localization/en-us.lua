@@ -820,6 +820,15 @@ return {
                     "gain {C:mult}mult{} equal to {C:attention}lowest discarded rank{}.",
                 }
             },
+            j_jojoker_slow_dancer = {
+                name = "Slow Dancer",
+                text = {
+                    "If scored cards in hand is greater than previous hand",
+                    "(excluding 0), give {C:mult}+#1#{} for each additional card.",
+                    "{br:2}line break",
+                    "{C:inactive}Previous hand: {C:attention}#2#{C:inactive} cards"
+                }
+            },
             -- Part 8: Jojolion
             j_jojoker_soft_and_wet = {
                 name = "Soft & Wet",

@@ -152,3 +152,15 @@ jd_def["j_jojoker_the_first_napkin"] = {
         }
     }
 }
+
+jd_def["j_jojoker_slow_dancer"] = {
+    text = {
+        { text = "+", colour = G.C.MULT },
+        { ref_table = "card.ability.extra", ref_value = "mult", retrigger_type = "mult", colour = G.C.MULT },
+    },
+    reminder_text = {
+        { text = "Previous hand: ", colour = G.C.GREY },
+        { ref_table = "card.ability.extra", ref_value = "previous_hand", retrigger_type = "previous_hand", colour = G.C.GREY },
+        { text = " cards", colour = G.C.GREY },
+    }
+}
