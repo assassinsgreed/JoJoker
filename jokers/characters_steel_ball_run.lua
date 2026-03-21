@@ -88,7 +88,54 @@ local slow_dancer = {
     end,
 }
 
+local valkyrie = {
+    name = "valkyrie",
+    rarity = 2,
+    cost = 6,
+    jtype = "Character",
+    part = "steel_ball_run",
+    blueprint_compat = true,
+    perishable_compat = true,
+    eternal_compat = true,
+    config = {extra = { card_threshold = 8, chips_per_card = 3, scored_cards_remaining = 8, chip_payout = 0 }},
+    loc_vars = function(self, info_queue, center)
+        return {vars = { center.ability.extra.card_threshold, center.ability.extra.chips_per_card, center.ability.extra.scored_cards_remaining, center.ability.extra.chip_payout }}
+    end,
+    calculate = function(self, card, context)
+        -- After every 8 scored cards, give chips based on remaining total of cards in the deck
+        if context.cardarea == G.jokers and context.scoring_hand then
+            if context.joker_main then
+                local scored_cards = #context.scoring_hand
+                local remaining = card.ability.extra.scored_cards_remaining - scored_cards
+                local should_trigger = false
+
+                if remaining <= 0 then
+                    sendDebugMessage("Valkyrie: Played enough scoring cards, with spill-over of "..remaining..", will give chips")
+                    card.ability.extra.scored_cards_remaining = card.ability.extra.card_threshold + remaining -- This is a negative value
+                    should_trigger = true
+                else
+                    sendDebugMessage("Valkyrie: Did not play enough scoring cards, remaining until activation is "..remaining)
+                    card.ability.extra.scored_cards_remaining = remaining
+                end
+
+                if should_trigger then
+                    return {
+                        message = localize{type = 'variable', key = 'a_chips', vars = {card.ability.extra.chip_payout}},
+                        colour = G.C.CHIPS,
+                        chip_mod = card.ability.extra.chip_payout
+                    }
+                end
+            end
+        end
+    end,
+    update = function(self, card, dt)
+        if G.STAGE == G.STAGES.RUN then
+            card.ability.extra.chip_payout = #G.deck.cards * card.ability.extra.chips_per_card
+        end
+    end
+}
+
 return {
     name = "Steel Ball Run Characters Jokers",
-    list = { danny_sbr, slow_dancer },
+    list = { danny_sbr, slow_dancer, valkyrie },
 }

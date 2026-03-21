@@ -92,3 +92,58 @@ Balatest.TestPlay {
     end
 }
 --#endregion
+--#region Valkyrie
+Balatest.TestPlay {
+    name = 'Valkyrie_counts_down_only_scored_cards',
+    category = { 'jokers', 'steel_ball_run', 'valkyrie' },
+    jokers = { 'j_jojoker_valkyrie' },
+    execute = function()
+        Balatest.play_hand { '2S', '2C', '4D' }
+    end,
+    assert = function()
+        local scored_cards_remaining = G.jokers.cards[1].ability.extra.scored_cards_remaining
+        Balatest.assert_eq(scored_cards_remaining, G.jokers.cards[1].ability.extra.card_threshold - 2, "Valkyrie did not count down only scored cards")
+    end
+}
+
+Balatest.TestPlay {
+    name = 'Valkyrie_resets_scored_card_count_when_reached',
+    category = { 'jokers', 'steel_ball_run', 'valkyrie' },
+    jokers = { 'j_jojoker_valkyrie' },
+    execute = function()
+        G.jokers.cards[1].ability.extra.scored_cards_remaining = 2
+        Balatest.play_hand { '2S', '2C', '4D' }
+    end,
+    assert = function()
+        local scored_cards_remaining = G.jokers.cards[1].ability.extra.scored_cards_remaining
+        Balatest.assert_eq(scored_cards_remaining, G.jokers.cards[1].ability.extra.card_threshold, "Valkyrie did not reset scored card count when reached")
+    end
+}
+
+Balatest.TestPlay {
+    name = 'Valkyrie_overflows_scored_cards_when_remaining_amount_is_surpassed',
+    category = { 'jokers', 'steel_ball_run', 'valkyrie' },
+    jokers = { 'j_jojoker_valkyrie' },
+    execute = function()
+        G.jokers.cards[1].ability.extra.scored_cards_remaining = 1
+        Balatest.play_hand { '2S', '2C', '4D' }
+    end,
+    assert = function()
+        local scored_cards_remaining = G.jokers.cards[1].ability.extra.scored_cards_remaining
+        Balatest.assert_eq(scored_cards_remaining, G.jokers.cards[1].ability.extra.card_threshold - 1, "Valkyrie did not reset scored card count when overflowed")
+    end
+}
+
+Balatest.TestPlay {
+    name = 'Valkyrie_gives_chips_for_each_card_remaining_in_deck_when_threshold_reached',
+    category = { 'jokers', 'steel_ball_run', 'valkyrie' },
+    jokers = { 'j_jojoker_valkyrie' },
+    execute = function()
+        G.jokers.cards[1].ability.extra.scored_cards_remaining = 1
+        Balatest.play_hand { '2S' }
+    end,
+    assert = function()
+        Balatest.assert_chips(7 + G.jokers.cards[1].ability.extra.chip_payout, "Valkyrie did not give chips for remaining cards in the deck")
+    end
+}
+--#endregion

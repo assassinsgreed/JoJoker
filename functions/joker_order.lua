@@ -29,6 +29,7 @@ jojoker.joker_order = {
     "stroheim",
     "stroheim_german_engineering",
     "suzi_q",
+    "valkyrie",
     "yoshikage_kira",
     "zombies",
     

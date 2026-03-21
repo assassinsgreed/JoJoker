@@ -829,6 +829,16 @@ return {
                     "{C:inactive}Previous hand: {C:attention}#2#{C:inactive} cards"
                 }
             },
+            j_jojoker_valkyrie = {
+                name = "Valkyrie",
+                text = {
+                    "After every {C:attention}#1#{} scored cards, gives {C:chips}+#2#{}",
+                    "for each card remaining in the deck.",
+                    "{br:2}line break",
+                    "{C:inactive}Scored cards remaining: {C:attention}#3#{C:inactive}",
+                    "{C:inactive}Chips paid out: {C:chips}#4#{C:inactive}"
+                }
+            },
             -- Part 8: Jojolion
             j_jojoker_soft_and_wet = {
                 name = "Soft & Wet",

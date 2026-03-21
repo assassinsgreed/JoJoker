@@ -84,6 +84,7 @@ JokerSprites = {
         {name = "civil_war", base = {pos = {x = 4, y = 1}}, part_atlas = "steel_ball_run" },
         {name = "the_first_napkin", base = {pos = {x = 0, y = 2}}, part_atlas = "steel_ball_run" },
         {name = "slow_dancer", base = {pos = {x = 1, y = 2}}, part_atlas = "steel_ball_run" },
+        {name = "valkyrie", base = {pos = {x = 2, y = 2}}, part_atlas = "steel_ball_run" },
         -- Part 8: Jojolion
         {name = "soft_and_wet", base = {pos = {x = 0, y = 0}}, part_atlas = "jojolion" },
         {name = "paper_moon_king", base = {pos = {x = 1, y = 0}}, part_atlas = "jojolion" },

@@ -164,3 +164,22 @@ jd_def["j_jojoker_slow_dancer"] = {
         { text = " cards", colour = G.C.GREY },
     }
 }
+
+jd_def["j_jojoker_valkyrie"] = {
+    text = {
+        { text = "+", colour = G.C.CHIPS },
+        { ref_table = "card.joker_display_values", ref_value = "chip_payout", retrigger_type = "chip_payout", colour = G.C.CHIPS },
+    },
+    text_config = { colour = G.C.CHIPS },
+    calc_function = function(card)
+        if G.GAME then
+            card.joker_display_values.chip_payout = #G.deck.cards * card.ability.extra.chips_per_card
+        else
+            card.joker_display_values.chip_payout = 0
+        end
+    end,
+    reminder_text = {
+        { text = "Scored cards remaining: ", colour = G.C.GREY },
+        { ref_table = "card.ability.extra", ref_value = "scored_cards_remaining", retrigger_type = "scored_cards_remaining", colour = G.C.GREY }
+    }
+}
