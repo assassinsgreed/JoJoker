@@ -1,4 +1,4 @@
--- Phantom Blood effects
+-- Phantom Blood characters
 
 local danny = {
     name = "danny",
@@ -356,6 +356,6 @@ local jonathan_joestar = {
 }
 
 return {
-    name = "Phantom Blood Effect Jokers",
+    name = "Phantom Blood Character Jokers",
     list = { danny, baron_zeppeli, speedwagon, zombies, straizo, george_joestar, dario_brando, erina, jonathan_joestar },
 }

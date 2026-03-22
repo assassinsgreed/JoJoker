@@ -38,6 +38,7 @@ jojoker.joker_order = {
     "german_engineering",
     "higashikata_house",
     "higashikata_fruit_parlor",
+    "sword_of_luck_and_pluck",
     "the_fifth_lesson",
     "the_first_napkin",
     "the_true_mans_world",

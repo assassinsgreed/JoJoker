@@ -72,6 +72,12 @@ return {
                     "{C:attention}Wild Cards{} contribute up to a limit of {C:attention}4{} unique suits."
                 }
             },
+            j_jojoker_sword_of_luck_and_pluck = {
+                name = "Sword of Luck & Pluck",
+                text = {
+                    "All {C:attention}Lucky Card{} effects are {C:green}#1#x{} more likely to occur."
+                }
+            },
             -- Part 2: Battle Tendency
             j_jojoker_joseph_joestar = {
                 name = "Joseph Joestar",

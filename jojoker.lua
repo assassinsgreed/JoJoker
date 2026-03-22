@@ -73,6 +73,7 @@ loadFile("quips.lua")
 -- Load tests, if Balatest mod is present and active
 if Balatest then
     SMODS.load_file('tests/jokers/characters_phantom_blood_tests.lua')()
+    SMODS.load_file('tests/jokers/effects_phantom_blood_tests.lua')()
     SMODS.load_file('tests/jokers/characters_battle_tendency_tests.lua')()
     SMODS.load_file('tests/jokers/effects_battle_tendency_tests.lua')()
     SMODS.load_file('tests/jokers/characters_stardust_crusaders_tests.lua')()

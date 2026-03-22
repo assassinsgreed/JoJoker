@@ -1,0 +1,3 @@
+--#region Sword of Luck and Pluck
+-- We cannot reliably test the chance of lucky cards occurring
+--#endregion

@@ -104,7 +104,7 @@ local hey_ya = {
     jtype = "Stand",
     jclass = "Close Range",
     part = "steel_ball_run",
-    blueprint_compat = true,
+    blueprint_compat = false,
     perishable_compat = true,
     eternal_compat = true,
     config = { extra = { numerator = 1, denominator = 10 } },

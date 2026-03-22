@@ -93,3 +93,12 @@ jd_def["j_jojoker_jonathan_joestar"] = {
         { text = "Per unique suit", colour = G.C.GREY },
     }
 }
+
+jd_def["j_jojoker_sword_of_luck_and_pluck"] = {
+    text = {
+        { text = "3x", colour = G.C.GREEN },
+    },
+    reminder_text = {
+        { text = "on Lucky Cards", colour = G.C.GREY },
+    }
+}
