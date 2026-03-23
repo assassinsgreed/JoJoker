@@ -123,7 +123,7 @@ return {
                 name = "Kars (Ultimate Lifeform)",
                 text = {
                     "Gains {X:mult,C:white} X#1# {} for each unique",
-                    "planet card played this round.",
+                    "{C:planet}planet card{} played this game.",
                     "Stops thinking after {C:attention}#2#{} rounds.",
                     "{br:2}line break",
                     "{C:inactive}Currently: {X:mult,C:white} X#3#",
@@ -265,6 +265,15 @@ return {
                     "then gains {X:mult,C:white} X#1# {} per level lost.",
                     "{br:2}line break",
                     "{C:inactive}Currently: {X:mult,C:white} X#2#"
+                }
+            },
+            j_jojoker_the_world = {
+                name = "The World",
+                text = {
+                    "Gains {X:mult,C:white} X#1# {} for each unique",
+                    "{C:tarot}tarot card{} played this game.",
+                    "{br:2}line break",
+                    "{C:inactive}Currently: {X:mult,C:white} X#2#",
                 }
             },
             -- Part 4: Diamond is Unbreakable
@@ -1068,6 +1077,7 @@ return {
             sound_ho_ho_ho = "Ho ho ho...",
             sound_left_napkin = "I choose the left napkin!",
             sound_right_napkin = "I choose the right napkin!",
+            sound_za_warudo = "Za Warudo!",
 
             -- Common strings
             a_hand = "a hand",

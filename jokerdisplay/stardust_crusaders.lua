@@ -77,3 +77,14 @@ jd_def["j_jojoker_sethan"] = {
         }
     }
 }
+
+jd_def["j_jojoker_the_world"] = {
+    text = {
+        {
+            border_nodes = {
+                { text = "X" },
+                { ref_table = "card.ability.extra", ref_value = "Xmult" }
+            }
+        }
+    }
+}

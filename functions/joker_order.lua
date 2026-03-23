@@ -90,6 +90,7 @@ jojoker.joker_order = {
     "tattoo_you",
     "the_hand",
     "the_lovers",
+    "the_world",
     "wheel_of_fortune",
     "white_snake",
     "wonder_of_u",

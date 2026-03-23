@@ -267,7 +267,57 @@ local sethan = {
     end
 }
 
+local the_world = {
+    name = "the_world",
+    rarity = 4,
+    cost = 10,
+    jtype = "Stand",
+    jclass = "Close Range",
+    part = "stardust_crusaders",
+    blueprint_compat = false,
+    perishable_compat = false,
+    eternal_compat = false,
+    config = { extra = { Xmult_mod = 1, Xmult = 1, known_consumeables = {} } },
+    loc_vars = function(self, info_queue, card)
+      return {vars = {card.ability.extra.Xmult_mod, card.ability.extra.Xmult }}
+    end,
+    calculate = function(self, card, context)
+        -- If a consumable tarot card is used and isn't known, add it to the list and display flavor text
+        if context.using_consumeable then
+            if context.consumeable.ability.set == 'Tarot' and not card.ability.extra.known_consumeables[context.consumeable.ability.name] then
+                card.ability.extra.known_consumeables[context.consumeable.ability.name] = true
+                sendDebugMessage("The World: Recognized use of new tarot card "..context.consumeable.ability.name..", increasing xmult by "..card.ability.extra.Xmult_mod)
+
+                return {
+                    message = localize('sound_za_warudo'),
+                    colour = G.C.GOLD
+                }
+            end
+        end
+
+        -- For each unique tarot card played, gains XMult
+        if context.cardarea == G.jokers and context.scoring_hand then
+            if context.joker_main then
+                return {
+                    message = localize{type = 'variable', key = 'a_xmult', vars = {Xmult}},
+                    colour = G.C.XMULT,
+                    Xmult_mod = Xmult
+                }
+            end
+        end
+    end,
+    update = function(self, card, dt)
+        if G.STAGE == G.STAGES.RUN then
+            local tarot_cards_used = 0
+            for k, v in pairs(G.GAME.consumeable_usage) do
+                if v.set == 'Tarot' then tarot_cards_used = tarot_cards_used + 1 end
+            end
+            card.ability.extra.Xmult = 1 + tarot_cards_used * card.ability.extra.Xmult_mod
+        end
+    end
+}
+
 return {
     name = "Stardust Crusaders Stand Jokers",
-    list = { magician_red, yellow_temperance, star_platinum, wheel_of_fortune, the_lovers, anubis, sethan },
+    list = { magician_red, yellow_temperance, star_platinum, wheel_of_fortune, the_lovers, anubis, sethan, the_world },
 }

@@ -206,3 +206,44 @@ Balatest.TestPlay {
     end
 }
 --#endregion
+--#region The World
+Balatest.TestPlay {
+    name = 'the_world_gives_1x_mult_by_default',
+    category = { 'jokers', 'stardust_crusaders', 'the_world' },
+    jokers = { 'j_jojoker_the_world' },
+    execute = function()
+        Balatest.wait()
+    end,
+    assert = function()
+        Balatest.assert_eq(G.jokers.cards[1].ability.extra.Xmult, 1, "The World does not start with 1x mult")
+    end
+}
+Balatest.TestPlay {
+    name = 'the_world_gives_xmult_boost_once_with_duplicate_tarots_played',
+    category = { 'jokers', 'stardust_crusaders', 'the_world' },
+    jokers = { 'j_jojoker_the_world' },
+    consumeables = { 'c_strength', 'c_strength' },
+    execute = function()
+        Balatest.use(G.consumeables.cards[1])
+        Balatest.use(G.consumeables.cards[2])
+    end,
+    assert = function()
+        local expectedXmult = G.jokers.cards[1].ability.extra.Xmult_mod * 1 + 1
+        Balatest.assert_eq(G.jokers.cards[1].ability.extra.Xmult, expectedXmult, "The World did not give expected xmult for duplicate tarot cards")
+    end
+}
+Balatest.TestPlay {
+    name = 'the_world_gives_xmult_boost_for_each_unique_played_tarot',
+    category = { 'jokers', 'stardust_crusaders', 'the_world' },
+    jokers = { 'j_jojoker_the_world' },
+    consumeables = { 'c_strength', 'c_chariot' },
+    execute = function()
+        Balatest.use(G.consumeables.cards[1])
+        Balatest.use(G.consumeables.cards[2])
+    end,
+    assert = function()
+        local expectedXmult = G.jokers.cards[1].ability.extra.Xmult_mod * 2 + 1
+        Balatest.assert_eq(G.jokers.cards[1].ability.extra.Xmult, expectedXmult, "The World did not give expected xmult for unique tarot cards")
+    end
+}
+--#endregion
