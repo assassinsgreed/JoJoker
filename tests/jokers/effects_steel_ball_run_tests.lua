@@ -262,3 +262,7 @@ Balatest.TestPlay {
     end
 }
 --#endregion
+
+--#region Wavering Heart
+-- Balatest does not have native support for testing shop rerolls
+--#endregion

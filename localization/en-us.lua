@@ -854,6 +854,14 @@ return {
                     "{C:inactive}Chips paid out: {C:chips}#4#{C:inactive}"
                 }
             },
+            j_jojoker_wavering_heart = {
+                name = "Wavering Heart",
+                text = {
+                    "Gains {C:chips}+#1#{} and {C:mult}+#2#{} every time the shop is {C:attention}rerolled{}.",
+                    "{br:2}line break",
+                    "{C:inactive}Currently: {C:chips}+#3#{C:inactive} and {C:mult}+#4#{}",
+                }
+            },            
             -- Part 8: Jojolion
             j_jojoker_soft_and_wet = {
                 name = "Soft & Wet",
@@ -1078,6 +1086,7 @@ return {
             sound_left_napkin = "I choose the left napkin!",
             sound_right_napkin = "I choose the right napkin!",
             sound_za_warudo = "Za Warudo!",
+            sound_do_not_shoot = "Do not shoot...",
 
             -- Common strings
             a_hand = "a hand",

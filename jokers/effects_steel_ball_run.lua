@@ -166,7 +166,47 @@ local the_first_napkin = {
     end
 }
 
+local wavering_heart = {
+    name = "wavering_heart",
+    rarity = 1,
+    cost = 4,
+    jtype = "Effect",
+    part = "steel_ball_run",
+    blueprint_compat = true,
+    perishable_compat = true,
+    eternal_compat = true,
+    config = { extra = { chip_mod = 8, mult_mod = 3, curr_chips = 0, curr_mult = 0 } },
+    loc_vars = function(self, info_queue, card)
+      return {vars = {card.ability.extra.chip_mod, card.ability.extra.mult_mod, card.ability.extra.curr_chips, card.ability.extra.curr_mult}}
+    end,
+    calculate = function(self, card, context)
+        -- During scoring, give chips and mult
+        if context.cardarea == G.jokers and context.scoring_hand then
+            if context.joker_main then
+                return {
+                    message = localize('sound_do_not_shoot'),
+                    chip_mod = card.ability.extra.curr_chips,
+                    mult_mod = card.ability.extra.curr_mult,
+                }
+            end
+        end
+
+        -- When rerolling the shop, increase chip_mod and mult_mod
+        if context.reroll_shop then
+            card.ability.extra.curr_chips = card.ability.extra.curr_chips + card.ability.extra.chip_mod
+            card.ability.extra.curr_mult = card.ability.extra.curr_mult + card.ability.extra.mult_mod
+            sendDebugMessage("Wavering Heart: Increasing chip_mod to " .. card.ability.extra.curr_chips .. " and mult_mod to " .. card.ability.extra.curr_mult .. " on shop reroll")
+             return {
+                message = localize('k_upgrade_ex'),
+                colour = G.C.GOLD,
+                chip_mod = card.ability.extra.curr_chips,
+                mult_mod = card.ability.extra.curr_mult,
+            }
+        end
+    end
+}
+
 return {
     name = "Steel Ball Run Effects Jokers",
-    list = { the_fifth_lesson, turbo_eyes, the_true_mans_world, the_first_napkin },
+    list = { the_fifth_lesson, turbo_eyes, the_true_mans_world, the_first_napkin, wavering_heart },
 }

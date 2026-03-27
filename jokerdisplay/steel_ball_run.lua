@@ -183,3 +183,19 @@ jd_def["j_jojoker_valkyrie"] = {
         { ref_table = "card.ability.extra", ref_value = "scored_cards_remaining", retrigger_type = "scored_cards_remaining", colour = G.C.GREY }
     }
 }
+
+jd_def["j_jojoker_wavering_heart"] = {
+    extra = {
+        {
+            { text = "+", colour = G.C.MULT },
+            { ref_table = "card.ability.extra", ref_value = "curr_mult", retrigger_type = "curr_mult",  colour = G.C.MULT },
+        },
+        {
+            { text = "+", colour = G.C.CHIPS },
+            { ref_table = "card.ability.extra", ref_value = "curr_chips", retrigger_type = "curr_chips",  colour = G.C.CHIPS },
+        }
+    },
+    reminder_text = {
+        { text = "Upgrades on reroll", colour = G.C.GREY }
+    }
+}

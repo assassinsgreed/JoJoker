@@ -44,6 +44,7 @@ jojoker.joker_order = {
     "the_true_mans_world",
     "turbo_eyes",
     "voice_of_love",
+    "wavering_heart",
     
     -- Stands
     "anubis",
