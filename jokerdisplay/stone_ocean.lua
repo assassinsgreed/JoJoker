@@ -97,7 +97,7 @@ jd_def["j_jojoker_savage_garden"] = {
     }
 }
 
-jd_def["j_jojoker_foo_fighters"] = {
+jd_def["j_jojoker_pucci"] = {
     text = {
         { text = "Retrigger primes", colour = G.C.GREY },
     },

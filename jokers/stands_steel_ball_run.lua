@@ -85,7 +85,7 @@ local oh_lonesome_me = {
     blueprint_compat = false,
     perishable_compat = true,
     eternal_compat = false,
-    config = {extra = {hand_size = 2}},
+    config = {extra = {hand_size = 1}},
     loc_vars = function(self, info_queue, center)
         return {vars = {center.ability.extra.hand_size}}
     end,
