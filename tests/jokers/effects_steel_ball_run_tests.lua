@@ -266,3 +266,34 @@ Balatest.TestPlay {
 --#region Wavering Heart
 -- Balatest does not have native support for testing shop rerolls
 --#endregion
+
+--#region Dark Determination
+Balatest.TestPlay {
+    name = 'dark_determination_increases_xmult_when_ending_shop_without_rerolling',
+    category = { 'jokers', 'steel_ball_run', 'dark_determination' },
+    jokers = { 'j_jojoker_dark_determination' },
+    execute = function()
+        Balatest.end_round()
+        Balatest.cash_out()
+        Balatest.exit_shop()
+    end,
+    assert = function()
+        Balatest.assert_eq(G.jokers.cards[1].ability.extra.Xmult, 2, "Dark Determination did not increase Xmult correctly after ending shop without rerolling")
+    end
+}
+
+Balatest.TestPlay {
+    name = 'dark_determination_does_notincrease_xmult_when_ending_shop_after_rerolling',
+    category = { 'jokers', 'steel_ball_run', 'dark_determination' },
+    jokers = { 'j_jojoker_dark_determination' },
+    execute = function()
+        Balatest.end_round()
+        Balatest.cash_out()
+        G.jokers.cards[1].ability.extra.has_rerolled = true -- Simulate rerolling the shop (we cannot make this happen naturally with Balatest)
+        Balatest.exit_shop()
+    end,
+    assert = function()
+        Balatest.assert_eq(G.jokers.cards[1].ability.extra.Xmult, 1, "Dark Determination incorrectly increased Xmult after ending shop with rerolling")
+    end
+}
+--#endregion

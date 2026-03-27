@@ -199,3 +199,17 @@ jd_def["j_jojoker_wavering_heart"] = {
         { text = "Upgrades on reroll", colour = G.C.GREY }
     }
 }
+
+jd_def["j_jojoker_dark_determination"] = {
+    text = {
+        {
+            border_nodes = {
+                { text = "X" },
+                { ref_table = "card.ability.extra", ref_value = "Xmult" }
+            }
+        }
+    },
+    reminder_text = {
+        { text = "Upgrades when not rerolled", colour = G.C.GREY }
+    }
+}

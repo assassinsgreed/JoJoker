@@ -198,15 +198,58 @@ local wavering_heart = {
             sendDebugMessage("Wavering Heart: Increasing chip_mod to " .. card.ability.extra.curr_chips .. " and mult_mod to " .. card.ability.extra.curr_mult .. " on shop reroll")
              return {
                 message = localize('k_upgrade_ex'),
-                colour = G.C.GOLD,
-                chip_mod = card.ability.extra.curr_chips,
-                mult_mod = card.ability.extra.curr_mult,
+                colour = G.C.GOLD
             }
+        end
+    end
+}
+
+local dark_determination = {
+    name = "dark_determination",
+    rarity = 3,
+    cost = 6,
+    jtype = "Effect",
+    part = "steel_ball_run",
+    blueprint_compat = true,
+    perishable_compat = true,
+    eternal_compat = true,
+    config = { extra = { Xmult = 1, Xmult_mod = 1, has_rerolled = false } },
+    loc_vars = function(self, info_queue, card)
+      return {vars = {card.ability.extra.Xmult, card.ability.extra.Xmult_mod}}
+    end,
+    calculate = function(self, card, context)
+        -- During scoring, give Xmult
+        if context.cardarea == G.jokers and context.scoring_hand then
+            if context.joker_main then
+                card.ability.extra.has_rerolled = false
+                return {
+                    message = localize{type = 'variable', key = 'a_xmult', vars = {card.ability.extra.Xmult}},
+                    colour = G.C.XMULT,
+                    Xmult_mod = card.ability.extra.Xmult
+                }
+            end
+        end
+
+        -- When rerolling the shop, mark joker as not upgradable
+        if context.reroll_shop then
+            sendDebugMessage("Dark Determination: Rerolled in shop, preventing Xmult increase")
+            card.ability.extra.has_rerolled = true
+        end
+
+        if context.ending_shop then
+            if not card.ability.extra.has_rerolled then
+                card.ability.extra.Xmult = card.ability.extra.Xmult + card.ability.extra.Xmult_mod
+                sendDebugMessage("Dark Determination: Increasing Xmult to " .. card.ability.extra.Xmult .. " on shop ending without reroll")
+                return {
+                    message = localize('k_upgrade_ex'),
+                    colour = G.C.GOLD
+                }
+            end
         end
     end
 }
 
 return {
     name = "Steel Ball Run Effects Jokers",
-    list = { the_fifth_lesson, turbo_eyes, the_true_mans_world, the_first_napkin, wavering_heart },
+    list = { the_fifth_lesson, turbo_eyes, the_true_mans_world, the_first_napkin, wavering_heart, dark_determination },
 }

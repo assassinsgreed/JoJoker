@@ -861,7 +861,15 @@ return {
                     "{br:2}line break",
                     "{C:inactive}Currently: {C:chips}+#3#{C:inactive} and {C:mult}+#4#{}",
                 }
-            },            
+            },
+            j_jojoker_dark_determination = {
+                name = "Dark Determination",
+                text = {
+                    "Gains {X:mult,C:white} X#1# {} for every shop left without {C:attention}rerolling{}.",
+                    "{br:2}line break",
+                    "{C:inactive}Currently: {X:mult,C:white} X#2# {}",
+                }
+            },
             -- Part 8: Jojolion
             j_jojoker_soft_and_wet = {
                 name = "Soft & Wet",

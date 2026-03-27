@@ -34,6 +34,7 @@ jojoker.joker_order = {
     "zombies",
     
     -- Effects
+    "dark_determination",
     "epitaph",
     "german_engineering",
     "higashikata_house",
