@@ -65,7 +65,41 @@ local yoshikage_kira = {
     end
 }
 
+local reimi = {
+    name = "reimi",
+    rarity = 1,
+    cost = 5,
+    jtype = "Character",
+    part = "diamond_is_unbreakable",
+    blueprint_compat = false,
+    perishable_compat = true,
+    eternal_compat = true,
+    config = { extra = { has_triggered = false, spectrals = { 'c_familiar', 'c_grim', 'c_incantation', 'c_talisman', 'c_aura', 'c_wraith', 'c_sigil', 'c_ouija', 'c_ectoplasm', 'c_immolate', 'c_ankh', 'c_deja_vu', 'c_hex', 'c_trance', 'c_medium', 'c_cryptid', 'c_soul', 'c_black_hole'} } },
+    calculate = function(self, card, context)
+        -- At the end of boss blinds, create a random Spectral card
+        if context.ante_end and not card.ability.extra.has_triggered then
+            if #G.consumeables.cards + G.GAME.consumeable_buffer < G.consumeables.config.card_limit then
+                card.ability.extra.has_triggered = true
+
+                -- Only create a card if there is at least 1 Spectral card type that can be created
+                local conname = card.ability.extra.spectrals[math.random(1, #card.ability.extra.spectrals)]
+                sendDebugMessage("Reimi: Creating a "..conname.." Spectral card at the end of boss blind.")
+
+                local _card = create_card("Spectral", G.consumeables, nil, nil, nil, nil, conname)
+                _card:add_to_deck()
+                G.consumeables:emplace(_card)
+                card_eval_status_text(_card, 'extra', nil, nil, nil, {message = localize('k_plus_spectral'), colour = G.C.PURPLE})
+            end
+        end
+
+        if context.ending_shop then
+            -- Reset trigger for next boss fight
+            card.ability.extra.has_triggered = false
+        end
+    end
+}
+
 return {
     name = "Diamond is Unbreakable Character Jokers",
-    list = { shizuka, yoshikage_kira },
+    list = { shizuka, yoshikage_kira, reimi },
 }

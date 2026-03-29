@@ -54,3 +54,50 @@ Balatest.TestPlay {
     end
 }
 --#endregion
+
+--#region Reimi
+Balatest.TestPlay {
+    name = 'reimi_creates_random_spectral_card_at_end_of_boss_blind',
+    category = { 'jokers', 'diamond_is_unbreakable', 'reimi' },
+    jokers = { 'j_jojoker_reimi' },
+    blind = 'bl_wheel',
+    execute = function()
+        Balatest.end_round()
+    end,
+    assert = function()
+        local spectrals = G.consumeables.cards
+        Balatest.assert_eq(#spectrals, 1, "Reimi didn't create a spectral card at the end of the boss blind")
+        Balatest.assert_eq(spectrals[1].config.center.set, "Spectral", "Reimi's card wasn't spectral rarity")
+    end
+}
+
+Balatest.TestPlay {
+    name = 'reimi_does_not_create_spectral_card_at_end_of_non_boss_blind',
+    category = { 'jokers', 'diamond_is_unbreakable', 'reimi' },
+    jokers = { 'j_jojoker_reimi' },
+    execute = function()
+        Balatest.end_round()
+    end,
+    assert = function()
+        local spectrals = G.consumeables.cards
+        Balatest.assert_eq(#spectrals, 0, "Reimi created a spectral card at the end of a non-boss blind")
+    end
+}
+
+Balatest.TestPlay {
+    name = 'reimi_does_not_create_spectral_card_when_consumeables_are_full',
+    category = { 'jokers', 'diamond_is_unbreakable', 'reimi' },
+    jokers = { 'j_jojoker_reimi' },
+    blind = 'bl_wheel',
+    consumeables = { 'c_mars', 'c_earth' },
+    execute = function()
+        Balatest.end_round()
+    end,
+    assert = function()
+        local spectrals = G.consumeables.cards
+        Balatest.assert_eq(#spectrals, 2, "Reimi created a spectral card when consumeables are already full")
+        Balatest.assert_eq(spectrals[1].config.center.set, "Planet", "Reimi replaced an existing consumeable")
+        Balatest.assert_eq(spectrals[2].config.center.set, "Planet", "Reimi replaced an existing consumeable")
+    end
+}
+--#endregion

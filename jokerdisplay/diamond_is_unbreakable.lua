@@ -120,3 +120,12 @@ jd_def["j_jojoker_cinderella"] = {
         { text = "If not already", colour = G.C.GREY, }
     }
 }
+
+jd_def["j_jojoker_reimi"] = {
+    text = {
+        { text = "Random Spectral", colour = G.C.PURPLE }
+    },
+    reminder_text = {
+        { text = "After boss blinds", colour = G.C.GREY, }
+    },
+}

@@ -386,6 +386,12 @@ return {
                     "a {C:attention}Queen{} or {C:attention}King{}, if it is not already either rank."
                 }
             },
+            j_jojoker_reimi = {
+                name = "Reimi Sugimoto",
+                text = {
+                    "Creates a random {C:spectral}Spectral{} card at the end of {C:attention}boss blinds{}."
+                }
+            },
             -- Part 5: Golden Wind
             j_jojoker_sex_pistols = {
                 name = "Sex Pistols",
