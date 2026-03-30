@@ -251,3 +251,19 @@ Balatest.TestPlay {
     end
 }
 --#endregion
+
+--#region Atom Heart Father
+Balatest.TestPlay {
+    name = 'atom_heart_father_gives_xmult_for_each_seal_in_deck',
+    category = { 'jokers', 'diamond_is_unbreakable', 'atom_heart_father' },
+    jokers = { 'j_jojoker_atom_heart_father' },
+    execute = function()
+        G.hand.cards[1].seal = 'Red' -- Manually give non-gold seal to queen to test that gold seal is not given
+        Balatest.wait()
+    end,
+    assert = function()
+        local xmult = G.jokers.cards[1].ability.extra.Xmult
+        Balatest.assert_eq(xmult, 1 + G.jokers.cards[1].ability.extra.Xmult_mod, "Atom Heart Father did not give correct XMult for each seal in deck")
+    end
+}
+--#endregion

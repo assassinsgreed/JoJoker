@@ -50,6 +50,7 @@ jojoker.joker_order = {
     
     -- Stands
     "anubis",
+    "atom_heart_father",
     "baby_face",
     "bad_company",
     "black_sabbath",

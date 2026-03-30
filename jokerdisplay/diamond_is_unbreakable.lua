@@ -129,3 +129,14 @@ jd_def["j_jojoker_reimi"] = {
         { text = "After boss blinds", colour = G.C.GREY, }
     },
 }
+
+jd_def["j_jojoker_atom_heart_father"] = {
+    text = {
+        {
+            border_nodes = {
+                { text = "X" },
+                { ref_table = "card.ability.extra", ref_value = "Xmult" }
+            }
+        }
+    }
+}

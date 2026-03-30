@@ -392,6 +392,22 @@ return {
                     "Creates a random {C:spectral}Spectral{} card at the end of {C:attention}boss blinds{}."
                 }
             },
+            j_jojoker_atom_heart_father = {
+                name = "Atom Heart Father",
+                text = {
+                    "Gains {X:mult,C:white} X#1# {} for each card with a {C:attention}seal{} in the deck.",
+                    "{br:2}line break",
+                    "{C:inactive}Currently: {X:mult,C:white} X#2#"
+                }
+            },
+            j_jojoker_atom_heart_father_alt = {
+                name = "Heart Father",
+                text = {
+                    "Gains {X:mult,C:white} X#1# {} for each card with a {C:attention}seal{} in the deck.",
+                    "{br:2}line break",
+                    "{C:inactive}Currently: {X:mult,C:white} X#2#"
+                }
+            },
             -- Part 5: Golden Wind
             j_jojoker_sex_pistols = {
                 name = "Sex Pistols",

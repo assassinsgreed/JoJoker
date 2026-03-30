@@ -306,7 +306,50 @@ local cinderella = {
     end
 }
 
+local atom_heart_father = {
+    name = "atom_heart_father",
+    rarity = 1,
+    cost = 5,
+    jtype = "Stand",
+    jclass = "Close Range",
+    part = "diamond_is_unbreakable",
+    blueprint_compat = true,
+    perishable_compat = true,
+    eternal_compat = true,
+    config = { extra = { Xmult_mod = 0.5, Xmult = 1 } },
+    loc_vars = function(self, info_queue, card)
+      return {
+        vars = {card.ability.extra.Xmult_mod, card.ability.extra.Xmult},
+        key = jojoker_config.use_localized_names and self.key..'_alt' or self.key
+    }
+    end,
+    calculate = function(self, card, context)
+        -- Give XMult during scoring
+        if context.cardarea == G.jokers and context.scoring_hand then
+            if context.joker_main then
+                sendDebugMessage("Atom Heart Father: Giving XMult of "..card.ability.extra.Xmult)
+                return {
+                    message = localize{type = 'variable', key = 'a_xmult', vars = {card.ability.extra.Xmult}},
+                    colour = G.C.XMULT,
+                    Xmult_mod = card.ability.extra.Xmult
+                }
+            end
+        end
+    end,
+    update = function(self, card, dt)
+        if G.STAGE == G.STAGES.RUN then
+            local seals_in_deck = 0
+            for k, v in pairs(G.playing_cards) do
+                if v.seal then
+                    seals_in_deck = seals_in_deck + 1
+                end
+            end
+            card.ability.extra.Xmult = 1 + seals_in_deck * card.ability.extra.Xmult_mod
+        end
+    end
+}
+
 return {
     name = "Diamond is Unbreakable Stand Jokers",
-    list = { red_hot_chili_pepper, the_hand, superfly, crazy_diamond, bad_company, cheap_trick, cinderella },
+    list = { red_hot_chili_pepper, the_hand, superfly, crazy_diamond, bad_company, cheap_trick, cinderella, atom_heart_father },
 }
