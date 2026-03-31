@@ -59,6 +59,30 @@ function loadFile(path)
     end
 end
 
+local load_directory = function(dirname, map_item, auto_discovery)
+  local pfiles = NFS.getDirectoryItems(mod_dir .. dirname)
+
+  for _, file in ipairs(pfiles) do
+    sendDebugMessage ("The file is: "..file)
+    local result, load_error = SMODS.load_file(dirname .. "/" ..file)
+    if not result then
+      sendDebugMessage ("The error is: "..load_error)
+    else
+      local items = result()
+      if items.init then items:init() end
+
+      if items.list and #items.list > 0 then
+        for _, item in ipairs(items.list) do
+          if auto_discovery then
+            item.discovered = true
+          end
+          map_item(item)
+        end
+      end
+    end
+  end
+end
+
 -- TODO: Others as they are added
 loadFile("functions/joker_order.lua")
 loadFile("functions/joker_sprite_load.lua")
@@ -69,6 +93,9 @@ loadFile("functions/util_functions.lua")
 loadFile("jojokerui.lua")
 loadFile("jokersprites.lua")
 loadFile("quips.lua")
+
+-- Load and configure editions
+load_directory("editions", SMODS.Edition, true)
 
 -- Load tests, if Balatest mod is present and active
 if Balatest then
@@ -138,7 +165,17 @@ G.E_MANAGER:add_event(Event({
 -- Load boosters
 -- Load seals
 -- Load stickers
--- Load editions (? need this?)
+-- Load editions
+local set_edition = Card.set_edition
+function Card:set_edition(edition, immediate, silent)
+    sendDebugMessage("Setting edition for card "..self.ability.set.." with rarity "..self.config.center.rarity)
+    if (self.ability.set == 'Joker' and self.config.center.rarity == 4) then
+        return set_edition(self, "e_jojoker_legendary", immediate, silent)
+    else
+        return set_edition(self, edition, immediate, silent)
+    end
+end
+
 -- Load enhancements
 -- Load vouchers
 -- Load blinds

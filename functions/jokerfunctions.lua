@@ -60,7 +60,7 @@ jojoker_set_joker_badges = function(self, card, badges)
   end
 end
 
-remove = function(self, card, context, check_shiny)
+remove = function(self, card, context, check_legendary)
   card.getting_sliced = true
   local flags = SMODS.calculate_context({ joker_type_destroyed = true, card = card })
   if flags.no_destroy then

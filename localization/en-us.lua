@@ -3,6 +3,15 @@
 
 return {
     descriptions = {
+        Edition = {
+            e_jojoker_legendary = {
+                name = "Legendary Joker",
+                label = "Legendary Joker",
+                text = {
+                    "This joker has {C:attention}powerful effects",
+                }
+            },
+        },
         Joker = {
             -- Part 1: Phantom Blood
             j_jojoker_danny = {
@@ -127,7 +136,7 @@ return {
                     "Stops thinking after {C:attention}#2#{} rounds.",
                     "{br:2}line break",
                     "{C:inactive}Currently: {X:mult,C:white} X#3#",
-                    "{C:attention}#4# round(s) left.",
+                    "{C:attention}#4# round(s) left",
                 }
             },
             j_jojoker_kars_stopped_thinking = {

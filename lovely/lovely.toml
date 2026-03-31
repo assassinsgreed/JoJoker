@@ -106,3 +106,21 @@ elseif name == "jojoker_Splash" then
 end
 '''
 match_indent = true
+
+# Legendary joker shader
+[[patches]]
+[patches.pattern]
+target = "card.lua"
+pattern = '''
+if (self.edition and self.edition.negative) or (self.ability.name == 'Antimatter' and (self.config.center.discovered or self.bypass_discovery_center)) then
+    self.children.center:draw_shader('negative_shine', nil, self.ARGS.send_to_shader)
+end
+'''
+position = "after"
+payload = '''
+if (self.edition and self.edition.jojoker_legendary) and self.config.center and type(self.config.center) == "table" and not (self.config.center.stage or self.config.center.legendary) 
+and self.label ~= "e_jojoker_legendary" then
+    self.children.center:draw_shader('jojoker_legendary', nil, self.ARGS.send_to_shader)
+end
+'''
+match_indent = true
