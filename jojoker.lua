@@ -168,8 +168,8 @@ G.E_MANAGER:add_event(Event({
 -- Load editions
 local set_edition = Card.set_edition
 function Card:set_edition(edition, immediate, silent)
-    sendDebugMessage("Setting edition for card "..self.ability.set.." with rarity "..self.config.center.rarity)
     if (self.ability.set == 'Joker' and self.config.center.rarity == 4) then
+        sendDebugMessage("Setting edition for card "..self.ability.set.." with rarity "..self.config.center.rarity)
         return set_edition(self, "e_jojoker_legendary", immediate, silent)
     else
         return set_edition(self, edition, immediate, silent)
