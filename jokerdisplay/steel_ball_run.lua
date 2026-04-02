@@ -71,17 +71,12 @@ jd_def["j_jojoker_oh_lonesome_me"] = {
 
 jd_def["j_jojoker_hey_ya"] = {
     text = {
-        { text = "& always trigger", colour = G.C.GREY }, -- Presented under extra section
-    },
-    extra = {
-        {
-            { text = "Convert Lucky Card", colour = G.C.GREY }
-        },
-    },
-    reminder_text = {
         { ref_table = "card.ability.extra", ref_value = "numerator", retrigger_type = "numerator",  colour = G.C.GOLD },
         { text = " in ", colour = G.C.GOLD },
         { ref_table = "card.ability.extra", ref_value = "denominator", retrigger_type = "denominator",  colour = G.C.GOLD },
+    },
+    reminder_text = {
+        { text = "Convert Lucky Card", colour = G.C.GREY }
     },
 }
 

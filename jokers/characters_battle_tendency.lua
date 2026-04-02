@@ -166,9 +166,9 @@ local kars_ultimate_lifeform = {
         if context.cardarea == G.jokers and context.scoring_hand then
             if context.joker_main then
                 return {
-                    message = localize{type = 'variable', key = 'a_xmult', vars = {Xmult}},
+                    message = localize{type = 'variable', key = 'a_xmult', vars = {card.ability.extra.Xmult}},
                     colour = G.C.XMULT,
-                    Xmult_mod = Xmult
+                    Xmult_mod = card.ability.extra.Xmult
                 }
             end
         end
@@ -178,11 +178,11 @@ local kars_ultimate_lifeform = {
             if card.ability.extra.current_rounds_left > 0 then
                 card.ability.extra.current_rounds_left = card.ability.extra.current_rounds_left - 1
                 sendDebugMessage("Kars (Ultimate Lifeform): Rounds remaining set to "..card.ability.extra.current_rounds_left)
-                
+
                 if card.ability.extra.current_rounds_left == 0 then
                     sendDebugMessage("Kars (Ultimate Lifeform): transforming into Kars (Stopped Thinking)")
                     transform_joker(card, "j_jojoker_kars_stopped_thinking")
-                    
+
                     return {
                         message = localize("sound_stopped_thinking")
                     }

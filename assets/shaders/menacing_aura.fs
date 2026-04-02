@@ -7,7 +7,7 @@
 #define M_PI 3.1415926535897932384626433832795
 
 // Look ionized.fs for explanation
-extern PRECISION vec2 legendary_joker;
+extern PRECISION vec2 menacing_aura;
 
 extern PRECISION number dissolve;
 extern PRECISION number time;
@@ -55,9 +55,9 @@ vec4 effect( vec4 colour, Image texture, vec2 texture_coords, vec2 screen_coords
     vec2 uv = (texture_coords * image_details.xy - texture_details.xy) / texture_details.ba;
 
     // 2. Glacial Timing (Slowing down the shimmer and the dots)
-    float shimmer_time = time * 0.03 + legendary_joker.g * 5.0;
-    float dot_time     = time * 0.04 + legendary_joker.g * 10.0;
-    float tilt         = (legendary_joker.r - 0.5) * 1.5; 
+    float shimmer_time = time * 0.03 + menacing_aura.g * 5.0;
+    float dot_time     = time * 0.04 + menacing_aura.g * 10.0;
+    float tilt         = (menacing_aura.r - 0.5) * 1.5; 
 
     // 3. The Rainbow Shimmer
     float rainbow_uv = uv.x + uv.y * tilt + sin(shimmer_time) * 0.2;
@@ -73,7 +73,7 @@ vec4 effect( vec4 colour, Image texture, vec2 texture_coords, vec2 screen_coords
     vec2 grid_id = floor(dot_uv);
     
     // Create unique hashes for every cell
-    float h1 = stackoverflow_hash(grid_id.x + legendary_joker.g, grid_id.y + 7.0);
+    float h1 = stackoverflow_hash(grid_id.x + menacing_aura.g, grid_id.y + 7.0);
     float h2 = stackoverflow_hash(grid_id.y, grid_id.x + 13.37);
     
     float dot_out = 0.0;
@@ -106,7 +106,7 @@ vec4 effect( vec4 colour, Image texture, vec2 texture_coords, vec2 screen_coords
     float card_lum = dot(tex.rgb, vec3(0.299, 0.587, 0.114));
     vec3 holo_layer = final_shimmer + (vec3(dot_out) * rainbow_color);
 
-    // Additive mix with high intensity for that "Legendary" pop
+    // Additive mix with high intensity for that "menacing_aura" pop
     vec3 final_rgb = tex.rgb + (holo_layer * (card_lum + 0.6) * 1.2);
     tex.rgb = mix(tex.rgb, final_rgb, 0.95);
 

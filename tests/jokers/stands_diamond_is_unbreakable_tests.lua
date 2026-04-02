@@ -44,25 +44,20 @@ Balatest.TestPlay {
         Balatest.assert_chips(5, "The Hand didn't debuff the played card")
     end
 }
+-- Fix
 Balatest.TestPlay {
     name = 'the_hand_buffs_rank_on_either_side_of_debuffed_rank',
     category = { 'jokers', 'diamond_is_unbreakable', 'the_hand' },
     jokers = { 'j_jojoker_the_hand' },
     execute = function()
         local ranks = {"2", "3", "4", "5", "6", "7", "8", "9", "10", "J", "Q", "K", "A"}
-        local debuffed_card_rank = nil
-        for k, v in pairs(G.playing_cards) do
-            if v.debuff then
-                debuffed_card_rank = shorthand_rank_string_from_id(v:get_id())
-                break
-            end
-        end
+        local debuffed = G.jokers.cards[1].ability.extra.debuff_rank
 
         local debuffed_rank_index = nil
         for k, v in pairs(ranks) do
-            if v == debuffed_card_rank then
+            if v == (debuffed:len() >= 3 and debuffed:sub(1, 1) or debuffed) then
                 debuffed_rank_index = k
-                break
+            break
             end
         end
         local low_rank = ranks[debuffed_rank_index - 1 >= 1 and debuffed_rank_index - 1 or #ranks]

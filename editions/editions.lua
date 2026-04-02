@@ -1,12 +1,12 @@
 local apply_shader = function()
-    SMODS.Shader({ key = 'legendary_joker', path = 'legendary_joker.fs'})
+    SMODS.Shader({ key = 'menacing_aura', path = 'menacing_aura.fs'})
 end
 
-local legendary = ({
-    key = 'legendary',
+local menacing_aura = ({
+    key = 'menacing_aura',
     disable_shadow = false,
     disable_base_shader = false,
-    shader = 'legendary_joker',
+    shader = 'menacing_aura',
     discovered = true,
     unlocked = true,
     config = {},
@@ -21,6 +21,6 @@ return {
     name = 'Editions',
     init = apply_shader,
     list = {
-        legendary
+        menacing_aura
     }
 }

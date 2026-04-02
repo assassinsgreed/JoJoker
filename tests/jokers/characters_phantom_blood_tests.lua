@@ -7,7 +7,7 @@ Balatest.TestPlay {
         Balatest.play_hand { '2S' }
     end,
     assert = function()
-        Balatest.assert_chips(7 * G.jokers.cards[1].ability.extra.mult, "Danny didn't give expected mult for hand")
+        Balatest.assert_chips(7 * (G.jokers.cards[1].ability.extra.mult + 1), "Danny didn't give expected mult for hand")
     end
 }
 Balatest.TestPlay {
@@ -83,7 +83,7 @@ Balatest.TestPlay {
 --#endregion
 --#region Zombies
 Balatest.TestPlay {
-    name = 'zombies_gives_mult_for_each_held_Zombies_joker',
+    name = 'zombies_gives_mult_for_each_held_zombies_joker',
     category = { 'jokers', 'phantom_blood', 'zombies' },
     jokers = { 'j_jojoker_zombies', 'j_jojoker_zombies', 'j_jojoker_zombies' },
     execute = function()

@@ -299,9 +299,9 @@ local the_world = {
         if context.cardarea == G.jokers and context.scoring_hand then
             if context.joker_main then
                 return {
-                    message = localize{type = 'variable', key = 'a_xmult', vars = {Xmult}},
+                    message = localize{type = 'variable', key = 'a_xmult', vars = {card.ability.extra.Xmult}},
                     colour = G.C.XMULT,
-                    Xmult_mod = Xmult
+                    Xmult_mod = card.ability.extra.Xmult
                 }
             end
         end

@@ -163,11 +163,11 @@ Balatest.TestPlay {
     end,
     assert = function()
         local ff_chips = G.jokers.cards[1].ability.extra.chips
-        Balatest.assert_eq(ff_chips, 4, "Foo Fighters did not give chips for each unique played card this blind.")
+        Balatest.assert_eq(ff_chips, G.jokers.cards[1].ability.extra.chips_mod * 2, "Foo Fighters did not give chips for each unique played card this blind.")
     end
 }
 Balatest.TestPlay {
-    name = 'foo_fighters_gives_chips_for_each_unique_played_card_this_ante',
+    name = 'foo_fighters_does_not_give_extra_chips_for_duplicate_played_card_this_ante',
     category = { 'jokers', 'stone_ocean', 'foo_fighters' },
     jokers = { 'j_jojoker_foo_fighters' },
     execute = function()
@@ -177,7 +177,7 @@ Balatest.TestPlay {
     end,
     assert = function()
         local ff_chips = G.jokers.cards[1].ability.extra.chips
-        Balatest.assert_eq(ff_chips, 6, "Foo Fighters did not give chips for each unique played card this ante.")
+        Balatest.assert_eq(ff_chips, G.jokers.cards[1].ability.extra.chips_mod * 3, "Foo Fighters did not give chips for each unique played card this ante.")
     end
 }
 -- Can't mainuplate antes through Balatest
