@@ -247,3 +247,29 @@ Balatest.TestPlay {
     end
 }
 --#endregion
+--#region Death Thirteen
+Balatest.TestPlay {
+    name = 'death_thirteen_mult_does_not_increase_when_in_slot_1',
+    category = { 'jokers', 'stardust_crusaders', 'death_thirteen' },
+    jokers = { 'j_jojoker_death_thirteen' },
+    execute = function()
+        -- Blind start should have triggered, check mult
+    end,
+    assert = function()
+        Balatest.assert_eq(G.jokers.cards[1].ability.extra.mult, 1, "Death Thirteen mult increased when in slot 1")
+    end
+}
+Balatest.TestPlay {
+    name = 'death_thirteen_mult_increases_by_2x_sell_value_of_left_joker',
+    category = { 'jokers', 'stardust_crusaders', 'death_thirteen' },
+    jokers = { 'j_jojoker_sex_pistols', 'j_jojoker_death_thirteen' },
+    execute = function()
+        -- Blind start should have triggered, destroying left joker and increasing mult
+    end,
+    assert = function()
+        local expected_mult = 1 + 2 * 2  -- sex_pistols sell_cost = floor(5/2) = 2
+        Balatest.assert_eq(G.jokers.cards[1].ability.extra.mult, expected_mult, "Death Thirteen mult did not increase by 2x sell value of left joker")
+        Balatest.assert_eq(#G.jokers.cards, 1, "Death Thirteen did not destroy the left joker")
+    end
+}
+--#endregion

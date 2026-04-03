@@ -285,6 +285,15 @@ return {
                     "{C:inactive}Currently: {X:mult,C:white} X#2#",
                 }
             },
+            j_jojoker_death_thirteen = {
+                name = "Death Thirteen",
+                text = {
+                    "At the start of blinds, {S:1.1,C:red,E:2}destroys{} the joker to the",
+                    "left and gains {C:attention}#1#x{} it's {C:attention}sell value{} as {C:mult}mult{}.",
+                    "{br:2}line break",
+                    "{C:inactive}Currently: {C:mult}#2#",
+                }
+            },
             -- Part 4: Diamond is Unbreakable
             j_jojoker_voice_of_love = {
                 name = "Voice of Love",
@@ -1126,6 +1135,7 @@ return {
             sound_right_napkin = "I choose the right napkin!",
             sound_za_warudo = "Za Warudo!",
             sound_do_not_shoot = "Do not shoot...",
+            sound_lali_ho = "Lali Ho!",
 
             -- Common strings
             a_hand = "a hand",
