@@ -910,6 +910,12 @@ return {
                     "{C:inactive}Currently: {X:mult,C:white} X#2# {}",
                 }
             },
+            j_jojoker_ball_breaker = {
+                name = "Ball Breaker",
+                text = {
+                    "Each scored {C:attention}Ace, 2, 3, 5, 8, or King{} gives {C:mult}+#1#{}."
+                }
+            },
             -- Part 8: Jojolion
             j_jojoker_soft_and_wet = {
                 name = "Soft & Wet",

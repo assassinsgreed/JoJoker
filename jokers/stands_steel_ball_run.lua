@@ -241,7 +241,44 @@ local civil_war = {
     end
 }
 
+local ball_breaker = {
+    name = "ball_breaker",
+    rarity = 2,
+    cost = 8,
+    jtype = "Stand",
+    jclass = "Close Range",
+    part = "steel_ball_run",
+    blueprint_compat = true,
+    perishable_compat = true,
+    eternal_compat = true,
+    config = { extra = { mult = 8 } },
+    loc_vars = function(self, info_queue, center)
+      return {vars = { center.ability.extra.mult }}
+    end,
+    calculate = function(self, card, context)
+       -- Each fibonnaci rank gives +8 mult
+        local fibonnaci_ranks = { [2] = true, [3] = true, [5] = true, [8] = true, [13] = true, [14] = true } -- Ace (1) is rank 14
+        if context.individual and not context.end_of_round and context.cardarea == G.play then
+            if context.other_card and fibonnaci_ranks[context.other_card:get_id()] then
+                if context.other_card.debuff then
+                    return {
+                        message = localize("k_debuffed"),
+                        colour = G.C.RED,
+                        card = card,
+                    }
+                else
+                    sendDebugMessage("Ball Breaker: Giving mult for scored card rank "..context.other_card:get_id())
+                    return {
+                        mult = card.ability.extra.mult,
+                        card = card
+                    }
+                end
+            end
+        end
+    end
+}
+
 return {
     name = "Steel Ball Run Stand Jokers",
-    list = { mandom, chocolate_disco, oh_lonesome_me, hey_ya, tattoo_you, civil_war },
+    list = { mandom, chocolate_disco, oh_lonesome_me, hey_ya, tattoo_you, civil_war, ball_breaker },
 }

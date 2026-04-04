@@ -53,6 +53,7 @@ jojoker.joker_order = {
     "atom_heart_father",
     "baby_face",
     "bad_company",
+    "ball_breaker",
     "black_sabbath",
     "burning_down_the_house",
     "california_king_bed",

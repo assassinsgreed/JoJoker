@@ -253,6 +253,7 @@ Balatest.TestPlay {
     end
 }
 --#endregion
+
 --#region Civil War
 -- Can't skip boosters with Civil War so we just validate chip gain in match
 Balatest.TestPlay {
@@ -265,6 +266,32 @@ Balatest.TestPlay {
     end,
     assert = function()
         Balatest.assert_chips(27, "Civil War did not give extra chips after skipping booster pack")
+    end
+}
+--#endregion
+
+--#region Ball Breaker
+Balatest.TestPlay {
+    name = 'ball_breaker_gives_mult_for_fibonnaci_numbers',
+    category = { 'jokers', 'steel_ball_run', 'ball_breaker' },
+    jokers = { 'j_jojoker_ball_breaker' },
+    execute = function()
+        Balatest.play_hand { '2S' }
+    end,
+    assert = function()
+        Balatest.assert_chips(7 * (1 + G.jokers.cards[1].ability.extra.mult), "Ball Breaker did not give mult for Fibonacci number")
+    end
+}
+
+Balatest.TestPlay {
+    name = 'ball_breaker_does_not_give_mult_for_non_fibonnaci_numbers',
+    category = { 'jokers', 'steel_ball_run', 'ball_breaker' },
+    jokers = { 'j_jojoker_ball_breaker' },
+    execute = function()
+        Balatest.play_hand { '4S' }
+    end,
+    assert = function()
+        Balatest.assert_chips(9, "Ball Breaker gave mult for non-Fibonacci number")
     end
 }
 --#endregion
