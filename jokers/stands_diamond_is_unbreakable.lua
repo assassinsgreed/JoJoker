@@ -149,7 +149,7 @@ local crazy_diamond = {
     cost = 5,
     jtype = "Stand",
     part = "diamond_is_unbreakable",
-    blueprint_compat = false,
+    blueprint_compat = true,
     perishable_compat = true,
     eternal_compat = false,
     config = { extra = { mult = 4 } },
@@ -349,7 +349,32 @@ local atom_heart_father = {
     end
 }
 
+local surface = {
+    name = "surface",
+    rarity = 3,
+    cost = 10,
+    jtype = "Stand",
+    jclass = "Automatic",
+    part = "diamond_is_unbreakable",
+    blueprint_compat = false,
+    perishable_compat = true,
+    eternal_compat = true,
+    loc_vars = function(self, info_queue, card)
+      return {
+        key = jojoker_config.use_localized_names and self.key..'_alt' or self.key
+    }
+    end,
+    calculate = function(self, card, context)
+       -- Copies leftmost joker, if possible
+ 		local other_joker = G.jokers.cards[1]
+ 		local other_joker_ret = SMODS.blueprint_effect(card, other_joker, context)
+ 		if other_joker_ret then
+ 			return other_joker_ret
+ 		end
+    end
+}
+
 return {
     name = "Diamond is Unbreakable Stand Jokers",
-    list = { red_hot_chili_pepper, the_hand, superfly, crazy_diamond, bad_company, cheap_trick, cinderella, atom_heart_father },
+    list = { red_hot_chili_pepper, the_hand, superfly, crazy_diamond, bad_company, cheap_trick, cinderella, atom_heart_father, surface },
 }

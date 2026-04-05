@@ -6,7 +6,7 @@ local voice_of_love = {
     cost = 5,
     jtype = "Effect",
     part = "diamond_is_unbreakable",
-    blueprint_compat = false,
+    blueprint_compat = true,
     perishable_compat = true,
     eternal_compat = false,
     config = { extra = { mult = 4 } },

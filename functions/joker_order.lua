@@ -94,6 +94,7 @@ jojoker.joker_order = {
     "sticky_fingers",
     "stone_free",
     "superfly",
+    "surface",
     "survivor",
     "tattoo_you",
     "tenore_sax",

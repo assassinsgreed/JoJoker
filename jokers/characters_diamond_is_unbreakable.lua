@@ -25,7 +25,7 @@ local shizuka = {
 
         -- Level up hand type when played and choose a new one
         if context.cardarea == G.jokers and context.scoring_hand then
-            if context.before and next(context.poker_hands[card.ability.extra.chosen_hand_type_name]) then
+            if context.before and context.scoring_name == card.ability.extra.chosen_hand_type_name then
                 sendDebugMessage("Shizuka: Leveling up hand "..card.ability.extra.chosen_hand_type_name.." and choosing a new one.")
                 SMODS.upgrade_poker_hands({hands = {card.ability.extra.chosen_hand_type_name}, level_up = card.ability.extra.levels, from = card})
                 card.ability.extra.chosen_hand_type_name = pick_random_hand_type().handname

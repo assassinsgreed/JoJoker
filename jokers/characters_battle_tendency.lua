@@ -257,7 +257,7 @@ local nypd = {
     cost = 5,
     jtype = "Character",
     part = "battle_tendency",
-    blueprint_compat = false,
+    blueprint_compat = true,
     perishable_compat = true,
     eternal_compat = false,
     config = { extra = { mult = 4 } },

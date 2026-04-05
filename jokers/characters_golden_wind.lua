@@ -6,7 +6,7 @@ local leaky_eye_luca = {
     cost = 5,
     jtype = "Character",
     part = "golden_wind",
-    blueprint_compat = false,
+    blueprint_compat = true,
     perishable_compat = true,
     eternal_compat = false,
     config = { extra = { mult = 4 } },

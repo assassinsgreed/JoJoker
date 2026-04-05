@@ -441,6 +441,18 @@ return {
                     "{C:inactive}Currently: {X:mult,C:white} X#2#"
                 }
             },
+            j_jojoker_surface = {
+                name = "Surface",
+                text = {
+                    "Copies ability of leftmost {C:attention}Joker{}."
+                }
+            },
+            j_jojoker_surface_alt = {
+                name = "Show Off",
+                text = {
+                    "Copies ability of leftmost {C:attention}Joker{}."
+                }
+            },
             -- Part 5: Golden Wind
             j_jojoker_sex_pistols = {
                 name = "Sex Pistols",

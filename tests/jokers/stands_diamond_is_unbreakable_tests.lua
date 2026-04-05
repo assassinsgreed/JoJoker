@@ -262,3 +262,45 @@ Balatest.TestPlay {
     end
 }
 --#endregion
+
+--#region Surface
+Balatest.TestPlay {
+    name = 'surface_copies_leftmost_compatible_joker',
+    category = { 'jokers', 'diamond_is_unbreakable', 'surface', 'voice_of_love' },
+    jokers = { 'j_jojoker_voice_of_love', 'j_jojoker_surface' },
+    execute = function()
+        Balatest.play_hand { '2H' }
+    end,
+    assert = function()
+        local total_joker_mult = (2 * G.jokers.cards[1].ability.extra.mult) + 1 -- Base 1 from pair + (2 jokers * mult mod of copied joker)
+        Balatest.assert_chips(7 * total_joker_mult, "Surface did not copy leftmost joker")
+    end
+}
+
+Balatest.TestPlay {
+    name = 'surface_does_not_copy_incompatible_joker',
+    category = { 'jokers', 'diamond_is_unbreakable', 'surface', 'yoshikage_kira' },
+    jokers = { 'j_jojoker_yoshikage_kira', 'j_jojoker_surface' },
+    hands = 1,
+    execute = function()
+        Balatest.wait()
+    end,
+    assert = function()
+        local hands = G.GAME.current_round.hands_left
+        Balatest.assert_eq(hands, 2, "Surface copied leftmost joker even though it was incompatible")
+    end
+}
+
+Balatest.TestPlay {
+    name = 'surface_does_nothing_when_in_first_position',
+    category = { 'jokers', 'diamond_is_unbreakable', 'surface', 'voice of _love' },
+    jokers = { 'j_jojoker_surface', 'j_jojoker_voice_of_love' },
+    execute = function()
+        Balatest.play_hand { '2H' }
+    end,
+    assert = function()
+        local total_joker_mult = (1 * G.jokers.cards[2].ability.extra.mult) + 1 -- Base 1 from pair + (2 jokers * mult mod of copied joker)
+        Balatest.assert_chips(7 * total_joker_mult, "Surface copied something when it was leftmost joker")
+    end
+}
+--#endregion
