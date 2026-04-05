@@ -302,3 +302,45 @@ Balatest.TestPlay {
     end
 }
 --#endregion
+
+--#region Khnum
+Balatest.TestPlay {
+    name = 'khnum_copies_rightmost_compatible_joker',
+    category = { 'jokers', 'stardust_crusaders', 'khnum', 'voice_of_love' },
+    jokers = { 'j_jojoker_khnum', 'j_jojoker_voice_of_love' },
+    execute = function()
+        Balatest.play_hand { '2H' }
+    end,
+    assert = function()
+        local total_joker_mult = (2 * G.jokers.cards[2].ability.extra.mult) + 1 -- Base 1 from pair + (2 jokers * mult mod of copied joker)
+        Balatest.assert_chips(7 * total_joker_mult, "khnum did not copy rightmost joker")
+    end
+}
+
+Balatest.TestPlay {
+    name = 'khnum_does_not_copy_incompatible_joker',
+    category = { 'jokers', 'stardust_crusaders', 'khnum', 'yoshikage_kira' },
+    jokers = { 'j_jojoker_khnum', 'j_jojoker_yoshikage_kira' },
+    hands = 1,
+    execute = function()
+        Balatest.wait()
+    end,
+    assert = function()
+        local hands = G.GAME.current_round.hands_left
+        Balatest.assert_eq(hands, 2, "khnum copied rightmost joker even though it was incompatible")
+    end
+}
+
+Balatest.TestPlay {
+    name = 'khnum_does_nothing_when_in_last_position',
+    category = { 'jokers', 'stardust_crusaders', 'khnum', 'voice of _love' },
+    jokers = { 'j_jojoker_voice_of_love', 'j_jojoker_khnum' },
+    execute = function()
+        Balatest.play_hand { '2H' }
+    end,
+    assert = function()
+        local total_joker_mult = (1 * G.jokers.cards[1].ability.extra.mult) + 1 -- Base 1 from pair + (2 jokers * mult mod of copied joker)
+        Balatest.assert_chips(7 * total_joker_mult, "khnum copied something when it was rightmost joker")
+    end
+}
+--#endregion

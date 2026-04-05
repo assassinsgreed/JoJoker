@@ -75,6 +75,7 @@ jojoker.joker_order = {
     "green_green_grass_of_home",
     "hey_ya",
     "i_am_a_rock",
+    "khnum",
     "king_crimson",
     "little_feet",
     "made_in_heaven",

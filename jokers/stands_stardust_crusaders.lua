@@ -401,7 +401,27 @@ local tenore_sax = {
     end
 }
 
+local khnum = {
+    name = "khnum",
+    rarity = 3,
+    cost = 10,
+    jtype = "Stand",
+    jclass = "Automatic",
+    part = "stardust_crusaders",
+    blueprint_compat = false,
+    perishable_compat = true,
+    eternal_compat = true,
+    calculate = function(self, card, context)
+       -- Copies rightmost joker, if possible
+ 		local other_joker = G.jokers.cards[#G.jokers.cards]
+ 		local other_joker_ret = SMODS.blueprint_effect(card, other_joker, context)
+ 		if other_joker_ret then
+ 			return other_joker_ret
+ 		end
+    end
+}
+
 return {
     name = "Stardust Crusaders Stand Jokers",
-    list = { magician_red, yellow_temperance, star_platinum, wheel_of_fortune, the_lovers, anubis, sethan, the_world, death_thirteen, tenore_sax },
+    list = { magician_red, yellow_temperance, star_platinum, wheel_of_fortune, the_lovers, anubis, sethan, the_world, death_thirteen, tenore_sax, khnum },
 }

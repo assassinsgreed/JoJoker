@@ -309,6 +309,12 @@ return {
                     "into the deck and draws a {C:attention} new hand."
                 }
             },
+            j_jojoker_khnum = {
+                name = "Khnum",
+                text = {
+                    "Copies ability of rightmost {C:attention}Joker{}."
+                }
+            },
             -- Part 4: Diamond is Unbreakable
             j_jojoker_voice_of_love = {
                 name = "Voice of Love",
