@@ -288,3 +288,23 @@ Balatest.TestPlay {
     end
 }
 --#endregion
+--#region Dio Brando
+Balatest.TestPlay {
+    name = 'dio_brando_increases_xmult_when_draining_chips',
+    category = { 'jokers', 'phantom_blood', 'dio_brando' },
+    jokers = { 'j_jojoker_dio_brando' },
+    execute = function()
+        Balatest.play_hand { '2S', '2D', '2C', 'AD', 'AH' }
+    end,
+    assert = function()
+        local drained_chips = 0 -- Reminder: drained cards are left with 1 chip
+        for _, v in pairs(G.deck.cards) do
+            drained_chips = drained_chips + (v.ability.nominal_drain or 0)
+        end
+        Balatest.assert_eq(drained_chips, 23, "Dio Brando did not drain the correct number of chips")
+
+        local expected_xmult = 1 + (G.jokers.cards[1].ability.extra.drain_rate * drained_chips / 100)
+        Balatest.assert_eq(G.jokers.cards[1].ability.extra.Xmult, expected_xmult, "Dio Brando did not increase Xmult correctly when draining chips")
+    end
+}
+--#endregion

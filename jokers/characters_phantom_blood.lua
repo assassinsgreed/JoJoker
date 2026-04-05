@@ -355,7 +355,54 @@ local jonathan_joestar = {
     end
 }
 
+local dio_brando = {
+    name = "dio_brando",
+    rarity = 4,
+    cost = 10,
+    jtype = "Character",
+    part = "phantom_blood",
+    blueprint_compat = false,
+    perishable_compat = false,
+    eternal_compat = false,
+    config = { extra = { drain_rate = 5, Xmult = 1 } },
+    loc_vars = function(self, info_queue, center)
+      return {vars = { center.ability.extra.drain_rate, center.ability.extra.Xmult }}
+    end,
+    calculate = function(self, card, context)
+        -- Before scoring, drains base chips out of each scoring card
+        if context.before and context.scoring_hand then
+            local total_drained = 0
+            for i = 1, #context.scoring_hand do
+                if not context.scoring_hand[i].ability.nominal_drain then
+                    -- Card has not been drained yet
+                    sendDebugMessage("Dio Brando: Draining card with "..(context.scoring_hand[i].base.nominal or 0).." chips.")
+                    total_drained = total_drained + (context.scoring_hand[i].base.nominal - 1 or 0) -- Cards are left with 1 chip after draining 
+                    context.scoring_hand[i].ability.nominal_drain = context.scoring_hand[i].base.nominal or 0 -- Mark drained
+                end
+            end
+            local xmult_to_add = (total_drained * card.ability.extra.drain_rate / 100)
+            card.ability.extra.Xmult = card.ability.extra.Xmult + xmult_to_add
+            sendDebugMessage("Dio Brando: Drained a total of "..total_drained.." chips from scored cards, increasing Xmult by "..xmult_to_add..".")
+
+            return {
+                message = localize("sound_wry")
+            }
+        end
+
+        -- Gives Xmult during scoring
+        if context.cardarea == G.jokers and context.scoring_hand then
+            if context.joker_main then
+                return {
+                    message = localize{type = 'variable', key = 'a_xmult', vars = {card.ability.extra.Xmult}},
+                    colour = G.C.XMULT,
+                    Xmult_mod = card.ability.extra.Xmult
+                }
+            end
+        end
+    end
+}
+
 return {
     name = "Phantom Blood Character Jokers",
-    list = { danny, baron_zeppeli, speedwagon, zombies, straizo, george_joestar, dario_brando, erina, jonathan_joestar },
+    list = { danny, baron_zeppeli, speedwagon, zombies, straizo, george_joestar, dario_brando, erina, jonathan_joestar, dio_brando },
 }

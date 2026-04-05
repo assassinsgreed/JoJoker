@@ -87,6 +87,14 @@ return {
                     "All {C:attention}Lucky Card{} effects are {C:green}#1#x{} more likely to occur."
                 }
             },
+            j_jojoker_dio_brando = {
+                name = "Dio Brando",
+                text = {
+                    "Drains base chips before scoring cards, adding {C:attention}#1#%{} to {C:mult}Xmult{}.",
+                    "{br:2}line break",
+                    "{C:inactive}Currently: {X:mult,C:white}X#2#{}"
+                }
+            },
             -- Part 2: Battle Tendency
             j_jojoker_joseph_joestar = {
                 name = "Joseph Joestar",
@@ -1157,6 +1165,7 @@ return {
             sound_za_warudo = "Za Warudo!",
             sound_do_not_shoot = "Do not shoot...",
             sound_lali_ho = "Lali Ho!",
+            sound_wry = "Wryyyy!!",
 
             -- Common strings
             a_hand = "a hand",

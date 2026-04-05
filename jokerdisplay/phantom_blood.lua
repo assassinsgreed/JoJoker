@@ -102,3 +102,18 @@ jd_def["j_jojoker_sword_of_luck_and_pluck"] = {
         { text = "on Lucky Cards", colour = G.C.GREY },
     }
 }
+
+jd_def["j_jojoker_dio_brando"] = {
+    text = {
+        {
+            border_nodes = {
+                { text = "X" },
+                { ref_table = "card.ability.extra", ref_value = "Xmult" }
+            }
+        }
+    },
+    reminder_text = {
+        { ref_table = "card.ability.extra", ref_value = "drain_rate", retrigger_type = "drain_rate",  colour = G.C.GREY },
+        { text = "% from drained chips", colour = G.C.GREY },
+    }
+}
