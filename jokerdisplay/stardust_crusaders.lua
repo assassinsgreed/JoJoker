@@ -98,3 +98,9 @@ jd_def["j_jojoker_death_thirteen"] = {
         { text = "Destroys joker to left", colour = G.C.GREY, },
     }
 }
+
+jd_def["j_jojoker_tenore_sax"] = {
+    text = {
+        { text = "New hand after scoring", colour = G.C.GREY }
+    }
+}

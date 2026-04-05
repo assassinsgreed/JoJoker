@@ -253,7 +253,7 @@ Balatest.TestPlay {
     category = { 'jokers', 'stardust_crusaders', 'death_thirteen' },
     jokers = { 'j_jojoker_death_thirteen' },
     execute = function()
-        -- Blind start should have triggered, check mult
+        Balatest.wait()
     end,
     assert = function()
         Balatest.assert_eq(G.jokers.cards[1].ability.extra.mult, 1, "Death Thirteen mult increased when in slot 1")
@@ -264,12 +264,41 @@ Balatest.TestPlay {
     category = { 'jokers', 'stardust_crusaders', 'death_thirteen' },
     jokers = { 'j_jojoker_sex_pistols', 'j_jojoker_death_thirteen' },
     execute = function()
-        -- Blind start should have triggered, destroying left joker and increasing mult
+        Balatest.wait()
     end,
     assert = function()
         local expected_mult = 1 + 2 * 2  -- sex_pistols sell_cost = floor(5/2) = 2
         Balatest.assert_eq(G.jokers.cards[1].ability.extra.mult, expected_mult, "Death Thirteen mult did not increase by 2x sell value of left joker")
         Balatest.assert_eq(#G.jokers.cards, 1, "Death Thirteen did not destroy the left joker")
+    end
+}
+--#endregion
+
+--#region Tenore Sax
+local tenore_sax_original_hand = {}
+Balatest.TestPlay {
+    name = 'tenore_sax_shuffles_unplayed_cards_back_into_deck',
+    category = { 'jokers', 'stardust_crusaders', 'tenore_sax' },
+    jokers = { 'j_jojoker_tenore_sax' },
+    hand_size = 10,
+    execute = function()
+        tenore_sax_original_hand = table.shallow_copy(G.hand.cards)
+        local first_card_rank = shorthand_rank_string_from_id(tenore_sax_original_hand[1]:get_id())
+        local first_card_suit = tenore_sax_original_hand[1].base.suit:sub(1, 1) -- Strip full suit name to just first char
+        Balatest.play_hand { first_card_rank..first_card_suit }
+        Balatest.wait_for_input(G.STATES.SELECTING_HAND)
+    end,
+    assert = function()
+        local new_hand = table.shallow_copy(G.hand.cards)
+        local are_hands_the_same = true
+        for i = 1, #G.hand.cards do
+            if (new_hand[i]:get_id() ~= tenore_sax_original_hand[i]:get_id()) or (new_hand[i].base.suit ~= tenore_sax_original_hand[i].base.suit) then
+                are_hands_the_same = false
+                break
+            end
+        end
+
+        Balatest.assert_eq(are_hands_the_same, false, "Tenore Sax did not shuffle unplayed cards back into the deck")
     end
 }
 --#endregion

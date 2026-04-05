@@ -377,7 +377,31 @@ local death_thirteen = {
     end
 }
 
+local tenore_sax = {
+    name = "tenore_sax",
+    rarity = 1,
+    cost = 6,
+    jtype = "Stand",
+    jclass = "Automatic",
+    part = "stardust_crusaders",
+    blueprint_compat = false,
+    perishable_compat = true,
+    eternal_compat = true,
+    calculate = function(self, card, context)
+        -- After scoring, shuffle all cards back into the deck and draw a new hand
+        if context.after then
+            sendDebugMessage("Tenore Sax: Shuffling all unplayed cards back into the deck")
+            for _ = 1, #G.hand.cards do
+                if not G.hand.cards[1].highlighted then
+                    G.deck:emplace(G.hand.cards[1])
+                    table.remove(G.hand.cards, 1)
+                end
+            end
+        end
+    end
+}
+
 return {
     name = "Stardust Crusaders Stand Jokers",
-    list = { magician_red, yellow_temperance, star_platinum, wheel_of_fortune, the_lovers, anubis, sethan, the_world, death_thirteen },
+    list = { magician_red, yellow_temperance, star_platinum, wheel_of_fortune, the_lovers, anubis, sethan, the_world, death_thirteen, tenore_sax },
 }

@@ -294,6 +294,13 @@ return {
                     "{C:inactive}Currently: {C:mult}#2#",
                 }
             },
+            j_jojoker_tenore_sax = {
+                name = "Tenore Sax",
+                text = {
+                    "After scoring, {C:attention}shuffles all unplayed cards{} back",
+                    "into the deck and draws a {C:attention} new hand."
+                }
+            },
             -- Part 4: Diamond is Unbreakable
             j_jojoker_voice_of_love = {
                 name = "Voice of Love",
