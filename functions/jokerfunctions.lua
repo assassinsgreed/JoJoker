@@ -220,3 +220,35 @@ get_joker_count_by_type = function (jtype)
   end
   return 0
 end
+
+handle_left_side_ataxia_disabling = function(left_side_ataxia_card)
+  local disabled = 0
+  local my_pos = 999 -- Max out to find cards before Left-Side Ataxia
+  for i = 1, #G.jokers.cards do
+      local other_joker = G.jokers.cards[i]
+      if other_joker ~= left_side_ataxia_card then
+        -- Disable / restore joker based on Left-Side-Ataxia's position in the joker lineup,
+        -- (restoring ONLY if disabled by Left-Side-Ataxia, to avoid restoring jokers disabled by other effects)
+        if i < my_pos then
+          -- sendDebugMessage("Disabling joker at position "..i.." because it is before Left-Side Ataxia")
+          other_joker.ability.extra.lta_disabled = true
+          disabled = disabled + 1
+          SMODS.debuff_card(other_joker, true, left_side_ataxia_card)
+        else
+          if other_joker.ability.extra.lta_disabled then
+            -- sendDebugMessage("Restoring joker at position "..i.." because it is after Left-Side Ataxia")
+            -- Manually handle restore, because SMODS can't restore the card if the game is reloaded...
+            other_joker.ability.extra.lta_disabled = false
+            other_joker.ability.debuff_sources[tostring(left_side_ataxia_card)] = false
+            SMODS.recalc_debuff(other_joker)
+          end
+        end
+      else
+          if other_joker == left_side_ataxia_card then
+            -- sendDebugMessage("Found Left-Side Ataxia at position "..i)
+            my_pos = i
+          end
+      end
+  end
+  return disabled
+end

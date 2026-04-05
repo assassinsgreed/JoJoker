@@ -218,3 +218,10 @@ jd_def["j_jojoker_ball_breaker"] = {
         { text = "[Ace, 2, 3, 5, 8, or King]", colour = G.C.GREY },
     }
 }
+
+jd_def["j_jojoker_left_side_ataxia"] = {
+    text = {
+        { text = "+", colour = G.C.CHIPS },
+        { ref_table = "card.ability.extra", ref_value = "current_chips", retrigger_type = "current_chips", colour = G.C.CHIPS },
+    },
+}

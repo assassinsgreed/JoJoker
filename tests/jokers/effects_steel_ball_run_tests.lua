@@ -297,3 +297,111 @@ Balatest.TestPlay {
     end
 }
 --#endregion
+
+--#region Left-Side Ataxia
+Balatest.TestPlay {
+    name = 'left_side_ataxia_gives_no_chips_when_no_jokers_left',
+    category = { 'jokers', 'steel_ball_run', 'left_side_ataxia' },
+    jokers = { 'j_jojoker_left_side_ataxia', 'j_jojoker_tattoo_you' },
+    execute = function()
+        Balatest.wait()
+    end,
+    assert = function()
+        local ataxia = G.jokers.cards[1]
+        Balatest.assert_eq(0, ataxia.ability.extra.current_chips, "Left Side Ataxia gave chips when no jokers were to its left")
+        Balatest.assert_eq(G.jokers.cards[2].debuff, false, "Joker to the right of Left Side Ataxia was disabled")
+    end
+}
+
+Balatest.TestPlay {
+    name = 'left_side_ataxia_gives_correct_chips_and_disables_left_jokers',
+    category = { 'jokers', 'steel_ball_run', 'left_side_ataxia' },
+    jokers = { 'j_jojoker_oh_lonesome_me', 'j_jojoker_tattoo_you', 'j_jojoker_left_side_ataxia', 'j_jojoker_slow_dancer' },
+    execute = function()
+        Balatest.wait()
+    end,
+    assert = function()
+        local chips_per_joker = G.jokers.cards[3].ability.extra.chips_per_joker
+        Balatest.assert_eq(G.jokers.cards[3].ability.extra.current_chips, 2 * chips_per_joker, "Left Side Ataxia did not give correct chips for two jokers to its left")
+        Balatest.assert_eq(G.jokers.cards[1].ability.extra.lta_disabled, true, "First joker to the left of Left Side Ataxia was not disabled")
+        Balatest.assert_eq(G.jokers.cards[2].ability.extra.lta_disabled, true, "Second joker to the left of Left Side Ataxia was not disabled")
+        Balatest.assert_eq(G.jokers.cards[4].debuff, false, "Joker to the right of Left Side Ataxia was disabled")
+    end
+}
+
+Balatest.TestPlay {
+    name = 'left_side_ataxia_updates_disabled_states_when_moved',
+    category = { 'jokers', 'steel_ball_run', 'left_side_ataxia' },
+    jokers = { 'j_jojoker_left_side_ataxia', 'j_jojoker_oh_lonesome_me', 'j_jojoker_tattoo_you', 'j_jojoker_slow_dancer' },
+    execute = function()
+        local ataxia = table.remove(G.jokers.cards, 1)
+        table.insert(G.jokers.cards, 3, ataxia)
+        local disabled = handle_left_side_ataxia_disabling(G.jokers.cards[3])
+        G.jokers.cards[3].ability.extra.current_chips = disabled * G.jokers.cards[3].ability.extra.chips_per_joker
+    end,
+    assert = function()
+        local ataxia = G.jokers.cards[3]
+        Balatest.assert_eq(ataxia.ability.extra.current_chips, 2 * ataxia.ability.extra.chips_per_joker, "Left Side Ataxia did not update chip total after being moved")
+        Balatest.assert(G.jokers.cards[1].ability.extra.lta_disabled, "Joker left of Left Side Ataxia was not disabled after moving")
+        Balatest.assert(G.jokers.cards[2].ability.extra.lta_disabled, "Second joker left of Left Side Ataxia was not disabled after moving")
+        Balatest.assert_eq(G.jokers.cards[4].debuff, false, "Joker to the right of Left Side Ataxia was disabled after moving")
+    end
+}
+
+Balatest.TestPlay {
+    name = 'left_side_ataxia_added_by_judgment_gives_chips_for_jokers_disabled_by_other_means',
+    category = { 'jokers', 'steel_ball_run', 'left_side_ataxia' },
+    jokers = { 'j_jojoker_slow_dancer', 'j_jojoker_valkyrie' },
+    blind = 'bl_final_heart', -- Crimson Heart, which disables a random joker
+    consumeables = { 'c_judgement' },
+    execute = function()
+        Balatest.hook(_G, 'create_card', function(orig, t, a, l, r, k, s, forced_key, ...)
+            return orig(t, a, l, r, k, s, 'j_jojoker_left_side_ataxia', ...)
+        end)
+        Balatest.use(G.consumeables.cards[1])
+        Balatest.wait()
+    end,
+    assert = function()
+        local ataxia_index = nil
+        for i, joker in ipairs(G.jokers.cards) do
+            if joker.ability.name == 'left_side_ataxia' then
+                ataxia_index = i
+                break
+            end
+        end
+        Balatest.assert(ataxia_index, "Left Side Ataxia was not added by Judgment")
+        local ataxia = G.jokers.cards[ataxia_index]
+        local disabled_count = 0
+        local disabled_by_lta = 0
+        for _, joker in ipairs(G.jokers.cards) do
+            if joker.debuff then
+                disabled_count = disabled_count + 1
+                if joker.ability.extra.lta_disabled then
+                    disabled_by_lta = disabled_by_lta + 1
+                end
+            end
+        end
+        Balatest.assert_eq(2 * ataxia.ability.extra.chips_per_joker, ataxia.ability.extra.current_chips, "Left Side Ataxia did not give chips for a joker additionally disabled by Crimson Heart")
+        Balatest.assert_eq(disabled_count, 2, "Joker not affected by Crimson Heart was not disabled by Left Side Ataxia")
+        Balatest.assert_eq(disabled_by_lta, 2, "Joker affected by Crimson Heart was not additionally disabled by Left Side Ataxia")
+    end
+}
+
+Balatest.TestPlay {
+    name = 'left_side_ataxia_restores_jokers_on_sell',
+    category = { 'jokers', 'steel_ball_run', 'left_side_ataxia' },
+    jokers = { 'j_jojoker_slow_dancer', 'j_jojoker_valkyrie', 'j_jojoker_left_side_ataxia' },
+    execute = function()
+        Balatest.sell(function() return G.jokers.cards[3] end)
+    end,
+    assert = function()
+        local disabled_count = 0
+        for _, joker in ipairs(G.jokers.cards) do
+            if joker.debuff then
+                disabled_count = disabled_count + 1
+            end
+        end
+        Balatest.assert_eq(disabled_count, 0, "Jokers were not restored by selling Left Side Ataxia")
+    end
+}
+--#endregion

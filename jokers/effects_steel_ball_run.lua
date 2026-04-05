@@ -249,7 +249,52 @@ local dark_determination = {
     end
 }
 
+local left_side_ataxia = {
+    name = "left_side_ataxia",
+    rarity = 3,
+    cost = 7,
+    jtype = "Effect",
+    part = "steel_ball_run",
+    blueprint_compat = true,
+    perishable_compat = true,
+    eternal_compat = true,
+    config = { extra = { chips_per_joker = 100, current_chips = 0 } },
+    loc_vars = function(self, info_queue, card)
+      return {vars = {card.ability.extra.chips_per_joker, card.ability.extra.current_chips}}
+    end,
+    calculate = function(self, card, context)
+        -- During scoring, give chips per disabled joker
+        if context.cardarea == G.jokers and context.scoring_hand then
+            if context.joker_main then
+                return {
+                    message = localize{type='variable', key='a_chips', vars={card.ability.extra.current_chips}},
+                    colour = G.C.CHIPS,
+                    chip_mod = card.ability.extra.current_chips,
+                }
+            end
+        end
+    end,
+    update = function(self, card, dt)
+        if G.STAGE == G.STAGES.RUN and card.area == G.jokers then
+            local disabled = handle_left_side_ataxia_disabling(card)
+            card.ability.extra.current_chips = disabled * card.ability.extra.chips_per_joker
+        end
+    end,
+    add_to_deck = function(self, card, from_debuff)
+        local disabled = handle_left_side_ataxia_disabling(card)
+        card.ability.extra.current_chips = disabled * card.ability.extra.chips_per_joker
+    end,
+    remove_from_deck = function(self, card, from_debuff)
+        for i = 1, #G.jokers.cards do
+            local other_joker = G.jokers.cards[i]
+            other_joker.ability.extra.lta_disabled = false
+            other_joker.ability.debuff_sources[tostring(card)] = false
+            SMODS.recalc_debuff(other_joker)
+        end
+    end
+}
+
 return {
     name = "Steel Ball Run Effects Jokers",
-    list = { the_fifth_lesson, turbo_eyes, the_true_mans_world, the_first_napkin, wavering_heart, dark_determination },
+    list = { the_fifth_lesson, turbo_eyes, the_true_mans_world, the_first_napkin, wavering_heart, dark_determination, left_side_ataxia },
 }

@@ -916,6 +916,14 @@ return {
                     "Each scored {C:attention}Ace, 2, 3, 5, 8, or King{} gives {C:mult}+#1#{}."
                 }
             },
+            j_jojoker_left_side_ataxia = {
+                name = "Left Side Ataxia",
+                text = {
+                    "Debuffs each joker to it's left, giving {C:chips}+#1#{} for each.",
+                    "{br:2}line break",
+                    "{C:inactive}Currently: {C:chips}+#2#{}"
+                }
+            },
             -- Part 8: Jojolion
             j_jojoker_soft_and_wet = {
                 name = "Soft & Wet",
