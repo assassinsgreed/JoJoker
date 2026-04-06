@@ -328,7 +328,9 @@ return {
                 text = {
                     "Picks a random {C:attention}poker hand{}.",
                     "Levels up that hand {C:attention}#1# times{} if played,",
-                    "then picks a new one."
+                    "then picks a new one.",
+                    "{br:2}line break",
+                    "{C:inactive}Tried: [#2#]"
                 }
             },
             j_jojoker_red_hot_chili_pepper = {

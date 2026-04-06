@@ -9,32 +9,39 @@ local shizuka = {
     blueprint_compat = false,
     perishable_compat = true,
     eternal_compat = true,
-    config = { extra = { levels = 3, chosen_hand_type_name = nil } },
+    config = { extra = { levels = 3, tried_hands = "", chosen_hand_type_name = nil } },
     loc_vars = function(self, info_queue, card)
-      return {vars = { card.ability.extra.levels }}
+      return {vars = { card.ability.extra.levels, card.ability.extra.tried_hands }}
     end,
     calculate = function(self, card, context)
-        -- When blind is starting and hand hasn't been chosen yet, choose a random hand type (only "visible" ones are chosen, i.e. ones the player can/has played)
-        if context.setting_blind then
-            if not card.ability.extra.chosen_hand_type_name then
-                local hand = pick_random_hand_type()
-                card.ability.extra.chosen_hand_type_name = hand.handname
-                sendDebugMessage("Shizuka: Chose a new hand type")
-            end
-        end
-
         -- Level up hand type when played and choose a new one
         if context.cardarea == G.jokers and context.scoring_hand then
-            if context.before and context.scoring_name == card.ability.extra.chosen_hand_type_name then
-                sendDebugMessage("Shizuka: Leveling up hand "..card.ability.extra.chosen_hand_type_name.." and choosing a new one.")
-                SMODS.upgrade_poker_hands({hands = {card.ability.extra.chosen_hand_type_name}, level_up = card.ability.extra.levels, from = card})
-                card.ability.extra.chosen_hand_type_name = pick_random_hand_type().handname
-                return {
-                    message = localize("sound_gaa")
-                }
+            if context.before then
+                if card.ability.extra.tried_hands == "" then
+                    card.ability.extra.tried_hands = context.scoring_name
+                else
+                    card.ability.extra.tried_hands = card.ability.extra.tried_hands..", "..context.scoring_name
+                end
+
+                if context.scoring_name == card.ability.extra.chosen_hand_type_name then
+                    sendDebugMessage("Shizuka: Leveling up hand "..card.ability.extra.chosen_hand_type_name.." and choosing a new one.")
+                    SMODS.upgrade_poker_hands({hands = {card.ability.extra.chosen_hand_type_name}, level_up = card.ability.extra.levels, from = card})
+                    card.ability.extra.chosen_hand_type_name = pick_random_hand_type().handname
+                    card.ability.extra.tried_hands = ""
+
+                    return {
+                        message = localize("sound_gaa")
+                    }
+                end
             end
         end
-    end
+    end,
+    add_to_deck = function(self, card, from_debuff)
+        -- When added, choose a random hand type (only "visible" ones are chosen, i.e. ones the player can/has played)
+        card.ability.extra.chosen_hand_type_name = pick_random_hand_type().handname
+        sendDebugMessage("Shizuka: Chose a new hand type")
+        -- sendDebugMessage("Shizuka: Chose a new hand type of "..card.ability.extra.chosen_hand_type_name)
+    end,
 }
 
 local yoshikage_kira = {
