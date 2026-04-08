@@ -117,3 +117,14 @@ jd_def["j_jojoker_dio_brando"] = {
         { text = "% from drained chips", colour = G.C.GREY },
     }
 }
+
+jd_def["j_jojoker_thunder_cross_split_attack"] = {
+    text = {
+        {
+            border_nodes = {
+                { text = "X" },
+                { ref_table = "card.ability.extra", ref_value = "Xmult" }
+            }
+        }
+    }
+}

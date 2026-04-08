@@ -92,7 +92,16 @@ return {
                 text = {
                     "Drains base chips before scoring cards, adding {C:attention}#1#%{} to {C:mult}Xmult{}.",
                     "{br:2}line break",
-                    "{C:inactive}Currently: {X:mult,C:white}X#2#{}"
+                    "{C:inactive}Currently: {X:mult,C:white} X#2#{} "
+                }
+            },
+            j_jojoker_thunder_cross_split_attack = {
+                name = "Thunder Cross Split Attack",
+                text = {
+                    "Removes up to {C:money}$#1#{} per {C:attention}scored card{}, then",
+                    "gaining {X:mult,C:white} X#2# {} for each.",
+                    "{br:2}line break",
+                    "{C:inactive}Currently: {X:mult,C:white} X#3# {}"
                 }
             },
             -- Part 2: Battle Tendency
@@ -112,7 +121,7 @@ return {
                     "Gains {X:mult,C:white} X#2# {} whenever",
                     "score catches fire before Esidisi triggers.",
                     "{br:2}line break",
-                    "{C:inactive}Currently: {X:mult,C:white}X#1#{}"
+                    "{C:inactive}Currently: {X:mult,C:white} X#1# {}"
                 }
             },
             j_jojoker_german_engineering = {
@@ -396,7 +405,7 @@ return {
                 text = {
                     "Gains {X:mult,C:white} X#1# {} whenever a joker is {S:1.1,C:red,E:2}destroyed{}.",
                     "{br:2}line break",
-                    "{C:inactive}Currently: {X:mult,C:white}X#2#{}"
+                    "{C:inactive}Currently: {X:mult,C:white} X#2# {}"
                 }
             },
             j_jojoker_cheap_trick_alt = {
@@ -404,7 +413,7 @@ return {
                 text = {
                     "Gains {X:mult,C:white} X#1# {} whenever a joker is {S:1.1,C:red,E:2}destroyed{}.",
                     "{br:2}line break",
-                    "{C:inactive}Currently: {X:mult,C:white}X#2#{}"
+                    "{C:inactive}Currently: {X:mult,C:white} X#2# {}"
                 }
             },
             j_jojoker_yoshikage_kira = {
@@ -890,7 +899,7 @@ return {
                     "Gains {X:mult,C:white} X#1# {} for each",
                     "hand played, but resets on discard.",
                     "{br:2}line break",
-                    "{C:inactive}Currently: {X:mult,C:white}X#2#{}"
+                    "{C:inactive}Currently: {X:mult,C:white} X#2# {}"
                 }
             },
             j_jojoker_civil_war = {
@@ -1045,7 +1054,7 @@ return {
                     "(including eternal) then gains {X:mult,C:white} X#2# {} for each joker.",
                     "{br:2}line break",
                     "{C:attention}#3#{}{C:inactive} rounds remaining",
-                    "{C:inactive}Currently: {X:mult,C:white}X#4#{}"
+                    "{C:inactive}Currently: {X:mult,C:white} X#4# {}"
                 }
             },
             -- Part 9: THE JOJOLands
@@ -1186,6 +1195,7 @@ return {
             sound_do_not_shoot = "Do not shoot...",
             sound_lali_ho = "Lali Ho!",
             sound_wry = "Wryyyy!!",
+            sound_fell_for_it = "You fell for it, fool!",
 
             -- Common strings
             a_hand = "a hand",

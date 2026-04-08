@@ -127,7 +127,7 @@ local hey_ya = {
             end
         end
       
-        -- For each scored queen, card, potentially make it lucky if it doesn't have an edition
+        -- For each scored card, potentially make it lucky if it doesn't have an edition
         if context.individual and context.cardarea == G.play and not context.other_card.debuff then
             if context.other_card.config.center == G.P_CENTERS.c_base then
                 if SMODS.pseudorandom_probability(card, 'hey_ya', card.ability.extra.numerator, card.ability.extra.denominator, 'hey_ya') then

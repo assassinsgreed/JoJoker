@@ -46,6 +46,7 @@ jojoker.joker_order = {
     "the_fifth_lesson",
     "the_first_napkin",
     "the_true_mans_world",
+    "thunder_cross_split_attack",
     "turbo_eyes",
     "voice_of_love",
     "wavering_heart",

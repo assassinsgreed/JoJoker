@@ -206,7 +206,7 @@ local gold_experience = {
     }
     end,
     calculate = function(self, card, context)
-        -- For each scored queen, card, potentially make it polychrome if it doesn't have an edition
+        -- For each scored card, potentially make it polychrome if it doesn't have an edition
         if context.individual and context.cardarea == G.play and not context.other_card.debuff then
             if not context.other_card.edition then
                 if SMODS.pseudorandom_probability(card, 'gold_experience', card.ability.extra.numerator, card.ability.extra.denominator, 'gold_experience') then
