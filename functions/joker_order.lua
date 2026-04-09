@@ -10,6 +10,7 @@ jojoker.joker_order = {
     "erina",
     "esidisi",
     "george_joestar",
+    "hol_horse",
     "jonathan_joestar",
     "joseph_joestar",
     "josuke_higashikata_jjl",

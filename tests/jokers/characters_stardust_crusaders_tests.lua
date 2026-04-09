@@ -39,3 +39,29 @@ Balatest.TestPlay {
     end
 }
 --#endregion
+--#region Hol Horse
+Balatest.TestPlay {
+    name = 'hol_horse_gives_no_mult_when_pair_not_played',
+    category = { 'jokers', 'stardust_crusaders', 'hol_horse' },
+    jokers = { 'j_jojoker_hol_horse' },
+    execute = function()
+        Balatest.play_hand { '2S', '3S' }
+    end,
+    assert = function()
+        Balatest.assert_chips(8, "Hol Horse gave extra mult when a pair was not played")
+    end
+}
+
+Balatest.TestPlay {
+    name = 'hol_horse_gives_mult_based_on_unscored_cards_ranks',
+    category = { 'jokers', 'stardust_crusaders', 'hol_horse' },
+    jokers = { 'j_jojoker_hol_horse' },
+    execute = function()
+        Balatest.play_hand { '2S', '2C', 'AS', 'QS', 'JS' } -- Pair, leaving 37 unscored ranks (14 + 12 + 11)
+    end,
+    assert = function()
+        -- 2 from mult, 37 from unscored
+        Balatest.assert_chips(14 * (2 + 37), "Hol Horse did not give mult based on unscored cards ranks")
+    end
+}
+--#endregion

@@ -324,6 +324,13 @@ return {
                     "Copies ability of rightmost {C:attention}Joker{}."
                 }
             },
+            j_jojoker_hol_horse = {
+                name = "Hol Horse",
+                text = {
+                    "If played hand is a {C:attention}Pair{}, all unscored",
+                    "cards give their {C:attention}rank{} as {C:mult}mult{}."
+                }
+            },
             -- Part 4: Diamond is Unbreakable
             j_jojoker_voice_of_love = {
                 name = "Voice of Love",

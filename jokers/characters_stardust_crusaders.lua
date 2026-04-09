@@ -65,7 +65,37 @@ local old_joseph_joestar = {
     end
 }
 
+local hol_horse = {
+    name = "hol_horse",
+    rarity = 1,
+    cost = 6,
+    jtype = "Character",
+    part = "stardust_crusaders",
+    blueprint_compat = true,
+    perishable_compat = true,
+    eternal_compat = true,
+    config = { extra = {} },
+    calculate = function(self, card, context)
+        -- If scoring hand is a pair, give all unscored cards the rank as mult
+        if context.cardarea == G.jokers and context.scoring_hand then
+            if context.joker_main and context.scoring_name == "Pair" then
+                local mult = 0
+                for _, unscored_card in pairs(context.full_hand) do
+                    if not SMODS.in_scoring(unscored_card, context.scoring_hand) then
+                        mult = mult + unscored_card:get_id()
+                    end
+                end
+                return {
+                    message = localize{type = 'variable', key = 'a_mult', vars = {mult}},
+                    colour = G.C.MULT,
+                    mult_mod = mult
+                }
+            end
+        end
+    end
+}
+
 return {
     name = "Stardust Crusaders Character Jokers",
-    list = { ndoul, old_joseph_joestar },
+    list = { ndoul, old_joseph_joestar, hol_horse },
 }

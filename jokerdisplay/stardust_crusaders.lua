@@ -120,3 +120,13 @@ jd_def["j_jojoker_khnum"] = {
         return G.jokers.cards[#G.jokers.cards]
     end
 }
+
+jd_def["j_jojoker_hol_horse"] = {
+    text = {
+        { text = "Unscored rank to ", colour = G.C.GREY },
+        { text = "mult", colour = G.C.MULT }
+    },
+    reminder_text = {
+        { text = "Pair only", colour = G.C.GREY }
+    }
+}
