@@ -84,7 +84,7 @@ return {
             j_jojoker_sword_of_luck_and_pluck = {
                 name = "Sword of Luck & Pluck",
                 text = {
-                    "All {C:attention}Lucky Card{} effects are {C:green}#1#x{} more likely to occur."
+                    "All {C:attention}Lucky Card{} effects are {C:attention}#1#x{} more likely to occur."
                 }
             },
             j_jojoker_dio_brando = {
@@ -827,6 +827,20 @@ return {
                 text = {
                     "On loss, is {S:1.1,C:red,E:2}destroyed{}, then skips",
                     "the current blind."
+                }
+            },
+            j_jojoker_limp_bizkit = {
+                name = "Limp Bizkit",
+                text = {
+                    "Whenever a Joker is {S:1.1,C:red,E:2}destroyed{}, has",
+                    "a {C:attention}#1# in #2#{} chance to be recreated as {C:dark_edition}Negative{}."
+                }
+            },
+            j_jojoker_limp_bizkit_alt = {
+                name = "Flaccid Pancake", -- I know the latest official one is Limp Viscuit, but this is a fan favorite and it would be insane not to use it
+                text = {
+                    "Whenever a Joker is {S:1.1,C:red,E:2}destroyed{}, has",
+                    "a {C:attention}#1# in #2#{} chance to be recreated as {C:dark_edition}Negative{}."
                 }
             },
             -- Part 7: Steel Ball Run

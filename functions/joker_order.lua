@@ -79,6 +79,7 @@ jojoker.joker_order = {
     "i_am_a_rock",
     "khnum",
     "king_crimson",
+    "limp_bizkit",
     "little_feet",
     "made_in_heaven",
     "magician_red",

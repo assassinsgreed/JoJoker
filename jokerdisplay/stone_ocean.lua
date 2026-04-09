@@ -125,3 +125,14 @@ jd_def["j_jojoker_burning_down_the_house"] = {
         { text = "Is destroyed after", colour = G.C.GREY }
     },
 }
+
+jd_def["j_jojoker_limp_bizkit"] = {
+    text = {
+        { ref_table = "card.ability.extra", ref_value = "numerator", retrigger_type = "numerator",  colour = G.C.GOLD },
+        { text = " in ", colour = G.C.GOLD },
+        { ref_table = "card.ability.extra", ref_value = "denominator", retrigger_type = "denominator",  colour = G.C.GOLD },
+    },
+    reminder_text = {
+        { text = "Destroyed -> Negative", colour = G.C.GREY, },
+    },
+}

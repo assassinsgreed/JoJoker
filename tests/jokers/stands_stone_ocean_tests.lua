@@ -261,3 +261,21 @@ Balatest.TestPlay {
     end
 }
 --#endregion
+--#region Limp Bizkit
+Balatest.TestPlay {
+    name = 'limp_bizkit_creates_negative_joker_when_triggered',
+    category = { 'jokers', 'stone_ocean', 'limp_bizkit' },
+    jokers = { 'j_jojoker_death_thirteen', 'j_jojoker_josuke_higashikata_jjl', 'j_jojoker_limp_bizkit' },
+    hands = 1,
+    execute = function()
+        G.jokers.cards[1], G.jokers.cards[2] = G.jokers.cards[2], G.jokers.cards[1] -- Swap order so Death Thirteen doesn't destroy Josuke before we can maninpulate the numerator
+        G.jokers.cards[3].ability.extra.denominator = G.jokers.cards[3].ability.extra.numerator
+        Balatest.next_round()
+    end,
+    assert = function()
+        Balatest.assert_eq(#G.jokers.cards, 3, "Limp Bizkit did not create negative joker correctly")
+        Balatest.assert_eq(G.jokers.cards[3].edition.key, "e_negative", "Limp Bizkit did not recreate destroyed joker as Negative")
+        Balatest.assert_eq(G.jokers.cards[3].config.center.key, "j_jojoker_josuke_higashikata_jjl", "Limp Bizkit did not recreate the expected joker")
+    end
+}
+--#endregion

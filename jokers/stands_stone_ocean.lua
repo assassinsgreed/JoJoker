@@ -358,7 +358,45 @@ local burning_down_the_house = {
     end
 }
 
+local limp_bizkit = {
+    name = "limp_bizkit",
+    rarity = 2,
+    cost = 8,
+    jtype = "Stand",
+    jclass = "Automatic",
+    part = "stone_ocean",
+    blueprint_compat = false,
+    perishable_compat = true,
+    eternal_compat = true,
+    config = { extra = { numerator = 1, denominator = 2 } },
+    loc_vars = function(self, info_queue, center)
+      return {
+        vars = {center.ability.extra.numerator, center.ability.extra.denominator},
+        key = jojoker_config.use_localized_names and self.key..'_alt' or self.key
+      }
+    end,
+    calculate = function(self, card, context)
+        -- Potentially convert joker to negative on destruction
+        if context.joker_type_destroyed then
+            if SMODS.pseudorandom_probability(card, 'limp_bizkit', card.ability.extra.numerator, card.ability.extra.denominator, 'limp_bizkit') then
+                sendDebugMessage("Limp Bizkit: Joker being recreated as Negative")
+                card:juice_up()
+
+                SMODS.add_card {
+                    key = context.card.config.center.key,
+                    edition = "e_negative",
+                }
+
+                return {
+                    message = localize('k_copied_ex'),
+                    reborn = 'sound_limp_bizkit_reborn'
+                }
+            end
+        end
+    end
+}
+
 return {
     name = "Stone Ocean Stands Jokers",
-    list = { goo_goo_dolls, stone_free, made_in_heaven, dragons_dream, green_green_grass_of_home, survivor, foo_fighters, white_snake, burning_down_the_house },
+    list = { goo_goo_dolls, stone_free, made_in_heaven, dragons_dream, green_green_grass_of_home, survivor, foo_fighters, white_snake, burning_down_the_house, limp_bizkit },
 }
