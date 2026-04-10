@@ -304,3 +304,20 @@ Balatest.TestPlay {
     end
 }
 --#endregion
+--#region Killer Queen
+Balatest.TestPlay {
+    name = 'killer_queen_does_not_rewind_blind_that_is_not_a_boss',
+    category = { 'jokers', 'diamond_is_unbreakable', 'killer_queen' },
+    jokers = { 'j_jojoker_killer_queen' },
+    blind = 'bl_small',
+    execute = function()
+        ease_ante(1)
+        G.jokers.cards[1].ability.extra.numerator = G.jokers.cards[1].ability.extra.denominator -- Set probability to 100% to ensure that if it procs, it will be detected
+        Balatest.next_round()
+    end,
+    assert = function()
+        Balatest.assert_eq(G.GAME.round_resets.ante, 2, "Killer Queen rewound a non-Boss blind")
+    end
+}
+-- The way Balatest invokes blinds prevents boss blinds from being seen as bosses, so no test for rewinding...
+--#endregion

@@ -78,6 +78,7 @@ jojoker.joker_order = {
     "hey_ya",
     "i_am_a_rock",
     "khnum",
+    "killer_queen",
     "king_crimson",
     "limp_bizkit",
     "little_feet",

@@ -477,6 +477,18 @@ return {
                     "Copies ability of leftmost {C:attention}Joker{}."
                 }
             },
+            j_jojoker_killer_queen = {
+                name = "Killer Queen",
+                text = {
+                    "{C:attention}#1# in #2#{} chance to rewind blind when defeating a boss."
+                }
+            },
+            j_jojoker_killer_queen_alt = {
+                name = "Deadly Queen",
+                text = {
+                    "{C:attention}#1# in #2#{} chance to rewind blind when defeating a boss."
+                }
+            },
             -- Part 5: Golden Wind
             j_jojoker_sex_pistols = {
                 name = "Sex Pistols",
@@ -1217,6 +1229,7 @@ return {
             sound_lali_ho = "Lali Ho!",
             sound_wry = "Wryyyy!!",
             sound_fell_for_it = "You fell for it, fool!",
+            sound_bites_the_dust = "Bites za dusto!",
 
             -- Common strings
             a_hand = "a hand",

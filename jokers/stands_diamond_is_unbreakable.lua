@@ -374,7 +374,41 @@ local surface = {
     end
 }
 
+local killer_queen = {
+    name = "killer_queen",
+    rarity = 4,
+    cost = 10,
+    jtype = "Stand",
+    jclass = "Close Range",
+    part = "diamond_is_unbreakable",
+    blueprint_compat = false,
+    perishable_compat = false,
+    eternal_compat = false,
+    config = { extra = { numerator = 1, denominator = 3 } },
+    loc_vars = function(self, info_queue, card)
+      return {
+        vars = {card.ability.extra.numerator, card.ability.extra.denominator },
+        key = jojoker_config.use_localized_names and self.key..'_alt' or self.key
+    }
+    end,
+    calculate = function(self, card, context)
+        -- When beating a boss, has a chance to rewind the blind
+        if context.end_of_round and context.game_over == false and context.main_eval and context.beat_boss and not card.debuff then
+            if SMODS.pseudorandom_probability(card, 'killer_queen', card.ability.extra.numerator, card.ability.extra.denominator, 'killer_queen') then
+                sendDebugMessage("Killer Queen: Rewinding blind after beating boss")
+                card:juice_up(0.1)
+                ease_ante(-1)
+
+                return {
+                    message = localize('sound_bites_the_dust'),
+                    colour = G.C.GOLD
+                }
+            end
+        end
+    end
+}
+
 return {
     name = "Diamond is Unbreakable Stand Jokers",
-    list = { red_hot_chili_pepper, the_hand, superfly, crazy_diamond, bad_company, cheap_trick, cinderella, atom_heart_father, surface },
+    list = { red_hot_chili_pepper, the_hand, superfly, crazy_diamond, bad_company, cheap_trick, cinderella, atom_heart_father, surface, killer_queen },
 }

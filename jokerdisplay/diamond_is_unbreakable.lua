@@ -156,3 +156,14 @@ jd_def["j_jojoker_surface"] = {
         return G.jokers.cards[1]
     end
 }
+
+jd_def["j_jojoker_killer_queen"] = {
+    text = {
+        { ref_table = "card.ability.extra", ref_value = "numerator", retrigger_type = "numerator",  colour = G.C.GOLD },
+        { text = " in ", colour = G.C.GOLD },
+        { ref_table = "card.ability.extra", ref_value = "denominator", retrigger_type = "denominator",  colour = G.C.GOLD },
+    },
+    reminder_text = {
+        { text = "Rewind blind after beating boss", colour = G.C.GREY, },
+    },
+}
