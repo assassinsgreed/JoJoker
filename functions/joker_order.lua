@@ -82,6 +82,7 @@ jojoker.joker_order = {
     "king_crimson",
     "limp_bizkit",
     "little_feet",
+    "love_train",
     "made_in_heaven",
     "magician_red",
     "mandom",

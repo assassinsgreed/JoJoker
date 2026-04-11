@@ -1001,6 +1001,12 @@ return {
                     "{C:inactive}Currently: {C:chips}+#2#{}"
                 }
             },
+            j_jojoker_love_train = {
+                name = "Love Train",
+                text = {
+                    "Glass cards {C:attention}never shatter{}."
+                }
+            },
             -- Part 8: Jojolion
             j_jojoker_soft_and_wet = {
                 name = "Soft & Wet",

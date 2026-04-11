@@ -295,3 +295,23 @@ Balatest.TestPlay {
     end
 }
 --#endregion
+
+--#region Love Train
+Balatest.TestPlay {
+    name = 'love_train_prevents_glass_cards_from_shattering',
+    category = { 'jokers', 'steel_ball_run', 'love_train' },
+    jokers = { 'j_jojoker_love_train' },
+    deck = { cards = {
+        { r = 'A', s = 'S', e = 'm_glass' },
+        { r = 'A', s = 'S', e = 'm_glass' },
+        { r = 'A', s = 'S', e = 'm_glass' },
+        { r = 'A', s = 'S', e = 'm_glass' },
+        { r = 'A', s = 'S', e = 'm_glass' } } },
+    execute = function()
+        Balatest.play_hand { 'AS', 'AS', 'AS', 'AS', 'AS' } -- Would be crazy for all to not shatter if this wasn't working
+    end,
+    assert = function()
+        Balatest.assert_eq(#G.deck.cards, 5, "Love Train did not prevent glass card from shattering")
+    end
+}
+--#endregion

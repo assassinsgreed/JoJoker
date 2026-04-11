@@ -225,3 +225,9 @@ jd_def["j_jojoker_left_side_ataxia"] = {
         { ref_table = "card.ability.extra", ref_value = "current_chips", retrigger_type = "current_chips", colour = G.C.CHIPS },
     },
 }
+
+jd_def["j_jojoker_love_train"] = {
+    text = {
+        { text = "Glass never shatters", colour = G.C.GREY }
+    },
+}

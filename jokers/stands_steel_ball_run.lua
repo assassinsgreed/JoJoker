@@ -278,7 +278,29 @@ local ball_breaker = {
     end
 }
 
+local love_train = {
+    name = "love_train",
+    rarity = 3,
+    cost = 7,
+    jtype = "Stand",
+    jclass = "Automatic",
+    part = "steel_ball_run",
+    blueprint_compat = false,
+    perishable_compat = true,
+    eternal_compat = true,
+    calculate = function(self, card, context)
+        -- Glass cards never shatter
+        if context.fix_probability then
+            if context.identifier == 'glass' then
+                return {
+                    numerator = 0
+                }
+            end
+        end
+    end
+}
+
 return {
     name = "Steel Ball Run Stand Jokers",
-    list = { mandom, chocolate_disco, oh_lonesome_me, hey_ya, tattoo_you, civil_war, ball_breaker },
+    list = { mandom, chocolate_disco, oh_lonesome_me, hey_ya, tattoo_you, civil_war, ball_breaker, love_train },
 }
