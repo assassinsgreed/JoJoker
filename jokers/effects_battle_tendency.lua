@@ -36,7 +36,40 @@ local german_engineering = {
     end
 }
 
+local clacker_balls = {
+    name = "clacker_balls",
+    rarity = 1,
+    cost = 5,
+    jtype = "Effect",
+    part = "battle_tendency",
+    blueprint_compat = true,
+    perishable_compat = true,
+    eternal_compat = true,
+    config = {extra = {scored_hand_size = 3}},
+    loc_vars = function(self, info_queue, center)
+        return { vars = {center.ability.extra.scored_hand_size} }
+    end,
+    calculate = function(self, card, context)
+        -- If scored hand is <= 3 cards, retrigger each scored card
+        if context.repetition and not context.end_of_round and context.cardarea == G.play then
+            if not context.blueprint then
+                if #context.scoring_hand <= 3 then
+                    sendDebugMessage("Clacker Balls: Scored hand of " .. #context.scoring_hand .. " cards or fewer. Retriggering each scored card.")
+                    return {
+                        message = localize('k_retriggers_ex'),
+                        extra = {
+                            cards = #context.scoring_hand,
+                            repetitions = 1,
+                            card = card
+                        }
+                    }
+                end
+            end
+        end
+    end
+}
+
 return {
     name = "Battle Tendency Effects Jokers",
-    list = { german_engineering },
+    list = { german_engineering, clacker_balls },
 }

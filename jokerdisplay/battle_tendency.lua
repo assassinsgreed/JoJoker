@@ -126,3 +126,14 @@ jd_def["j_jojoker_stroheim_german_engineering"] = {
         { text = " per cleared blind", colour = G.C.GREY, },
     }
 }
+
+jd_def["j_jojoker_clacker_balls"] = {
+    text = {
+        { text = "<= ", colour = G.C.GREY },
+        { ref_table = "card.ability.extra", ref_value = "scored_hand_size", retrigger_type = "scored_hand_size",  colour = G.C.GREY },
+        { text = " scored cards", colour = G.C.GREY }
+    },
+    reminder_text = {
+        { text = "Retrigger", colour = G.C.GREY, },
+    }
+}

@@ -212,6 +212,13 @@ return {
                     "{C:inactive}Currently: {C:mult}+#3#"
                 }
             },
+            j_jojoker_clacker_balls = {
+                name = "Clacker Balls",
+                text = {
+                    "If scored hand is {C:attention}#1#{} cards or fewer,",
+                    "each scored card retriggers."
+                }
+            },
             -- Part 3: Stardust Crusaders
             j_jojoker_magician_red = {
                 name = "Magician's Red",

@@ -62,3 +62,39 @@ Balatest.TestPlay {
     end
 }
 --#endregion
+
+--#region Clacker Balls
+Balatest.TestPlay {
+    name = 'clacker_balls_do_not_retrigger_when_scored_hand_greater_than_3',
+    category = { 'jokers', 'battle_tendency', 'clacker_balls' },
+    jokers = { 'j_jojoker_clacker_balls' },
+    execute = function()
+        Balatest.play_hand { '2S', '2C', '2D', '3S', '3C' }
+    end,
+    assert = function()
+        Balatest.assert_chips(208, "Clacker Balls retriggered when scored hand is greater than 3")
+    end
+}
+Balatest.TestPlay {
+    name = 'clacker_balls_retrigger_when_scored_hand_equal_to_3',
+    category = { 'jokers', 'battle_tendency', 'clacker_balls' },
+    jokers = { 'j_jojoker_clacker_balls' },
+    execute = function()
+        Balatest.play_hand { '2S', '2C', '2D' }
+    end,
+    assert = function()
+        Balatest.assert_chips(126, "Clacker Balls retriggered when scored hand is equal to 3")
+    end
+}
+Balatest.TestPlay {
+    name = 'clacker_balls_do_not_retrigger_when_scored_hand_less_than_3',
+    category = { 'jokers', 'battle_tendency', 'clacker_balls' },
+    jokers = { 'j_jojoker_clacker_balls' },
+    execute = function()
+        Balatest.play_hand { '2S', '2C' }
+    end,
+    assert = function()
+        Balatest.assert_chips(36, "Clacker Balls retriggered when scored hand is less than 3")
+    end
+}
+--#endregion

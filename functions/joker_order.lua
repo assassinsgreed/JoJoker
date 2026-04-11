@@ -37,6 +37,7 @@ jojoker.joker_order = {
     "zombies",
     
     -- Effects
+    "clacker_balls",
     "dark_determination",
     "epitaph",
     "german_engineering",
