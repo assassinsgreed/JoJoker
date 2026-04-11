@@ -396,7 +396,38 @@ local limp_bizkit = {
     end
 }
 
+local marilyn_manson = {
+    name = "marilyn_manson",
+    rarity = 1,
+    cost = 3,
+    jtype = "Stand",
+    jclass = "Long Range",
+    part = "stone_ocean",
+    blueprint_compat = false,
+    perishable_compat = true,
+    eternal_compat = true,
+    config = { extra = { debt = 15, debt_repay = 2 } },
+    loc_vars = function(self, info_queue, center)
+      return {
+        vars = {center.ability.extra.debt, center.ability.extra.debt_repay},
+        key = jojoker_config.use_localized_names and self.key..'_alt' or self.key
+      }
+    end,
+    calc_dollar_bonus = function(self, card)
+        if G.GAME.current_round.discards_left == 0 then
+            sendDebugMessage("Marilyn Manson: Giving $"..card.ability.extra.debt_repay.." because 0 discards remain.")
+            return ease_joker_dollars(card, "Marilyn Manson", card.ability.extra.debt_repay, true)
+        end
+    end,
+    add_to_deck = function(self, card, from_debuff)
+        G.GAME.bankrupt_at = G.GAME.bankrupt_at - card.ability.extra.debt
+    end,
+    remove_from_deck = function(self, card, from_debuff)
+        G.GAME.bankrupt_at = G.GAME.bankrupt_at + card.ability.extra.debt
+    end,
+}
+
 return {
     name = "Stone Ocean Stands Jokers",
-    list = { goo_goo_dolls, stone_free, made_in_heaven, dragons_dream, green_green_grass_of_home, survivor, foo_fighters, white_snake, burning_down_the_house, limp_bizkit },
+    list = { goo_goo_dolls, stone_free, made_in_heaven, dragons_dream, green_green_grass_of_home, survivor, foo_fighters, white_snake, burning_down_the_house, limp_bizkit, marilyn_manson },
 }

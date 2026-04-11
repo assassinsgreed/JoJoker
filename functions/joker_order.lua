@@ -87,6 +87,7 @@ jojoker.joker_order = {
     "made_in_heaven",
     "magician_red",
     "mandom",
+    "marilyn_manson",
     "milagro_man",
     "moody_blues",
     "oh_lonesome_me",

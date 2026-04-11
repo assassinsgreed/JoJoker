@@ -136,3 +136,17 @@ jd_def["j_jojoker_limp_bizkit"] = {
         { text = "Destroyed -> Negative", colour = G.C.GREY, },
     },
 }
+
+jd_def["j_jojoker_marilyn_manson"] = {
+    text = {
+        { text = "Up to ", colour = G.C.GREY },
+        { text = "$", colour = G.C.MONEY },
+        { ref_table = "card.ability.extra", ref_value = "debt", retrigger_type = "debt",  colour = G.C.MONEY },
+        { text = " in debt", colour = G.C.GREY },
+    },
+    reminder_text = {
+        { text = "+$", colour = G.C.MONEY },
+        { ref_table = "card.ability.extra", ref_value = "debt_repay", retrigger_type = "debt_repay",  colour = G.C.MONEY },
+        { text = " if 0 discards", colour = G.C.GREY },
+    },
+}

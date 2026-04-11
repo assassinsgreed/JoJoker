@@ -862,6 +862,19 @@ return {
                     "a {C:attention}#1# in #2#{} chance to be recreated as {C:dark_edition}Negative{}."
                 }
             },
+            j_jojoker_marilyn_manson = {
+                name = "Marilyn Manson",
+                text = {
+                    "Go up to {C:money}$#1#{} in debt.",
+                    "Earn {C:money}$#2#{} after blind if 0 discards remain."
+                }
+            },
+            j_jojoker_marilyn_manson_alt = {
+                name = "Mary Lynn Manson",
+                text = {
+                    "Doubles scored {C:chips}chips{} if a {C:attention}High Card{} is played.",
+                }
+            },
             -- Part 7: Steel Ball Run
             j_jojoker_mandom = {
                 name = "Mandom",

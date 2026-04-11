@@ -279,3 +279,37 @@ Balatest.TestPlay {
     end
 }
 --#endregion
+--#region Marilyn Manson
+Balatest.TestPlay {
+    name = 'marilyn_manson_gives_money_when_no_discards_remain',
+    category = { 'jokers', 'stone_ocean', 'marilyn_manson' },
+    jokers = { 'j_jojoker_marilyn_manson' },
+    money = 0,
+    discards = 0,
+    execute = function()
+        Balatest.end_round()
+        Balatest.cash_out()
+    end,
+    assert = function()
+        Balatest.assert_dollars(G.jokers.cards[1].ability.extra.debt_repay, "Marilyn Manson did not give money for repaid debt when no discards remained")
+    end
+}
+
+Balatest.TestPlay {
+    name = 'marilyn_manson_allows_player_to_go_into_debt',
+    category = { 'jokers', 'stone_ocean', 'marilyn_manson' },
+    jokers = { 'j_jojoker_marilyn_manson' },
+    money = 0,
+    execute = function()
+        Balatest.end_round()
+        Balatest.cash_out()
+        Balatest.buy(function() return G.shop_jokers.cards[1] end)
+        Balatest.buy(function() return G.shop_jokers.cards[1] end)
+    end,
+    assert = function()
+        local in_debt = G.GAME.dollars < 0
+        Balatest.assert(in_debt, "Marilyn Manson did not let the player go into debt")
+        Balatest.assert_eq(G.GAME.bankrupt_at, -G.jokers.cards[1].ability.extra.debt, "Marilyn Manson did not set the correct bankruptcy threshold when allowing the player to go into debt")
+    end
+}
+--#endregion
