@@ -130,3 +130,9 @@ jd_def["j_jojoker_hol_horse"] = {
         { text = "Pair only", colour = G.C.GREY }
     }
 }
+
+jd_def["j_jojoker_darby_brothers"] = {
+    text = {
+        { text = "Doubles listed probabilities", colour = G.C.GREY },
+    },
+}

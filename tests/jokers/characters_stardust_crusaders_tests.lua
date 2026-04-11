@@ -65,3 +65,30 @@ Balatest.TestPlay {
     end
 }
 --#endregion
+--#region D'Arby Brothers
+Balatest.TestPlay {
+    name = 'darby_brothers_doubles_probabilities',
+    category = { 'jokers', 'stardust_crusaders', 'darby_brothers', 'old_joseph_joestar' },
+    jokers = { 'j_jojoker_darby_brothers', 'j_jojoker_old_joseph_joestar' },
+    execute = function()
+        -- Just in case Josephs's values change someday
+        G.jokers.cards[2].ability.extra.numerator = 1
+        G.jokers.cards[2].ability.extra.denominator = 2
+
+        -- Triggering 8 back-to-back procs would be extremely unlikely without D'Arby Brothers doubling priorities
+        Balatest.discard { '2S' }
+        Balatest.discard { '2C' }
+        Balatest.discard { '2D' }
+        Balatest.discard { '2H' }
+        Balatest.discard { '3S' }
+        Balatest.discard { '3C' }
+        Balatest.discard { '3D' }
+        Balatest.discard { '3H' }
+        Balatest.play_hand { '4C' }
+    end,
+    assert = function()
+        -- Accumulating the xmult leads to some float imprecision; we just check the chip count of scoring a 4 because I don't care
+        Balatest.assert_chips(19, "Darby Brothers did not double the probability of Old Joseph's ability")
+    end
+}
+--#endregion

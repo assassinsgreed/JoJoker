@@ -95,7 +95,26 @@ local hol_horse = {
     end
 }
 
+local darby_brothers = {
+    name = "darby_brothers",
+    rarity = 1,
+    cost = 4,
+    jtype = "Character",
+    part = "stardust_crusaders",
+    blueprint_compat = false,
+    perishable_compat = true,
+    eternal_compat = true,
+    calculate = function(self, card, context)
+        -- Doubles all probabilities
+        if context.fix_probability then
+            return {
+                numerator = context.numerator * 2
+            }
+        end
+    end
+}
+
 return {
     name = "Stardust Crusaders Character Jokers",
-    list = { ndoul, old_joseph_joestar, hol_horse },
+    list = { ndoul, old_joseph_joestar, hol_horse, darby_brothers },
 }

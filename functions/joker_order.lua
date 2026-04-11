@@ -5,6 +5,7 @@ jojoker.joker_order = {
     "caesar",
     "danny",
     "danny_sbr",
+    "darby_brothers",
     "dario_brando",
     "dio_brando",
     "erina",

@@ -338,6 +338,13 @@ return {
                     "cards give their {C:attention}rank{} as {C:mult}mult{}."
                 }
             },
+            j_jojoker_darby_brothers = {
+                name = "D'Arby Brothers",
+                text = {
+                    "Doubles all {C:attention}listed{} {C:green}probabilities{}.",
+                    "({C:inactive}ex: {C:green}1 in 3 -> 2 in 3{C:inactive})"
+                }
+            },
             -- Part 4: Diamond is Unbreakable
             j_jojoker_voice_of_love = {
                 name = "Voice of Love",
@@ -700,14 +707,14 @@ return {
                 name = "Rolling Stones",
                 text = {
                     "Gives {X:mult,C:white} X#1# {}, but all",
-                    "{C:green}probabilities{} are set to {c:green}0{}."
+                    "{C:green}probabilities{} are set to {C:green}0{}."
                 }
             },
             j_jojoker_rolling_stones_alt = {
                 name = "Prophecy Stones",
                 text = {
                     "Gives {X:mult,C:white} X#1# {}, but all",
-                    "{C:green}probabilities{} are set to {c:green}0{}."
+                    "{C:green}probabilities{} are set to {C:green}0{}."
                 }
             },
             -- Part 6: Stone Ocean
