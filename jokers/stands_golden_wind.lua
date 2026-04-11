@@ -471,7 +471,42 @@ local black_sabbath = {
     end
 }
 
+local rolling_stones = {
+    name = "rolling_stones",
+    rarity = 1,
+    cost = 6,
+    jtype = "Stand",
+    jclass = "Automatic",
+    part = "golden_wind",
+    blueprint_compat = false,
+    perishable_compat = true,
+    eternal_compat = true,
+    config = { extra = { XMult = 2 } },
+    loc_vars = function(self, info_queue, center)
+      return {vars = { center.ability.extra.XMult }}
+    end,
+    calculate = function(self, card, context)
+        -- Sets all probabilities to 0
+        if context.fix_probability then
+            return {
+                numerator = 0
+            }
+        end
+
+        -- Give XMult during scoring
+        if context.cardarea == G.jokers and context.scoring_hand then
+            if context.joker_main then
+                return {
+                    message = localize{type = 'variable', key = 'a_xmult', vars = {card.ability.extra.XMult}},
+                    colour = G.C.XMULT,
+                    Xmult_mod = card.ability.extra.XMult
+                }
+            end
+        end
+    end
+}
+
 return {
     name = "Golden Wind Stand Jokers",
-    list = { sex_pistols, grateful_dead, spice_girl, sticky_fingers, gold_experience, gold_experience_requiem, king_crimson, moody_blues, baby_face, little_feet, black_sabbath },
+    list = { sex_pistols, grateful_dead, spice_girl, sticky_fingers, gold_experience, gold_experience_requiem, king_crimson, moody_blues, baby_face, little_feet, black_sabbath, rolling_stones },
 }

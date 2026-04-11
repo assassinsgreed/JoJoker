@@ -370,3 +370,33 @@ Balatest.TestPlay {
     end
 }
 --#endregion
+--#region Rolling Stones
+Balatest.TestPlay {
+    name = 'rolling_stones_gives_xmult',
+    category = { 'jokers', 'golden_wind', 'rolling_stones' },
+    jokers = { 'j_jojoker_rolling_stones' },
+    execute = function()
+        Balatest.play_hand { '2S' }
+    end,
+    assert = function()
+        Balatest.assert_chips(7 * G.jokers.cards[1].ability.extra.XMult, "Rolling Stones did not give Xmult correctly")
+    end
+}
+Balatest.TestPlay {
+    name = 'rolling_stones_zeroes_out_probabilities',
+    category = { 'jokers', 'golden_wind', 'rolling_stones' },
+    jokers = { 'j_jojoker_rolling_stones' },
+    deck = { cards = {
+        { r = 'A', s = 'S', e = 'm_glass' },
+        { r = 'A', s = 'S', e = 'm_glass' },
+        { r = 'A', s = 'S', e = 'm_glass' },
+        { r = 'A', s = 'S', e = 'm_glass' },
+        { r = 'A', s = 'S', e = 'm_glass' } } },
+    execute = function()
+        Balatest.play_hand { 'AS', 'AS', 'AS', 'AS', 'AS' } -- We use unshatterable glass cards to test that probabilities are zeroed out, since they would normally shatter and be removed from the deck
+    end,
+    assert = function()
+        Balatest.assert_eq(#G.deck.cards, 5, "Love Train did not prevent glass card from shattering")
+    end
+}
+--#endregion

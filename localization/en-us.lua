@@ -696,6 +696,20 @@ return {
                     "becomes {C:attention}Perishable{} and gives {C:chips}+#3#{} and {C:mult}+#4#{} instead."
                 }
             },
+            j_jojoker_rolling_stones = {
+                name = "Rolling Stones",
+                text = {
+                    "Gives {X:mult,C:white} X#1# {}, but all",
+                    "{C:green}probabilities{} are set to {c:green}0{}."
+                }
+            },
+            j_jojoker_rolling_stones_alt = {
+                name = "Prophecy Stones",
+                text = {
+                    "Gives {X:mult,C:white} X#1# {}, but all",
+                    "{C:green}probabilities{} are set to {c:green}0{}."
+                }
+            },
             -- Part 6: Stone Ocean
             j_jojoker_goo_goo_dolls = {
                 name = "Goo Goo Dolls",

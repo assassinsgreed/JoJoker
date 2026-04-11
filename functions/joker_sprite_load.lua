@@ -72,6 +72,7 @@ JokerSprites = {
         {name = "baby_face", base = {pos = {x = 0, y = 2}}, part_atlas = "golden_wind" },
         {name = "little_feet", base = {pos = {x = 1, y = 2}}, part_atlas = "golden_wind" },
         {name = "black_sabbath", base = {pos = {x = 2, y = 2}}, part_atlas = "golden_wind" },
+        {name = "rolling_stones", base = {pos = {x = 3, y = 2}}, part_atlas = "golden_wind" },
         -- Part 6: Stone Ocean
         {name = "goo_goo_dolls", base = {pos = {x = 0, y = 0}}, part_atlas = "stone_ocean" },
         {name = "stone_free", base = {pos = {x = 1, y = 0}}, part_atlas = "stone_ocean" },

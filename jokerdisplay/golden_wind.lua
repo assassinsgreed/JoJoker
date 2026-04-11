@@ -152,3 +152,17 @@ jd_def["j_jojoker_black_sabbath"] = {
         }
     }
 }
+
+jd_def["j_jojoker_rolling_stones"] = {
+    text = {
+        {
+            border_nodes = {
+                { text = "X" },
+                { ref_table = "card.ability.extra", ref_value = "XMult" }
+            }
+        }
+    },
+    reminder_text = {
+        { text = "0% probabilities", colour = G.C.GREY, },
+    },
+}
