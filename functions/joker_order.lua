@@ -78,6 +78,7 @@ jojoker.joker_order = {
     "grateful_dead",
     "green_green_grass_of_home",
     "hey_ya",
+    "hierophant_green",
     "i_am_a_rock",
     "khnum",
     "killer_queen",

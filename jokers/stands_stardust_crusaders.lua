@@ -421,7 +421,55 @@ local khnum = {
     end
 }
 
+local hierophant_green = {
+    name = "hierophant_green",
+    rarity = 1,
+    cost = 6,
+    jtype = "Stand",
+    jclass = "Long Range",
+    part = "stardust_crusaders",
+    blueprint_compat = true,
+    perishable_compat = true,
+    eternal_compat = true,
+    config = { extra = { rank_diff = 2, mult = 15 } },
+    loc_vars = function(self, info_queue, card)
+      return {vars = {card.ability.extra.rank_diff, card.ability.extra.mult }}
+    end,
+    calculate = function(self, card, context)
+        -- During scoring, if all scored cards are within 2 ranks of each other, give +x mult.
+        if context.cardarea == G.jokers and context.scoring_hand then
+            if context.joker_main then
+                if #context.scoring_hand > 1 then
+                    local lowest = context.scoring_hand[1]:get_id()
+                    local highest = context.scoring_hand[1]:get_id()
+
+                    for i = 1, #context.scoring_hand do
+                        local new_id = context.scoring_hand[i]:get_id()
+                        if new_id < lowest then lowest = new_id end
+                        if new_id > highest then highest = new_id end
+                    end
+
+                    -- Handle Aces
+                    local diff_threshold = card.ability.extra.rank_diff
+                    if lowest == 14 or highest == 14 then
+                        diff_threshold = 12 -- Cover gap from 2 to A (12)
+                    end
+
+                    sendDebugMessage("Hierophant Green: Lowest card rank is "..lowest.." and highest is "..highest.. " with gap tolerance of "..diff_threshold)
+                    if highest - lowest <= diff_threshold then
+                        return {
+                            message = localize{type = 'variable', key = 'a_mult', vars = {card.ability.extra.mult}},
+                            colour = G.C.MULT,
+                            mult_mod = card.ability.extra.mult
+                        }
+                    end
+                end
+            end
+        end
+    end
+}
+
 return {
     name = "Stardust Crusaders Stand Jokers",
-    list = { magician_red, yellow_temperance, star_platinum, wheel_of_fortune, the_lovers, anubis, sethan, the_world, death_thirteen, tenore_sax, khnum },
+    list = { magician_red, yellow_temperance, star_platinum, wheel_of_fortune, the_lovers, anubis, sethan, the_world, death_thirteen, tenore_sax, khnum, hierophant_green },
 }

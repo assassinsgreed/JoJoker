@@ -342,7 +342,16 @@ return {
                 name = "D'Arby Brothers",
                 text = {
                     "Doubles all {C:attention}listed{} {C:green}probabilities{}.",
-                    "({C:inactive}ex: {C:green}1 in 3 -> 2 in 3{C:inactive})"
+                    "{C:inactive}(ex: {C:green}1 in 3 -> 2 in 3{C:inactive})"
+                }
+            },
+            j_jojoker_hierophant_green = {
+                name = "Hierophant Green",
+                text = {
+                    "If all scored cards' ranks and are within",
+                    "{C:attention}#1#{} ranks of each other, gives {C:mult}+#2#{}.",
+                    "{C:inactive}(ex: [4, 4, 4, 6, 6] or [6, 6, 8, 8])",
+                    "{C:inactive}(Does not work for high card)"
                 }
             },
             -- Part 4: Diamond is Unbreakable

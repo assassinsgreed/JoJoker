@@ -344,3 +344,64 @@ Balatest.TestPlay {
     end
 }
 --#endregion
+--#region Hierophant Green
+Balatest.TestPlay {
+    name = 'hierophant_green_does_not_give_mult_when_exceeding_rank_diff',
+    category = { 'jokers', 'stardust_crusaders', 'hierophant_green' },
+    jokers = { 'j_jojoker_hierophant_green' },
+    execute = function()
+        Balatest.play_hand { '2H', '3H', '4H', '5H', '6H' }
+    end,
+    assert = function()
+        Balatest.assert_chips(960, "Hierophant Green gave mult when it should not have")
+    end
+}
+
+Balatest.TestPlay {
+    name = 'hierophant_green_does_not_give_mult_when_single_card',
+    category = { 'jokers', 'stardust_crusaders', 'hierophant_green' },
+    jokers = { 'j_jojoker_hierophant_green' },
+    execute = function()
+        Balatest.play_hand { '2H' }
+    end,
+    assert = function()
+        Balatest.assert_chips(7, "Hierophant Green gave mult for single card")
+    end
+}
+
+Balatest.TestPlay {
+    name = 'hierophant_green_gives_mult_for_pair',
+    category = { 'jokers', 'stardust_crusaders', 'hierophant_green' },
+    jokers = { 'j_jojoker_hierophant_green' },
+    execute = function()
+        Balatest.play_hand { '2H', '2C' }
+    end,
+    assert = function()
+        Balatest.assert_chips(238, "Hierophant Green did not give mult for pair")
+    end
+}
+
+Balatest.TestPlay {
+    name = 'hierophant_green_gives_mult_for_cards_within_threshold',
+    category = { 'jokers', 'stardust_crusaders', 'hierophant_green' },
+    jokers = { 'j_jojoker_hierophant_green' },
+    execute = function()
+        Balatest.play_hand { '2H', '2C', '4H', '4C', '4S' }
+    end,
+    assert = function()
+        Balatest.assert_chips(1064, "Hierophant Green did not give mult for full house within threshold")
+    end
+}
+
+Balatest.TestPlay {
+    name = 'hierophant_green_gives_mult_for_cards_across_two_and_ace_gap',
+    category = { 'jokers', 'stardust_crusaders', 'hierophant_green' },
+    jokers = { 'j_jojoker_hierophant_green' },
+    execute = function()
+        Balatest.play_hand { '2H', '2C', 'AH', 'AC' }
+    end,
+    assert = function()
+        Balatest.assert_chips(782, "Hierophant Green did not give mult for cards within threshold with ace gap")
+    end
+}
+--#endregion

@@ -136,3 +136,15 @@ jd_def["j_jojoker_darby_brothers"] = {
         { text = "Doubles listed probabilities", colour = G.C.GREY },
     },
 }
+
+jd_def["j_jojoker_hierophant_green"] = {
+    text = {
+        { text = "+", colour = G.C.MULT },
+        { ref_table = "card.ability.extra", ref_value = "mult", retrigger_type = "mult",  colour = G.C.MULT },
+    },
+    reminder_text = {
+        { text = "If within ", colour = G.C.GREY, },
+        { ref_table = "card.ability.extra", ref_value = "rank_diff", retrigger_type = "rank_diff",  colour = G.C.GREY },
+        { text = " ranks of each other", colour = G.C.GREY, }
+    }
+}
