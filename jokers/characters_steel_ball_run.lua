@@ -25,7 +25,7 @@ local danny_sbr = {
         end
     end,
     add_to_deck = function(self, card, from_debuff)
-        if #G.jokers.cards > 0 then
+        if #G.jokers.cards > 1 then
             -- Destroy a random joker that is not Danny SBR
             local danny_index = find_joker_pos(card)
             local joker_to_destroy_index = danny_index

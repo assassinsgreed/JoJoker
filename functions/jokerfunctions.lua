@@ -148,6 +148,8 @@ ease_joker_dollars = function(card, seed, amt, calc_only)
 end
 
 transform_joker = function(card, target_key)
+    local custom_values_to_keep = {}
+    local has_custom_values_to_keep = nil
     local new_card = G.P_CENTERS[target_key]
     local trigger_add = nil
     if card.config.center == new_card then return end
@@ -159,6 +161,14 @@ transform_joker = function(card, target_key)
         card.debuff = false
     end
 
+    -- Collect config values to retain
+    if card.config.center.custom_values_to_keep then
+      for k, v in pairs(card.config.center.custom_values_to_keep) do
+        custom_values_to_keep[v] = card.ability.extra[v]
+      end
+      has_custom_values_to_keep = true
+    end
+
     -- Perform transformation
     card.children.center = Sprite(card.T.x, card.T.y, card.T.w, card.T.h, G.ASSET_ATLAS[new_card.atlas or "Joker"], new_card.pos)
     card.children.center.states.hover = card.states.hover
@@ -168,6 +178,13 @@ transform_joker = function(card, target_key)
     card.children.center:set_role({major = card, role_type = 'Glued', draw_major = card})
     card:set_ability(new_card, true)
     card:set_cost()
+
+    -- Restore custom values to keep
+    if has_custom_values_to_keep then
+      for k, v in pairs(custom_values_to_keep) do
+        card.ability.extra[k] = v
+      end
+    end
 
     if new_card.soul_pos then
         card.children.floating_sprite = Sprite(card.T.x, card.T.y, card.T.w, card.T.h, G.ASSET_ATLAS[new_card.atlas or "Joker"], new_card.soul_pos)
@@ -251,4 +268,38 @@ handle_left_side_ataxia_disabling = function(left_side_ataxia_card)
       end
   end
   return disabled
+end
+
+get_random_joker_key = function(seed)
+  -- Ban jokers that copy others' effects
+  local excluded_keys = {'khnum', 'surface', 'the_fool', 'kars_stopped_thinking', 'stroheim_german_engineering'}
+  local jojoker_keys = {}
+  local chosen_key
+
+  for k, v in pairs(G.P_CENTERS) do
+    if v.jtype and get_part_allowed(v) and (not (type(v.in_pool) == 'function') or v:in_pool())
+       and not G.GAME.banned_keys[v.key] and not (G.GAME.used_jokers[v.key] and not SMODS.showman(v.key)) then
+
+      if v.enhancement_gate then
+        if G.playing_cards then
+          for kk, vv in pairs(G.playing_cards) do
+            if SMODS.has_enhancement(vv, v.enhancement_gate) and not excluded_keys[v.key] then
+              table.insert(jojoker_keys, v.key)
+              break
+            end
+          end
+        end
+      else
+        table.insert(jojoker_keys, v.key)
+      end
+    end
+  end
+
+  if #jojoker_keys > 0 then
+    chosen_key = pseudorandom_element(jojoker_keys, pseudoseed(seed))
+  else
+    chosen_key = "j_jojoker_jonathan_joestar"
+  end
+
+  return chosen_key
 end

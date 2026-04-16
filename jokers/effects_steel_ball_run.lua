@@ -288,7 +288,9 @@ local left_side_ataxia = {
         for i = 1, #G.jokers.cards do
             local other_joker = G.jokers.cards[i]
             other_joker.ability.extra.lta_disabled = false
-            other_joker.ability.debuff_sources[tostring(card)] = false
+            if other_joker.ability.debuff_sources then
+                other_joker.ability.debuff_sources[tostring(card)] = false
+            end
             SMODS.recalc_debuff(other_joker)
         end
     end

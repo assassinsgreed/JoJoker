@@ -76,3 +76,28 @@ if card.area == G.scan_view then
 end
 '''
 match_indent = true
+
+## Transform back to The Fool on shop enter
+[[patches]]
+[patches.pattern]
+target = "functions/button_callbacks.lua"
+pattern = "G.STATE = G.STATES.SHOP"
+position = "after"
+payload = '''
+    -- This runs immediately when the player clicks "Cash Out"
+    for i = 1, #G.jokers.cards do
+        local current_joker = G.jokers.cards[i]
+        -- Adding a check to ensure the card exists
+        if current_joker and current_joker.ability and current_joker.ability.extra and current_joker.ability.extra.is_the_fool then
+            sendDebugMessage("JoJoker: Converting " .. current_joker.ability.name .. " back to The Fool")
+            -- Ensure transform_joker is a globally accessible function in your mod
+            transform_joker(current_joker, 'j_jojoker_the_fool')
+            G.E_MANAGER:add_event(Event(
+            {
+                func = function() card_eval_status_text(current_joker, 'extra', nil, nil, nil, {message = localize('sound_reverting')}); return true
+                end
+            }))
+        end
+    end
+'''
+match_indent = true

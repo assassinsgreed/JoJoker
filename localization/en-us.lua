@@ -354,6 +354,12 @@ return {
                     "{C:inactive}(Does not work for high card)"
                 }
             },
+            j_jojoker_the_fool = {
+                name = "The Fool",
+                text = {
+                    "Transforms into a {C:attention}random Joker{} at the start of each blind.",
+                }
+            },
             -- Part 4: Diamond is Unbreakable
             j_jojoker_voice_of_love = {
                 name = "Voice of Love",
@@ -1286,6 +1292,8 @@ return {
             sound_wry = "Wryyyy!!",
             sound_fell_for_it = "You fell for it, fool!",
             sound_bites_the_dust = "Bites za dusto!",
+            sound_transforming = "Transforming!",
+            sound_reverting = "Reverting!",
 
             -- Common strings
             a_hand = "a hand",

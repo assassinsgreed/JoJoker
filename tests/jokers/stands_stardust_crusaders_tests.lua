@@ -405,3 +405,32 @@ Balatest.TestPlay {
     end
 }
 --#endregion
+
+--#region The Fool
+Balatest.TestPlay {
+    name = 'the_fool_transforms_on_blind_start',
+    category = { 'jokers', 'stardust_crusaders', 'the_fool' },
+    jokers = { 'j_jojoker_the_fool' },
+    execute = function()
+        Balatest.wait()
+    end,
+    assert = function()
+        local is_the_fool = G.jokers.cards[1].config.center == G.P_CENTERS['j_jojoker_the_fool']
+        Balatest.assert_eq(is_the_fool, false, "The Fool did not transform on blind start")
+    end
+}
+
+Balatest.TestPlay {
+    name = 'the_fool_reverts_when_entering_the_shop',
+    category = { 'jokers', 'stardust_crusaders', 'the_fool' },
+    jokers = { 'j_jojoker_the_fool' },
+    execute = function()
+        Balatest.end_round()
+        Balatest.cash_out()
+    end,
+    assert = function()
+        local is_the_fool = G.jokers.cards[1].config.center == G.P_CENTERS['j_jojoker_the_fool']
+        Balatest.assert_eq(is_the_fool, true, "The Fool did not revert when entering the shop")
+    end
+}
+--#endregion

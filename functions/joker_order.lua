@@ -109,6 +109,7 @@ jojoker.joker_order = {
     "survivor",
     "tattoo_you",
     "tenore_sax",
+    "the_fool",
     "the_hand",
     "the_lovers",
     "the_world",

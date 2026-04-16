@@ -148,3 +148,9 @@ jd_def["j_jojoker_hierophant_green"] = {
         { text = " ranks of each other", colour = G.C.GREY, }
     }
 }
+
+jd_def["j_jojoker_the_fool"] = {
+    text = {
+        { text = "Transforms on blind start", colour = G.C.GREY }
+    }
+}

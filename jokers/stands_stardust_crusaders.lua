@@ -412,12 +412,12 @@ local khnum = {
     perishable_compat = true,
     eternal_compat = true,
     calculate = function(self, card, context)
-       -- Copies rightmost joker, if possible
- 		local other_joker = G.jokers.cards[#G.jokers.cards]
- 		local other_joker_ret = SMODS.blueprint_effect(card, other_joker, context)
- 		if other_joker_ret then
- 			return other_joker_ret
- 		end
+        -- Copies rightmost joker, if possible
+        local other_joker = G.jokers.cards[#G.jokers.cards]
+        local other_joker_ret = SMODS.blueprint_effect(card, other_joker, context)
+        if other_joker_ret then
+            return other_joker_ret
+        end
     end
 }
 
@@ -469,7 +469,38 @@ local hierophant_green = {
     end
 }
 
+local the_fool = {
+    name = "the_fool",
+    rarity = 3,
+    cost = 10,
+    jtype = "Stand",
+    jclass = "Close Range",
+    part = "stardust_crusaders",
+    blueprint_compat = false,
+    perishable_compat = true,
+    eternal_compat = true,
+    config = { extra = { is_the_fool = true } },
+    custom_values_to_keep = {"is_the_fool"},
+    calculate = function(self, card, context)
+        -- When blind starts, transform into another joker
+        if context.setting_blind then
+            local joker_key = get_random_joker_key('j_jojoker_the_fool')
+            sendDebugMessage("The Fool: Transforming into "..joker_key)
+            transform_joker(card, joker_key)
+            return {
+                message = localize('sound_transforming')
+            }
+        end
+
+        -- Converted back in Lua function added to gameplay_functions.toml
+    end,
+    -- Prevent the object from being spawned by Judgement specifically
+    in_pool = function(self, args)
+        return not args or args.source ~= "jud"
+    end
+}
+
 return {
     name = "Stardust Crusaders Stand Jokers",
-    list = { magician_red, yellow_temperance, star_platinum, wheel_of_fortune, the_lovers, anubis, sethan, the_world, death_thirteen, tenore_sax, khnum, hierophant_green },
+    list = { magician_red, yellow_temperance, star_platinum, wheel_of_fortune, the_lovers, anubis, sethan, the_world, death_thirteen, tenore_sax, khnum, hierophant_green, the_fool },
 }
