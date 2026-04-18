@@ -21,6 +21,7 @@ jojoker.joker_order = {
     "ndoul",
     "nypd",
     "old_joseph_joestar",
+    "poco",
     "pucci",
     "reimi",
     "santana",

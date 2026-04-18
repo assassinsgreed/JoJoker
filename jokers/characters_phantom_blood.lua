@@ -402,7 +402,41 @@ local dio_brando = {
     end
 }
 
+local poco = {
+    name = "poco",
+    rarity = 1,
+    cost = 5,
+    jtype = "Character",
+    part = "phantom_blood",
+    blueprint_compat = true,
+    perishable_compat = true,
+    eternal_compat = true,
+    config = { extra = { score_threshold = 0.20, money_mod = 2 } },
+    loc_vars = function(self, info_queue, center)
+      return {vars = { center.ability.extra.score_threshold, center.ability.extra.money_mod }}
+    end,
+    calculate = function(self, card, context)
+        if context.cardarea == G.jokers and context.scoring_hand then
+            if context.joker_main then
+                local hand_score = SMODS.calculate_round_score()
+                local score_ratio = hand_score / G.GAME.blind.chips
+                sendDebugMessage("Poco: Resulting chips are "..hand_score.." and blind chips are "..G.GAME.blind.chips.." (ratio of "..score_ratio.." vs "..card.ability.extra.score_threshold..")")
+
+                -- Give money if equal to or below threshold
+                if score_ratio <= card.ability.extra.score_threshold then
+                    ease_dollars(card.ability.extra.money_mod)
+                    return {
+                        message = localize('$')..card.ability.extra.money_mod,
+                        colour = G.C.MONEY,
+                        card = card
+                    }
+                end
+            end
+        end
+    end
+}
+
 return {
     name = "Phantom Blood Character Jokers",
-    list = { danny, baron_zeppeli, speedwagon, zombies, straizo, george_joestar, dario_brando, erina, jonathan_joestar, dio_brando },
+    list = { danny, baron_zeppeli, speedwagon, zombies, straizo, george_joestar, dario_brando, erina, jonathan_joestar, dio_brando, poco },
 }

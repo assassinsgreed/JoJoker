@@ -128,3 +128,15 @@ jd_def["j_jojoker_thunder_cross_split_attack"] = {
         }
     }
 }
+
+jd_def["j_jojoker_poco"] = {
+    text = {
+        { text = "$", colour = G.C.MONEY },
+        { ref_table = "card.ability.extra", ref_value = "money_mod", retrigger_type = "money_mod", colour = G.C.MONEY },
+    },
+    reminder_text = {
+        { text = "When scoring <= ", colour = G.C.GREY },
+        { ref_table = "card.ability.extra", ref_value = "score_threshold", retrigger_type = "score_threshold", colour = G.C.GREY },
+        { text = " blind chips", colour = G.C.GREY },
+    }
+}

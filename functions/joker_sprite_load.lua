@@ -14,6 +14,7 @@ JokerSprites = {
         {name = "sword_of_luck_and_pluck", base = {pos = {x = 4, y = 1}}, part_atlas = "phantom_blood" },
         {name = "dio_brando", base = {pos = {x = 0, y = 2}}, part_atlas = "phantom_blood" },
         {name = "thunder_cross_split_attack", base = {pos = {x = 1, y = 2}}, part_atlas = "phantom_blood" },
+        {name = "poco", base = {pos = {x = 2, y = 2}}, part_atlas = "phantom_blood" },
         -- Part 2: Battle Tendency
         {name = "joseph_joestar", base = {pos = {x = 0, y = 0}}, part_atlas = "battle_tendency" },
         {name = "esidisi", base = {pos = {x = 1, y = 0}}, part_atlas = "battle_tendency" },

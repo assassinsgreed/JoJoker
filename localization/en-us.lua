@@ -104,6 +104,13 @@ return {
                     "{C:inactive}Currently: {X:mult,C:white} X#3# {}"
                 }
             },
+            j_jojoker_poco = {
+                name = "Poco",
+                text = {
+                    "If scored chips are {C:attention}<= #1#%{} of the",
+                    "blind's requirement, gain {C:money}$#2#{}."
+                }
+            },
             -- Part 2: Battle Tendency
             j_jojoker_joseph_joestar = {
                 name = "Joseph Joestar",

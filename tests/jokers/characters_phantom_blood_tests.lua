@@ -308,3 +308,29 @@ Balatest.TestPlay {
     end
 }
 --#endregion
+--#region Poco
+Balatest.TestPlay {
+    name = 'poco_gives_money_when_scored_hand_below_blind_threshold',
+    category = { 'jokers', 'phantom_blood', 'poco' },
+    jokers = { 'j_jojoker_poco' },
+    dollars = 0,
+    execute = function()
+        Balatest.play_hand { '2S' } -- Blind threshold 300
+    end,
+    assert = function()
+        Balatest.assert_dollars(G.jokers.cards[1].ability.extra.money_mod, "Poco did not give money when scoring below threshold")
+    end
+}
+Balatest.TestPlay {
+    name = 'poco_does_not_give_money_when_scored_hand_above_blind_threshold',
+    category = { 'jokers', 'phantom_blood', 'poco' },
+    jokers = { 'j_jojoker_poco' },
+    dollars = 0,
+    execute = function()
+        Balatest.play_hand { '2S', '2D', '2C', 'AD', 'AH' } -- Blind threshold 300
+    end,
+    assert = function()
+        Balatest.assert_dollars(0, "Poco gave money when scoring above threshold")
+    end
+}
+--#endregion
