@@ -284,7 +284,7 @@ Balatest.TestPlay {
     name = 'marilyn_manson_gives_money_when_no_discards_remain',
     category = { 'jokers', 'stone_ocean', 'marilyn_manson' },
     jokers = { 'j_jojoker_marilyn_manson' },
-    money = 0,
+    dollars = 0,
     discards = 0,
     execute = function()
         Balatest.end_round()
@@ -299,7 +299,7 @@ Balatest.TestPlay {
     name = 'marilyn_manson_allows_player_to_go_into_debt',
     category = { 'jokers', 'stone_ocean', 'marilyn_manson' },
     jokers = { 'j_jojoker_marilyn_manson' },
-    money = 0,
+    dollars = 0,
     execute = function()
         Balatest.end_round()
         Balatest.cash_out()

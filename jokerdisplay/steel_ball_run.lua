@@ -231,3 +231,10 @@ jd_def["j_jojoker_love_train"] = {
         { text = "Glass never shatters", colour = G.C.GREY }
     },
 }
+
+jd_def["j_jojoker_in_a_silent_way"] = {
+    text = {
+        { text = "+", colour = G.C.MULT },
+        { ref_table = "card.ability.extra", ref_value = "current_mult", retrigger_type = "current_mult", colour = G.C.MULT },
+    },
+}

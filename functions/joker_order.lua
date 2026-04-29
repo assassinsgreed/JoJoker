@@ -81,6 +81,7 @@ jojoker.joker_order = {
     "hey_ya",
     "hierophant_green",
     "i_am_a_rock",
+    "in_a_silent_way",
     "khnum",
     "killer_queen",
     "king_crimson",

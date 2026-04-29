@@ -300,7 +300,44 @@ local love_train = {
     end
 }
 
+local in_a_silent_way = {
+    name = "in_a_silent_way",
+    rarity = 1,
+    cost = 5,
+    jtype = "Stand",
+    jclass = "Close Range",
+    part = "steel_ball_run",
+    blueprint_compat = true,
+    perishable_compat = true,
+    eternal_compat = true,
+    config = { extra = { mult_mod = 3, current_mult = 0 } },
+    loc_vars = function(self, info_queue, center)
+      return {
+        vars = { center.ability.extra.mult_mod, center.ability.extra.current_mult },
+        key = jojoker_config.use_localized_names and self.key..'_alt' or self.key
+    }
+    end,
+    calculate = function(self, card, context)
+        -- Gains 3 mult whenever a booster pack is opened
+        if context.open_booster then
+            sendDebugMessage("In a Silent Way: Adding "..card.ability.extra.mult_mod.." on opened booster pack.")
+            card.ability.extra.current_mult = card.ability.extra.current_mult + card.ability.extra.mult_mod
+        end
+
+        -- During scoring, give mult
+        if context.cardarea == G.jokers and context.scoring_hand then
+            if context.joker_main then
+                return {
+                    message = localize{type = 'variable', key = 'a_mult', vars = {card.ability.extra.current_mult}},
+                    colour = G.C.MULT,
+                    mult_mod = card.ability.extra.current_mult
+                }
+            end
+        end
+    end
+}
+
 return {
     name = "Steel Ball Run Stand Jokers",
-    list = { mandom, chocolate_disco, oh_lonesome_me, hey_ya, tattoo_you, civil_war, ball_breaker, love_train },
+    list = { mandom, chocolate_disco, oh_lonesome_me, hey_ya, tattoo_you, civil_war, ball_breaker, love_train, in_a_silent_way },
 }

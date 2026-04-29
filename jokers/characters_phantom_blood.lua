@@ -22,7 +22,7 @@ local danny = {
             if context.joker_main then
                 return {
                     message = localize{type = 'variable', key = 'a_mult', vars = {card.ability.extra.mult}},
-                    colour = G.C.XMULT,
+                    colour = G.C.MULT,
                     mult_mod = card.ability.extra.mult
                 }
             end

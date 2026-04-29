@@ -315,3 +315,20 @@ Balatest.TestPlay {
     end
 }
 --#endregion
+
+--#region In a Silent Way
+Balatest.TestPlay {
+    name = 'in_a_silent_way_gains_mult_when_booster_opened',
+    category = { 'jokers', 'steel_ball_run', 'in_a_silent_way' },
+    jokers = { 'j_jojoker_in_a_silent_way' },
+    dollars = 10,
+    execute = function()
+        Balatest.end_round()
+        Balatest.cash_out()
+        Balatest.open(function() return G.shop_booster.cards[1] end)
+    end,
+    assert = function()
+        Balatest.assert_eq(G.jokers.cards[1].ability.extra.current_mult, G.jokers.cards[1].ability.extra.mult_mod, "In a Silent Way did not gain mult for opened booster pack")
+    end
+}
+--#endregion

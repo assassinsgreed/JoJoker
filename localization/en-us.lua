@@ -1070,6 +1070,22 @@ return {
                     "Glass cards {C:attention}never shatter{}."
                 }
             },
+            j_jojoker_in_a_silent_way = {
+                name = "In a Silent Way",
+                text = {
+                    "Gains {C:mult}+#1#{} for each opened {C:attention}Booster Pack{}.",
+                    "{br:2}line break",
+                    "{C:inactive}Currently: {C:mult}+#2#{}"
+                }
+            },
+            j_jojoker_in_a_silent_way_alt = {
+                name = "Silent Ways",
+                text = {
+                    "Gains {C:mult}+#1#{} for each opened {C:attention}Booster Pack{}.",
+                    "{br:2}line break",
+                    "{C:inactive}Currently: {C:mult}+#2#{}"
+                }
+            },
             -- Part 8: Jojolion
             j_jojoker_soft_and_wet = {
                 name = "Soft & Wet",
