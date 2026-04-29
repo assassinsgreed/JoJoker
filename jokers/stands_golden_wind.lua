@@ -372,7 +372,7 @@ local little_feet = {
     jclass = "Close Range",
     part = "golden_wind",
     blueprint_compat = true,
-    config = { extra = { Xmult = 2 } },
+    config = { extra = { Xmult = 1.5 } },
     loc_vars = function(self, info_queue, center)
      return {
         vars = {center.ability.extra.Xmult},

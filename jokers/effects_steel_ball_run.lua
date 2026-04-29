@@ -66,7 +66,7 @@ local the_true_mans_world = {
     blueprint_compat = true,
     perishable_compat = true,
     eternal_compat = true,
-    config = { extra = { Xmult_mod = 0.25, Xmult = 1 } },
+    config = { extra = { Xmult_mod = 0.2, Xmult = 1 } },
     loc_vars = function(self, info_queue, card)
       return {vars = {card.ability.extra.Xmult_mod, card.ability.extra.Xmult}}
     end,
@@ -168,7 +168,7 @@ local the_first_napkin = {
 
 local wavering_heart = {
     name = "wavering_heart",
-    rarity = 1,
+    rarity = 2,
     cost = 4,
     jtype = "Effect",
     part = "steel_ball_run",
@@ -213,7 +213,7 @@ local dark_determination = {
     blueprint_compat = true,
     perishable_compat = true,
     eternal_compat = true,
-    config = { extra = { Xmult = 1, Xmult_mod = 1, has_rerolled = false } },
+    config = { extra = { Xmult = 1, Xmult_mod = 0.5, has_rerolled = false } },
     loc_vars = function(self, info_queue, card)
       return {vars = {card.ability.extra.Xmult, card.ability.extra.Xmult_mod}}
     end,

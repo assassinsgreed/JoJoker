@@ -105,7 +105,7 @@ Balatest.TestPlay {
     end,
     assert = function()
         local joker_xmult = G.jokers.cards[1].ability.extra.Xmult
-        Balatest.assert_eq(1.25, joker_xmult, "The True Man's World did not increase Xmult by 0.25 before playing hand")
+        Balatest.assert_eq(1.2, joker_xmult, "The True Man's World did not increase Xmult by 0.2 before playing hand")
     end
 }
 
@@ -278,7 +278,7 @@ Balatest.TestPlay {
         Balatest.exit_shop()
     end,
     assert = function()
-        Balatest.assert_eq(G.jokers.cards[1].ability.extra.Xmult, 2, "Dark Determination did not increase Xmult correctly after ending shop without rerolling")
+        Balatest.assert_eq(G.jokers.cards[1].ability.extra.Xmult, 1.5, "Dark Determination did not increase Xmult correctly after ending shop without rerolling")
     end
 }
 
