@@ -408,7 +408,39 @@ local killer_queen = {
     end
 }
 
+local heavens_door = {
+    name = "heavens_door",
+    rarity = 2,
+    cost = 6,
+    jtype = "Stand",
+    jclass = "Close Range",
+    part = "diamond_is_unbreakable",
+    blueprint_compat = true,
+    perishable_compat = true,
+    eternal_compat = true,
+    calculate = function(self, card, context)
+        -- When beating a boss, gives a random tag
+        if context.end_of_round and context.game_over == false and context.main_eval and context.beat_boss and not card.debuff then
+            sendDebugMessage("Heaven's Door: Giving random tag after beating boss")
+            card:juice_up(0.1)
+            local tag_pool = get_current_pool('Tag')
+            local selected_tag = pseudorandom_element(tag_pool, 'jojoker')
+            local it = 1
+            while selected_tag == 'UNAVAILABLE' do
+                it = it + 1
+                selected_tag = pseudorandom_element(tag_pool, 'jojoker_seed_resample'..it)
+            end
+            add_tag(Tag(selected_tag, false, 'Small'))
+
+            return {
+                message = localize('sound_rewriting'),
+                colour = G.C.GOLD
+            }
+        end
+    end
+}
+
 return {
     name = "Diamond is Unbreakable Stand Jokers",
-    list = { red_hot_chili_pepper, the_hand, superfly, crazy_diamond, bad_company, cheap_trick, cinderella, atom_heart_father, surface, killer_queen },
+    list = { red_hot_chili_pepper, the_hand, superfly, crazy_diamond, bad_company, cheap_trick, cinderella, atom_heart_father, surface, killer_queen, heavens_door },
 }

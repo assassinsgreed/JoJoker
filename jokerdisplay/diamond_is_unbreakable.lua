@@ -164,6 +164,15 @@ jd_def["j_jojoker_killer_queen"] = {
         { ref_table = "card.ability.extra", ref_value = "denominator", retrigger_type = "denominator",  colour = G.C.GOLD },
     },
     reminder_text = {
-        { text = "Rewind blind after beating boss", colour = G.C.GREY, },
+        { text = "Rewind blind after beating boss", colour = G.C.GREY },
+    },
+}
+
+jd_def["j_jojoker_heavens_door"] = {
+    text = {
+        { text = "Get random tag", colour = G.C.GREY }
+    },
+    reminder_text = {
+        { text = "After beating boss", colour = G.C.GREY }
     },
 }

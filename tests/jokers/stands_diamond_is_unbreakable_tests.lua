@@ -321,3 +321,7 @@ Balatest.TestPlay {
 }
 -- The way Balatest invokes blinds prevents boss blinds from being seen as bosses, so no test for rewinding...
 --#endregion
+
+--#region Heaven's Door
+-- The way Balatest invokes blinds prevents boss blinds from being seen as bosses, so no test for tag generation...
+--#endregion

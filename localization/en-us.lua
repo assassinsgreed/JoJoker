@@ -525,6 +525,12 @@ return {
                     "{C:attention}#1# in #2#{} chance to rewind blind when defeating a boss."
                 }
             },
+            j_jojoker_heavens_door = {
+                name = "Heaven's Door",
+                text = {
+                    "Gives a random {C:attention}tag{} at the end of {C:attention}boss blinds{}."
+                }
+            },
             -- Part 5: Golden Wind
             j_jojoker_sex_pistols = {
                 name = "Sex Pistols",
@@ -1317,6 +1323,7 @@ return {
             sound_bites_the_dust = "Bites za dusto!",
             sound_transforming = "Transforming!",
             sound_reverting = "Reverting!",
+            sound_rewriting = "Rewriting!",
 
             -- Common strings
             a_hand = "a hand",
