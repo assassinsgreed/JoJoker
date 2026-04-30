@@ -1181,6 +1181,20 @@ return {
                     "{C:inactive}Currently: {X:mult,C:white} X#4# {}"
                 }
             },
+            j_jojoker_paisley_park = {
+                name = "Paisley Park",
+                text = {
+                    "Increases {C:attention}booster pack{} limit in shops by {C:attention}#1#{}.",
+                    "{C:attention}Booster packs{} have {C:attention}#2#{} more card in them."
+                }
+            },
+            j_jojoker_paisley_park_alt = {
+                name = "Flower Park",
+                text = {
+                    "Increases {C:attention}booster pack{} limit in shops by {C:attention}#1#{}.",
+                    "{C:attention}Booster packs{} have {C:attention}#2#{} more card in them."
+                }
+            },
             -- Part 9: THE JOJOLands
             j_jojoker_smooth_operator = {
                 name = "Smooth Operators",

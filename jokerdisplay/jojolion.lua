@@ -88,3 +88,14 @@ jd_def["j_jojoker_wonder_of_u"] = {
         { text = " rounds remaining", colour = G.C.GREY }
     }
 }
+
+jd_def["j_jojoker_paisley_park"] = {
+    text = {
+        { text = "+", colour = G.C.GOLD },
+        { ref_table = "card.ability.extra", ref_value = "booster_limit", retrigger_type = "booster_limit",  colour = G.C.GOLD },
+        { text = " booster packs", colour = G.C.GOLD }
+    },
+    reminder_text = {
+        { text = "In Shops", colour = G.C.GREY }
+    }
+}

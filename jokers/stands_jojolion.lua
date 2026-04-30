@@ -283,7 +283,34 @@ local wonder_of_u = {
     end
 }
 
+local paisley_park = {
+    name = "paisley_park",
+    rarity = 3,
+    cost = 7,
+    jtype = "Stand",
+    jclass = "Long Range",
+    part = "jojolion",
+    blueprint_compat = false,
+    perishable_compat = true,
+    eternal_compat = true,
+    config = { extra = { booster_limit = 1, extra_choices = 1 } },
+    loc_vars = function(self, info_queue, card)
+      return {
+        vars = { card.ability.extra.booster_limit, card.ability.extra.extra_choices },
+        key = jojoker_config.use_localized_names and self.key..'_alt' or self.key
+    }
+    end,
+    add_to_deck = function(self, card, from_debuff)
+        SMODS.change_booster_limit(card.ability.extra.booster_limit)
+        G.GAME.extra_booster_picks = (G.GAME.extra_booster_picks or 0) + card.ability.extra.extra_choices
+    end,
+    remove_from_deck = function(self, card, from_debuff)
+        SMODS.change_booster_limit(-card.ability.extra.booster_limit)
+        G.GAME.extra_booster_picks = (G.GAME.extra_booster_picks or 0) - card.ability.extra.extra_choices
+    end,
+}
+
 return {
     name = "Jojolion Stands Jokers",
-    list = { soft_and_wet, paper_moon_king, milagro_man, i_am_a_rock, california_king_bed, doctor_wu, wonder_of_u },
+    list = { soft_and_wet, paper_moon_king, milagro_man, i_am_a_rock, california_king_bed, doctor_wu, wonder_of_u, paisley_park },
 }

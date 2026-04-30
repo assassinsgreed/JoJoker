@@ -123,6 +123,7 @@ JokerSprites = {
         {name = "california_king_bed", base = {pos = {x = 2, y = 1}}, part_atlas = "jojolion" },
         {name = "doctor_wu", base = {pos = {x = 3, y = 1}}, part_atlas = "jojolion" },
         {name = "wonder_of_u", base = {pos = {x = 4, y = 1}}, part_atlas = "jojolion" },
+        {name = "paisley_park", base = {pos = {x = 0, y = 2}}, part_atlas = "jojolion" },
         -- Part 9: THE JOJOLands
         {name = "smooth_operator", base = {pos = {x = 0, y = 0}}, part_atlas = "the_jojolands" },
         -- Other

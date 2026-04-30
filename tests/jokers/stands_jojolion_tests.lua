@@ -183,3 +183,18 @@ Balatest.TestPlay {
     end
 }
 --#endregion
+--#region Paisley Park
+Balatest.TestPlay {
+    name = 'paisley_park_increases_booster_pack_count_in_shop',
+    category = { 'jokers', 'jojolion', 'paisley_park' },
+    jokers = { 'j_jojoker_paisley_park' },
+    execute = function()
+        Balatest.end_round()
+        Balatest.cash_out()
+    end,
+    assert = function()
+        Balatest.assert_eq(#G.shop_booster.cards, 3, "Paisley Park did not increase available booster pack count")
+    end
+}
+-- No test for increased booster pack contents; the options presented are random
+--#endregion

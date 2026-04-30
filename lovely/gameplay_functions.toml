@@ -101,3 +101,16 @@ payload = '''
     end
 '''
 match_indent = true
+
+## Increase booster pack contents (Paisley Park)
+[[patches]]
+[patches.pattern]
+target = "card.lua"
+pattern = "booster_obj = self.config.center"
+position = "after"
+payload = '''
+if G.GAME.extra_booster_picks and G.GAME.extra_booster_picks > 0 then
+  self.ability.extra = self.ability.extra + G.GAME.extra_booster_picks
+end
+'''
+match_indent = true

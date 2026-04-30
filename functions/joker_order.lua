@@ -96,6 +96,7 @@ jojoker.joker_order = {
     "milagro_man",
     "moody_blues",
     "oh_lonesome_me",
+    "paisley_park",
     "paper_moon_king",
     "red_hot_chili_pepper",
     "rolling_stones",
