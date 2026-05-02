@@ -924,6 +924,18 @@ return {
                     "Doubles scored {C:chips}chips{} if a {C:attention}High Card{} is played.",
                 }
             },
+            j_jojoker_c_moon = {
+                name = "C-Moon",
+                text = {
+                    "Equalizes scored {C:chips}chips{} and {C:mult}mult{}.",
+                }
+            },
+            j_jojoker_c_moon_alt = {
+                name = "See Moon",
+                text = {
+                    "Equalizes scored {C:chips}chips{} and {C:mult}mult{}.",
+                }
+            },
             -- Part 7: Steel Ball Run
             j_jojoker_mandom = {
                 name = "Mandom",

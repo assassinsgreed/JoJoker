@@ -150,3 +150,12 @@ jd_def["j_jojoker_marilyn_manson"] = {
         { text = " if 0 discards", colour = G.C.GREY },
     },
 }
+
+jd_def["j_jojoker_c_moon"] = {
+    text = {
+        { text = "Equalizes ", colour = G.C.GREY },
+        { text = "chips", colour = G.C.CHIPS },
+        { text = " & ", colour = G.C.GREY },
+        { text = "mult", colour = G.C.MULT },
+    }
+}

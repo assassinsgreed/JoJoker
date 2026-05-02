@@ -63,6 +63,7 @@ jojoker.joker_order = {
     "ball_breaker",
     "black_sabbath",
     "burning_down_the_house",
+    "c_moon",
     "california_king_bed",
     "cheap_trick",
     "chocolate_disco",

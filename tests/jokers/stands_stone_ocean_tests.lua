@@ -313,3 +313,16 @@ Balatest.TestPlay {
     end
 }
 --#endregion
+--#region C-Moon
+Balatest.TestPlay {
+    name = 'c_moon_equalizes_chips_and_mult',
+    category = { 'jokers', 'stone_ocean', 'c_moon' },
+    jokers = { 'j_jojoker_c_moon' },
+    execute = function()
+        Balatest.play_hand { '2S', '2C', '4D', '4H' }
+    end,
+    assert = function()
+        Balatest.assert_chips(289, "C-Moon did not equalize chips and mult")
+    end
+}
+--#endregion
