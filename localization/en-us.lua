@@ -936,6 +936,18 @@ return {
                     "Equalizes scored {C:chips}chips{} and {C:mult}mult{}.",
                 }
             },
+            j_jojoker_planet_waves = {
+                name = "Planet Waves",
+                text = {
+                    "Played {C:planet}planet cards{} have a {C:attention}#1# in #2#{} chance to be duplicated."
+                }
+            },
+            j_jojoker_planet_waves_alt = {
+                name = "Starlight Waves",
+                text = {
+                    "Played {C:planet}planet cards{} have a {C:attention}#1# in #2#{} chance to be duplicated."
+                }
+            },
             -- Part 7: Steel Ball Run
             j_jojoker_mandom = {
                 name = "Mandom",

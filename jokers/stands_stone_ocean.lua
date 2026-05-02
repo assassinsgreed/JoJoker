@@ -493,7 +493,47 @@ local c_moon = {
     end
 }
 
+local planet_waves = {
+    name = "planet_waves",
+    rarity = 3,
+    cost = 7,
+    jtype = "Stand",
+    jclass = "Close Range",
+    part = "stone_ocean",
+    blueprint_compat = false,
+    perishable_compat = true,
+    eternal_compat = true,
+    config = { extra = { numerator = 1, denominator = 3 } },
+    loc_vars = function(self, info_queue, center)
+      return {vars = {center.ability.extra.numerator, center.ability.extra.denominator}}
+    end,
+    calculate = function(self, card, context)
+        if context.using_consumeable then
+            if context.consumeable.ability.set == 'Planet' then
+                if SMODS.pseudorandom_probability(card, 'planet_waves', card.ability.extra.numerator, card.ability.extra.denominator, 'planet_waves') then
+                    sendDebugMessage("Planet Waves: Duplicating played planet card")
+
+                    G.E_MANAGER:add_event(Event({trigger = 'after', delay = 0.4, func = function()
+                        local _card = SMODS.create_card({
+                            set = "Planet",
+                            area = G.consumeables,
+                            key = context.consumeable.config.center.key
+                        })
+                        _card:add_to_deck()
+                        G.consumeables:emplace(_card)
+                        return true end })
+                    )
+
+                    return {
+                        message = localize('k_copied_ex')
+                    }
+                end
+            end
+        end
+    end
+}
+
 return {
     name = "Stone Ocean Stands Jokers",
-    list = { goo_goo_dolls, stone_free, made_in_heaven, dragons_dream, green_green_grass_of_home, survivor, foo_fighters, white_snake, burning_down_the_house, limp_bizkit, marilyn_manson, c_moon },
+    list = { goo_goo_dolls, stone_free, made_in_heaven, dragons_dream, green_green_grass_of_home, survivor, foo_fighters, white_snake, burning_down_the_house, limp_bizkit, marilyn_manson, c_moon, planet_waves },
 }

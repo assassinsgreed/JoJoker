@@ -326,3 +326,19 @@ Balatest.TestPlay {
     end
 }
 --#endregion
+--#region Planet Waves
+Balatest.TestPlay {
+    name = 'planet_waves_duplicates_planet_card',
+    category = { 'jokers', 'stone_ocean', 'planet_waves' },
+    jokers = { 'j_jojoker_planet_waves' },
+    consumeables = { 'c_mars' },
+    execute = function()
+        G.jokers.cards[1].ability.extra.denominator = G.jokers.cards[1].ability.extra.numerator
+        Balatest.use(G.consumeables.cards[1])
+    end,
+    assert = function()
+        Balatest.assert_eq(#G.consumeables.cards, 1, "Planet Waves did not duplicate any planet cards")
+        Balatest.assert_eq(G.consumeables.cards[1].config.center.key, "c_mars", "Planet Waves did not duplicate the correct planet card")
+    end
+}
+--#endregion

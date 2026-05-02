@@ -99,6 +99,7 @@ jojoker.joker_order = {
     "oh_lonesome_me",
     "paisley_park",
     "paper_moon_king",
+    "planet_waves",
     "red_hot_chili_pepper",
     "rolling_stones",
     "sethan",
