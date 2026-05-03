@@ -33,6 +33,7 @@ jojoker.joker_order = {
     "straizo",
     "stroheim",
     "stroheim_german_engineering",
+    "sugar_mountain",
     "suzi_q",
     "valkyrie",
     "yoshikage_kira",

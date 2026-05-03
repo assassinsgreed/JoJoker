@@ -147,3 +147,94 @@ Balatest.TestPlay {
     end
 }
 --#endregion
+
+--#region Sugar Mountain
+Balatest.TestPlay {
+    name = 'sugar_mountain_gives_money_on_shop_entry',
+    category = { 'jokers', 'steel_ball_run', 'sugar_mountain' },
+    jokers = { 'j_jojoker_sugar_mountain' },
+    execute = function()
+        Balatest.end_round()
+        Balatest.cash_out()
+    end,
+    assert = function()
+        Balatest.assert_dollars(G.jokers.cards[1].ability.extra.money_given, "Sugar Mountain did not give money on shop entry")
+    end
+}
+
+Balatest.TestPlay {
+    name = 'sugar_mountain_sets_money_to_zero_if_overspending',
+    category = { 'jokers', 'steel_ball_run', 'sugar_mountain' },
+    jokers = { 'j_jojoker_sugar_mountain' },
+    dollars = 10,
+    execute = function()
+        Balatest.end_round()
+        Balatest.cash_out()
+        G.jokers.cards[1].ability.extra.spend_left = 0 -- Simulate spending all given money
+        Balatest.buy(function() return G.shop_jokers.cards[1] end) -- Buy anything; $10 is cap
+        Balatest.wait()
+    end,
+    assert = function()
+        Balatest.assert_dollars(0, "Sugar Mountain did not clear out cash when overspending")
+    end
+}
+
+Balatest.TestPlay {
+    name = 'sugar_mountain_sets_money_to_zero_if_sold_in_shop',
+    category = { 'jokers', 'steel_ball_run', 'sugar_mountain' },
+    jokers = { 'j_jojoker_sugar_mountain' },
+    execute = function()
+        Balatest.end_round()
+        Balatest.cash_out()
+        Balatest.sell(function() return G.jokers.cards[1] end)
+    end,
+    assert = function()
+        -- $4 from sell value
+        Balatest.assert_dollars(4, "Sugar Mountain did not clear out cash when sold in shop")
+    end
+}
+
+Balatest.TestPlay {
+    name = 'sugar_mountain_does_not_set_money_to_zero_if_sold_outside_of_shop',
+    category = { 'jokers', 'steel_ball_run', 'sugar_mountain' },
+    jokers = { 'j_jojoker_sugar_mountain' },
+    dollars = 10,
+    execute = function()
+        Balatest.sell(function() return G.jokers.cards[1] end)
+    end,
+    assert = function()
+        Balatest.assert_dollars(14, "Sugar Mountain did not retain cash when sold outside of shop")
+    end
+}
+
+Balatest.TestPlay {
+    name = 'sugar_mountain_sets_money_to_zero_if_threshold_not_hit_when_leaving_shop',
+    category = { 'jokers', 'steel_ball_run', 'sugar_mountain' },
+    jokers = { 'j_jojoker_sugar_mountain' },
+    execute = function()
+        Balatest.end_round()
+        Balatest.cash_out()
+        Balatest.exit_shop()
+    end,
+    assert = function()
+        Balatest.assert_dollars(0, "Sugar Mountain did not clear out cash when threshold not hit")
+    end
+}
+
+Balatest.TestPlay {
+    name = 'sugar_mountain_does_not_set_money_to_zero_if_threshold_hit_when_leaving_shop',
+    category = { 'jokers', 'steel_ball_run', 'sugar_mountain' },
+    jokers = { 'j_jojoker_sugar_mountain' },
+    dollars = 10,
+    execute = function()
+        Balatest.end_round()
+        Balatest.cash_out()
+        G.jokers.cards[1].ability.extra.spend_left = 0 -- Simulate spending all given money
+        Balatest.exit_shop()
+    end,
+    assert = function()
+        -- $10 original + $20 from sugar mountain (due to how we test, this isn't spent)
+        Balatest.assert_dollars(30, "Sugar Mountain did not retain cash when threshold hit")
+    end
+}
+--#endregion

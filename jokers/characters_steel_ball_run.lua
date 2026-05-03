@@ -135,7 +135,102 @@ local valkyrie = {
     end
 }
 
+local sugar_mountain = {
+    name = "sugar_mountain",
+    rarity = 3,
+    cost = 8,
+    jtype = "Character",
+    part = "steel_ball_run",
+    blueprint_compat = false,
+    perishable_compat = true,
+    eternal_compat = true,
+    config = {extra = { money_given = 20, spend_left = 20, in_shop = false }},
+    loc_vars = function(self, info_queue, center)
+        return {
+            vars = { center.ability.extra.money_given, center.ability.extra.spend_left },
+            key = jojoker_config.use_localized_names and self.key..'_alt' or self.key
+        }
+    end,
+    calculate = function(self, card, context)
+        -- Gives $20 when entering the shop. If not exactly 20 spent or is sold, sets money to 0.
+        if context.starting_shop then
+            ease_dollars(card.ability.extra.money_given)
+            card.ability.extra.in_shop = true
+
+            G.E_MANAGER:add_event(Event({trigger = 'after', delay = 0.4, func = function()
+                card_eval_status_text(card, 'extra', nil, nil, nil, {message = localize('sound_use_it_all')})
+                return true end })
+            )
+
+            return {
+                message = localize('$')..card.ability.extra.money_given,
+                colour = G.C.MONEY,
+                card = card
+            }
+        end
+
+        -- Spending money
+        if context.money_altered and context.from_shop then
+            if context.amount < 0 then
+                -- Spent money
+                card.ability.extra.spend_left = card.ability.extra.spend_left + context.amount
+                if card.ability.extra.spend_left < 0 then
+                    sendDebugMessage("Sugar Mountain: Spent more than the given money, will reset money to 0.")
+                    card.ability.extra.spend_left = 0
+
+                    G.E_MANAGER:add_event(Event({trigger = 'after', delay = 0.4, func = function()
+                        G.GAME.dollars = 0
+                        return true end })
+                    )
+
+                    return {
+                        message = localize('sound_lose_everything'),
+                        colour = G.C.MONEY,
+                        card = card
+                    }
+                end
+            end
+        end
+
+        if context.selling_self and card.ability.extra.in_shop then
+            sendDebugMessage("Sugar Mountain: Selling in shop, will reset money to 0.")
+            card.ability.extra.spend_left = 0
+            
+            G.E_MANAGER:add_event(Event({trigger = 'after', delay = 0.4, func = function()
+                G.GAME.dollars = 0
+                return true end })
+            )
+
+            return {
+                message = localize('sound_lose_everything'),
+                colour = G.C.MONEY,
+                card = card
+            }
+        end
+
+        if context.ending_shop then
+            if card.ability.extra.spend_left ~= 0 then
+                sendDebugMessage("Sugar Mountain: Didn't spend exactly "..card.ability.extra.money_given.." dollars, will reset money to 0.")
+                
+                G.E_MANAGER:add_event(Event({trigger = 'after', delay = 0.4, func = function()
+                    G.GAME.dollars = 0
+                    return true end })
+                )
+
+                return {
+                    message = localize('sound_lose_everything'),
+                    colour = G.C.MONEY,
+                    card = card
+                }
+            end
+
+            card.ability.extra.spend_left = card.ability.extra.money_given
+            card.ability.extra.in_shop = false
+        end
+    end
+}
+
 return {
     name = "Steel Ball Run Characters Jokers",
-    list = { danny_sbr, slow_dancer, valkyrie },
+    list = { danny_sbr, slow_dancer, valkyrie, sugar_mountain },
 }

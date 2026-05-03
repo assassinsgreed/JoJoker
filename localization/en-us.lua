@@ -1116,6 +1116,22 @@ return {
                     "{C:inactive}Currently: {C:mult}+#2#{}"
                 }
             },
+            j_jojoker_sugar_mountain = {
+                name = "Sugar Mountain",
+                text = {
+                    "Gives {C:money}$#1#{} when entering shops. If exactly",
+                    "that amount is not spent or joker is sold in shop,",
+                    "is {S:1.1,C:red,E:2}destroyed{} and sets money to {C:money}$0{}."
+                }
+            },
+            j_jojoker_sugar_mountain_alt = {
+                name = "Snow Mountain",
+                text = {
+                    "Gives {C:money}$#1#{} when entering shops. If exactly",
+                    "that amount is not spent or joker is sold in shop,",
+                    "is {S:1.1,C:red,E:2}destroyed{} and sets money to {C:money}$0{}."
+                }
+            },
             -- Part 8: Jojolion
             j_jojoker_soft_and_wet = {
                 name = "Soft & Wet",
@@ -1362,6 +1378,8 @@ return {
             sound_transforming = "Transforming!",
             sound_reverting = "Reverting!",
             sound_rewriting = "Rewriting!",
+            sound_use_it_all = "Use it all up!",
+            sound_lose_everything = "Lose Everything!",
 
             -- Common strings
             a_hand = "a hand",

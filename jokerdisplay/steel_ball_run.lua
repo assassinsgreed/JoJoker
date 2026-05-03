@@ -238,3 +238,13 @@ jd_def["j_jojoker_in_a_silent_way"] = {
         { ref_table = "card.ability.extra", ref_value = "current_mult", retrigger_type = "current_mult", colour = G.C.MULT },
     },
 }
+
+jd_def["j_jojoker_sugar_mountain"] = {
+    text = {
+        { text = "$", colour = G.C.MONEY },
+        { ref_table = "card.ability.extra", ref_value = "spend_left", retrigger_type = "spend_left", colour = G.C.MONEY },
+    },
+    reminder_text = {
+        { text = "Left to spend", colour = G.C.GREY },
+    }
+}
