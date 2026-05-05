@@ -41,8 +41,34 @@ local epitaph = {
     end
 }
 
+local seven_page_muda = {
+    name = "seven_page_muda",
+    rarity = 2,
+    cost = 7,
+    jtype = "Effect",
+    part = "golden_wind",
+    blueprint_compat = true,
+    perishable_compat = true,
+    eternal_compat = true,
+    config = { extra = { has_triggered_this_blind = false } },
+    calculate = function(self, card, context)
+        if context.repetition and not context.end_of_round and context.cardarea == G.play and not card.ability.extra.has_triggered_this_blind then
+            if context.other_card:get_id() == 7 then
+                card.ability.extra.has_triggered_this_blind = true
+                return {
+                    message = localize('sound_muda'),
+                    repetitions = 7,
+                    card = card
+                }
+            end
+        end
+        if context.end_of_round and not context.individual and not context.repetition then
+            card.ability.extra.has_triggered_this_blind = false
+        end
+    end
+}
 
 return {
     name = "Golden Wind Effect Jokers",
-    list = { epitaph },
+    list = { epitaph, seven_page_muda },
 }

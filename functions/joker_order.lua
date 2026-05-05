@@ -47,6 +47,7 @@ jojoker.joker_order = {
     "higashikata_house",
     "higashikata_fruit_parlor",
     "left_side_ataxia",
+    "seven_page_muda",
     "sword_of_luck_and_pluck",
     "the_fifth_lesson",
     "the_first_napkin",

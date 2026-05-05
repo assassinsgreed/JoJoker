@@ -166,3 +166,9 @@ jd_def["j_jojoker_rolling_stones"] = {
         { text = "0% probabilities", colour = G.C.GREY, },
     },
 }
+
+jd_def["j_jojoker_seven_page_muda"] = {
+    text = {
+        { text = "First 7 retriggers", colour = G.C.GREY },
+    },
+}

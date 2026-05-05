@@ -755,6 +755,12 @@ return {
                     "{C:green}probabilities{} are set to {C:green}0{}."
                 }
             },
+            j_jojoker_seven_page_muda = {
+                name = "Seven Page Muda",
+                text = {
+                    "The first {C:attention}scored 7{} of the blind {C:attention}retriggers 7 times{}."
+                }
+            },
             -- Part 6: Stone Ocean
             j_jojoker_goo_goo_dolls = {
                 name = "Goo Goo Dolls",
@@ -1390,6 +1396,7 @@ return {
             sound_rewriting = "Rewriting!",
             sound_use_it_all = "Use it all up!",
             sound_lose_everything = "Lose Everything!",
+            sound_muda = "Muda Muda Muda!",
 
             -- Common strings
             a_hand = "a hand",

@@ -59,3 +59,42 @@ Balatest.TestPlay {
     end
 }
 --#endregion
+
+--#region Seven Page Muda
+Balatest.TestPlay {
+    name = 'seven_page_muda_does_not_retrigger_non_seven_card',
+    category = { 'jokers', 'golden_wind', 'seven_page_muda' },
+    jokers = { 'j_jojoker_seven_page_muda' },
+    execute = function()
+        Balatest.play_hand { '2S' }
+    end,
+    assert = function()
+        Balatest.assert_chips(7, "Seven Page Muda did not give correct chips for non-seven card")
+    end
+}
+
+Balatest.TestPlay {
+    name = 'seven_page_muda_retriggers_seven_card_seven_times',
+    category = { 'jokers', 'golden_wind', 'seven_page_muda' },
+    jokers = { 'j_jojoker_seven_page_muda' },
+    execute = function()
+        Balatest.play_hand { '7S' }
+    end,
+    assert = function()
+        Balatest.assert_chips(12 + 7 * 7, "Seven Page Muda did not give correct chips for seven card")
+    end
+}
+
+Balatest.TestPlay {
+    name = 'seven_page_muda_does_not_retrigger_repeated_seven_card',
+    category = { 'jokers', 'golden_wind', 'seven_page_muda' },
+    jokers = { 'j_jojoker_seven_page_muda' },
+    execute = function()
+        G.jokers.cards[1].ability.extra.has_triggered_this_blind = true
+        Balatest.play_hand { '7S' }
+    end,
+    assert = function()
+        Balatest.assert_chips(12, "Seven Page Muda did not give correct chips for repeated seven card")
+    end
+}
+--#endregion
