@@ -367,6 +367,16 @@ return {
                     "Transforms into a {C:attention}random Joker{} at the start of each blind.",
                 }
             },
+            j_jojoker_thoth = {
+                name = "Thoth",
+                text = {
+                    "Picks a random hand type at the start of blinds.",
+                    "When played, hand {C:attention}gains #1# levels.",
+                    "When not, hand {C:attention}loses #2# level{} if above 1.",
+                    "{br:2}line break",
+                    "{C:inactive}Chosen Hand: #3#"
+                }
+            },
             -- Part 4: Diamond is Unbreakable
             j_jojoker_voice_of_love = {
                 name = "Voice of Love",
@@ -1388,6 +1398,7 @@ return {
             chips = "chips",
             xmult = "Xmult",
             stone_added = "Stone Added",
+            k_downgrade_ex = "Downgrade!",
 
             -- Joker badges
             joker_type_stand_badge = "Stand",

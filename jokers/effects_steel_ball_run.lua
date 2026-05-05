@@ -196,7 +196,7 @@ local wavering_heart = {
             card.ability.extra.curr_chips = card.ability.extra.curr_chips + card.ability.extra.chip_mod
             card.ability.extra.curr_mult = card.ability.extra.curr_mult + card.ability.extra.mult_mod
             sendDebugMessage("Wavering Heart: Increasing chip_mod to " .. card.ability.extra.curr_chips .. " and mult_mod to " .. card.ability.extra.curr_mult .. " on shop reroll")
-             return {
+            return {
                 message = localize('k_upgrade_ex'),
                 colour = G.C.GOLD
             }

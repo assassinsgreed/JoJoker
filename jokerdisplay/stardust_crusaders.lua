@@ -154,3 +154,15 @@ jd_def["j_jojoker_the_fool"] = {
         { text = "Transforms on blind start", colour = G.C.GREY }
     }
 }
+
+jd_def["j_jojoker_thoth"] = {
+    text = {
+        { text = "+", colour = G.C.GOLD },
+        { ref_table = "card.ability.extra", ref_value = "level_change_up", retrigger_type = "level_change_up", colour = G.C.GOLD },
+        { text = "/-", colour = G.C.GOLD },
+        { ref_table = "card.ability.extra", ref_value = "level_change_down", retrigger_type = "level_change_down", colour = G.C.GOLD },
+    },
+    reminder_text = {
+        { ref_table = "card.ability.extra", ref_value = "chosen_hand_type", retrigger_type = "chosen_hand_type", colour = G.C.GREY }
+    }
+}

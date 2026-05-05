@@ -500,7 +500,59 @@ local the_fool = {
     end
 }
 
+local thoth = {
+    name = "thoth",
+    rarity = 2,
+    cost = 8,
+    jtype = "Stand",
+    jclass = "Automatic",
+    part = "stardust_crusaders",
+    blueprint_compat = false,
+    perishable_compat = true,
+    eternal_compat = true,
+    config = { extra = { level_change_up = 2, level_change_down = 1, chosen_hand_type = "High Card" } },
+    loc_vars = function(self, info_queue, card)
+      return {vars = {card.ability.extra.level_change_up, card.ability.extra.level_change_down, card.ability.extra.chosen_hand_type }}
+    end,
+    calculate = function(self, card, context)
+        -- When blind starts, choose a new hand
+        if context.setting_blind then
+            card.ability.extra.chosen_hand_type = pick_random_hand_type().handname
+            sendDebugMessage("Thoth: Chose a new hand type of "..card.ability.extra.chosen_hand_type)
+        end
+
+        if context.cardarea == G.jokers and context.scoring_hand then
+            if context.before then
+                if context.scoring_name == card.ability.extra.chosen_hand_type then
+                    sendDebugMessage("Thoth: Leveling up hand "..card.ability.extra.chosen_hand_type)
+                    SMODS.upgrade_poker_hands({hands = {card.ability.extra.chosen_hand_type}, level_up = card.ability.extra.level_change_up, from = card})
+                    return {
+                        message = localize('k_upgrade_ex'),
+                        colour = G.C.GOLD
+                    }
+                else
+                    if G.GAME.hands[card.ability.extra.chosen_hand_type].level > 1 then
+                        sendDebugMessage("Thoth: Leveling down hand "..card.ability.extra.chosen_hand_type)
+                        SMODS.upgrade_poker_hands({hands = {card.ability.extra.chosen_hand_type}, level_up = -card.ability.extra.level_change_down, from = card})
+                        return {
+                            message = localize('k_downgrade_ex'),
+                            colour = G.C.GOLD
+                        }
+                    else
+                        sendDebugMessage("Thoth: Cannot level hand below level 1")
+                    end
+                end
+            end
+        end
+    end,
+    add_to_deck = function(self, card, from_debuff)
+        -- When added, choose a random hand type (only "visible" ones are chosen, i.e. ones the player can/has played)
+        card.ability.extra.chosen_hand_type = pick_random_hand_type().handname
+        sendDebugMessage("Thoth: Chose a new hand type of "..card.ability.extra.chosen_hand_type)
+    end,
+}
+
 return {
     name = "Stardust Crusaders Stand Jokers",
-    list = { magician_red, yellow_temperance, star_platinum, wheel_of_fortune, the_lovers, anubis, sethan, the_world, death_thirteen, tenore_sax, khnum, hierophant_green, the_fool },
+    list = { magician_red, yellow_temperance, star_platinum, wheel_of_fortune, the_lovers, anubis, sethan, the_world, death_thirteen, tenore_sax, khnum, hierophant_green, the_fool, thoth },
 }
