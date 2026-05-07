@@ -108,6 +108,7 @@ jojoker.joker_order = {
     "sex_pistols",
     "smooth_operator",
     "soft_and_wet",
+    "space_trucking",
     "spice_girl",
     "star_platinum",
     "sticky_fingers",

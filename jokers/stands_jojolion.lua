@@ -310,7 +310,40 @@ local paisley_park = {
     end,
 }
 
+local space_trucking = {
+    name = "space_trucking",
+    rarity = 1,
+    cost = 5,
+    jtype = "Stand",
+    jclass = "Close Range",
+    part = "stardust_crusaders",
+    blueprint_compat = false,
+    perishable_compat = true,
+    eternal_compat = true,
+    config = { extra = { numerator = 1, denominator = 2 } },
+    loc_vars = function(self, info_queue, center)
+      return {vars = {center.ability.extra.numerator, center.ability.extra.denominator}}
+    end,
+    calculate = function(self, card, context)
+        -- Potentially make held consumeables negative at the start of the shop
+        if context.starting_shop then
+            for i = 1, #G.consumeables.cards do
+                local consumeable = G.consumeables.cards[i]
+                if not consumeable.edition or not consumeable.edition.negative then
+                    sendDebugMessage("Space Trucking: Found held consumeable, checking for negative conversion")
+                    if SMODS.pseudorandom_probability(card, 'space_trucking', card.ability.extra.numerator, card.ability.extra.denominator, 'space_trucking') then
+                        sendDebugMessage("Space Trucking: Making held consumeable negative")
+                        consumeable:juice_up()
+                        consumeable:set_edition('e_negative')
+                        play_sound('negative', 1.5, 0.4)
+                    end
+                end
+            end
+        end
+    end
+}
+
 return {
     name = "Jojolion Stands Jokers",
-    list = { soft_and_wet, paper_moon_king, milagro_man, i_am_a_rock, california_king_bed, doctor_wu, wonder_of_u, paisley_park },
+    list = { soft_and_wet, paper_moon_king, milagro_man, i_am_a_rock, california_king_bed, doctor_wu, wonder_of_u, paisley_park, space_trucking },
 }

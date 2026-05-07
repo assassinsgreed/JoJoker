@@ -99,3 +99,14 @@ jd_def["j_jojoker_paisley_park"] = {
         { text = "In Shops", colour = G.C.GREY }
     }
 }
+
+jd_def["j_jojoker_space_trucking"] = {
+    text = {
+        { ref_table = "card.ability.extra", ref_value = "numerator", retrigger_type = "numerator",  colour = G.C.GOLD },
+        { text = " in ", colour = G.C.GOLD },
+        { ref_table = "card.ability.extra", ref_value = "denominator", retrigger_type = "denominator",  colour = G.C.GOLD },
+    },
+    reminder_text = {
+        { text = "Make held consumable negative", colour = G.C.GREY, },
+    },
+}

@@ -1251,6 +1251,13 @@ return {
                     "{C:attention}Booster packs{} have {C:attention}#2#{} more card in them."
                 }
             },
+            j_jojoker_space_trucking = {
+                name = "Space Trucking",
+                text = {
+                    "When entering the shop, held consumables have a",
+                    "{C:attention}#1# in #2#{} chance to be made {C:dark_edition}Negative{}."
+                }
+            },
             -- Part 9: THE JOJOLands
             j_jojoker_smooth_operator = {
                 name = "Smooth Operators",

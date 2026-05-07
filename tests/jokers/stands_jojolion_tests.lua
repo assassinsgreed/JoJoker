@@ -198,3 +198,36 @@ Balatest.TestPlay {
 }
 -- No test for increased booster pack contents; the options presented are random
 --#endregion
+--#region Space Trucking
+Balatest.TestPlay {
+    name = 'space_trucking_makes_held_consumeables_negative',
+    category = { 'jokers', 'jojolion', 'space_trucking' },
+    jokers = { 'j_jojoker_space_trucking' },
+    consumeables = { 'c_mars' },
+    execute = function()
+        G.jokers.cards[1].ability.extra.denominator = G.jokers.cards[1].ability.extra.numerator
+        Balatest.end_round()
+        Balatest.cash_out()
+    end,
+    assert = function()
+        Balatest.assert_eq(G.consumeables.cards[1].edition.negative, true, "Space Trucking did not make held consumeables negative")
+    end
+}
+
+Balatest.TestPlay {
+    name = 'space_trucking_affects_consumeables_with_existing_editions',
+    category = { 'jokers', 'jojolion', 'space_trucking' },
+    jokers = { 'j_jojoker_space_trucking' },
+    consumeables = { 'c_mars' },
+    execute = function()
+        G.jokers.cards[1].ability.extra.denominator = G.jokers.cards[1].ability.extra.numerator
+        G.consumeables.cards[1]:set_edition("e_foil")
+        Balatest.end_round()
+        Balatest.cash_out()
+    end,
+    assert = function()
+        Balatest.assert_eq(G.consumeables.cards[1].edition.negative, true, "Space Trucking did not make a held consumeable with an existing edition negative")
+    end
+}
+-- No test for increased booster pack contents; the options presented are random
+--#endregion
