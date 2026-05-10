@@ -64,7 +64,50 @@ local thunder_cross_split_attack = {
     end
 }
 
+local vampiric_touch = {
+    name = "vampiric_touch",
+    rarity = 1,
+    cost = 4,
+    jtype = "Effect",
+    part = "phantom_blood",
+    blueprint_compat = false,
+    perishable_compat = true,
+    eternal_compat = true,
+    config = { extra = { money_mod = 1, } },
+    loc_vars = function(self, info_queue, center)
+      return {vars = { center.ability.extra.money_mod }}
+    end,
+    calculate = function(self, card, context)
+        if context.end_of_round and not context.individual and not context.repetition and not context.blueprint then
+            for _, joker in ipairs(G.jokers.cards) do
+                local total_stolen = 0
+                if joker ~= card and joker.sell_cost > 0 then
+                    sendDebugMessage("Vampiric Touch: Stealing money from another joker")
+
+                    joker.ability.extra_value = joker.ability.extra_value or 0
+                    if joker.sell_cost <= card.ability.extra.money_mod then
+                        total_stolen = total_stolen + joker.sell_cost - 1
+                        joker.ability.extra_value = joker.ability.extra_value - (joker.sell_cost - 1)
+                    else
+                        joker.ability.extra_value = joker.ability.extra_value - card.ability.extra.money_mod
+                        total_stolen = total_stolen + card.ability.extra.money_mod
+                    end
+                end
+
+                if total_stolen > 0 then
+                    joker:set_cost()
+                    card_eval_status_text(joker, 'extra', nil, nil, nil, {message = localize('sound_value_down'), colour = G.C.RED})
+                    card.ability.extra_value = card.ability.extra_value or 0
+                    card.ability.extra_value = card.ability.extra_value + total_stolen
+                    card:set_cost()
+                    card_eval_status_text(card, 'extra', nil, nil, nil, {message = localize('sound_value_up')})
+                end
+            end
+        end
+    end
+}
+
 return {
     name = "Phantom Blood Effect Jokers",
-    list = { sword_of_luck_and_pluck, thunder_cross_split_attack },
+    list = { sword_of_luck_and_pluck, thunder_cross_split_attack, vampiric_touch },
 }

@@ -54,6 +54,7 @@ jojoker.joker_order = {
     "the_true_mans_world",
     "thunder_cross_split_attack",
     "turbo_eyes",
+    "vampiric_touch",
     "voice_of_love",
     "wavering_heart",
     

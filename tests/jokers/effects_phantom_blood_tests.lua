@@ -32,3 +32,31 @@ Balatest.TestPlay {
 }
 
 --#endregion
+
+--#region Vampiric Touch
+Balatest.TestPlay {
+    name = 'vampiric_touch_drains_money_from_each_joker_at_end_of_blinds',
+    category = { 'jokers', 'phantom_blood', 'vampiric_touch' },
+    jokers = { 'j_jojoker_jonathan_joestar', 'j_jojoker_danny', 'j_jojoker_vampiric_touch' },
+    execute = function()
+        Balatest.next_round()
+    end,
+    assert = function()
+        Balatest.assert_eq(4, G.jokers.cards[3].sell_cost, "Vampiric Touch did not drain money from the other jokers") -- has $2 sell value initially
+    end
+}
+
+Balatest.TestPlay {
+    name = 'vampiric_touch_does_not_drain_sell_value_from_jokers_with_no_sell_value',
+    category = { 'jokers', 'phantom_blood', 'vampiric_touch' },
+    jokers = { 'j_jojoker_jonathan_joestar', 'j_jojoker_vampiric_touch' },
+    execute = function()
+        G.jokers.cards[1].sell_cost = 0 -- Ensure the first joker has no sell value
+        Balatest.next_round()
+    end,
+    assert = function()
+        Balatest.assert_eq(0, G.jokers.cards[1].sell_cost, "Vampiric Touch drained money from joker without sell value")
+        Balatest.assert_eq(2, G.jokers.cards[2].sell_cost, "Vampiric Touch' sell value increased when it did not drain") -- has $2 sell value initially
+    end
+}
+--#endregion

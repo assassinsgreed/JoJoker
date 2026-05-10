@@ -140,3 +140,14 @@ jd_def["j_jojoker_poco"] = {
         { text = " blind chips", colour = G.C.GREY },
     }
 }
+
+jd_def["j_jojoker_vampiric_touch"] = {
+    text = {
+        { text = "Drain ", colour = G.C.GREY },
+        { text = "$", colour = G.C.MONEY },
+        { ref_table = "card.ability.extra", ref_value = "money_mod", retrigger_type = "money_mod", colour = G.C.MONEY },
+    },
+    reminder_text = {
+        { text = "From each joker", colour = G.C.GREY },
+    }
+}

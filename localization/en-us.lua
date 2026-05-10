@@ -111,6 +111,13 @@ return {
                     "blind's requirement, gain {C:money}$#2#{}."
                 }
             },
+            j_jojoker_vampiric_touch = {
+                name = "Vampiric Touch",
+                text = {
+                    "At the end of blinds, drains up to {C:money}$#1#{} from",
+                    "each joker, adding it to this joker's {C:money}sell value{}."
+                }
+            },
             -- Part 2: Battle Tendency
             j_jojoker_joseph_joestar = {
                 name = "Joseph Joestar",
@@ -1404,6 +1411,8 @@ return {
             sound_use_it_all = "Use it all up!",
             sound_lose_everything = "Lose Everything!",
             sound_muda = "Muda Muda Muda!",
+            sound_value_down = "Value down!",
+            sound_value_up = "Value up!",
 
             -- Common strings
             a_hand = "a hand",
