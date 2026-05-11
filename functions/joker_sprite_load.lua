@@ -133,6 +133,7 @@ JokerSprites = {
         {name = "space_trucking", base = {pos = {x = 1, y = 2}}, part_atlas = "jojolion" },
         -- Part 9: THE JOJOLands
         {name = "smooth_operator", base = {pos = {x = 0, y = 0}}, part_atlas = "the_jojolands" },
+        {name = "jodio_joestar", base = {pos = {x = 1, y = 0}}, part_atlas = "the_jojolands" },
         -- Other
     }
 }

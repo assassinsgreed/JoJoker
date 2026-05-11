@@ -12,6 +12,7 @@ jojoker.joker_order = {
     "esidisi",
     "george_joestar",
     "hol_horse",
+    "jodio_joestar",
     "jonathan_joestar",
     "joseph_joestar",
     "josuke_higashikata_jjl",

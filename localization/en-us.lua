@@ -1273,6 +1273,12 @@ return {
                     "then gives {C:chips}+#1#{} chips for each {C:attention}scored{} card."
                 }
             },
+            j_jojoker_jodio_joestar = {
+                name = "Jodio Joestar",
+                text = {
+                    "Scored {C:attention}gold cards{} give {C:money}$#1#{} when played."
+                }
+            },
         },
         Other = {
             scan_cards = {
