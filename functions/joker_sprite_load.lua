@@ -49,6 +49,7 @@ JokerSprites = {
         {name = "hierophant_green", base = {pos = {x = 0, y = 3}}, part_atlas = "stardust_crusaders" },
         {name = "the_fool", base = {pos = {x = 1, y = 3}}, part_atlas = "stardust_crusaders" },
         {name = "thoth", base = {pos = {x = 2, y = 3}}, part_atlas = "stardust_crusaders" },
+        {name = "joestar_birthmark", base = {pos = {x = 3, y = 3}}, part_atlas = "stardust_crusaders" },
         -- Part 4: Diamond is Unbreakable
         {name = "voice_of_love", base = {pos = {x = 0, y = 0}}, part_atlas = "diamond_is_unbreakable" },
         {name = "shizuka", base = {pos = {x = 1, y = 0}}, part_atlas = "diamond_is_unbreakable" },

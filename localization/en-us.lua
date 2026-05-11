@@ -384,6 +384,12 @@ return {
                     "{C:inactive}Chosen Hand: #3#"
                 }
             },
+            j_jojoker_joestar_birthmark = {
+                name = "The Joestar Birthmark",
+                text = {
+                    "Scored cards permanently gain {C:chips}+#1#{} and {C:mult}+#2#{}."
+                }
+            },
             -- Part 4: Diamond is Unbreakable
             j_jojoker_voice_of_love = {
                 name = "Voice of Love",

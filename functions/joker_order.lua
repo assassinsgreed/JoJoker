@@ -47,6 +47,7 @@ jojoker.joker_order = {
     "german_engineering",
     "higashikata_house",
     "higashikata_fruit_parlor",
+    "joestar_birthmark",
     "left_side_ataxia",
     "seven_page_muda",
     "sword_of_luck_and_pluck",

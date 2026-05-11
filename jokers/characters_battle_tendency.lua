@@ -294,12 +294,12 @@ local santana = {
     blueprint_compat = true,
     perishable_compat = true,
     eternal_compat = true,
-    config = { extra = { chips_mod = 5 } },
+    config = { extra = { chips_mod = 10 } },
     loc_vars = function(self, info_queue, center)
       return {vars = { center.ability.extra.chips_mod }}
     end,
     calculate = function(self, card, context)
-        -- Permanently gives +5 chips for each scored face card
+        -- Permanently gives +10 chips for each scored face card
         if context.individual and not context.end_of_round and context.cardarea == G.play then
             if context.other_card:is_face() then
                 if context.other_card.debuff then
