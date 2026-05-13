@@ -436,7 +436,55 @@ local poco = {
     end
 }
 
+local tarkus = {
+    name = "tarkus",
+    rarity = 2,
+    cost = 7,
+    jtype = "Character",
+    part = "phantom_blood",
+    blueprint_compat = true,
+    perishable_compat = true,
+    eternal_compat = true,
+    config = { extra = { Xmult = 1, Xmult_mod = 0.33, has_bought = false } },
+    loc_vars = function(self, info_queue, center)
+      return {
+        vars = { center.ability.extra.Xmult, center.ability.extra.Xmult_mod },
+        key = jojoker_config.use_localized_names and self.key..'_alt' or self.key
+    }
+    end,
+    calculate = function(self, card, context)
+        -- Give XMult during scoring
+        if context.cardarea == G.jokers and context.scoring_hand then
+            if context.joker_main then
+                return {
+                    message = localize{type = 'variable', key = 'a_xmult', vars = {card.ability.extra.Xmult}},
+                    colour = G.C.XMULT,
+                    Xmult_mod = card.ability.extra.Xmult
+                }
+            end
+        end
+
+        -- has_bought handling
+        if context.open_booster or context.buying_card then
+            card.ability.extra.has_bought = true
+        end
+
+        if context.ending_shop then
+            if not card.ability.extra.has_bought then
+                card.ability.extra.Xmult = card.ability.extra.Xmult + card.ability.extra.Xmult_mod
+                sendDebugMessage("Tarkus: Increased Xmult to "..card.ability.extra.Xmult.." at end of shop phase without any purchases.")
+                G.E_MANAGER:add_event(Event(
+                {
+                    func = function() card_eval_status_text(card, 'extra', nil, nil, nil, {message = localize('k_val_up')}); return true
+                    end
+                }))
+            end
+            card.ability.extra.has_bought = false
+        end
+    end
+}
+
 return {
     name = "Phantom Blood Character Jokers",
-    list = { danny, baron_zeppeli, speedwagon, zombies, straizo, george_joestar, dario_brando, erina, jonathan_joestar, dio_brando, poco },
+    list = { danny, baron_zeppeli, speedwagon, zombies, straizo, george_joestar, dario_brando, erina, jonathan_joestar, dio_brando, poco, tarkus },
 }

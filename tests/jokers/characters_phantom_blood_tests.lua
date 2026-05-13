@@ -334,3 +334,49 @@ Balatest.TestPlay {
     end
 }
 --#endregion
+--#region Tarkus
+Balatest.TestPlay {
+    name = 'tarkus_gives_xmult_during_scoring',
+    category = { 'jokers', 'phantom_blood', 'tarkus' },
+    jokers = { 'j_jojoker_tarkus' },
+    execute = function()
+        G.jokers.cards[1].ability.extra.Xmult = 5
+        Balatest.play_hand { '2S' }
+    end,
+    assert = function()
+        Balatest.assert_chips(7 * 5, "Tarkus did not give Xmult during scoring")
+    end
+}
+
+Balatest.TestPlay {
+    name = 'tarkus_gains_xmult_when_not_purchasing_in_shop',
+    category = { 'jokers', 'phantom_blood', 'tarkus' },
+    jokers = { 'j_jojoker_tarkus' },
+    execute = function()
+        Balatest.end_round()
+        Balatest.cash_out()
+        Balatest.exit_shop()
+    end,
+    assert = function()
+        Balatest.assert_eq(G.jokers.cards[1].ability.extra.Xmult, 1 + G.jokers.cards[1].ability.extra.Xmult_mod, "Tarkus did not gain Xmult when not purchasing in shop")
+    end
+}
+
+-- Balatest does not have support for testing rerolls, but this should increase XMult too
+
+Balatest.TestPlay {
+    name = 'tarkus_does_not_gain_xmult_when_purchasing_in_shop',
+    category = { 'jokers', 'phantom_blood', 'tarkus' },
+    jokers = { 'j_jojoker_tarkus' },
+    dollars = 10,
+    execute = function()
+        Balatest.end_round()
+        Balatest.cash_out()
+        Balatest.buy(function() return G.shop_jokers.cards[1] end) -- Buy anything; $10 is cap
+        Balatest.exit_shop()
+    end,
+    assert = function()
+        Balatest.assert_eq(G.jokers.cards[1].ability.extra.Xmult, 1, "Tarkus gained Xmult when purchasing in shop")
+    end
+}
+--#endregion

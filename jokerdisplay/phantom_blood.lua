@@ -151,3 +151,14 @@ jd_def["j_jojoker_vampiric_touch"] = {
         { text = "From each joker", colour = G.C.GREY },
     }
 }
+
+jd_def["j_jojoker_tarkus"] = {
+    text = {
+        {
+            border_nodes = {
+                { text = "X" },
+                { ref_table = "card.ability.extra", ref_value = "Xmult" }
+            }
+        }
+    }
+}

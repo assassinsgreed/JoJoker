@@ -118,6 +118,22 @@ return {
                     "each joker, adding it to this joker's {C:money}sell value{}."
                 }
             },
+            j_jojoker_tarkus = {
+                name = "Tarkus",
+                text = {
+                    "When exiting a shop without buying anything, gains {X:mult,C:white} X#2# {}.",
+                    "{br:2}line break",
+                    "{C:inactive}Currently: {C:attention}#1#"
+                }
+            },
+            j_jojoker_tarkus_alt = {
+                name = "Tarukus",
+                text = {
+                    "When exiting a shop without buying anything, gains {X:mult,C:white} X#2# {}.",
+                    "{br:2}line break",
+                    "{C:inactive}Currently: {C:attention}#1#"
+                }
+            },
             -- Part 2: Battle Tendency
             j_jojoker_joseph_joestar = {
                 name = "Joseph Joestar",
