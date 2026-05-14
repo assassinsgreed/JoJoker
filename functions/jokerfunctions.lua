@@ -303,3 +303,21 @@ get_random_joker_key = function(seed)
 
   return chosen_key
 end
+
+get_most_played_hand_info = function()
+  local highest_played = 0
+  local highest_hands = {}
+  for handname, values in pairs(G.GAME.hands) do
+    if SMODS.is_poker_hand_visible(handname) then
+      if values.played > highest_played then
+        highest_hands = {}
+        highest_hands[#highest_hands + 1] = handname
+        highest_played = values.played
+      elseif values.played == highest_played then
+        highest_hands[#highest_hands + 1] = handname
+      end
+    end
+  end
+
+  return { count = highest_played, name = highest_hands[1] or "High Card" }
+end

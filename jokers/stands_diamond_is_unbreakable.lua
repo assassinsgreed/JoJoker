@@ -440,7 +440,59 @@ local heavens_door = {
     end
 }
 
+local the_lock = {
+    name = "the_lock",
+    rarity = 1,
+    cost = 5,
+    jtype = "Stand",
+    jclass = "Automatic",
+    part = "diamond_is_unbreakable",
+    blueprint_compat = true,
+    perishable_compat = true,
+    eternal_compat = true,
+    config = { extra = { mult_gain = 5, curr_mult = 0, most_played = "High Card" } },
+    loc_vars = function(self, info_queue, card)
+        return { vars = {card.ability.extra.mult_gain, card.ability.extra.curr_mult, card.ability.extra.most_played } }
+    end,
+    calculate = function(self, card, context)
+        -- When playing a hand, increase mult if it's the most played hand
+        if context.cardarea == G.jokers and context.scoring_hand then
+            if context.before then
+                sendDebugMessage("The Lock: Hand played is "..context.scoring_name..", most played hand is "..card.ability.extra.most_played)
+                if get_most_played_hand_info().count == 1 or context.scoring_name == card.ability.extra.most_played then
+                    sendDebugMessage("The Lock: Gaining mult for most played hand")
+                    card.ability.extra.curr_mult = card.ability.extra.curr_mult + card.ability.extra.mult_gain
+                    return {
+                        message = localize('k_upgrade_ex'),
+                        colour = G.C.GOLD
+                    }
+                else
+                    sendDebugMessage("The Lock: Resetting mult for non-most played hand")
+                    card.ability.extra.curr_mult = 0
+                    return {
+                        message = localize('k_reset'),
+                        colour = G.C.RED
+                    }
+                end
+            end
+
+            if context.joker_main then
+                return {
+                    message = localize{type = 'variable', key = 'a_mult', vars = {card.ability.extra.curr_mult}},
+                    colour = G.C.MULT,
+                    mult_mod = card.ability.extra.curr_mult
+                }
+            end
+        end
+    end,
+    update = function(self, card, dt)
+        if G.STAGE == G.STAGES.RUN then
+            card.ability.extra.most_played = get_most_played_hand_info().name
+        end
+    end
+}
+
 return {
     name = "Diamond is Unbreakable Stand Jokers",
-    list = { red_hot_chili_pepper, the_hand, superfly, crazy_diamond, bad_company, cheap_trick, cinderella, atom_heart_father, surface, killer_queen, heavens_door },
+    list = { red_hot_chili_pepper, the_hand, superfly, crazy_diamond, bad_company, cheap_trick, cinderella, atom_heart_father, surface, killer_queen, heavens_door, the_lock },
 }

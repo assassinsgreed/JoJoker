@@ -124,6 +124,7 @@ jojoker.joker_order = {
     "tenore_sax",
     "the_fool",
     "the_hand",
+    "the_lock",
     "the_lovers",
     "the_world",
     "thoth",

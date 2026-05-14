@@ -570,6 +570,16 @@ return {
                     "Gives a random {C:attention}tag{} at the end of {C:attention}boss blinds{}."
                 }
             },
+            j_jojoker_the_lock = {
+                name = "The Lock",
+                text = {
+                    "Gains {C:mult}+#1#{} each time your most played hand is played.",
+                    "When not played, resets.",
+                    "{br:2}line break",
+                    "{C:inactive}Most Played: {C:attention}#3#",
+                    "{C:inactive}Currently: {C:mult}+#2#",
+                }
+            },
             -- Part 5: Golden Wind
             j_jojoker_sex_pistols = {
                 name = "Sex Pistols",

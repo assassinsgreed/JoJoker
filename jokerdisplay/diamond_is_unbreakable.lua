@@ -176,3 +176,18 @@ jd_def["j_jojoker_heavens_door"] = {
         { text = "After beating boss", colour = G.C.GREY }
     },
 }
+
+jd_def["j_jojoker_the_lock"] = {
+    text = {
+        { text = "+", colour = G.C.MULT },
+        { ref_table = "card.ability.extra", ref_value = "curr_mult", retrigger_type = "curr_mult",  colour = G.C.MULT },
+    },
+    reminder_text = {
+        { text = "(" },
+        { ref_table = "card.joker_display_values", ref_value = "most_played_hand", colour = G.C.GREY },
+        { text = ")" }
+    },
+    calc_function = function(card)
+        card.joker_display_values.most_played_hand = get_most_played_hand_info().name
+    end
+}

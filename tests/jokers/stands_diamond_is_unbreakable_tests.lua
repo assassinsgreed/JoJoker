@@ -325,3 +325,47 @@ Balatest.TestPlay {
 --#region Heaven's Door
 -- The way Balatest invokes blinds prevents boss blinds from being seen as bosses, so no test for tag generation...
 --#endregion
+
+--#region The Lock
+Balatest.TestPlay {
+    name = 'the_lock_increases_mult_for_any_first_hand',
+    category = { 'jokers', 'diamond_is_unbreakable', 'the_lock' },
+    jokers = { 'j_jojoker_the_lock' },
+    blind = 'bl_small',
+    execute = function()
+        Balatest.play_hand { '3S', '3H' }
+    end,
+    assert = function()
+        Balatest.assert_eq(G.jokers.cards[1].ability.extra.curr_mult, G.jokers.cards[1].ability.extra.mult_gain, "The Lock did not increase mult for the first hand")
+    end
+}
+
+Balatest.TestPlay {
+    name = 'the_lock_increases_mult_for_repeated_most_played_hand',
+    category = { 'jokers', 'diamond_is_unbreakable', 'the_lock' },
+    jokers = { 'j_jojoker_the_lock' },
+    blind = 'bl_small',
+    execute = function()
+        Balatest.play_hand { '3S', '3H' }
+        Balatest.play_hand { '2S', '2H' }
+    end,
+    assert = function()
+        Balatest.assert_eq(G.jokers.cards[1].ability.extra.curr_mult, G.jokers.cards[1].ability.extra.mult_gain * 2, "The Lock did not increase mult for the first hand")
+    end
+}
+
+Balatest.TestPlay {
+    name = 'the_lock_resets_mult_when_not_playing_most_played_hand',
+    category = { 'jokers', 'diamond_is_unbreakable', 'the_lock' },
+    jokers = { 'j_jojoker_the_lock' },
+    blind = 'bl_small',
+    execute = function()
+        Balatest.play_hand { '3S', '3H' }
+        Balatest.play_hand { '2S', '2H' }
+        Balatest.play_hand { '4S' }
+    end,
+    assert = function()
+        Balatest.assert_eq(G.jokers.cards[1].ability.extra.curr_mult, 0, "The Lock did not reset mult when not playing the most played hand")
+    end
+}
+--#region
