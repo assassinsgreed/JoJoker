@@ -178,3 +178,10 @@ jd_def["j_jojoker_joestar_birthmark"] = {
         { text = "Added to scored cards", colour = G.C.GREY },
     }
 }
+
+jd_def["j_jojoker_the_sun"] = {
+    text = {
+        { text = "+", colour = G.C.CHIPS },
+        { ref_table = "card.ability.extra", ref_value = "chips", retrigger_type = "chips",  colour = G.C.CHIPS },
+    }
+}

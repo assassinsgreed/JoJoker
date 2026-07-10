@@ -504,3 +504,29 @@ Balatest.TestPlay {
     end
 }
 --#endregion
+
+--#region The Sun
+Balatest.TestPlay {
+    name = 'the_sun_gives_chips_for_pair',
+    category = { 'jokers', 'stardust_crusaders', 'the_sun' },
+    jokers = { 'j_jojoker_the_sun' },
+    execute = function()
+        Balatest.play_hand { '2S', '2C' }
+    end,
+    assert = function()
+        Balatest.assert_chips(188, "The Sun did not give chips for scored Pair")
+    end
+}
+
+Balatest.TestPlay {
+    name = 'the_sun_does_not_give_chips_for_non_pair',
+    category = { 'jokers', 'stardust_crusaders', 'the_sun' },
+    jokers = { 'j_jojoker_the_sun' },
+    execute = function()
+        Balatest.play_hand { '2S', '2C', '2H' }
+    end,
+    assert = function()
+        Balatest.assert_chips(108, "The Sun gave chips for hand containing Pair")
+    end
+}
+--#endregion

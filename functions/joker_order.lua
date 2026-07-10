@@ -126,6 +126,7 @@ jojoker.joker_order = {
     "the_hand",
     "the_lock",
     "the_lovers",
+    "the_sun",
     "the_world",
     "thoth",
     "wheel_of_fortune",

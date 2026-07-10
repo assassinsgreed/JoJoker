@@ -549,10 +549,39 @@ local thoth = {
         -- When added, choose a random hand type (only "visible" ones are chosen, i.e. ones the player can/has played)
         card.ability.extra.chosen_hand_type = pick_random_hand_type().handname
         sendDebugMessage("Thoth: Chose a new hand type of "..card.ability.extra.chosen_hand_type)
+    end
+}
+
+local the_sun = {
+    name = "the_sun",
+    rarity = 1,
+    cost = 5,
+    jtype = "Stand",
+    jclass = "Automatic",
+    part = "stardust_crusaders",
+    blueprint_compat = true,
+    perishable_compat = true,
+    eternal_compat = true,
+    config = { extra = { chips = 80 } },
+    loc_vars = function(self, info_queue, card)
+      return {vars = {card.ability.extra.chips, card.ability.extra.mult }}
     end,
+    calculate = function(self, card, context)
+        -- Give chips for pair, and mult for 2+ stone cards
+        if context.cardarea == G.jokers and context.scoring_hand then
+            if context.joker_main and context.scoring_name == 'Pair' then
+                sendDebugMessage("Giving 80 chips for scoring a Pair with The Sun")
+                return {
+                    message = localize{type='variable', key='a_chips', vars={card.ability.extra.chips}},
+                    colour = G.C.CHIPS,
+                    chip_mod = card.ability.extra.chips,
+                }
+            end
+        end
+    end
 }
 
 return {
     name = "Stardust Crusaders Stand Jokers",
-    list = { magician_red, yellow_temperance, star_platinum, wheel_of_fortune, the_lovers, anubis, sethan, the_world, death_thirteen, tenore_sax, khnum, hierophant_green, the_fool, thoth },
+    list = { magician_red, yellow_temperance, star_platinum, wheel_of_fortune, the_lovers, anubis, sethan, the_world, death_thirteen, tenore_sax, khnum, hierophant_green, the_fool, thoth, the_sun },
 }

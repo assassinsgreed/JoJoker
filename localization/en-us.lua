@@ -406,6 +406,12 @@ return {
                     "Scored cards permanently gain {C:chips}+#1#{} and {C:mult}+#2#{}."
                 }
             },
+            j_jojoker_the_sun = {
+                name = "The Sun",
+                text = {
+                    "Gives {C:chips}+#1#{} when scored hand name is {C:attention}Pair{}."
+                }
+            },
             -- Part 4: Diamond is Unbreakable
             j_jojoker_voice_of_love = {
                 name = "Voice of Love",
