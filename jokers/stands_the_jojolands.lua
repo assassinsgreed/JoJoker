@@ -59,6 +59,7 @@ local smooth_operator = {
                     return {
                         message = localize{type = 'variable', key = 'a_chips', vars = {#context.scoring_hand * card.ability.extra.chips}},
                         colour = G.C.CHIPS,
+                        chip_mod = #context.scoring_hand * card.ability.extra.chips,
                     }
                 end
         end

@@ -468,4 +468,28 @@ Balatest.TestPlay {
         Balatest.assert_eq(stroheimMult, G.jokers.cards[1].ability.extra.starting_mult + G.jokers.cards[1].ability.extra.mult_gain, "Stroheim did not gain mult on blind end.")
     end
 }
+
+Balatest.TestPlay {
+    name = 'stroheim_not_in_pool_when_evolved_form_held',
+    category = { 'jokers', 'battle_tendency', 'stroheim' },
+    jokers = { 'j_jojoker_stroheim_german_engineering' },
+    execute = function()
+        Balatest.wait()
+    end,
+    assert = function()
+        Balatest.assert_eq(G.P_CENTERS['j_jojoker_stroheim']:in_pool(), false, "Stroheim was still in the pool while his evolved form was held")
+    end
+}
+
+Balatest.TestPlay {
+    name = 'stroheim_in_pool_when_evolved_form_not_held',
+    category = { 'jokers', 'battle_tendency', 'stroheim' },
+    jokers = { 'j_jojoker_stroheim' },
+    execute = function()
+        Balatest.wait()
+    end,
+    assert = function()
+        Balatest.assert_eq(G.P_CENTERS['j_jojoker_stroheim']:in_pool(), true, "Stroheim was missing from the pool when his evolved form was absent")
+    end
+}
 --#endregion

@@ -149,6 +149,16 @@ Balatest.TestPlay {
 --#endregion
 
 --#region Sugar Mountain
+local function count_sugar_mountains()
+    local count = 0
+    for _, joker in ipairs(G.jokers.cards) do
+        if joker.ability.name == 'sugar_mountain' then
+            count = count + 1
+        end
+    end
+    return count
+end
+
 Balatest.TestPlay {
     name = 'sugar_mountain_gives_money_on_shop_entry',
     category = { 'jokers', 'steel_ball_run', 'sugar_mountain' },
@@ -176,6 +186,7 @@ Balatest.TestPlay {
     end,
     assert = function()
         Balatest.assert_dollars(0, "Sugar Mountain did not clear out cash when overspending")
+        Balatest.assert_eq(count_sugar_mountains(), 0, "Sugar Mountain was not destroyed when overspending")
     end
 }
 
@@ -215,9 +226,11 @@ Balatest.TestPlay {
         Balatest.end_round()
         Balatest.cash_out()
         Balatest.exit_shop()
+        Balatest.wait()
     end,
     assert = function()
         Balatest.assert_dollars(0, "Sugar Mountain did not clear out cash when threshold not hit")
+        Balatest.assert_eq(count_sugar_mountains(), 0, "Sugar Mountain was not destroyed when threshold not hit")
     end
 }
 
@@ -235,6 +248,7 @@ Balatest.TestPlay {
     assert = function()
         -- $10 original + $20 from sugar mountain (due to how we test, this isn't spent)
         Balatest.assert_dollars(30, "Sugar Mountain did not retain cash when threshold hit")
+        Balatest.assert_eq(count_sugar_mountains(), 1, "Sugar Mountain was destroyed even though the threshold was hit")
     end
 }
 --#endregion

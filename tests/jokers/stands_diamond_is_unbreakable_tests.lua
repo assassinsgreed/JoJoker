@@ -24,6 +24,23 @@ Balatest.TestPlay {
         Balatest.assert_chips(expected_chips, "Red Hot Chili Pepper didn't give mult based on money")
     end
 }
+Balatest.TestPlay {
+    name = 'red_hot_chili_pepper_mult_does_not_go_stale_when_money_is_lost',
+    category = { 'jokers', 'diamond_is_unbreakable', 'red_hot_chili_pepper' },
+    jokers = { 'j_jojoker_red_hot_chili_pepper' },
+    dollars = 10,
+    execute = function()
+        Balatest.play_hand { '2S' } -- 7 chips * (1 + 0.5 * $10) = 42
+        Balatest.q(function()
+            G.GAME.dollars = 0
+            return true
+        end)
+        Balatest.play_hand { '2C' } -- 7 chips * 1 = 7
+    end,
+    assert = function()
+        Balatest.assert_chips(49, "Red Hot Chili Pepper gave stale mult after money was lost")
+    end
+}
 --#endregion
 --#region The Hand
 Balatest.TestPlay {

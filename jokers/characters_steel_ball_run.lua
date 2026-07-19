@@ -25,15 +25,10 @@ local danny_sbr = {
         end
     end,
     add_to_deck = function(self, card, from_debuff)
-        if #G.jokers.cards > 1 then
-            -- Destroy a random joker that is not Danny SBR
-            local danny_index = find_joker_pos(card)
-            local joker_to_destroy_index = danny_index
-
-            while joker_to_destroy_index == danny_index do
-                joker_to_destroy_index = math.random(1, #G.jokers.cards - 1)
-            end
-
+        -- Danny is not yet emplaced into G.jokers when add_to_deck runs, so
+        -- G.jokers.cards only contains other jokers at this point.
+        if #G.jokers.cards > 0 then
+            local joker_to_destroy_index = math.random(#G.jokers.cards)
             sendDebugMessage("Danny is destroying joker at index " .. joker_to_destroy_index.." ("..G.jokers.cards[joker_to_destroy_index].ability.name..")")
             local destroyed_joker = G.jokers.cards[joker_to_destroy_index]
             destroyed_joker.getting_sliced = true
@@ -143,7 +138,7 @@ local sugar_mountain = {
     part = "steel_ball_run",
     blueprint_compat = false,
     perishable_compat = true,
-    eternal_compat = true,
+    eternal_compat = false,
     config = {extra = { money_given = 20, spend_left = 20, in_shop = false }},
     loc_vars = function(self, info_queue, center)
         return {
@@ -175,13 +170,22 @@ local sugar_mountain = {
                 -- Spent money
                 card.ability.extra.spend_left = card.ability.extra.spend_left + context.amount
                 if card.ability.extra.spend_left < 0 then
-                    sendDebugMessage("Sugar Mountain: Spent more than the given money, will reset money to 0.")
+                    sendDebugMessage("Sugar Mountain: Spent more than the given money, will reset money to 0 and be destroyed.")
                     card.ability.extra.spend_left = 0
 
                     G.E_MANAGER:add_event(Event({trigger = 'after', delay = 0.4, func = function()
                         G.GAME.dollars = 0
                         return true end })
                     )
+                    G.E_MANAGER:add_event(Event({
+                        func = function()
+                            G.GAME.joker_buffer = 0
+                            card:start_dissolve({ HEX("57ecab") }, nil, 1.6)
+                            play_sound('slice1', 0.96 + math.random() * 0.08)
+                            remove(self, card, context, true)
+                            return true
+                        end
+                    }))
 
                     return {
                         message = localize('sound_lose_everything'),
@@ -210,12 +214,21 @@ local sugar_mountain = {
 
         if context.ending_shop then
             if card.ability.extra.spend_left ~= 0 then
-                sendDebugMessage("Sugar Mountain: Didn't spend exactly "..card.ability.extra.money_given.." dollars, will reset money to 0.")
-                
+                sendDebugMessage("Sugar Mountain: Didn't spend exactly "..card.ability.extra.money_given.." dollars, will reset money to 0 and be destroyed.")
+
                 G.E_MANAGER:add_event(Event({trigger = 'after', delay = 0.4, func = function()
                     G.GAME.dollars = 0
                     return true end })
                 )
+                G.E_MANAGER:add_event(Event({
+                    func = function()
+                        G.GAME.joker_buffer = 0
+                        card:start_dissolve({ HEX("57ecab") }, nil, 1.6)
+                        play_sound('slice1', 0.96 + math.random() * 0.08)
+                        remove(self, card, context, true)
+                        return true
+                    end
+                }))
 
                 return {
                     message = localize('sound_lose_everything'),

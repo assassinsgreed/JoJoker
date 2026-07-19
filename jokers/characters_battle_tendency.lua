@@ -367,9 +367,11 @@ local stroheim = {
     end,
     -- Prevent Stroheim from appearing if his evolved form is present
     in_pool = function(self, args)
-        for _, joker in ipairs(G.jokers.cards) do
-            if joker.config.center == "j_jojoker_stroheim_german_engineering" then
-                return false
+        if G.jokers then
+            for _, joker in ipairs(G.jokers.cards) do
+                if joker.config.center.key == "j_jojoker_stroheim_german_engineering" then
+                    return false
+                end
             end
         end
         return true

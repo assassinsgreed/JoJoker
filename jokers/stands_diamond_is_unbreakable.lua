@@ -18,8 +18,9 @@ local red_hot_chili_pepper = {
     }
     end,
     calculate = function(self, card, context)
-        if G.GAME and G.GAME.dollars > 0 and card.ability then
-            card.ability.extra.mult = G.GAME.dollars * card.ability.extra.mult_mod -- In case we scale this differently later
+        if G.GAME and card.ability then
+            -- Recalculate even at $0 or in debt, so the mult doesn't go stale (or negative)
+            card.ability.extra.mult = math.max(0, G.GAME.dollars) * card.ability.extra.mult_mod -- In case we scale this differently later
         end
 
         -- Gives mult per $ held
@@ -114,9 +115,12 @@ local the_hand = {
         end
     end,
     remove_from_deck = function(self, card, from_debuff)
-        sendDebugMessage("The Hand: Removed from deck, restoring face cards")
-        for k, v in pairs(G.playing_cards) do
-            SMODS.debuff_card(v, false, card)
+        -- Must mirror the from_debuff check in add_to_deck, or a debuff cycle permanently restores the chosen rank
+        if not from_debuff then
+            sendDebugMessage("The Hand: Removed from deck, restoring face cards")
+            for k, v in pairs(G.playing_cards) do
+                SMODS.debuff_card(v, false, card)
+            end
         end
     end
 }

@@ -92,6 +92,19 @@ Balatest.TestPlay {
         Balatest.assert_eq(#G.hand.cards, 52, "Made in Heaven did not set hand size to deck size")
     end
 }
+Balatest.TestPlay {
+    name = 'made_in_heaven_xmult_floors_at_one_when_nothing_is_lost',
+    category = { 'jokers', 'stone_ocean', 'made_in_heaven' },
+    jokers = { 'j_jojoker_made_in_heaven' },
+    hands = 1,
+    discards = 0,
+    execute = function()
+        Balatest.wait()
+    end,
+    assert = function()
+        Balatest.assert_eq(G.jokers.cards[1].ability.extra.Xmult, 1, "Made in Heaven Xmult dropped below X1 when no hands or discards were lost")
+    end
+}
 --#endregion
 --#region Dragon's Dream
 Balatest.TestPlay {

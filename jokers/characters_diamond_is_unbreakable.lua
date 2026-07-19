@@ -66,9 +66,12 @@ local yoshikage_kira = {
         end
     end,
     remove_from_deck = function(self, card, from_debuff)
-        sendDebugMessage("Yoshikage Kira: Removing from deck, decreasing hands by "..card.ability.extra.hands)
-        G.GAME.round_resets.hands = G.GAME.round_resets.hands - card.ability.extra.hands
-        ease_hands_played(-card.ability.extra.hands)
+        -- Must mirror the from_debuff check in add_to_deck, or each debuff cycle permanently drains a hand
+        if not from_debuff then
+            sendDebugMessage("Yoshikage Kira: Removing from deck, decreasing hands by "..card.ability.extra.hands)
+            G.GAME.round_resets.hands = G.GAME.round_resets.hands - card.ability.extra.hands
+            ease_hands_played(-card.ability.extra.hands)
+        end
     end
 }
 

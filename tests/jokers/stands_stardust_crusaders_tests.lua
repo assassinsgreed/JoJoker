@@ -433,6 +433,28 @@ Balatest.TestPlay {
         Balatest.assert_eq(is_the_fool, true, "The Fool did not revert when entering the shop")
     end
 }
+
+Balatest.TestPlay {
+    name = 'the_fool_transformation_pool_excludes_copy_and_evolved_jokers',
+    category = { 'jokers', 'stardust_crusaders', 'the_fool' },
+    execute = function()
+        Balatest.wait()
+    end,
+    assert = function()
+        local excluded = {
+            ['j_jojoker_khnum'] = true,
+            ['j_jojoker_surface'] = true,
+            ['j_jojoker_the_fool'] = true,
+            ['j_jojoker_kars_stopped_thinking'] = true,
+            ['j_jojoker_stroheim_german_engineering'] = true,
+        }
+        for i = 1, 50 do
+            local key = get_random_joker_key('balatest_the_fool_' .. i)
+            Balatest.assert(key ~= nil, "get_random_joker_key returned nil")
+            Balatest.assert(not excluded[key], "get_random_joker_key returned banned key " .. tostring(key))
+        end
+    end
+}
 --#endregion
 --#region Thoth
 Balatest.TestPlay {

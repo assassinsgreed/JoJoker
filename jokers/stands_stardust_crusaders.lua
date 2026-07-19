@@ -391,12 +391,14 @@ local tenore_sax = {
         -- After scoring, shuffle all cards back into the deck and draw a new hand
         if context.after then
             sendDebugMessage("Tenore Sax: Shuffling all unplayed cards back into the deck")
-            for _ = 1, #G.hand.cards do
-                if not G.hand.cards[1].highlighted then
-                    G.deck:emplace(G.hand.cards[1])
-                    table.remove(G.hand.cards, 1)
+            -- Iterate backwards; emplacing into the deck removes the card from the hand
+            for i = #G.hand.cards, 1, -1 do
+                local hand_card = G.hand.cards[i]
+                if not hand_card.highlighted then
+                    G.deck:emplace(hand_card)
                 end
             end
+            G.deck:shuffle('jojoker_tenore_sax'..G.GAME.round_resets.ante)
         end
     end
 }
@@ -564,10 +566,10 @@ local the_sun = {
     eternal_compat = true,
     config = { extra = { chips = 80 } },
     loc_vars = function(self, info_queue, card)
-      return {vars = {card.ability.extra.chips, card.ability.extra.mult }}
+      return {vars = {card.ability.extra.chips }}
     end,
     calculate = function(self, card, context)
-        -- Give chips for pair, and mult for 2+ stone cards
+        -- Give chips when the scored hand is a Pair
         if context.cardarea == G.jokers and context.scoring_hand then
             if context.joker_main and context.scoring_name == 'Pair' then
                 sendDebugMessage("Giving 80 chips for scoring a Pair with The Sun")

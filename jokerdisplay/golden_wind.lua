@@ -19,7 +19,7 @@ jd_def["j_jojoker_grateful_dead"] = {
     reminder_text = {
         { text = "Loses ", colour = G.C.GREY },
         { ref_table = "card.ability.extra", ref_value = "mult_decay", retrigger_type = "mult_decay",  colour = G.C.GREY },
-        { text = " after blind", coulour = G.C.GREY }
+        { text = " after blind", colour = G.C.GREY }
     }
 }
 

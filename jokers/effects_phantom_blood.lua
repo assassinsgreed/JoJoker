@@ -18,7 +18,7 @@ local sword_of_luck_and_pluck = {
         if context.fix_probability then
             if context.identifier == 'lucky_mult' or context.identifier == 'lucky_money' then
                 return {
-                    denominator = math.ceil(context.denominator / 3),
+                    denominator = math.ceil(context.denominator / card.ability.extra.trigger_rate),
                 }
             end
         end

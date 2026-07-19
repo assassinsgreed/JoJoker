@@ -89,11 +89,16 @@ local oh_lonesome_me = {
     loc_vars = function(self, info_queue, center)
         return {vars = {center.ability.extra.hand_size}}
     end,
+    -- Effect persists while debuffed, so ignore add/remove calls that come from debuffing
     add_to_deck = function(self, card, from_debuff)
-        G.hand:change_size(card.ability.extra.hand_size)
+        if not from_debuff then
+            G.hand:change_size(card.ability.extra.hand_size)
+        end
     end,
     remove_from_deck = function(self, card, from_debuff)
-        G.hand:change_size(-card.ability.extra.hand_size)
+        if not from_debuff then
+            G.hand:change_size(-card.ability.extra.hand_size)
+        end
     end
 }
 

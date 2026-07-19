@@ -1,9 +1,13 @@
+-- Even ranks are 2, 4, 6, 8, 10; odd ranks are Ace (id 14), 3, 5, 7, 9.
+-- Face cards are neither, matching the base game's Odd Todd / Even Steven.
 card_is_even = function(card)
-  return card:get_id() % 2 == 0
+  local id = card:get_id()
+  return id <= 10 and id % 2 == 0
 end
 
 card_is_odd = function(card)
-  return card:get_id() % 2 == 1
+  local id = card:get_id()
+  return id == 14 or (id <= 10 and id % 2 == 1)
 end
 
 remove_playing_card = function(target, card, trigger)

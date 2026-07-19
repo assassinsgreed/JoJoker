@@ -52,18 +52,16 @@ local clacker_balls = {
     calculate = function(self, card, context)
         -- If scored hand is <= 3 cards, retrigger each scored card
         if context.repetition and not context.end_of_round and context.cardarea == G.play then
-            if not context.blueprint then
-                if #context.scoring_hand <= 3 then
-                    sendDebugMessage("Clacker Balls: Scored hand of " .. #context.scoring_hand .. " cards or fewer. Retriggering each scored card.")
-                    return {
-                        message = localize('k_retriggers_ex'),
-                        extra = {
-                            cards = #context.scoring_hand,
-                            repetitions = 1,
-                            card = card
-                        }
+            if #context.scoring_hand <= card.ability.extra.scored_hand_size then
+                sendDebugMessage("Clacker Balls: Scored hand of " .. #context.scoring_hand .. " cards or fewer. Retriggering each scored card.")
+                return {
+                    message = localize('k_retriggers_ex'),
+                    extra = {
+                        cards = #context.scoring_hand,
+                        repetitions = 1,
+                        card = card
                     }
-                end
+                }
             end
         end
     end

@@ -89,6 +89,60 @@ Balatest.TestPlay {
         Balatest.assert_chips(168, "Chocolate Disco did not add mult when playing even cards on even ante")
     end
 }
+
+Balatest.TestPlay {
+    name = 'chocolate_disco_treats_aces_as_odd',
+    category = { 'jokers', 'steel_ball_run', 'chocolate_disco' },
+    jokers = { 'j_jojoker_chocolate_disco' },
+    execute = function()
+        Balatest.play_hand { 'AS' }
+    end,
+    assert = function()
+        -- High card Ace on odd ante: (5 base + 11 ace + 25 from Chocolate Disco) * 1 mult
+        Balatest.assert_chips(41, "Chocolate Disco did not give chips for an Ace on an odd ante")
+    end
+}
+
+Balatest.TestPlay {
+    name = 'chocolate_disco_does_not_treat_aces_as_even',
+    category = { 'jokers', 'steel_ball_run', 'chocolate_disco' },
+    jokers = { 'j_jojoker_chocolate_disco' },
+    execute = function()
+        G.GAME.round_resets.blind_ante = 2
+        Balatest.play_hand { 'AS' }
+    end,
+    assert = function()
+        -- High card Ace on even ante: (5 base + 11 ace) * 1 mult, no bonus
+        Balatest.assert_chips(16, "Chocolate Disco gave mult for an Ace on an even ante")
+    end
+}
+
+Balatest.TestPlay {
+    name = 'chocolate_disco_does_not_count_face_cards_as_odd',
+    category = { 'jokers', 'steel_ball_run', 'chocolate_disco' },
+    jokers = { 'j_jojoker_chocolate_disco' },
+    execute = function()
+        Balatest.play_hand { 'KS' }
+    end,
+    assert = function()
+        -- High card King on odd ante: (5 base + 10 king) * 1 mult, no bonus
+        Balatest.assert_chips(15, "Chocolate Disco gave chips for a King on an odd ante")
+    end
+}
+
+Balatest.TestPlay {
+    name = 'chocolate_disco_does_not_count_face_cards_as_even',
+    category = { 'jokers', 'steel_ball_run', 'chocolate_disco' },
+    jokers = { 'j_jojoker_chocolate_disco' },
+    execute = function()
+        G.GAME.round_resets.blind_ante = 2
+        Balatest.play_hand { 'QS' }
+    end,
+    assert = function()
+        -- High card Queen on even ante: (5 base + 10 queen) * 1 mult, no bonus
+        Balatest.assert_chips(15, "Chocolate Disco gave mult for a Queen on an even ante")
+    end
+}
 --#endregion
 --#region Oh Lonesome Me
 Balatest.TestPlay {
@@ -123,9 +177,15 @@ Balatest.TestPlay {
     jokers = { 'j_jojoker_oh_lonesome_me' },
     hand_size = 8,
     execute = function()
-        G.jokers.cards[1].debuff = true
+        -- Use SMODS.debuff_card so the remove_from_deck(from_debuff) hook actually fires
+        Balatest.q(function()
+            SMODS.debuff_card(G.jokers.cards[1], true, 'balatest')
+            return true
+        end)
+        Balatest.wait()
     end,
     assert = function()
+        Balatest.assert_eq(G.jokers.cards[1].debuff, true, "Oh Lonesome Me was not debuffed during the test")
         Balatest.assert_eq(G.hand.config.card_limit, 8 + G.jokers.cards[1].ability.extra.hand_size, "Oh Lonesome Me decreased hand size when debuffed, but should not have")
     end
 }

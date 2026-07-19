@@ -32,7 +32,7 @@ local sex_pistols = {
                 if not context.blueprint then
                     for k, v in pairs(context.scoring_hand) do
                         local rank = v:get_id()
-                        if not v.debuff and tostring(rank) == card.ability.extra.chosen_rank or rank == 14 and card.ability.extra.chosen_rank == "Ace" then
+                        if not v.debuff and (tostring(rank) == card.ability.extra.chosen_rank or (rank == 14 and card.ability.extra.chosen_rank == "Ace")) then
                             if not card.ability.extra.deactivated then
                                 sendDebugMessage("Sex Pistols: Found match rank for "..card.ability.extra.chosen_rank)
                                 if card.ability.extra.chosen_rank == "Ace" then
@@ -162,7 +162,7 @@ local spice_girl = {
                     message = localize{type='variable', key='a_chips', vars={card.ability.extra.chips}},
                     colour=G.C.CHIPS,
                     chip_mod=card.ability.extra.chips,
-                    mult_mod=card.ability.extra.Xmult,
+                    Xmult_mod=card.ability.extra.Xmult,
                 }
             end
         end
@@ -405,9 +405,12 @@ local little_feet = {
         end
     end,
     remove_from_deck = function(self, card, from_debuff)
-        sendDebugMessage("Little Feet: Removed from deck, restoring face cards")
-        for k, v in pairs(G.playing_cards) do
-            SMODS.debuff_card(v, false, card)
+        -- Must mirror the from_debuff check in add_to_deck, or a debuff cycle permanently restores face cards
+        if not from_debuff then
+            sendDebugMessage("Little Feet: Removed from deck, restoring face cards")
+            for k, v in pairs(G.playing_cards) do
+                SMODS.debuff_card(v, false, card)
+            end
         end
     end
 }

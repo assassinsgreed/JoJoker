@@ -323,8 +323,8 @@ Balatest.TestPlay {
     assert = function()
         local chips_per_joker = G.jokers.cards[3].ability.extra.chips_per_joker
         Balatest.assert_eq(G.jokers.cards[3].ability.extra.current_chips, 2 * chips_per_joker, "Left Side Ataxia did not give correct chips for two jokers to its left")
-        Balatest.assert_eq(G.jokers.cards[1].ability.extra.lta_disabled, true, "First joker to the left of Left Side Ataxia was not disabled")
-        Balatest.assert_eq(G.jokers.cards[2].ability.extra.lta_disabled, true, "Second joker to the left of Left Side Ataxia was not disabled")
+        Balatest.assert_eq(G.jokers.cards[1].ability.extra.lsa_disabled, true, "First joker to the left of Left Side Ataxia was not disabled")
+        Balatest.assert_eq(G.jokers.cards[2].ability.extra.lsa_disabled, true, "Second joker to the left of Left Side Ataxia was not disabled")
         Balatest.assert_eq(G.jokers.cards[4].debuff, false, "Joker to the right of Left Side Ataxia was disabled")
     end
 }
@@ -342,8 +342,8 @@ Balatest.TestPlay {
     assert = function()
         local ataxia = G.jokers.cards[3]
         Balatest.assert_eq(ataxia.ability.extra.current_chips, 2 * ataxia.ability.extra.chips_per_joker, "Left Side Ataxia did not update chip total after being moved")
-        Balatest.assert(G.jokers.cards[1].ability.extra.lta_disabled, "Joker left of Left Side Ataxia was not disabled after moving")
-        Balatest.assert(G.jokers.cards[2].ability.extra.lta_disabled, "Second joker left of Left Side Ataxia was not disabled after moving")
+        Balatest.assert(G.jokers.cards[1].ability.extra.lsa_disabled, "Joker left of Left Side Ataxia was not disabled after moving")
+        Balatest.assert(G.jokers.cards[2].ability.extra.lsa_disabled, "Second joker left of Left Side Ataxia was not disabled after moving")
         Balatest.assert_eq(G.jokers.cards[4].debuff, false, "Joker to the right of Left Side Ataxia was disabled after moving")
     end
 }
@@ -376,7 +376,7 @@ Balatest.TestPlay {
         for _, joker in ipairs(G.jokers.cards) do
             if joker.debuff then
                 disabled_count = disabled_count + 1
-                if joker.ability.extra.lta_disabled then
+                if joker.ability.extra.lsa_disabled then
                     disabled_by_lta = disabled_by_lta + 1
                 end
             end
@@ -402,6 +402,20 @@ Balatest.TestPlay {
             end
         end
         Balatest.assert_eq(disabled_count, 0, "Jokers were not restored by selling Left Side Ataxia")
+    end
+}
+
+Balatest.TestPlay {
+    name = 'left_side_ataxia_handles_vanilla_jokers_without_table_extra',
+    category = { 'jokers', 'steel_ball_run', 'left_side_ataxia' },
+    -- Banner stores a plain number in ability.extra, which used to crash the disable logic
+    jokers = { 'j_banner', 'j_jojoker_left_side_ataxia' },
+    execute = function()
+        Balatest.wait()
+    end,
+    assert = function()
+        Balatest.assert_eq(G.jokers.cards[1].debuff, true, "Banner to the left of Left Side Ataxia was not disabled")
+        Balatest.assert_eq(G.jokers.cards[2].ability.extra.current_chips, G.jokers.cards[2].ability.extra.chips_per_joker, "Left Side Ataxia did not give chips for the disabled vanilla joker")
     end
 }
 --#endregion

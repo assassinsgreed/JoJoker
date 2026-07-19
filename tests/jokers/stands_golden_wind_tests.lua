@@ -49,6 +49,27 @@ Balatest.TestPlay {
         Balatest.assert_eq(G.jokers.cards[1].ability.extra.mult, 7, "Sex Pistols mult wasn't 7 after playing two 7s")
     end
 }
+Balatest.TestPlay {
+    name = 'sex_pistols_does_not_gain_mult_from_debuffed_matching_ace',
+    category = { 'jokers', 'golden_wind', 'sex_pistols' },
+    jokers = { 'j_jojoker_sex_pistols' },
+    execute = function()
+        G.jokers.cards[1].ability.extra.chosen_rank = "Ace"
+        Balatest.q(function()
+            for _, v in ipairs(G.hand.cards) do
+                if v:get_id() == 14 and v.base.suit == 'Spades' then
+                    SMODS.debuff_card(v, true, 'balatest')
+                    break
+                end
+            end
+            return true
+        end)
+        Balatest.play_hand { 'AS' }
+    end,
+    assert = function()
+        Balatest.assert_eq(G.jokers.cards[1].ability.extra.mult, 0, "Sex Pistols gained mult from a debuffed Ace")
+    end
+}
 --#endregion
 
 --#region Grateful Dead
@@ -136,6 +157,22 @@ Balatest.TestPlay {
     assert = function()
         local expected_xmult = G.jokers.cards[1].ability.extra.Xmult_mod * 2 + 1
         Balatest.assert_eq(G.jokers.cards[1].ability.extra.Xmult, expected_xmult, "Spice Girl xmult wasn't "..expected_xmult.." after scoring one steel card")
+    end
+}
+Balatest.TestPlay {
+    name = 'spice_girl_applies_xmult_when_scoring',
+    category = { 'jokers', 'golden_wind', 'spice_girl' },
+    jokers = { 'j_jojoker_spice_girl' },
+    deck = { cards = {
+        { r = '2', s = 'S', e = 'm_steel' },
+        { r = '2', s = 'C' },
+        { r = '3', s = 'H' } } },
+    execute = function()
+        Balatest.play_hand { '2S', '2C' }
+    end,
+    assert = function()
+        -- Pair of 2s: (10 + 2 + 2) chips * 2 mult * X1.25 from the removed steel enhancement
+        Balatest.assert_chips(35, "Spice Girl did not apply its Xmult during scoring")
     end
 }
 --#endregion

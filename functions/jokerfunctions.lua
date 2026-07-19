@@ -238,6 +238,23 @@ get_joker_count_by_type = function (jtype)
   return 0
 end
 
+-- Non-JoJoker jokers may use a non-table ability.extra (often a number),
+-- so store the flag on ability directly for those. Both spots are saved/reloaded.
+set_lsa_disabled = function(joker, disabled)
+  if type(joker.ability.extra) == 'table' then
+    joker.ability.extra.lsa_disabled = disabled
+  else
+    joker.ability.lsa_disabled = disabled
+  end
+end
+
+get_lsa_disabled = function(joker)
+  if type(joker.ability.extra) == 'table' then
+    return joker.ability.extra.lsa_disabled
+  end
+  return joker.ability.lsa_disabled
+end
+
 handle_left_side_ataxia_disabling = function(left_side_ataxia_card)
   local disabled = 0
   local my_pos = 999 -- Max out to find cards before Left-Side Ataxia
@@ -248,14 +265,14 @@ handle_left_side_ataxia_disabling = function(left_side_ataxia_card)
         -- (restoring ONLY if disabled by Left-Side-Ataxia, to avoid restoring jokers disabled by other effects)
         if i < my_pos then
           -- sendDebugMessage("Disabling joker at position "..i.." because it is before Left-Side Ataxia")
-          other_joker.ability.extra.lta_disabled = true
+          set_lsa_disabled(other_joker, true)
           disabled = disabled + 1
           SMODS.debuff_card(other_joker, true, left_side_ataxia_card)
         else
-          if other_joker.ability.extra.lta_disabled then
+          if get_lsa_disabled(other_joker) then
             -- sendDebugMessage("Restoring joker at position "..i.." because it is after Left-Side Ataxia")
             -- Manually handle restore, because SMODS can't restore the card if the game is reloaded...
-            other_joker.ability.extra.lta_disabled = false
+            set_lsa_disabled(other_joker, false)
             other_joker.ability.debuff_sources[tostring(left_side_ataxia_card)] = false
             SMODS.recalc_debuff(other_joker)
           end
@@ -272,18 +289,24 @@ end
 
 get_random_joker_key = function(seed)
   -- Ban jokers that copy others' effects
-  local excluded_keys = {'khnum', 'surface', 'the_fool', 'kars_stopped_thinking', 'stroheim_german_engineering'}
+  local excluded_keys = {
+    ['j_jojoker_khnum'] = true,
+    ['j_jojoker_surface'] = true,
+    ['j_jojoker_the_fool'] = true,
+    ['j_jojoker_kars_stopped_thinking'] = true,
+    ['j_jojoker_stroheim_german_engineering'] = true,
+  }
   local jojoker_keys = {}
   local chosen_key
 
   for k, v in pairs(G.P_CENTERS) do
-    if v.jtype and get_part_allowed(v) and (not (type(v.in_pool) == 'function') or v:in_pool())
+    if v.jtype and not excluded_keys[v.key] and get_part_allowed(v) and (not (type(v.in_pool) == 'function') or v:in_pool())
        and not G.GAME.banned_keys[v.key] and not (G.GAME.used_jokers[v.key] and not SMODS.showman(v.key)) then
 
       if v.enhancement_gate then
         if G.playing_cards then
           for kk, vv in pairs(G.playing_cards) do
-            if SMODS.has_enhancement(vv, v.enhancement_gate) and not excluded_keys[v.key] then
+            if SMODS.has_enhancement(vv, v.enhancement_gate) then
               table.insert(jojoker_keys, v.key)
               break
             end

@@ -97,4 +97,16 @@ Balatest.TestPlay {
         Balatest.assert_chips(36, "Clacker Balls retriggered when scored hand is less than 3")
     end
 }
+Balatest.TestPlay {
+    name = 'clacker_balls_retriggers_apply_through_blueprint',
+    category = { 'jokers', 'battle_tendency', 'clacker_balls' },
+    jokers = { 'j_blueprint', 'j_jojoker_clacker_balls' },
+    execute = function()
+        Balatest.play_hand { '2S', '2C' }
+    end,
+    assert = function()
+        -- Pair of 2s: (10 base + 2*3 + 2*3) chips * 2 mult; each 2 scores 3 times (base + Clacker Balls + Blueprint copy)
+        Balatest.assert_chips(44, "Clacker Balls retriggers were not copied by Blueprint")
+    end
+}
 --#endregion

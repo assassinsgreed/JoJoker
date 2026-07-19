@@ -287,7 +287,7 @@ local left_side_ataxia = {
     remove_from_deck = function(self, card, from_debuff)
         for i = 1, #G.jokers.cards do
             local other_joker = G.jokers.cards[i]
-            other_joker.ability.extra.lta_disabled = false
+            set_lsa_disabled(other_joker, false)
             if other_joker.ability.debuff_sources then
                 other_joker.ability.debuff_sources[tostring(card)] = false
             end

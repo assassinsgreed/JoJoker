@@ -53,6 +53,27 @@ Balatest.TestPlay {
         Balatest.assert_eq(hands, 1, "Yoshikage Kira didn't decrease hands by 1 when removed")
     end
 }
+Balatest.TestPlay {
+    name = 'yoshikage_kira_does_not_drain_hands_after_debuff_cycle',
+    category = { 'jokers', 'diamond_is_unbreakable', 'yoshikage_kira' },
+    jokers = { 'j_jojoker_yoshikage_kira' },
+    hands = 1,
+    execute = function()
+        Balatest.q(function()
+            SMODS.debuff_card(G.jokers.cards[1], true, 'balatest')
+            return true
+        end)
+        Balatest.q(function()
+            SMODS.debuff_card(G.jokers.cards[1], false, 'balatest')
+            return true
+        end)
+        Balatest.wait()
+    end,
+    assert = function()
+        Balatest.assert_eq(G.GAME.current_round.hands_left, 2, "Yoshikage Kira permanently drained a hand after a debuff cycle")
+        Balatest.assert_eq(G.GAME.round_resets.hands, 2, "Yoshikage Kira permanently reduced round reset hands after a debuff cycle")
+    end
+}
 --#endregion
 
 --#region Reimi

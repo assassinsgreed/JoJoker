@@ -80,7 +80,8 @@ local made_in_heaven = {
         if context.setting_blind and not context.blueprint then
             local hands_mult = card.ability.extra.Xmult_mod * (G.GAME.current_round.hands_left - 1)
             local discards_mult = card.ability.extra.Xmult_mod * G.GAME.current_round.discards_left
-            card.ability.extra.Xmult = hands_mult + discards_mult
+            -- Floor at X1 so entering a blind with nothing to lose (e.g. The Needle) can't zero out scores
+            card.ability.extra.Xmult = math.max(1, hands_mult + discards_mult)
             sendDebugMessage("Made In Heaven: Setting Xmult to "..card.ability.extra.Xmult)
 
             if G.hand.config.card_limit < #G.deck.cards then

@@ -413,7 +413,8 @@ local poco = {
     eternal_compat = true,
     config = { extra = { score_threshold = 0.20, money_mod = 2 } },
     loc_vars = function(self, info_queue, center)
-      return {vars = { center.ability.extra.score_threshold, center.ability.extra.money_mod }}
+      -- Description displays the threshold as a percentage
+      return {vars = { center.ability.extra.score_threshold * 100, center.ability.extra.money_mod }}
     end,
     calculate = function(self, card, context)
         if context.cardarea == G.jokers and context.scoring_hand then
