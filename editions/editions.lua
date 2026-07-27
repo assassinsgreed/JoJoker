@@ -1,26 +1,23 @@
 local apply_shader = function()
     SMODS.Shader({ key = 'menacing_aura', path = 'menacing_aura.fs'})
-end
 
-local menacing_aura = ({
-    key = 'menacing_aura',
-    disable_shadow = false,
-    disable_base_shader = false,
-    shader = 'menacing_aura',
-    discovered = true,
-    unlocked = true,
-    config = {},
-    in_shop = false, -- Prevent from spawning on random jokers
-    apply_to_float = true,
-    loc_vars = function(self)
-        return { vars = {} }
-    end
-})
+    SMODS.DrawStep {
+        key = 'menacing_aura',
+        order = 21,
+        conditions = { vortex = false, facing = 'front' },
+        func = function(card)
+            local center = card.config.center
+            if card.ability.set ~= 'Joker' then return end
+            if type(center) ~= 'table' or center.rarity ~= 4 then return end
+            if center.stage or center.menacing_aura then return end
+
+            card.children.center:draw_shader('jojoker_menacing_aura', nil, card.ARGS.send_to_shader)
+        end,
+    }
+end
 
 return {
     name = 'Editions',
     init = apply_shader,
-    list = {
-        menacing_aura
-    }
+    list = {}
 }

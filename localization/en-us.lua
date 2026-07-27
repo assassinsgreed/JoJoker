@@ -3,15 +3,6 @@
 
 return {
     descriptions = {
-        Edition = {
-            e_jojoker_menacing_aura = {
-                name = "Menacing Aura",
-                label = "menacing_aura", -- Must match a label in these translation files
-                text = {
-                    "{C:legendary,E:1}~Dooooooom~",
-                }
-            },
-        },
         Joker = {
             -- Part 1: Phantom Blood
             j_jojoker_danny = {
@@ -1493,9 +1484,6 @@ return {
             -- Misc config options
             jojoker_settings_jojoker_only_collection = "Only JoJoker Jokers in Collection?",
             jojoker_settings_use_localized_names = "Use Localized Joker Names?",
-        },
-        labels = {
-            jojoker_menacing_aura = "Menacing Aura",
         },
         quips = {
             jojoker_lose_quip1 = {"You thought you could beat me?", "Yare yare daze...",},

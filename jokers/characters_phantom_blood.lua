@@ -42,7 +42,7 @@ local danny = {
                     G.GAME.joker_buffer = 0
                     card:start_dissolve({ HEX("57ecab") }, nil, 1.6)
                     play_sound('slice1', 0.96 + math.random() * 0.08)
-                    remove(self, card, context, true)
+                    remove(self, card, context)
                     return true
                   end
                 }))
@@ -259,7 +259,7 @@ local dario_brando = {
                     G.GAME.joker_buffer = 0
                     card:start_dissolve({ HEX("57ecab") }, nil, 1.6)
                     play_sound('slice1', 0.96 + math.random() * 0.08)
-                    remove(self, card, context, true)
+                    remove(self, card, context)
                     return true
                   end
                 }))

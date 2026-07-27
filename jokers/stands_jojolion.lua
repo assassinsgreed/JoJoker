@@ -265,7 +265,7 @@ local wonder_of_u = {
                     G.GAME.joker_buffer = 0
                     joker:start_dissolve({ HEX("57ecab") }, nil, 1.6)
                     play_sound('slice1', 0.96 + math.random() * 0.08)
-                    remove(self, joker, context, true)
+                    remove(self, joker, context)
                     card.ability.extra.Xmult = card.ability.extra.Xmult + card.ability.extra.Xmult_mod
                 end
 

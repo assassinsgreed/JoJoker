@@ -107,24 +107,6 @@ end
 '''
 match_indent = true
 
-# Menacing Aura joker shader
-[[patches]]
-[patches.pattern]
-target = "card.lua"
-pattern = '''
-if (self.edition and self.edition.negative) or (self.ability.name == 'Antimatter' and (self.config.center.discovered or self.bypass_discovery_center)) then
-    self.children.center:draw_shader('negative_shine', nil, self.ARGS.send_to_shader)
-end
-'''
-position = "after"
-payload = '''
-if (self.edition and self.edition.jojoker_menacing_aura) and self.config.center and type(self.config.center) == "table" and not (self.config.center.stage or self.config.center.menacing_aura) 
-and self.label ~= "e_jojoker_menacing_aura" then
-    self.children.center:draw_shader('jojoker_menacing_aura', nil, self.ARGS.send_to_shader)
-end
-'''
-match_indent = true
-
 # Add nominal drain UI
 [[patches]]
 [patches.pattern]
