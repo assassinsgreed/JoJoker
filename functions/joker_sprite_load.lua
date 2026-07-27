@@ -101,6 +101,7 @@ JokerSprites = {
         {name = "marilyn_manson", base = {pos = {x = 2, y = 2}}, part_atlas = "stone_ocean" },
         {name = "c_moon", base = {pos = {x = 3, y = 2}}, part_atlas = "stone_ocean" },
         {name = "planet_waves", base = {pos = {x = 4, y = 2}}, part_atlas = "stone_ocean" },
+        {name = "kiss", base = {pos = {x = 0, y = 3}}, part_atlas = "stone_ocean" },
         -- Part 7: Steel Ball Run
         {name = "mandom", base = {pos = {x = 0, y = 0}}, part_atlas = "steel_ball_run" },
         {name = "the_fifth_lesson", base = {pos = {x = 1, y = 0}}, part_atlas = "steel_ball_run" },

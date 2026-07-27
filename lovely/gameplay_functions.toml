@@ -114,3 +114,16 @@ if G.GAME.extra_booster_picks and G.GAME.extra_booster_picks > 0 then
 end
 '''
 match_indent = true
+
+## Card duplication event (Kiss)
+[[patches]]
+[patches.pattern]
+target = "functions/common_events.lua"
+pattern = "function copy_card(other, new_card, card_scale, playing_card, strip_edition)"
+position = "after"
+payload = '''
+if type(jojoker_handle_card_copy) == "function" then
+  jojoker_handle_card_copy(other, new_card, card_scale)
+end
+'''
+match_indent = true

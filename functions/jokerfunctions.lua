@@ -344,3 +344,18 @@ get_most_played_hand_info = function()
 
   return { count = highest_played, name = highest_hands[1] or "High Card" }
 end
+
+-- Jokers that duplicate by creating a card from a key never reach copy_card, so they call this directly
+jojoker_card_duplicated = function(card)
+  if G.STAGE ~= G.STAGES.RUN then return end
+  sendDebugMessage("Card duplicated: "..tostring(card and card.config.center.key))
+  SMODS.calculate_context({ jojoker_card_duplicated = true, card = card })
+end
+
+jojoker_handle_card_copy = function(other, new_card, card_scale)
+  -- Previews pass a card_scale, effects that overwrite a card (ex. Death) pass new_card, and
+  -- redeeming a voucher copies it into G.vouchers -- none of those are duplications
+  if new_card or card_scale or not other then return end
+  if other.ability and other.ability.set == 'Voucher' then return end
+  jojoker_card_duplicated(other)
+end

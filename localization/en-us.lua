@@ -1001,6 +1001,22 @@ return {
                     "Played {C:planet}planet cards{} have a {C:attention}#1# in #2#{} chance to be duplicated."
                 }
             },
+            j_jojoker_kiss = {
+                name = "Kiss",
+                text = {
+                    "Gains {C:chips}+#1#{} whenever a {C:attention}card{} is {C:attention}duplicated{}.",
+                    "{br:2}line break",
+                    "{C:inactive}Currently: {C:chips}+#2#{}"
+                }
+            },
+            j_jojoker_kiss_alt = {
+                name = "Smack",
+                text = {
+                    "Gains {C:chips}+#1#{} whenever a {C:attention}card{} is {C:attention}duplicated{}.",
+                    "{br:2}line break",
+                    "{C:inactive}Currently: {C:chips}+#2#{}"
+                }
+            },
             -- Part 7: Steel Ball Run
             j_jojoker_mandom = {
                 name = "Mandom",

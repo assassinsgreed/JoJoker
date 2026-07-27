@@ -355,3 +355,79 @@ Balatest.TestPlay {
     end
 }
 --#endregion
+--#region Kiss
+Balatest.TestPlay {
+    name = 'kiss_gains_chips_when_a_playing_card_is_duplicated',
+    category = { 'jokers', 'stone_ocean', 'kiss' },
+    jokers = { 'j_jojoker_kiss', 'j_jojoker_german_engineering' },
+    execute = function()
+        Balatest.play_hand { '9S' }
+    end,
+    assert = function()
+        Balatest.assert_eq(G.jokers.cards[1].ability.extra.chips, G.jokers.cards[1].ability.extra.chips_mod, "Kiss did not gain chips when German Engineering duplicated a played card")
+    end
+}
+
+Balatest.TestPlay {
+    name = 'kiss_gains_chips_for_each_copy_made',
+    category = { 'jokers', 'stone_ocean', 'kiss' },
+    jokers = { 'j_jojoker_kiss' },
+    consumeables = { 'c_cryptid' },
+    deck = { cards = {
+        { r = '2', s = 'S' },
+        { r = '3', s = 'C' },
+        { r = '5', s = 'H' } } },
+    execute = function()
+        Balatest.highlight { '2S' }
+        Balatest.use(G.consumeables.cards[1])
+    end,
+    assert = function()
+        Balatest.assert_eq(G.jokers.cards[1].ability.extra.chips, G.jokers.cards[1].ability.extra.chips_mod * 2, "Kiss did not gain chips for each copy Cryptid created")
+    end
+}
+
+Balatest.TestPlay {
+    name = 'kiss_gains_chips_when_a_consumable_is_duplicated',
+    category = { 'jokers', 'stone_ocean', 'kiss' },
+    jokers = { 'j_jojoker_kiss', 'j_jojoker_planet_waves' },
+    consumeables = { 'c_mars' },
+    execute = function()
+        G.jokers.cards[2].ability.extra.denominator = G.jokers.cards[2].ability.extra.numerator
+        Balatest.use(G.consumeables.cards[1])
+    end,
+    assert = function()
+        Balatest.assert_eq(G.jokers.cards[1].ability.extra.chips, G.jokers.cards[1].ability.extra.chips_mod, "Kiss did not gain chips when Planet Waves duplicated a planet card")
+    end
+}
+
+Balatest.TestPlay {
+    name = 'kiss_does_not_gain_chips_when_a_card_is_converted',
+    category = { 'jokers', 'stone_ocean', 'kiss' },
+    jokers = { 'j_jojoker_kiss' },
+    consumeables = { 'c_death' },
+    deck = { cards = {
+        { r = '2', s = 'S' },
+        { r = '3', s = 'C' },
+        { r = '5', s = 'H' } } },
+    execute = function()
+        Balatest.highlight { '2S', '3C' }
+        Balatest.use(G.consumeables.cards[1])
+    end,
+    assert = function()
+        Balatest.assert_eq(G.jokers.cards[1].ability.extra.chips, 0, "Kiss gained chips when Death converted a card instead of duplicating one")
+    end
+}
+
+Balatest.TestPlay {
+    name = 'kiss_gives_its_accumulated_chips_when_a_hand_is_scored',
+    category = { 'jokers', 'stone_ocean', 'kiss' },
+    jokers = { 'j_jojoker_kiss' },
+    execute = function()
+        G.jokers.cards[1].ability.extra.chips = G.jokers.cards[1].ability.extra.chips_mod
+        Balatest.play_hand { '2S' }
+    end,
+    assert = function()
+        Balatest.assert_chips(37, "Kiss did not give its accumulated chips when a hand was scored")
+    end
+}
+--#endregion

@@ -93,6 +93,7 @@ jojoker.joker_order = {
     "khnum",
     "killer_queen",
     "king_crimson",
+    "kiss",
     "limp_bizkit",
     "little_feet",
     "love_train",

@@ -170,3 +170,10 @@ jd_def["j_jojoker_planet_waves"] = {
         { text = "Duplicate planet cards", colour = G.C.GREY, },
     },
 }
+
+jd_def["j_jojoker_kiss"] = {
+    text = {
+        { text = "+", colour = G.C.CHIPS },
+        { ref_table = "card.ability.extra", ref_value = "chips", retrigger_type = "chips",  colour = G.C.CHIPS },
+    },
+}

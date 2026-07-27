@@ -383,10 +383,11 @@ local limp_bizkit = {
                 sendDebugMessage("Limp Bizkit: Joker being recreated as Negative")
                 card:juice_up()
 
-                SMODS.add_card {
+                local reborn_card = SMODS.add_card {
                     key = context.card.config.center.key,
                     edition = "e_negative",
                 }
+                jojoker_card_duplicated(reborn_card)
 
                 return {
                     message = localize('k_copied_ex'),
@@ -522,6 +523,7 @@ local planet_waves = {
                         })
                         _card:add_to_deck()
                         G.consumeables:emplace(_card)
+                        jojoker_card_duplicated(_card)
                         return true end })
                     )
 
@@ -534,7 +536,47 @@ local planet_waves = {
     end
 }
 
+local kiss = {
+    name = "kiss",
+    rarity = 1,
+    cost = 5,
+    jtype = "Stand",
+    jclass = "Close Range",
+    part = "stone_ocean",
+    blueprint_compat = true,
+    perishable_compat = true,
+    eternal_compat = true,
+    config = { extra = { chips_mod = 30, chips = 0 } },
+    loc_vars = function(self, info_queue, center)
+        return {
+            vars = {center.ability.extra.chips_mod, center.ability.extra.chips},
+            key = jojoker_config.use_localized_names and self.key..'_alt' or self.key
+        }
+    end,
+    calculate = function(self, card, context)
+        -- Permanently gain chips each time a card is duplicated
+        if context.jojoker_card_duplicated and not context.blueprint then
+            card.ability.extra.chips = card.ability.extra.chips + card.ability.extra.chips_mod
+            sendDebugMessage("Kiss: Card duplicated, gaining "..card.ability.extra.chips_mod.." chips. New total: "..card.ability.extra.chips)
+            card:juice_up()
+
+            return {
+                message = localize{type='variable', key='a_chips', vars={card.ability.extra.chips}},
+                colour = G.C.CHIPS
+            }
+        end
+
+        if context.joker_main then
+            return {
+                message = localize{type='variable', key='a_chips', vars={card.ability.extra.chips}},
+                colour = G.C.CHIPS,
+                chip_mod = card.ability.extra.chips,
+            }
+        end
+    end
+}
+
 return {
     name = "Stone Ocean Stands Jokers",
-    list = { goo_goo_dolls, stone_free, made_in_heaven, dragons_dream, green_green_grass_of_home, survivor, foo_fighters, white_snake, burning_down_the_house, limp_bizkit, marilyn_manson, c_moon, planet_waves },
+    list = { goo_goo_dolls, stone_free, made_in_heaven, dragons_dream, green_green_grass_of_home, survivor, foo_fighters, white_snake, burning_down_the_house, limp_bizkit, marilyn_manson, c_moon, planet_waves, kiss },
 }

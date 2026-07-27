@@ -149,6 +149,7 @@ local zombies = {
                     local new_card = SMODS.create_card({set = "Joker", area = G.jokers, key = "j_jojoker_zombies", no_edition = true})
                     new_card:add_to_deck()
                     G.jokers:emplace(new_card)
+                    jojoker_card_duplicated(new_card)
 
                     return {
                         message = localize("sound_grr")
