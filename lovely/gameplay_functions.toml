@@ -115,6 +115,19 @@ end
 '''
 match_indent = true
 
+## Force a specific card into a booster pack (Enya)
+[[patches]]
+[patches.pattern]
+target = "card.lua"
+pattern = "local _card_to_spawn = booster_obj:create_card(self, i)"
+position = "after"
+payload = '''
+if type(jojoker_force_pack_card) == "function" then
+  _card_to_spawn = jojoker_force_pack_card(self, i) or _card_to_spawn
+end
+'''
+match_indent = true
+
 ## Card duplication event (Kiss)
 [[patches]]
 [patches.pattern]

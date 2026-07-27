@@ -345,11 +345,43 @@ get_most_played_hand_info = function()
   return { count = highest_played, name = highest_hands[1] or "High Card" }
 end
 
+get_most_used_tarot_info = function()
+  local highest_key, highest_count, highest_order = nil, 0, nil
+  for key, usage in pairs(G.GAME.consumeable_usage or {}) do
+    if usage.set == 'Tarot' and G.P_CENTERS[key] then
+      -- Ties fall to the lower collection order so the reported tarot cannot flicker between two equally used ones
+      local order = usage.order or 0
+      if usage.count > highest_count or (highest_order and usage.count == highest_count and order < highest_order) then
+        highest_key, highest_count, highest_order = key, usage.count, order
+      end
+    end
+  end
+
+  return {
+    key = highest_key,
+    count = highest_count,
+    name = highest_key and localize{type = 'name_text', key = highest_key, set = 'Tarot'} or localize('none_used')
+  }
+end
+
 -- Jokers that duplicate by creating a card from a key never reach copy_card, so they call this directly
 jojoker_card_duplicated = function(card)
   if G.STAGE ~= G.STAGES.RUN then return end
   sendDebugMessage("Card duplicated: "..tostring(card and card.config.center.key))
   SMODS.calculate_context({ jojoker_card_duplicated = true, card = card })
+end
+
+-- Booster contents are built from spawn tables, so Enya guarantees its tarot by replacing the first one
+jojoker_force_pack_card = function(booster_card, i)
+  if i ~= 1 or G.STAGE ~= G.STAGES.RUN then return nil end
+  if not booster_card or not booster_card.config or booster_card.config.center.kind ~= 'Arcana' then return nil end
+  if #SMODS.find_card('j_jojoker_enya') == 0 then return nil end
+
+  local tarot = get_most_used_tarot_info()
+  if not tarot.key then return nil end
+
+  sendDebugMessage("Enya: Forcing "..tarot.name.." into the opened Arcana Pack")
+  return { set = 'Tarot', area = G.pack_cards, skip_materialize = true, soulable = true, key = tarot.key, key_append = 'ar1' }
 end
 
 jojoker_handle_card_copy = function(other, new_card, card_scale)

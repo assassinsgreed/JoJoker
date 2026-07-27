@@ -114,7 +114,35 @@ local darby_brothers = {
     end
 }
 
+local enya = {
+    name = "enya",
+    rarity = 2,
+    cost = 6,
+    jtype = "Character",
+    part = "stardust_crusaders",
+    blueprint_compat = false,
+    perishable_compat = true,
+    eternal_compat = true,
+    config = { extra = { most_used_tarot_key = nil, most_used_tarot_name = "none" } }, -- Default for displayed strings in desc & jokerdisplay
+    loc_vars = function(self, info_queue, card)
+      return {
+        vars = {card.ability.extra.most_used_tarot_name},
+        key = jojoker_config.use_localized_names and self.key..'_alt' or self.key
+      }
+    end,
+    update = function(self, card, dt)
+        if G.STAGE == G.STAGES.RUN then
+            local tarot = get_most_used_tarot_info()
+            if tarot.key ~= card.ability.extra.most_used_tarot_key then
+                sendDebugMessage("Enya: Most used tarot is now "..tarot.name)
+                card.ability.extra.most_used_tarot_key = tarot.key
+                card.ability.extra.most_used_tarot_name = tarot.name
+            end
+        end
+    end
+}
+
 return {
     name = "Stardust Crusaders Character Jokers",
-    list = { ndoul, old_joseph_joestar, hol_horse, darby_brothers },
+    list = { ndoul, old_joseph_joestar, hol_horse, darby_brothers, enya },
 }

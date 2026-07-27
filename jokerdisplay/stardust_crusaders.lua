@@ -185,3 +185,12 @@ jd_def["j_jojoker_the_sun"] = {
         { ref_table = "card.ability.extra", ref_value = "chips", retrigger_type = "chips",  colour = G.C.CHIPS },
     }
 }
+
+jd_def["j_jojoker_enya"] = {
+    text = {
+        { ref_table = "card.ability.extra", ref_value = "most_used_tarot_name", retrigger_type = "most_used_tarot_name", colour = G.C.PURPLE },
+    },
+    reminder_text = {
+        { text = "Always in Arcana Packs", colour = G.C.GREY },
+    }
+}

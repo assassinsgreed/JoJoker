@@ -403,6 +403,24 @@ return {
                     "Gives {C:chips}+#1#{} when scored hand name is {C:attention}Pair{}."
                 }
             },
+            j_jojoker_enya = {
+                name = "Enya",
+                text = {
+                    "{C:attention}Arcana Packs{} always contain the",
+                    "{C:tarot}Tarot{} card used most this run.",
+                    "{br:2}line break",
+                    "{C:inactive}Most used: #1#"
+                }
+            },
+            j_jojoker_enya_alt = {
+                name = "Enyaba",
+                text = {
+                    "{C:attention}Arcana Packs{} always contain the",
+                    "{C:tarot}Tarot{} card used most this run.",
+                    "{br:2}line break",
+                    "{C:inactive}Most used: #1#"
+                }
+            },
             -- Part 4: Diamond is Unbreakable
             j_jojoker_voice_of_love = {
                 name = "Voice of Love",
@@ -1469,6 +1487,7 @@ return {
             -- Common strings
             a_hand = "a hand",
             undecided = "undecided",
+            none_used = "none",
             shuffled = "Shuffled!",
             chips = "chips",
             xmult = "Xmult",

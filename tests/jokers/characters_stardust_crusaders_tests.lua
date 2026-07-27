@@ -92,3 +92,80 @@ Balatest.TestPlay {
     end
 }
 --#endregion
+--#region Enya
+Balatest.TestPlay {
+    name = 'enya_reports_no_most_used_tarot_before_any_are_used',
+    category = { 'jokers', 'stardust_crusaders', 'enya' },
+    jokers = { 'j_jojoker_enya' },
+    execute = function()
+        Balatest.wait()
+    end,
+    assert = function()
+        Balatest.assert_eq(G.jokers.cards[1].ability.extra.most_used_tarot_name, "none", "Enya named a most used tarot before any were used")
+    end
+}
+Balatest.TestPlay {
+    name = 'enya_reports_the_most_used_tarot',
+    category = { 'jokers', 'stardust_crusaders', 'enya' },
+    jokers = { 'j_jojoker_enya' },
+    consumeables = { 'c_strength', 'c_strength', 'c_chariot' },
+    execute = function()
+        Balatest.use(G.consumeables.cards[1])
+        Balatest.use(G.consumeables.cards[2])
+        Balatest.use(G.consumeables.cards[3])
+        Balatest.wait()
+    end,
+    assert = function()
+        Balatest.assert_eq(G.jokers.cards[1].ability.extra.most_used_tarot_key, 'c_strength', "Enya did not report the most used tarot")
+        Balatest.assert_eq(G.jokers.cards[1].ability.extra.most_used_tarot_name, "Strength", "Enya did not report the most used tarot's name")
+    end
+}
+Balatest.TestPlay {
+    name = 'enya_breaks_most_used_tarot_ties_by_collection_order',
+    category = { 'jokers', 'stardust_crusaders', 'enya' },
+    jokers = { 'j_jojoker_enya' },
+    consumeables = { 'c_strength', 'c_chariot' },
+    execute = function()
+        Balatest.use(G.consumeables.cards[1])
+        Balatest.use(G.consumeables.cards[2])
+        Balatest.wait()
+    end,
+    assert = function()
+        local expected = G.P_CENTERS.c_chariot.order < G.P_CENTERS.c_strength.order and 'c_chariot' or 'c_strength'
+        Balatest.assert_eq(G.jokers.cards[1].ability.extra.most_used_tarot_key, expected, "Enya did not break the most used tarot tie by collection order")
+    end
+}
+Balatest.TestPlay {
+    name = 'enya_ignores_non_tarot_consumables',
+    category = { 'jokers', 'stardust_crusaders', 'enya' },
+    jokers = { 'j_jojoker_enya' },
+    consumeables = { 'c_mercury', 'c_venus' },
+    execute = function()
+        Balatest.use(G.consumeables.cards[1])
+        Balatest.use(G.consumeables.cards[2])
+        Balatest.wait()
+    end,
+    assert = function()
+        Balatest.assert_eq(G.jokers.cards[1].ability.extra.most_used_tarot_name, "none", "Enya counted planet cards as tarots")
+    end
+}
+-- No test for Arcana Packs without Enya; the cards they offer are random
+Balatest.TestPlay {
+    name = 'enya_forces_the_most_used_tarot_into_arcana_packs',
+    category = { 'jokers', 'stardust_crusaders', 'enya' },
+    jokers = { 'j_jojoker_enya' },
+    consumeables = { 'c_strength' },
+    dollars = 20,
+    execute = function()
+        Balatest.use(G.consumeables.cards[1])
+        Balatest.end_round()
+        Balatest.cash_out()
+        Balatest.q(function() SMODS.add_booster_to_shop('p_arcana_normal_1') end)
+        Balatest.open(function() return G.shop_booster.cards[#G.shop_booster.cards] end)
+        Balatest.wait(3)
+    end,
+    assert = function()
+        Balatest.assert_eq(G.pack_cards.cards[1].config.center_key, 'c_strength', "Enya did not force the most used tarot into the Arcana Pack")
+    end
+}
+--#endregion

@@ -8,6 +8,7 @@ jojoker.joker_order = {
     "darby_brothers",
     "dario_brando",
     "dio_brando",
+    "enya",
     "erina",
     "esidisi",
     "george_joestar",
