@@ -37,6 +37,10 @@ This mod's concept and organization are heavily inspired by InertSteak's [Pokerm
 
 JoJo's Bizarre Adventure is property of Hirohiko Araki.
 
+## AI Usage
+
+Claude has been used to help me mechanically build and test jokers. This process was only utilized after creating 129 jokers by hand and learning the ins and outs of Balatro modding myself. AI has not and will never be used to generate art or design/balance game content; it is purely used to reduce repetition in the development process.
+
 # v0.1.0 TODOs Shortlist
 
 - Better localization for jokers with initial text strings (joseph pt 2, sex pistols, etc)
