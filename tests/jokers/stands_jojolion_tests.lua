@@ -231,3 +231,79 @@ Balatest.TestPlay {
 }
 -- No test for increased booster pack contents; the options presented are random
 --#endregion
+--#region Fun Fun Fun
+Balatest.TestPlay {
+    name = 'fun_fun_fun_discards_held_card_and_gives_it_permanent_mult',
+    category = { 'jokers', 'jojolion', 'fun_fun_fun' },
+    jokers = { 'j_jojoker_fun_fun_fun' },
+    deck = { cards = {
+        { r = '4', s = 'S' },
+        { r = '4', s = 'H' },
+        { r = '4', s = 'C' } } },
+    hand_size = 3,
+    discards = 3,
+    execute = function()
+        Balatest.play_hand { '4S' }
+    end,
+    assert = function()
+        Balatest.assert_eq(#G.discard.cards, 2, "Fun Fun Fun did not discard a held card")
+        Balatest.assert_eq(#G.hand.cards, 1, "Fun Fun Fun did not remove the discarded card from hand")
+        for _, discarded in ipairs(G.discard.cards) do
+            if discarded.base.suit == 'Spades' then
+                Balatest.assert_eq(discarded.ability.perma_mult or 0, 0, "Fun Fun Fun gave permanent mult to a played card")
+            else
+                Balatest.assert_eq(discarded.ability.perma_mult, G.jokers.cards[1].ability.extra.mult_mod, "Fun Fun Fun did not give the discarded card permanent mult")
+            end
+        end
+        Balatest.assert_eq(G.GAME.current_round.discards_left, 3, "Fun Fun Fun used up one of the player's discards")
+    end
+}
+
+Balatest.TestPlay {
+    name = 'fun_fun_fun_triggers_on_each_played_hand',
+    category = { 'jokers', 'jojolion', 'fun_fun_fun' },
+    jokers = { 'j_jojoker_fun_fun_fun' },
+    deck = { cards = {
+        -- All cards are the same so the random pick does not matter
+        { r = '4', s = 'S' },
+        { r = '4', s = 'S' },
+        { r = '4', s = 'S' },
+        { r = '4', s = 'S' },
+        { r = '4', s = 'S' } } },
+    hand_size = 5,
+    execute = function()
+        Balatest.play_hand { '4S' }
+        Balatest.play_hand { '4S' }
+        Balatest.end_round() -- Get all cards back into the deck for comparision
+    end,
+    assert = function()
+        local total_perma_mult = 0
+        for _, deck_card in ipairs(G.deck.cards) do
+            total_perma_mult = total_perma_mult + (deck_card.ability.perma_mult or 0)
+        end
+        Balatest.assert_eq(total_perma_mult, G.jokers.cards[1].ability.extra.mult_mod * 2, "Fun Fun Fun did not trigger on each played hand")
+    end
+}
+
+Balatest.TestPlay {
+    name = 'fun_fun_fun_discarded_card_scores_its_permanent_mult',
+    category = { 'jokers', 'jojolion', 'fun_fun_fun' },
+    jokers = { 'j_jojoker_fun_fun_fun' },
+    deck = { cards = {
+        { r = '4', s = 'S' },
+        { r = '4', s = 'H' },
+        { r = '4', s = 'C' },
+        { r = '4', s = 'D' } } },
+    hand_size = 4,
+    execute = function()
+        Balatest.play_hand { '4S' }
+        Balatest.next_round()
+        -- Play every card so the randomly boosted one scores, leaving none held for Fun Fun Fun
+        Balatest.play_hand { '4S', '4H', '4C', '4D' }
+    end,
+    assert = function()
+        -- (60 from four of a kind + 4 * 4) * (7 from four of a kind + 3 permanent mult)
+        Balatest.assert_chips((60 + 4 * 4) * (7 + 3), "Fun Fun Fun's discarded card did not score its permanent mult")
+    end
+}
+--#endregion

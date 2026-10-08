@@ -110,3 +110,13 @@ jd_def["j_jojoker_space_trucking"] = {
         { text = "Make held consumable negative", colour = G.C.GREY, },
     },
 }
+
+jd_def["j_jojoker_fun_fun_fun"] = {
+    text = {
+        { text = "+", colour = G.C.MULT },
+        { ref_table = "card.ability.extra", ref_value = "mult_mod", retrigger_type = "mult_mod",  colour = G.C.MULT },
+    },
+    reminder_text = {
+        { text = "To discarded held card", colour = G.C.GREY },
+    },
+}

@@ -81,6 +81,7 @@ jojoker.joker_order = {
     "doctor_wu",
     "dragons_dream",
     "foo_fighters",
+    "fun_fun_fun",
     "gold_experience",
     "gold_experience_requiem",
     "goo_goo_dolls",

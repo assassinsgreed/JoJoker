@@ -344,7 +344,49 @@ local space_trucking = {
     end
 }
 
+local fun_fun_fun = {
+    name = "fun_fun_fun",
+    rarity = 1,
+    cost = 5,
+    jtype = "Stand",
+    jclass = "Close Range",
+    part = "jojolion",
+    blueprint_compat = false,
+    perishable_compat = true,
+    eternal_compat = true,
+    config = { extra = { mult_mod = 3 } },
+    loc_vars = function(self, info_queue, center)
+      return {vars = {center.ability.extra.mult_mod}}
+    end,
+    calculate = function(self, card, context)
+        -- Discard a random held card and permanently increase its mult before scoring
+        if context.before and context.cardarea == G.jokers and not context.blueprint then
+            local held_cards = {}
+            for _, held_card in ipairs(G.hand.cards) do
+                if not held_card.fun_fun_fun_discarding then
+                    held_cards[#held_cards + 1] = held_card
+                end
+            end
+            if #held_cards == 0 then return end
+
+            local target = pseudorandom_element(held_cards, 'jojoker_fun_fun_fun')
+            target.fun_fun_fun_discarding = true
+            target.ability.perma_mult = (target.ability.perma_mult or 0) + card.ability.extra.mult_mod
+            sendDebugMessage("Fun Fun Fun: Discarding held card and increasing its multiplier to "..tostring(target.ability.perma_mult))
+
+            card_eval_status_text(target, 'extra', nil, nil, nil, { message = localize('k_upgrade_ex'), colour = G.C.MULT })
+            draw_card(G.hand, G.discard, 90, 'down', false, target)
+            G.E_MANAGER:add_event(Event({
+                func = function()
+                    target.fun_fun_fun_discarding = nil
+                    return true
+                end
+            }))
+        end
+    end
+}
+
 return {
     name = "Jojolion Stands Jokers",
-    list = { soft_and_wet, paper_moon_king, milagro_man, i_am_a_rock, california_king_bed, doctor_wu, wonder_of_u, paisley_park, space_trucking },
+    list = { soft_and_wet, paper_moon_king, milagro_man, i_am_a_rock, california_king_bed, doctor_wu, wonder_of_u, paisley_park, space_trucking, fun_fun_fun },
 }

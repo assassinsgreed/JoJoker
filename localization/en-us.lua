@@ -1345,6 +1345,13 @@ return {
                     "{C:attention}#1# in #2#{} chance to be made {C:dark_edition}Negative{}."
                 }
             },
+            j_jojoker_fun_fun_fun = {
+                name = "Fun Fun Fun",
+                text = {
+                    "When a hand is played, {C:attention}discards{} a random card",
+                    "held in hand and permanently gives it {C:mult}+#1#{} Mult."
+                }
+            },
             -- Part 9: THE JOJOLands
             j_jojoker_smooth_operator = {
                 name = "Smooth Operators",
