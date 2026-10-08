@@ -187,10 +187,27 @@ Assert against `ability.extra` fields rather than hardcoded numbers where possib
 rebalancing does not break tests. `Balatest.assert_chips` needs a literal, so compute it
 from the hand: base hand chips + card nominals + joker contribution, times mult.
 
-Useful Balatest settings: `jokers`, `consumeables`, `deck = { cards = {...} }`, `hands`,
-`discards`, `dollars`, `vouchers`, `seed`, `stake`. Useful actions: `play_hand`,
-`highlight`, `use`, `discard`, `next_round`, `end_round`, `cash_out`, `buy`, `sell`,
-`wait`.
+Useful Balatest settings: `jokers`, `consumeables`, `deck = { cards = {...} }`,
+`hand_size`, `hands`, `discards`, `dollars`, `vouchers`, `seed`, `stake`. Useful actions:
+`play_hand`, `highlight`, `use`, `discard`, `next_round`, `end_round`, `cash_out`, `buy`,
+`sell`, `wait`.
+
+### Small custom decks
+
+**Never let a hand empty both the hand and the deck.** Vanilla ends the round when no
+cards remain in either; with the blind unbeaten the run is lost and card areas are torn
+down, so `assert` fails with errors like `attempt to index field 'discard' (a nil value)`.
+Count every card the hand removes: played cards *and* any the joker discards, destroys,
+or moves. Size the deck and `hand_size` so at least one card is left afterward, or play
+the final hand only when the scenario expects the round to end.
+
+When the joker picks a card at random, keep tests deterministic without relying on the
+seed:
+
+- Make every candidate identical (ex. five `4S`) and assert on totals across the deck.
+- Use one distinguishing trait (ex. suit) to tell the played card from the affected one.
+- For a scored result, play every card that could have been affected so the random
+  pick is always counted (ex. `4S, 4H, 4C, 4D` as Four of a Kind after `next_round`).
 
 ## Comments
 
