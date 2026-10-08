@@ -58,6 +58,30 @@ jojoker_set_joker_badges = function(self, card, badges)
     jclass = localize('joker_class_'..lower_jclass..'_badge')
     badges[#badges+1] = create_badge(jclass, G.ARGS.LOC_COLOURS[lower_jclass], G.C.WHITE, 1.2 )
   end
+
+  if card.ability and card.ability.jojoker_notorious_xmult then
+    local notorious = localize{type = 'variable', key = 'jojoker_notorious_badge', vars = {card.ability.jojoker_notorious_xmult}}
+    badges[#badges+1] = create_badge(notorious, G.C.XMULT, G.C.WHITE, 1.2 )
+  end
+end
+
+-- Chained as the deepest extra so the Notorious B.I.G. Xmult scores after the joker's own effect
+jojoker_add_notorious_xmult = function(card, context, ret)
+  if not (context and context.joker_main and not context.blueprint) then return ret end
+  if not (card and card.ability and card.ability.jojoker_notorious_xmult) then return ret end
+  if ret ~= nil and type(ret) ~= 'table' then return ret end
+
+  local notorious = {
+    message = localize{type = 'variable', key = 'a_xmult', vars = {card.ability.jojoker_notorious_xmult}},
+    colour = G.C.XMULT,
+    Xmult_mod = card.ability.jojoker_notorious_xmult
+  }
+  if not ret then return notorious end
+
+  local last = ret
+  while last.extra do last = last.extra end
+  last.extra = notorious
+  return ret
 end
 
 remove = function(self, card, context)
@@ -382,6 +406,13 @@ jojoker_force_pack_card = function(booster_card, i)
 
   sendDebugMessage("Enya: Forcing "..tarot.name.." into the opened Arcana Pack")
   return { set = 'Tarot', area = G.pack_cards, skip_materialize = true, soulable = true, key = tarot.key, key_append = 'ar1' }
+end
+
+-- Must fire before the destroyed joker is marked getting_sliced, which excludes it from calculation
+jojoker_joker_destroyed_by_joker = function(destroyed, destroyer)
+  if G.STAGE ~= G.STAGES.RUN or not destroyed or not destroyer or destroyed == destroyer then return end
+  sendDebugMessage("Joker destroyed: "..destroyed.config.center.key.." by "..destroyer.config.center.key)
+  SMODS.calculate_context({ jojoker_joker_destroyed_by_joker = true, card = destroyed, destroyer = destroyer })
 end
 
 jojoker_handle_card_copy = function(other, new_card, card_scale)

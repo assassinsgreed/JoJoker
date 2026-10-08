@@ -172,3 +172,21 @@ jd_def["j_jojoker_seven_page_muda"] = {
         { text = "First 7 retriggers", colour = G.C.GREY },
     },
 }
+
+-- Shown in the modifiers row of whichever joker destroyed Notorious B.I.G.
+JokerDisplay.Edition_Definitions["jojoker_notorious"] = {
+    condition_function = function(card)
+        return not card.debuff and card.ability and card.ability.jojoker_notorious_xmult
+    end,
+    mod_function = function(card)
+        return { x_mult = card.ability.jojoker_notorious_xmult }
+    end
+}
+
+jd_def["j_jojoker_notorious_big"] = {
+    reminder_text = {
+        { text = "(X", colour = G.C.GREY },
+        { ref_table = "card.ability.extra", ref_value = "Xmult", colour = G.C.GREY },
+        { text = " to destroyer)", colour = G.C.GREY },
+    },
+}

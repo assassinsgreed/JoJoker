@@ -509,7 +509,41 @@ local rolling_stones = {
     end
 }
 
+local notorious_big = {
+    name = "notorious_big",
+    rarity = 2,
+    cost = 6,
+    jtype = "Stand",
+    jclass = "Automatic",
+    part = "golden_wind",
+    blueprint_compat = false,
+    perishable_compat = true,
+    eternal_compat = true,
+    config = { extra = { Xmult = 2.5 } },
+    loc_vars = function(self, info_queue, center)
+        return {
+            vars = {center.ability.extra.Xmult},
+            key = jojoker_config.use_localized_names and self.key..'_alt' or self.key
+        }
+    end,
+    calculate = function(self, card, context)
+        -- Stored on the destroyer's ability rather than its extra, since most jokers have no Xmult of their own
+        if context.jojoker_joker_destroyed_by_joker and context.card == card and not context.blueprint then
+            local destroyer = context.destroyer
+            local notorious_xmult = (destroyer.ability.jojoker_notorious_xmult or 0) + card.ability.extra.Xmult
+            destroyer.ability.jojoker_notorious_xmult = notorious_xmult
+            sendDebugMessage("Notorious B.I.G.: Destroyed by "..destroyer.ability.name..", which now has X"..notorious_xmult.." Notorious Mult")
+
+            return {
+                message = localize{type = 'variable', key = 'a_xmult', vars = {notorious_xmult}},
+                colour = G.C.XMULT,
+                message_card = destroyer
+            }
+        end
+    end
+}
+
 return {
     name = "Golden Wind Stand Jokers",
-    list = { sex_pistols, grateful_dead, spice_girl, sticky_fingers, gold_experience, gold_experience_requiem, king_crimson, moody_blues, baby_face, little_feet, black_sabbath, rolling_stones },
+    list = { sex_pistols, grateful_dead, spice_girl, sticky_fingers, gold_experience, gold_experience_requiem, king_crimson, moody_blues, baby_face, little_feet, black_sabbath, rolling_stones, notorious_big },
 }

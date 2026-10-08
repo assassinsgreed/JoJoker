@@ -341,6 +341,7 @@ local death_thirteen = {
 
             if my_pos and G.jokers.cards[my_pos-1] and not card.getting_sliced and not G.jokers.cards[my_pos-1].ability.eternal and not G.jokers.cards[my_pos-1].getting_sliced then 
                 local sliced_card = G.jokers.cards[my_pos - 1]
+                jojoker_joker_destroyed_by_joker(sliced_card, card)
                 sliced_card.getting_sliced = true
                 card.ability.extra.mult = card.ability.extra.mult + sliced_card.sell_cost * card.ability.extra.mult_mod
                 sendDebugMessage("Death Thirteen: Destroying card to the left with sell value "..sliced_card.sell_cost.." and increasing mult to "..card.ability.extra.mult)

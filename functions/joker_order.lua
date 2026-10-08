@@ -104,6 +104,7 @@ jojoker.joker_order = {
     "marilyn_manson",
     "milagro_man",
     "moody_blues",
+    "notorious_big",
     "oh_lonesome_me",
     "paisley_park",
     "paper_moon_king",

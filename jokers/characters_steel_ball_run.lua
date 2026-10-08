@@ -31,6 +31,7 @@ local danny_sbr = {
             local joker_to_destroy_index = math.random(#G.jokers.cards)
             sendDebugMessage("Danny is destroying joker at index " .. joker_to_destroy_index.." ("..G.jokers.cards[joker_to_destroy_index].ability.name..")")
             local destroyed_joker = G.jokers.cards[joker_to_destroy_index]
+            jojoker_joker_destroyed_by_joker(destroyed_joker, card)
             destroyed_joker.getting_sliced = true
             G.E_MANAGER:add_event(Event({
                 func = function()

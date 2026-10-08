@@ -262,6 +262,7 @@ local wonder_of_u = {
                 sendDebugMessage("Wonder of U: Destroying " .. #jokers_to_destroy .. " jokers and increasing XMult by " .. card.ability.extra.Xmult_mod * #jokers_to_destroy)
                 for _, joker in ipairs(jokers_to_destroy) do
                     joker.ability.eternal = false
+                    jojoker_joker_destroyed_by_joker(joker, card)
                     G.GAME.joker_buffer = 0
                     joker:start_dissolve({ HEX("57ecab") }, nil, 1.6)
                     play_sound('slice1', 0.96 + math.random() * 0.08)

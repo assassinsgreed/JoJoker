@@ -29,14 +29,23 @@ jojoker.load_joker = function(item)
 
     -- Set detail badges
     item.set_badges = jojoker_set_joker_badges
-    
+
+    local joker_calculate = item.calculate
+    item.calculate = function(self, card, context)
+        local ret, triggered
+        if joker_calculate then
+            ret, triggered = joker_calculate(self, card, context)
+        end
+        return jojoker_add_notorious_xmult(card, context, ret), triggered
+    end
+
     -- Load the Joker
     local prev_load = item.load
     item.load = function(self, card, card_table, other_card)
         if type(self.calculate) == "function" then
             G.E_MANAGER:add_event(Event({
                 func = function()
-                    self:calculate(self, card, {joker_load = true})
+                    self:calculate(card, {joker_load = true})
                     return true
                 end
             }))

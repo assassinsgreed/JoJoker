@@ -809,6 +809,22 @@ return {
                     "{C:green}probabilities{} are set to {C:green}0{}."
                 }
             },
+            j_jojoker_notorious_big = {
+                name = "Notorious B.I.G.",
+                text = {
+                    "When {C:attention}destroyed{} by a {C:attention}Joker{},",
+                    "that Joker permanently",
+                    "gains {X:mult,C:white} X#1# {} Mult"
+                }
+            },
+            j_jojoker_notorious_big_alt = {
+                name = "Notorious Chase",
+                text = {
+                    "When {C:attention}destroyed{} by a {C:attention}Joker{},",
+                    "that Joker permanently",
+                    "gains {X:mult,C:white} X#1# {} Mult"
+                }
+            },
             j_jojoker_seven_page_muda = {
                 name = "Seven Page Muda",
                 text = {
@@ -1519,6 +1535,9 @@ return {
             -- Misc config options
             jojoker_settings_jojoker_only_collection = "Only JoJoker Jokers in Collection?",
             jojoker_settings_use_localized_names = "Use Localized Joker Names?",
+        },
+        v_dictionary = {
+            jojoker_notorious_badge = "Notorious Activated X#1#",
         },
         quips = {
             jojoker_lose_quip1 = {"You thought you could beat me?", "Yare yare daze...",},

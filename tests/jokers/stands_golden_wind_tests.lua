@@ -437,3 +437,97 @@ Balatest.TestPlay {
     end
 }
 --#endregion
+--#region Notorious B.I.G.
+local notorious_big_xmult = function()
+    return G.P_CENTERS.j_jojoker_notorious_big.config.extra.Xmult
+end
+
+Balatest.TestPlay {
+    name = 'notorious_big_gives_xmult_to_death_thirteen_when_destroyed_by_it',
+    category = { 'jokers', 'golden_wind', 'notorious_big' },
+    jokers = { 'j_jojoker_notorious_big', 'j_jojoker_death_thirteen' },
+    execute = function()
+        Balatest.wait()
+    end,
+    assert = function()
+        Balatest.assert_eq(#G.jokers.cards, 1, "Death Thirteen did not destroy Notorious B.I.G.")
+        Balatest.assert_eq(G.jokers.cards[1].ability.jojoker_notorious_xmult, notorious_big_xmult(), "Death Thirteen did not gain Notorious Xmult when it destroyed Notorious B.I.G.")
+    end
+}
+
+Balatest.TestPlay {
+    name = 'notorious_big_gives_xmult_to_danny_sbr_when_destroyed_by_it',
+    category = { 'jokers', 'golden_wind', 'notorious_big' },
+    jokers = { 'j_jojoker_notorious_big' },
+    consumeables = { 'c_judgement' },
+    execute = function()
+        Balatest.hook(_G, 'create_card', function(orig, t, a, l, r, k, s, forced_key, ...)
+            return orig(t, a, l, r, k, s, 'j_jojoker_danny_sbr', ...)
+        end)
+        Balatest.use(G.consumeables.cards[1])
+    end,
+    assert = function()
+        Balatest.assert_eq(#G.jokers.cards, 1, "Danny SBR did not destroy Notorious B.I.G.")
+        Balatest.assert_eq(G.jokers.cards[1].ability.jojoker_notorious_xmult, notorious_big_xmult(), "Danny SBR did not gain Notorious Xmult when it destroyed Notorious B.I.G.")
+    end
+}
+
+Balatest.TestPlay {
+    name = 'notorious_big_xmult_stacks_when_wonder_of_u_destroys_two',
+    category = { 'jokers', 'golden_wind', 'notorious_big' },
+    jokers = { 'j_jojoker_wonder_of_u', 'j_jojoker_notorious_big', 'j_jojoker_notorious_big' },
+    execute = function()
+        G.jokers.cards[1].ability.extra.rounds_left = 1
+        Balatest.end_round()
+    end,
+    assert = function()
+        Balatest.assert_eq(#G.jokers.cards, 1, "Wonder of U did not destroy both Notorious B.I.G.s")
+        Balatest.assert_eq(G.jokers.cards[1].ability.jojoker_notorious_xmult, 2 * notorious_big_xmult(), "Wonder of U did not gain Notorious Xmult for each Notorious B.I.G. it destroyed")
+    end
+}
+
+Balatest.TestPlay {
+    name = 'notorious_big_gives_no_xmult_when_another_joker_is_destroyed',
+    category = { 'jokers', 'golden_wind', 'notorious_big' },
+    jokers = { 'j_jojoker_sex_pistols', 'j_jojoker_death_thirteen', 'j_jojoker_notorious_big' },
+    execute = function()
+        Balatest.wait()
+    end,
+    assert = function()
+        Balatest.assert_eq(#G.jokers.cards, 2, "Death Thirteen did not destroy only the joker to its left")
+        Balatest.assert_eq(G.jokers.cards[2].ability.name, "notorious_big", "Notorious B.I.G. was destroyed instead of the joker to Death Thirteen's left")
+        Balatest.assert(not G.jokers.cards[1].ability.jojoker_notorious_xmult, "Death Thirteen gained Notorious Xmult without destroying Notorious B.I.G.")
+    end
+}
+
+Balatest.TestPlay {
+    name = 'notorious_big_xmult_is_applied_when_destroyer_scores',
+    category = { 'jokers', 'golden_wind', 'notorious_big' },
+    jokers = { 'j_jojoker_notorious_big' },
+    consumeables = { 'c_judgement' },
+    execute = function()
+        Balatest.hook(_G, 'create_card', function(orig, t, a, l, r, k, s, forced_key, ...)
+            return orig(t, a, l, r, k, s, 'j_jojoker_danny_sbr', ...)
+        end)
+        Balatest.use(G.consumeables.cards[1])
+        Balatest.play_hand { '2S', '2H' }
+    end,
+    assert = function()
+        -- Pair: (10 + 2 + 2) chips x 2 mult, then Danny SBR's X2 and Notorious X2.5
+        Balatest.assert_chips(140, "Notorious Xmult was not applied when Danny SBR scored")
+    end
+}
+
+Balatest.TestPlay {
+    name = 'notorious_big_xmult_is_applied_after_the_destroyers_own_effect',
+    category = { 'jokers', 'golden_wind', 'notorious_big' },
+    jokers = { 'j_jojoker_notorious_big', 'j_jojoker_death_thirteen' },
+    execute = function()
+        Balatest.play_hand { '2S', '2H' }
+    end,
+    assert = function()
+        -- Pair: (10 + 2 + 2) chips x (2 + Death Thirteen's 1 + 2 * 3 sell value) mult, then Notorious X2.5
+        Balatest.assert_chips(315, "Notorious Xmult was not applied after Death Thirteen's +Mult")
+    end
+}
+--#endregion
