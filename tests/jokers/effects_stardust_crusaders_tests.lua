@@ -48,3 +48,72 @@ Balatest.TestPlay {
     end
 }
 -- #endregion
+-- #region Hat Hair
+local function force_hat_hair_roll(roll)
+    local original_pseudorandom = pseudorandom
+    pseudorandom = function(seed, ...)
+        if seed == 'hat_hair' then return roll end
+        return original_pseudorandom(seed, ...)
+    end
+    return function() pseudorandom = original_pseudorandom end
+end
+
+local restore_pseudorandom
+
+Balatest.TestPlay {
+    name = 'hat_hair_gives_chips_on_low_roll',
+    category = { 'jokers', 'stardust_crusaders', 'hat_hair' },
+    jokers = { 'j_jojoker_hat_hair' },
+    execute = function()
+        restore_pseudorandom = force_hat_hair_roll(0.1)
+        Balatest.play_hand { '2S' }
+    end,
+    assert = function()
+        restore_pseudorandom()
+        Balatest.assert_chips(7 + G.jokers.cards[1].ability.extra.chips, "Hat Hair did not give chips on a low roll")
+    end
+}
+
+Balatest.TestPlay {
+    name = 'hat_hair_gives_mult_on_high_roll',
+    category = { 'jokers', 'stardust_crusaders', 'hat_hair' },
+    jokers = { 'j_jojoker_hat_hair' },
+    execute = function()
+        restore_pseudorandom = force_hat_hair_roll(0.9)
+        Balatest.play_hand { '2S' }
+    end,
+    assert = function()
+        restore_pseudorandom()
+        Balatest.assert_chips(7 * (1 + G.jokers.cards[1].ability.extra.mult), "Hat Hair did not give mult on a high roll")
+    end
+}
+
+Balatest.TestPlay {
+    name = 'hat_hair_gives_chips_or_mult_on_every_played_hand',
+    category = { 'jokers', 'stardust_crusaders', 'hat_hair' },
+    jokers = { 'j_jojoker_hat_hair' },
+    execute = function()
+        Balatest.play_hand { '2S' }
+        Balatest.play_hand { '2H' }
+    end,
+    assert = function()
+        local chips_hand = 7 + G.jokers.cards[1].ability.extra.chips
+        local mult_hand = 7 * (1 + G.jokers.cards[1].ability.extra.mult)
+        local total = G.GAME.chips
+        Balatest.assert(total == chips_hand * 2 or total == chips_hand + mult_hand or total == mult_hand * 2,
+            "Hat Hair did not give chips or mult on both played hands, got "..tostring(total))
+    end
+}
+
+Balatest.TestPlay {
+    name = 'hat_hair_does_not_trigger_on_discard',
+    category = { 'jokers', 'stardust_crusaders', 'hat_hair' },
+    jokers = { 'j_jojoker_hat_hair' },
+    execute = function()
+        Balatest.discard { '2S' }
+    end,
+    assert = function()
+        Balatest.assert_chips(0, "Hat Hair gave a bonus without a hand being played")
+    end
+}
+-- #endregion

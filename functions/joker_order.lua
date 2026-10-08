@@ -47,6 +47,7 @@ jojoker.joker_order = {
     "dark_determination",
     "epitaph",
     "german_engineering",
+    "hat_hair",
     "higashikata_house",
     "higashikata_fruit_parlor",
     "joestar_birthmark",

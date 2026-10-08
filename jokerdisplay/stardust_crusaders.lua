@@ -186,6 +186,16 @@ jd_def["j_jojoker_the_sun"] = {
     }
 }
 
+jd_def["j_jojoker_hat_hair"] = {
+    text = {
+        { text = "+", colour = G.C.CHIPS },
+        { ref_table = "card.ability.extra", ref_value = "chips", retrigger_type = "chips", colour = G.C.CHIPS },
+        { text = " or ", colour = G.C.GREY },
+        { text = "+", colour = G.C.MULT },
+        { ref_table = "card.ability.extra", ref_value = "mult", retrigger_type = "mult", colour = G.C.MULT },
+    },
+}
+
 jd_def["j_jojoker_enya"] = {
     text = {
         { ref_table = "card.ability.extra", ref_value = "most_used_tarot_name", retrigger_type = "most_used_tarot_name", colour = G.C.PURPLE },

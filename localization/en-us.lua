@@ -421,6 +421,12 @@ return {
                     "{C:inactive}Most used: #1#"
                 }
             },
+            j_jojoker_hat_hair = {
+                name = "Hat Hair",
+                text = {
+                    "Randomly gives {C:chips}+#1#{} or {C:mult}+#2#{}."
+                }
+            },
             -- Part 4: Diamond is Unbreakable
             j_jojoker_voice_of_love = {
                 name = "Voice of Love",

@@ -37,7 +37,42 @@ local joestar_birthmark = {
     end
 }
 
+local hat_hair = {
+    name = "hat_hair",
+    rarity = 1,
+    cost = 4,
+    jtype = "Effect",
+    part = "stardust_crusaders",
+    blueprint_compat = true,
+    perishable_compat = true,
+    eternal_compat = true,
+    config = { extra = { chips = 50, mult = 5 } },
+    loc_vars = function(self, info_queue, center)
+        return {vars = { center.ability.extra.chips, center.ability.extra.mult }}
+    end,
+    calculate = function(self, card, context)
+        -- Randomly giveds chips or mult when scoring a hand
+        if context.joker_main then
+            if pseudorandom('hat_hair') < 0.5 then
+                sendDebugMessage("Hat Hair: Giving "..tostring(card.ability.extra.chips).." chips")
+                return {
+                    message = localize{type='variable', key='a_chips', vars={card.ability.extra.chips}},
+                    colour = G.C.CHIPS,
+                    chip_mod = card.ability.extra.chips,
+                }
+            else
+                sendDebugMessage("Hat Hair: Giving "..tostring(card.ability.extra.mult).." mult")
+                return {
+                    message = localize{type='variable', key='a_mult', vars={card.ability.extra.mult}},
+                    colour = G.C.MULT,
+                    mult_mod = card.ability.extra.mult,
+                }
+            end
+        end
+    end
+}
+
 return {
     name = "Stardust Crusaders Effect Jokers",
-    list = { joestar_birthmark },
+    list = { joestar_birthmark, hat_hair },
 }
