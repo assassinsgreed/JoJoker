@@ -81,6 +81,17 @@ local kiss = {
 - Guard state-mutating branches with `not context.blueprint` so a copying joker cannot
   scale the original twice.
 - Use `sendDebugMessage` on branches that fire, matching the surrounding wording.
+- Never declare helper functions as locals in the joker file. Put them in
+  `functions/jokerfunctions.lua` as globals (ex. `get_harvest_payout(card)`), so the joker,
+  its JokerDisplay `calc_function`, and its tests all call the same code instead of
+  duplicating the math.
+
+### Run-wide state
+
+When the effect depends on something that happened before the joker was owned (ex.
+"retroactive to the whole run"), track it in `G.GAME.jojoker_<thing>` from the mod-level
+`SMODS.current_mod.calculate` in `jojoker.lua`, via a tracking helper in
+`functions/jokerfunctions.lua`. Treat the field as `nil` until first set.
 
 ### Events that do not exist
 

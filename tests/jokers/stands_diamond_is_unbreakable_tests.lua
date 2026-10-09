@@ -385,4 +385,122 @@ Balatest.TestPlay {
         Balatest.assert_eq(G.jokers.cards[1].ability.extra.curr_mult, 0, "The Lock did not reset mult when not playing the most played hand")
     end
 }
---#region
+--#endregion
+
+--#region Harvest
+Balatest.TestPlay {
+    name = 'harvest_gives_money_for_each_spending_threshold_reached',
+    category = { 'jokers', 'diamond_is_unbreakable', 'harvest' },
+    jokers = { 'j_jojoker_harvest' },
+    execute = function()
+        Balatest.q(function() G.GAME.jojoker_shop_dollars_spent = 2 * G.jokers.cards[1].ability.extra.spend_per_payout + 1 end)
+        Balatest.end_round()
+        Balatest.cash_out()
+    end,
+    assert = function()
+        Balatest.assert_dollars(2 * G.jokers.cards[1].ability.extra.money_mod, "Harvest did not give money for each spending threshold reached")
+    end
+}
+Balatest.TestPlay {
+    name = 'harvest_gives_nothing_below_the_spending_threshold',
+    category = { 'jokers', 'diamond_is_unbreakable', 'harvest' },
+    jokers = { 'j_jojoker_harvest' },
+    execute = function()
+        Balatest.q(function() G.GAME.jojoker_shop_dollars_spent = G.jokers.cards[1].ability.extra.spend_per_payout - 1 end)
+        Balatest.end_round()
+        Balatest.cash_out()
+    end,
+    assert = function()
+        Balatest.assert_dollars(0, "Harvest gave money below the spending threshold")
+    end
+}
+local harvest_bought_card
+Balatest.TestPlay {
+    name = 'harvest_tracks_money_spent_buying_cards',
+    category = { 'jokers', 'diamond_is_unbreakable', 'harvest' },
+    jokers = { 'j_jojoker_harvest' },
+    dollars = 10,
+    execute = function()
+        Balatest.end_round()
+        Balatest.cash_out()
+        Balatest.buy(function()
+            harvest_bought_card = G.shop_jokers.cards[1]
+            return harvest_bought_card
+        end)
+    end,
+    assert = function()
+        Balatest.assert_eq(G.GAME.jojoker_shop_dollars_spent, harvest_bought_card.cost, "Harvest did not track money spent buying a card")
+    end
+}
+Balatest.TestPlay {
+    name = 'harvest_tracks_money_spent_redeeming_vouchers',
+    category = { 'jokers', 'diamond_is_unbreakable', 'harvest' },
+    jokers = { 'j_jojoker_harvest' },
+    dollars = 10,
+    execute = function()
+        Balatest.end_round()
+        Balatest.cash_out()
+        Balatest.redeem(function() return G.shop_vouchers.cards[1] end)
+    end,
+    assert = function()
+        Balatest.assert_eq(G.GAME.jojoker_shop_dollars_spent, 10 - G.GAME.dollars, "Harvest did not track money spent redeeming a voucher")
+    end
+}
+Balatest.TestPlay {
+    name = 'harvest_tracks_money_spent_opening_boosters',
+    category = { 'jokers', 'diamond_is_unbreakable', 'harvest' },
+    jokers = { 'j_jojoker_harvest' },
+    dollars = 10,
+    execute = function()
+        Balatest.end_round()
+        Balatest.cash_out()
+        Balatest.open(function() return G.shop_booster.cards[1] end)
+    end,
+    assert = function()
+        Balatest.assert_eq(G.GAME.jojoker_shop_dollars_spent, 10 - G.GAME.dollars, "Harvest did not track money spent opening a booster")
+    end
+}
+Balatest.TestPlay {
+    name = 'harvest_does_not_track_money_spent_rerolling',
+    category = { 'jokers', 'diamond_is_unbreakable', 'harvest' },
+    jokers = { 'j_jojoker_harvest' },
+    dollars = 10,
+    execute = function()
+        Balatest.end_round()
+        Balatest.cash_out()
+        Balatest.q(function() G.FUNCS.reroll_shop() end)
+        Balatest.wait()
+    end,
+    assert = function()
+        Balatest.assert(G.GAME.dollars < 10, "Shop was not rerolled")
+        Balatest.assert_eq(G.GAME.jojoker_shop_dollars_spent or 0, 0, "Harvest tracked money spent rerolling")
+    end
+}
+Balatest.TestPlay {
+    name = 'harvest_pays_for_spending_before_it_was_owned',
+    category = { 'jokers', 'diamond_is_unbreakable', 'harvest' },
+    dollars = 20,
+    execute = function()
+        Balatest.end_round()
+        Balatest.cash_out()
+        -- Priced at exactly one threshold so the payout is nonzero regardless of the voucher rolled
+        Balatest.redeem(function()
+            local voucher = G.shop_vouchers.cards[1]
+            voucher.cost = G.P_CENTERS.j_jojoker_harvest.config.extra.spend_per_payout
+            return voucher
+        end)
+        Balatest.q(function()
+            G.GAME.dollars = 0
+            SMODS.add_card { key = 'j_jojoker_harvest' }
+        end)
+        Balatest.exit_shop()
+        Balatest.start_round()
+        Balatest.end_round()
+        Balatest.cash_out()
+    end,
+    assert = function()
+        Balatest.assert_eq(G.GAME.jojoker_shop_dollars_spent, G.jokers.cards[1].ability.extra.spend_per_payout, "Voucher purchase was not tracked before Harvest was owned")
+        Balatest.assert_dollars(G.jokers.cards[1].ability.extra.money_mod, "Harvest did not pay for spending from before it was owned")
+    end
+}
+--#endregion

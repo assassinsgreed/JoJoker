@@ -88,6 +88,7 @@ jojoker.joker_order = {
     "goo_goo_dolls",
     "grateful_dead",
     "green_green_grass_of_home",
+    "harvest",
     "heavens_door",
     "hey_ya",
     "hierophant_green",

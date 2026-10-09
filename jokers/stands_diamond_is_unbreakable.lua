@@ -496,7 +496,30 @@ local the_lock = {
     end
 }
 
+local harvest = {
+    name = "harvest",
+    rarity = 2,
+    cost = 6,
+    jtype = "Stand",
+    jclass = "Long Range",
+    part = "diamond_is_unbreakable",
+    blueprint_compat = false,
+    perishable_compat = true,
+    eternal_compat = true,
+    config = { extra = { money_mod = 1, spend_per_payout = 15 } },
+    loc_vars = function(self, info_queue, center)
+        return {vars = { center.ability.extra.money_mod, center.ability.extra.spend_per_payout, get_harvest_payout(center) }}
+    end,
+    calc_dollar_bonus = function(self, card)
+        local payout = get_harvest_payout(card)
+        if payout > 0 then
+            sendDebugMessage("Harvest: Giving $"..payout.." for $"..G.GAME.jojoker_shop_dollars_spent.." spent in shops this run.")
+            return ease_joker_dollars(card, "Harvest", payout, true)
+        end
+    end
+}
+
 return {
     name = "Diamond is Unbreakable Stand Jokers",
-    list = { red_hot_chili_pepper, the_hand, superfly, crazy_diamond, bad_company, cheap_trick, cinderella, atom_heart_father, surface, killer_queen, heavens_door, the_lock },
+    list = { red_hot_chili_pepper, the_hand, superfly, crazy_diamond, bad_company, cheap_trick, cinderella, atom_heart_father, surface, killer_queen, heavens_door, the_lock, harvest },
 }

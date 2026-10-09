@@ -191,3 +191,16 @@ jd_def["j_jojoker_the_lock"] = {
         card.joker_display_values.most_played_hand = get_most_played_hand_info().name
     end
 }
+
+jd_def["j_jojoker_harvest"] = {
+    text = {
+        { text = "+$", colour = G.C.GOLD },
+        { ref_table = "card.joker_display_values", ref_value = "payout", colour = G.C.GOLD },
+    },
+    reminder_text = {
+        { text = "At end of round", colour = G.C.GREY },
+    },
+    calc_function = function(card)
+        card.joker_display_values.payout = get_harvest_payout(card)
+    end
+}

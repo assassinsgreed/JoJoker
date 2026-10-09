@@ -601,6 +601,15 @@ return {
                     "{C:inactive}Currently: {C:mult}+#2#",
                 }
             },
+            j_jojoker_harvest = {
+                name = "Harvest",
+                text = {
+                    "Earn {C:money}$#1#{} at end of round for every",
+                    "{C:money}$#2#{} spent on purchases in the {C:attention}shop{} this run.",
+                    "{br:2}line break",
+                    "{C:inactive}Currently: {C:money}$#3#{}"
+                }
+            },
             -- Part 5: Golden Wind
             j_jojoker_sex_pistols = {
                 name = "Sex Pistols",

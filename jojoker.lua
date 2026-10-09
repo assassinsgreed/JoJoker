@@ -94,6 +94,10 @@ loadFile("jojokerui.lua")
 loadFile("jokersprites.lua")
 loadFile("quips.lua")
 
+SMODS.current_mod.calculate = function(self, context)
+    jojoker_track_shop_spending(context)
+end
+
 -- Load and configure editions
 load_directory("editions", SMODS.Edition, true)
 

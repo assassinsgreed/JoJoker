@@ -171,6 +171,20 @@ ease_joker_dollars = function(card, seed, amt, calc_only)
   return earned
 end
 
+-- Tracks purchases in the shop (not rerolls) across the entire run (for Harvest's effect)
+jojoker_track_shop_spending = function(context)
+  if not (context.buying_card or context.open_booster) then return end
+  local cost = context.card and context.card.cost or 0
+  if cost <= 0 then return end
+  G.GAME.jojoker_shop_dollars_spent = (G.GAME.jojoker_shop_dollars_spent or 0) + cost
+  sendDebugMessage("Shop spending: $"..cost.." spent, $"..G.GAME.jojoker_shop_dollars_spent.." total this run")
+end
+
+get_harvest_payout = function(card)
+  local spent = G.GAME.jojoker_shop_dollars_spent or 0
+  return math.floor(spent / card.ability.extra.spend_per_payout) * card.ability.extra.money_mod
+end
+
 transform_joker = function(card, target_key)
     local custom_values_to_keep = {}
     local has_custom_values_to_keep = nil
