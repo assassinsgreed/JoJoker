@@ -610,6 +610,16 @@ return {
                     "{C:inactive}Currently: {C:money}$#3#{}"
                 }
             },
+            j_jojoker_ghost_girl_alley = {
+                name = "Ghost Girl Alley",
+                text = {
+                    "{C:chips}+#1#{} Chips, {C:mult}+#2#{} Mult, and {C:money}$#3#{} at end of round",
+                    "for each {C:attention}Ante{} cleared this run.",
+                    "Destroyed if the {C:attention}Ante{} is reversed.",
+                    "{br:2}line break",
+                    "{C:inactive}Currently: {C:chips}+#4#{C:inactive}, {C:mult}+#5#{C:inactive}, {C:money}$#6#{}"
+                }
+            },
             -- Part 5: Golden Wind
             j_jojoker_sex_pistols = {
                 name = "Sex Pistols",

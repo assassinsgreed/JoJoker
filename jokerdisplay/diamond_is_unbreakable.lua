@@ -204,3 +204,23 @@ jd_def["j_jojoker_harvest"] = {
         card.joker_display_values.payout = get_harvest_payout(card)
     end
 }
+
+jd_def["j_jojoker_ghost_girl_alley"] = {
+    text = {
+        { text = "+", colour = G.C.CHIPS },
+        { ref_table = "card.joker_display_values", ref_value = "chips", retrigger_type = "mult", colour = G.C.CHIPS },
+        { text = " +", colour = G.C.MULT },
+        { ref_table = "card.joker_display_values", ref_value = "mult", retrigger_type = "mult", colour = G.C.MULT },
+    },
+    reminder_text = {
+        { text = "+$", colour = G.C.GOLD },
+        { ref_table = "card.joker_display_values", ref_value = "payout", colour = G.C.GOLD },
+        { text = " at end of round", colour = G.C.GREY },
+    },
+    calc_function = function(card)
+        local antes = (G.GAME.jojoker_bosses_beaten or 0)
+        card.joker_display_values.chips = antes * card.ability.extra.chips_mod
+        card.joker_display_values.mult = antes * card.ability.extra.mult_mod
+        card.joker_display_values.payout = antes * card.ability.extra.money_mod
+    end
+}

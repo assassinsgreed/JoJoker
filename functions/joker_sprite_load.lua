@@ -72,6 +72,7 @@ JokerSprites = {
         {name = "heavens_door", base = {pos = {x = 4, y = 2}}, part_atlas = "diamond_is_unbreakable" },
         {name = "the_lock", base = {pos = {x = 0, y = 3}}, part_atlas = "diamond_is_unbreakable" },
         {name = "harvest", base = {pos = {x = 1, y = 3}}, part_atlas = "diamond_is_unbreakable" },
+        {name = "ghost_girl_alley", base = {pos = {x = 2, y = 3}}, part_atlas = "diamond_is_unbreakable" },
         -- Part 5: Golden Wind
         {name = "sex_pistols", base = {pos = {x = 0, y = 0}}, part_atlas = "golden_wind" },
         {name = "grateful_dead", base = {pos = {x = 1, y = 0}}, part_atlas = "golden_wind" },

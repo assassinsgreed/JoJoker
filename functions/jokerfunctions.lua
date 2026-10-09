@@ -185,6 +185,20 @@ get_harvest_payout = function(card)
   return math.floor(spent / card.ability.extra.spend_per_payout) * card.ability.extra.money_mod
 end
 
+jojoker_track_bosses_beaten = function(context)
+  if not (context.end_of_round and context.game_over == false and context.main_eval and context.beat_boss) then return end
+  if context.individual or context.repetition then return end
+  G.GAME.jojoker_bosses_beaten = (G.GAME.jojoker_bosses_beaten or 0) + 1
+  sendDebugMessage("Boss beaten: "..G.GAME.jojoker_bosses_beaten.." total this run")
+end
+
+-- Hieroglyph, Petroglyph, and Killer Queen all send the ante backward through ease_ante
+jojoker_ante_reversed = function(mod)
+  if G.STAGE ~= G.STAGES.RUN or not mod or mod >= 0 then return end
+  sendDebugMessage("Ante reversed by "..-mod)
+  SMODS.calculate_context({ jojoker_ante_reversed = true, amount = -mod })
+end
+
 transform_joker = function(card, target_key)
     local custom_values_to_keep = {}
     local has_custom_values_to_keep = nil

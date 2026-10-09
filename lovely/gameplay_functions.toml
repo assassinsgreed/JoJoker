@@ -140,3 +140,15 @@ if type(jojoker_handle_card_copy) == "function" then
 end
 '''
 match_indent = true
+## Ante reversal event (Ghost Girl Alley)
+[[patches]]
+[patches.pattern]
+target = "functions/common_events.lua"
+pattern = "function ease_ante(mod)"
+position = "after"
+payload = '''
+if type(jojoker_ante_reversed) == "function" then
+  jojoker_ante_reversed(mod)
+end
+'''
+match_indent = true

@@ -96,6 +96,7 @@ loadFile("quips.lua")
 
 SMODS.current_mod.calculate = function(self, context)
     jojoker_track_shop_spending(context)
+    jojoker_track_bosses_beaten(context)
 end
 
 -- Load and configure editions
