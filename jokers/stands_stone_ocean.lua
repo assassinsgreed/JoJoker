@@ -576,7 +576,38 @@ local kiss = {
     end
 }
 
+local jumpin_jack_flash = {
+    name = "jumpin_jack_flash",
+    rarity = 1,
+    cost = 4,
+    jtype = "Stand",
+    jclass = "Close Range",
+    part = "stone_ocean",
+    blueprint_compat = true,
+    perishable_compat = true,
+    eternal_compat = true,
+    config = { extra = { retriggers = 2 } },
+    loc_vars = function(self, info_queue, center)
+        return {
+            vars = {center.ability.extra.retriggers},
+            key = jojoker_config.use_localized_names and self.key..'_alt' or self.key
+        }
+    end,
+    calculate = function(self, card, context)
+        if context.repetition and not context.end_of_round and context.cardarea == G.play then
+            if context.other_card and context.other_card:get_id() == 11 then
+                sendDebugMessage("Jumpin' Jack Flash: Retriggering scored Jack")
+                return {
+                    message = localize('k_again_ex'),
+                    repetitions = card.ability.extra.retriggers,
+                    card = card
+                }
+            end
+        end
+    end
+}
+
 return {
     name = "Stone Ocean Stands Jokers",
-    list = { goo_goo_dolls, stone_free, made_in_heaven, dragons_dream, green_green_grass_of_home, survivor, foo_fighters, white_snake, burning_down_the_house, limp_bizkit, marilyn_manson, c_moon, planet_waves, kiss },
+    list = { goo_goo_dolls, stone_free, made_in_heaven, dragons_dream, green_green_grass_of_home, survivor, foo_fighters, white_snake, burning_down_the_house, limp_bizkit, marilyn_manson, c_moon, planet_waves, kiss, jumpin_jack_flash },
 }

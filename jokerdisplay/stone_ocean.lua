@@ -177,3 +177,13 @@ jd_def["j_jojoker_kiss"] = {
         { ref_table = "card.ability.extra", ref_value = "chips", retrigger_type = "chips",  colour = G.C.CHIPS },
     },
 }
+
+jd_def["j_jojoker_jumpin_jack_flash"] = {
+    text = {
+        { text = "Retrigger Jacks", colour = G.C.GREY },
+    },
+    retrigger_function = function(playing_card, scoring_hand, held_in_hand, joker_card)
+        if held_in_hand then return 0 end
+        return playing_card:get_id() == 11 and joker_card.ability.extra.retriggers or 0
+    end,
+}

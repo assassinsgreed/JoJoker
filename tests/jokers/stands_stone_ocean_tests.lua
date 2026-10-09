@@ -431,3 +431,52 @@ Balatest.TestPlay {
     end
 }
 --#endregion
+--#region Jumpin' Jack Flash
+Balatest.TestPlay {
+    name = 'jumpin_jack_flash_retriggers_scoring_jack',
+    category = { 'jokers', 'stone_ocean', 'jumpin_jack_flash' },
+    jokers = { 'j_jojoker_jumpin_jack_flash' },
+    execute = function()
+        Balatest.play_hand { 'JS' }
+    end,
+    assert = function()
+        Balatest.assert_chips(35, "Jumpin' Jack Flash did not retrigger a scoring Jack twice")
+    end
+}
+
+Balatest.TestPlay {
+    name = 'jumpin_jack_flash_retriggers_each_scoring_jack',
+    category = { 'jokers', 'stone_ocean', 'jumpin_jack_flash' },
+    jokers = { 'j_jojoker_jumpin_jack_flash' },
+    execute = function()
+        Balatest.play_hand { 'JS', 'JH' }
+    end,
+    assert = function()
+        Balatest.assert_chips(140, "Jumpin' Jack Flash did not retrigger every scoring Jack")
+    end
+}
+
+Balatest.TestPlay {
+    name = 'jumpin_jack_flash_does_not_retrigger_other_ranks',
+    category = { 'jokers', 'stone_ocean', 'jumpin_jack_flash' },
+    jokers = { 'j_jojoker_jumpin_jack_flash' },
+    execute = function()
+        Balatest.play_hand { 'QS' }
+    end,
+    assert = function()
+        Balatest.assert_chips(15, "Jumpin' Jack Flash retriggered a card that was not a Jack")
+    end
+}
+
+Balatest.TestPlay {
+    name = 'jumpin_jack_flash_does_not_retrigger_unscored_jack',
+    category = { 'jokers', 'stone_ocean', 'jumpin_jack_flash' },
+    jokers = { 'j_jojoker_jumpin_jack_flash' },
+    execute = function()
+        Balatest.play_hand { 'KS', 'JS' }
+    end,
+    assert = function()
+        Balatest.assert_chips(15, "Jumpin' Jack Flash retriggered a Jack that did not score")
+    end
+}
+--#endregion

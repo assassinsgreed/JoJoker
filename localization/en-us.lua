@@ -1066,6 +1066,18 @@ return {
                     "{C:inactive}Currently: {C:chips}+#2#{}"
                 }
             },
+            j_jojoker_jumpin_jack_flash = {
+                name = "Jumpin' Jack Flash",
+                text = {
+                    "Retrigger each played {C:attention}Jack{} {C:attention}#1#{} times."
+                }
+            },
+            j_jojoker_jumpin_jack_flash_alt = {
+                name = "Jumping Jack Spark",
+                text = {
+                    "Retrigger each played {C:attention}Jack{} {C:attention}#1#{} times."
+                }
+            },
             -- Part 7: Steel Ball Run
             j_jojoker_mandom = {
                 name = "Mandom",
