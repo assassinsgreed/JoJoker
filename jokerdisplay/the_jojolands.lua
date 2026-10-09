@@ -10,6 +10,17 @@ jd_def["j_jojoker_smooth_operator"] = {
     }
 }
 
+jd_def["j_jojoker_john_rod"] = {
+    text = {
+        {
+            border_nodes = {
+                { text = "X" },
+                { ref_table = "card.ability.extra", ref_value = "Xmult" }
+            }
+        }
+    }
+}
+
 jd_def["j_jojoker_jodio_joestar"] = {
     text = {
         { text = "$", colour = G.C.MONEY },
