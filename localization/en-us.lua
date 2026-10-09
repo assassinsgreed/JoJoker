@@ -1366,6 +1366,12 @@ return {
                     "then gives {C:chips}+#1#{} chips for each {C:attention}scored{} card."
                 }
             },
+            j_jojoker_jodio_joestar = {
+                name = "Jodio Joestar",
+                text = {
+                    "Scored {C:attention}gold cards{} give {C:money}$#1#{} when played."
+                }
+            },
             j_jojoker_john_rod = {
                 name = "\"John Rod\"",
                 text = {
@@ -1374,12 +1380,6 @@ return {
                     "({X:mult,C:white} X#2# {} if it was a {C:attention}Glass{} card).",
                     "{br:2}line break",
                     "{C:inactive}Currently: {X:mult,C:white} X#3# {}"
-                }
-            },
-            j_jojoker_jodio_joestar = {
-                name = "Jodio Joestar",
-                text = {
-                    "Scored {C:attention}gold cards{} give {C:money}$#1#{} when played."
                 }
             },
         },
