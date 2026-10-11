@@ -87,7 +87,10 @@ local oh_lonesome_me = {
     eternal_compat = false,
     config = {extra = {hand_size = 1}},
     loc_vars = function(self, info_queue, center)
-        return {vars = {center.ability.extra.hand_size}}
+        return {
+            vars = {center.ability.extra.hand_size},
+            key = jojoker_config.use_localized_names and self.key..'_alt' or self.key
+        }
     end,
     -- Effect persists while debuffed, so ignore add/remove calls that come from debuffing
     add_to_deck = function(self, card, from_debuff)

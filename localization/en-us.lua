@@ -1142,6 +1142,13 @@ return {
                     "Effect persists while debuffed."
                 }
             },
+            j_jojoker_oh_lonesome_me_alt = {
+                name = "Lasso Blues",
+                text = {
+                    "Increases {C:attention}hand size{} by {C:attention}#1#{}.",
+                    "Effect persists while debuffed."
+                }
+            },
             j_jojoker_hey_ya = {
                 name = "Hey Ya!",
                 text = {
