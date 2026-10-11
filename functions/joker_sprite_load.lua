@@ -31,6 +31,7 @@ JokerSprites = {
         {name = "stroheim", base = {pos = {x = 0, y = 2}}, part_atlas = "battle_tendency" },
         {name = "stroheim_german_engineering", base = {pos = {x = 1, y = 2}}, part_atlas = "battle_tendency" },
         {name = "clacker_balls", base = {pos = {x = 2, y = 2}}, part_atlas = "battle_tendency" },
+        {name = "smokey", base = {pos = {x = 3, y = 2}}, part_atlas = "battle_tendency" },
         -- Part 3: Stardust Crusaders
         {name = "magician_red", base = {pos = {x = 0, y = 0}}, part_atlas = "stardust_crusaders" },
         {name = "yellow_temperance", base = {pos = {x = 1, y = 0}}, part_atlas = "stardust_crusaders" },

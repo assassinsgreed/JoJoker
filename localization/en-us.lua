@@ -233,6 +233,14 @@ return {
                     "{C:inactive}Currently: {C:mult}+#3#"
                 }
             },
+            j_jojoker_smokey = {
+                name = "Smokey Brown",
+                text = {
+                    "After clearing the {C:attention}Small Blind{},",
+                    "a random {C:attention}card{} or {C:attention}Booster Pack{}",
+                    "in the shop is {C:money}free{}."
+                }
+            },
             j_jojoker_clacker_balls = {
                 name = "Clacker Balls",
                 text = {
@@ -1563,6 +1571,7 @@ return {
             xmult = "Xmult",
             stone_added = "Stone Added",
             k_downgrade_ex = "Downgrade!",
+            k_free_ex = "Free!",
 
             -- Joker badges
             joker_type_stand_badge = "Stand",

@@ -49,15 +49,6 @@ Balatest.TestPlay {
 }
 -- #endregion
 -- #region Hat Hair
-local function force_hat_hair_roll(roll)
-    local original_pseudorandom = pseudorandom
-    pseudorandom = function(seed, ...)
-        if seed == 'hat_hair' then return roll end
-        return original_pseudorandom(seed, ...)
-    end
-    return function() pseudorandom = original_pseudorandom end
-end
-
 local restore_pseudorandom
 
 Balatest.TestPlay {

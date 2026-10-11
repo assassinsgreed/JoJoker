@@ -104,6 +104,7 @@ load_directory("editions", SMODS.Edition, true)
 
 -- Load tests, if Balatest mod is present and active
 if Balatest then
+    SMODS.load_file('tests/testfunctions.lua')()
     SMODS.load_file('tests/jokers/characters_phantom_blood_tests.lua')()
     SMODS.load_file('tests/jokers/effects_phantom_blood_tests.lua')()
     SMODS.load_file('tests/jokers/characters_battle_tendency_tests.lua')()

@@ -171,6 +171,10 @@ Both entries carry identical `text`; only `name` differs. Scaling jokers end wit
 `tests/jokers/<same file name>_tests.lua`, in a `--#region <Joker Name>` block placed to
 match the joker list order.
 
+Never declare helper functions as locals in a test file. Put them in
+`tests/testfunctions.lua` as globals (ex. `free_shop_items(area)`) so other tests can reuse
+them; check that file for an existing helper before writing a new one.
+
 **Never use an unmodded Balatro joker to set up a test.** Those jokers are not available
 in a JoJoker run, so a test built on one proves nothing. Drive the scenario with JoJoker
 jokers, with consumables, or by setting `ability.extra` directly in `execute`. Vanilla

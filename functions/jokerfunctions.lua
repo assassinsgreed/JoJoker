@@ -416,6 +416,22 @@ get_most_used_tarot_info = function()
   }
 end
 
+-- Rerolled cards are new, so the couponed flag naturally does not carry over to them
+jojoker_free_random_shop_item = function(seed)
+  local candidates = {}
+  for _, area in ipairs({ G.shop_jokers, G.shop_booster }) do
+    for _, item in ipairs(area and area.cards or {}) do
+      if not item.ability.couponed then candidates[#candidates + 1] = item end
+    end
+  end
+  if #candidates == 0 then return nil end
+
+  local item = pseudorandom_element(candidates, pseudoseed(seed))
+  item.ability.couponed = true
+  item:set_cost()
+  return item
+end
+
 -- Jokers that duplicate by creating a card from a key never reach copy_card, so they call this directly
 jojoker_card_duplicated = function(card)
   if G.STAGE ~= G.STAGES.RUN then return end

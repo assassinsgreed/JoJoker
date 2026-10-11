@@ -30,6 +30,7 @@ jojoker.joker_order = {
     "savage_garden",
     "shizuka",
     "slow_dancer",
+    "smokey",
     "speedwagon",
     "speedwagon_bt",
     "straizo",

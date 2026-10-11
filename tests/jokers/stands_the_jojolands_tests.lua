@@ -16,16 +16,6 @@ Balatest.TestPlay {
 --#endregion
 
 --#region John Rod
-local function count_cards(rank, suit)
-    local count = 0
-    for _, c in ipairs(G.playing_cards) do
-        if c.base.value == rank and (not suit or c.base.suit == suit) then
-            count = count + 1
-        end
-    end
-    return count
-end
-
 Balatest.TestPlay {
     name = 'john_rod_destroys_highest_ranked_scored_card_and_gains_xmult',
     category = { 'jokers', 'the_jojolands', 'john_rod' },
@@ -35,8 +25,8 @@ Balatest.TestPlay {
     end,
     assert = function()
         Balatest.assert_eq(#G.playing_cards, 51, "John Rod did not destroy exactly one card")
-        Balatest.assert_eq(count_cards('King'), 3, "John Rod did not destroy the highest ranked scored card")
-        Balatest.assert_eq(count_cards('4'), 4, "John Rod destroyed a lower ranked card")
+        Balatest.assert_eq(count_playing_cards('King'), 3, "John Rod did not destroy the highest ranked scored card")
+        Balatest.assert_eq(count_playing_cards('4'), 4, "John Rod destroyed a lower ranked card")
         Balatest.assert_eq(G.jokers.cards[1].ability.extra.Xmult, 1 + G.jokers.cards[1].ability.extra.Xmult_mod, "John Rod did not gain Xmult after destroying a card")
     end
 }
@@ -48,8 +38,8 @@ Balatest.TestPlay {
         Balatest.play_hand { 'KS', '3H', '3C' }
     end,
     assert = function()
-        Balatest.assert_eq(count_cards('King', 'Spades'), 1, "John Rod destroyed an unscored card")
-        Balatest.assert_eq(count_cards('3'), 3, "John Rod did not destroy the highest ranked scored card")
+        Balatest.assert_eq(count_playing_cards('King', 'Spades'), 1, "John Rod destroyed an unscored card")
+        Balatest.assert_eq(count_playing_cards('3'), 3, "John Rod did not destroy the highest ranked scored card")
     end
 }
 Balatest.TestPlay {

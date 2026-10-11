@@ -493,3 +493,104 @@ Balatest.TestPlay {
     end
 }
 --#endregion
+--#region Smokey
+Balatest.TestPlay {
+    name = 'smokey_frees_one_shop_item_after_small_blind',
+    category = { 'jokers', 'battle_tendency', 'smokey' },
+    jokers = { 'j_jojoker_smokey' },
+    execute = function()
+        Balatest.end_round()
+        Balatest.cash_out()
+    end,
+    assert = function()
+        Balatest.assert_eq(free_shop_item_count(), 1, "Smokey did not set exactly one shop item to $0 after the Small Blind")
+    end
+}
+
+Balatest.TestPlay {
+    name = 'smokey_does_not_free_shop_item_after_big_blind',
+    category = { 'jokers', 'battle_tendency', 'smokey' },
+    jokers = { 'j_jojoker_smokey' },
+    blind = 'bl_big',
+    execute = function()
+        Balatest.end_round()
+        Balatest.cash_out()
+    end,
+    assert = function()
+        Balatest.assert_eq(free_shop_item_count(), 0, "Smokey set a shop item to $0 after a Big Blind")
+    end
+}
+
+Balatest.TestPlay {
+    name = 'smokey_each_copy_frees_a_different_shop_item',
+    category = { 'jokers', 'battle_tendency', 'smokey' },
+    jokers = { 'j_jojoker_smokey', 'j_jojoker_smokey' },
+    execute = function()
+        Balatest.end_round()
+        Balatest.cash_out()
+    end,
+    assert = function()
+        Balatest.assert_eq(free_shop_item_count(), 2, "Two Smokeys did not free two different shop items")
+    end
+}
+
+Balatest.TestPlay {
+    name = 'smokey_discount_does_not_carry_to_rerolled_cards',
+    category = { 'jokers', 'battle_tendency', 'smokey' },
+    jokers = { 'j_jojoker_smokey' },
+    execute = function()
+        Balatest.end_round()
+        Balatest.cash_out()
+        reroll_shop_for_free()
+    end,
+    assert = function()
+        Balatest.assert_eq(#free_shop_items(G.shop_jokers), 0, "Smokey's discount carried over to rerolled shop cards")
+    end
+}
+
+Balatest.TestPlay {
+    name = 'smokey_free_booster_stays_free_after_reroll',
+    category = { 'jokers', 'battle_tendency', 'smokey' },
+    jokers = { 'j_jojoker_smokey' },
+    execute = function()
+        Balatest.end_round()
+        Balatest.cash_out()
+        Balatest.q(function()
+            for _, item in ipairs(G.shop_jokers.cards) do
+                item.ability.couponed = true
+            end
+            jojoker_free_random_shop_item('smokey')
+        end)
+        reroll_shop_for_free()
+    end,
+    assert = function()
+        Balatest.assert(#free_shop_items(G.shop_booster) >= 1, "Smokey's free booster pack lost its discount after a reroll")
+    end
+}
+
+local bought
+Balatest.TestPlay {
+    name = 'smokey_free_shop_card_costs_nothing_to_buy',
+    category = { 'jokers', 'battle_tendency', 'smokey' },
+    jokers = { 'j_jojoker_smokey' },
+    execute = function()
+        Balatest.end_round()
+        Balatest.cash_out()
+        Balatest.q(function()
+            for _, item in ipairs(G.shop_booster.cards) do
+                item.ability.couponed = true
+            end
+            jojoker_free_random_shop_item('smokey')
+            G.GAME.dollars = 0
+        end)
+        Balatest.buy(function()
+            bought = free_shop_items(G.shop_jokers)[1]
+            return bought
+        end)
+    end,
+    assert = function()
+        Balatest.assert_dollars(0, "Buying Smokey's free shop card cost money")
+        Balatest.assert_neq(bought.area, G.shop_jokers, "Smokey's free shop card was not bought")
+    end
+}
+--#endregion

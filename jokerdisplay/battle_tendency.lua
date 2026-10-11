@@ -127,6 +127,15 @@ jd_def["j_jojoker_stroheim_german_engineering"] = {
     }
 }
 
+jd_def["j_jojoker_smokey"] = {
+    text = {
+        { text = "Free item", colour = G.C.MONEY }
+    },
+    reminder_text = {
+        { text = "After Small Blind", colour = G.C.GREY }
+    },
+}
+
 jd_def["j_jojoker_clacker_balls"] = {
     text = {
         { text = "<= ", colour = G.C.GREY },

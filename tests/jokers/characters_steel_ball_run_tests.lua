@@ -149,16 +149,6 @@ Balatest.TestPlay {
 --#endregion
 
 --#region Sugar Mountain
-local function count_sugar_mountains()
-    local count = 0
-    for _, joker in ipairs(G.jokers.cards) do
-        if joker.ability.name == 'sugar_mountain' then
-            count = count + 1
-        end
-    end
-    return count
-end
-
 Balatest.TestPlay {
     name = 'sugar_mountain_gives_money_on_shop_entry',
     category = { 'jokers', 'steel_ball_run', 'sugar_mountain' },

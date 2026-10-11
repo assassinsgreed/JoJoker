@@ -419,7 +419,36 @@ local stroheim_german_engineering = {
     end,
 }
 
+local smokey = {
+    name = "smokey",
+    rarity = 1,
+    cost = 5,
+    jtype = "Character",
+    part = "battle_tendency",
+    blueprint_compat = true,
+    perishable_compat = true,
+    eternal_compat = true,
+    config = { },
+    loc_vars = function(self, info_queue, card)
+      return {vars = { }}
+    end,
+    calculate = function(self, card, context)
+        -- Only the shop that follows a cleared Small Blind gets a free item
+        if context.starting_shop and G.GAME.round_resets.blind == G.P_BLINDS.bl_small then
+            local item = jojoker_free_random_shop_item('smokey')
+            if item then
+                sendDebugMessage("Smokey: Set "..item.config.center.key.." to $0")
+                item:juice_up()
+                return {
+                    message = localize('k_free_ex'),
+                    colour = G.C.MONEY
+                }
+            end
+        end
+    end
+}
+
 return {
     name = "Battle Tendency Character Jokers",
-    list = { joseph_joestar, esidisi, speedwagon_bt, caesar, kars_ultimate_lifeform, kars_stopped_thinking, suzi_q, nypd, santana, stroheim, stroheim_german_engineering },
+    list = { joseph_joestar, esidisi, speedwagon_bt, caesar, kars_ultimate_lifeform, kars_stopped_thinking, suzi_q, nypd, santana, stroheim, stroheim_german_engineering, smokey },
 }

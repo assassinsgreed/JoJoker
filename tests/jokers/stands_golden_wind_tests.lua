@@ -438,10 +438,6 @@ Balatest.TestPlay {
 }
 --#endregion
 --#region Notorious B.I.G.
-local notorious_big_xmult = function()
-    return G.P_CENTERS.j_jojoker_notorious_big.config.extra.Xmult
-end
-
 Balatest.TestPlay {
     name = 'notorious_big_gives_xmult_to_death_thirteen_when_destroyed_by_it',
     category = { 'jokers', 'golden_wind', 'notorious_big' },
