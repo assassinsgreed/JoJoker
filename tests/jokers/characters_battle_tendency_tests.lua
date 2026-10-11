@@ -594,3 +594,117 @@ Balatest.TestPlay {
     end
 }
 --#endregion
+--#region Tequila Joseph
+Balatest.TestPlay {
+    name = 'tequila_joseph_turns_kings_and_jacks_into_queens_for_four_of_a_kind',
+    category = { 'jokers', 'battle_tendency', 'tequila_joseph' },
+    jokers = { 'j_jojoker_tequila_joseph' },
+    execute = function()
+        Balatest.play_hand { 'KS', 'KC', 'JH', 'JD' }
+    end,
+    assert = function()
+        Balatest.assert_eq(G.GAME.last_hand_played, 'Four of a Kind', "Tequila Joseph did not count Kings and Jacks as Queens for hand detection")
+    end
+}
+Balatest.TestPlay {
+    name = 'tequila_joseph_breaks_straight_made_of_face_cards',
+    category = { 'jokers', 'battle_tendency', 'tequila_joseph' },
+    jokers = { 'j_jojoker_tequila_joseph' },
+    execute = function()
+        Balatest.play_hand { '9S', '10S', 'JH', 'QD', 'KC' }
+    end,
+    assert = function()
+        Balatest.assert_eq(G.GAME.last_hand_played, 'Three of a Kind', "Tequila Joseph did not turn J-Q-K of a straight into three Queens")
+    end
+}
+Balatest.TestPlay {
+    name = 'tequila_joseph_does_not_change_number_cards',
+    category = { 'jokers', 'battle_tendency', 'tequila_joseph' },
+    jokers = { 'j_jojoker_tequila_joseph' },
+    execute = function()
+        Balatest.play_hand { '2S', '2C', '3H', '3D' }
+    end,
+    assert = function()
+        Balatest.assert_eq(G.GAME.last_hand_played, 'Two Pair', "Tequila Joseph changed the rank of number cards")
+    end
+}
+Balatest.TestPlay {
+    name = 'face_cards_keep_their_rank_without_tequila_joseph',
+    category = { 'jokers', 'battle_tendency', 'tequila_joseph' },
+    execute = function()
+        Balatest.play_hand { 'KS', 'KC', 'JH', 'JD' }
+    end,
+    assert = function()
+        Balatest.assert_eq(G.GAME.last_hand_played, 'Two Pair', "Face cards counted as Queens without Tequila Joseph held")
+    end
+}
+Balatest.TestPlay {
+    name = 'debuffed_tequila_joseph_does_not_change_face_cards',
+    category = { 'jokers', 'battle_tendency', 'tequila_joseph' },
+    jokers = { 'j_jojoker_tequila_joseph' },
+    execute = function()
+        G.jokers.cards[1]:set_debuff(true)
+        Balatest.play_hand { 'KS', 'KC', 'JH', 'JD' }
+    end,
+    assert = function()
+        Balatest.assert_eq(G.GAME.last_hand_played, 'Two Pair', "Debuffed Tequila Joseph still counted face cards as Queens")
+    end
+}
+Balatest.TestPlay {
+    name = 'tequila_joseph_does_not_permanently_turn_face_cards_into_queens',
+    category = { 'jokers', 'battle_tendency', 'tequila_joseph' },
+    jokers = { 'j_jojoker_tequila_joseph' },
+    deck = { cards = {
+        { r = 'K', s = 'S' },
+        { r = 'J', s = 'C' },
+        { r = '5', s = 'H' } } },
+    execute = function()
+        Balatest.play_hand { 'KS', 'JC' }
+        Balatest.end_round() -- End round to return cards to deck
+        Balatest.sell(function() return G.jokers.cards[1] end)
+    end,
+    assert = function()
+        for _, c in ipairs(G.deck.cards) do
+            if c.base.value == 'King' then
+                Balatest.assert_eq(c:get_id(), 13, "King stayed a Queen after Tequila Joseph was sold")
+            elseif c.base.value == 'Jack' then
+                Balatest.assert_eq(c:get_id(), 11, "Jack stayed a Queen after Tequila Joseph was sold")
+            end
+        end
+        Balatest.assert_eq(count_playing_cards('King'), 1, "The played King did not keep its rank")
+        Balatest.assert_eq(count_playing_cards('Jack'), 1, "The played Jack did not keep its rank")
+        Balatest.assert_eq(count_playing_cards('Queen'), 0, "A face card was permanently converted into a Queen")
+    end
+}
+Balatest.TestPlay {
+    name = 'tequila_joseph_lets_suzi_q_seal_scored_king',
+    category = { 'jokers', 'battle_tendency', 'tequila_joseph' },
+    jokers = { 'j_jojoker_tequila_joseph', 'j_jojoker_suzi_q' },
+    deck = { cards = {
+        { r = 'K', s = 'S' },
+        { r = 'Q', s = 'C' },
+        { r = '5', s = 'H' } } },
+    execute = function()
+        Balatest.play_hand { 'KS' }
+        Balatest.end_round() -- End round to return cards to deck
+    end,
+    assert = function()
+        local king
+        for _, c in ipairs(G.deck.cards) do
+            if c.base.value == 'King' then king = c end
+        end
+        Balatest.assert_eq(king.seal, 'Gold', "Suzi Q did not treat a King as a Queen while Tequila Joseph was held")
+    end
+}
+Balatest.TestPlay {
+    name = 'tequila_joseph_scores_king_and_jack_as_pair',
+    category = { 'jokers', 'battle_tendency', 'tequila_joseph' },
+    jokers = { 'j_jojoker_tequila_joseph' },
+    execute = function()
+        Balatest.play_hand { 'KS', 'JH' }
+    end,
+    assert = function()
+        Balatest.assert_chips((10 + 10 + 10) * 2, "Tequila Joseph did not score a King and Jack as a Pair") -- Pair base 10 chips x2 mult, plus 10 per face card
+    end
+}
+--#endregion

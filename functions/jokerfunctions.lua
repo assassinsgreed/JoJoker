@@ -466,3 +466,12 @@ jojoker_handle_card_copy = function(other, new_card, card_scale)
   if other.ability and other.ability.set == 'Voucher' then return end
   jojoker_card_duplicated(other)
 end
+
+-- Poker hand detection and every rank check read get_id, so Tequila Joseph rewrites the id there
+jojoker_rank_id = function(card)
+  local rank = SMODS.Ranks[card.base.value]
+  if rank and rank.face and next(SMODS.find_card('j_jojoker_tequila_joseph')) then
+    return SMODS.Ranks['Queen'].id
+  end
+  return card.base.id
+end

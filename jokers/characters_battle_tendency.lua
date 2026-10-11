@@ -448,7 +448,23 @@ local smokey = {
     end
 }
 
+-- Face cards become Queens through jojoker_rank_id, which the get_id hook calls
+local tequila_joseph = {
+    name = "tequila_joseph",
+    rarity = 3,
+    cost = 9,
+    jtype = "Character",
+    part = "battle_tendency",
+    blueprint_compat = false,
+    perishable_compat = true,
+    eternal_compat = true,
+    config = { },
+    loc_vars = function(self, info_queue, card)
+      return {vars = { }}
+    end,
+}
+
 return {
     name = "Battle Tendency Character Jokers",
-    list = { joseph_joestar, esidisi, speedwagon_bt, caesar, kars_ultimate_lifeform, kars_stopped_thinking, suzi_q, nypd, santana, stroheim, stroheim_german_engineering, smokey },
+    list = { joseph_joestar, esidisi, speedwagon_bt, caesar, kars_ultimate_lifeform, kars_stopped_thinking, suzi_q, nypd, santana, stroheim, stroheim_german_engineering, smokey, tequila_joseph },
 }

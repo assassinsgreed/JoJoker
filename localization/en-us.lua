@@ -241,6 +241,13 @@ return {
                     "in the shop is {C:money}free{}."
                 }
             },
+            j_jojoker_tequila_joseph = {
+                name = "Tequila Joseph",
+                text = {
+                    "All {C:attention}face cards{} are",
+                    "considered {C:attention}Queens{}."
+                }
+            },
             j_jojoker_clacker_balls = {
                 name = "Clacker Balls",
                 text = {

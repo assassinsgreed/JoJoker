@@ -136,6 +136,12 @@ jd_def["j_jojoker_smokey"] = {
     },
 }
 
+jd_def["j_jojoker_tequila_joseph"] = {
+    text = {
+        { text = "Face cards are Queens", colour = G.C.GREY }
+    },
+}
+
 jd_def["j_jojoker_clacker_balls"] = {
     text = {
         { text = "<= ", colour = G.C.GREY },

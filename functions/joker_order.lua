@@ -39,6 +39,7 @@ jojoker.joker_order = {
     "sugar_mountain",
     "suzi_q",
     "tarkus",
+    "tequila_joseph",
     "valkyrie",
     "yoshikage_kira",
     "zombies",
