@@ -56,6 +56,7 @@ jojoker.joker_order = {
     "joestar_birthmark",
     "left_side_ataxia",
     "seven_page_muda",
+    "speedwagon_foundation_submarine",
     "sword_of_luck_and_pluck",
     "the_fifth_lesson",
     "the_first_napkin",

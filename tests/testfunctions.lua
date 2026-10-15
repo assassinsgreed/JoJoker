@@ -52,3 +52,16 @@ reroll_shop_for_free = function()
     end)
     Balatest.wait_for_input()
 end
+
+-- Balatest.skip_blind waits for blind select, which never returns when the skip opens a pack or the shop
+skip_blind_for_tag = function(tag)
+    Balatest.wait_for_input(G.STATES.BLIND_SELECT)
+    Balatest.q(function()
+        G.FUNCS.skip_blind { UIBox = { get_UIE_by_ID = function() return { config = { ref_table = Tag(tag) } } end } }
+    end)
+end
+
+skip_blind_into_shop = function()
+    skip_blind_for_tag('tag_double')
+    Balatest.wait_for_input(G.STATES.SHOP)
+end

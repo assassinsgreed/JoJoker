@@ -108,3 +108,116 @@ Balatest.TestPlay {
     end
 }
 -- #endregion
+-- #region Speedwagon Foundation Submarine
+Balatest.TestPlay {
+    name = 'speedwagon_foundation_submarine_gives_money_when_skipping_a_blind',
+    category = { 'jokers', 'stardust_crusaders', 'speedwagon_foundation_submarine' },
+    jokers = { 'j_jojoker_speedwagon_foundation_submarine' },
+    dollars = 0,
+    no_auto_start = true,
+    execute = function()
+        skip_blind_into_shop()
+    end,
+    assert = function()
+        Balatest.assert_dollars(G.jokers.cards[1].ability.extra.money, "Speedwagon Foundation Submarine did not give money when skipping a blind")
+    end
+}
+
+Balatest.TestPlay {
+    name = 'speedwagon_foundation_submarine_opens_the_shop_after_skipping_a_blind',
+    category = { 'jokers', 'stardust_crusaders', 'speedwagon_foundation_submarine' },
+    jokers = { 'j_jojoker_speedwagon_foundation_submarine' },
+    no_auto_start = true,
+    execute = function()
+        skip_blind_into_shop()
+        Balatest.wait()
+    end,
+    assert = function()
+        Balatest.assert_eq(G.STATE, G.STATES.SHOP, "Speedwagon Foundation Submarine did not open the shop after skipping a blind")
+        Balatest.assert(#G.shop_jokers.cards > 0, "Speedwagon Foundation Submarine opened a shop with no cards")
+    end
+}
+
+Balatest.TestPlay {
+    name = 'speedwagon_foundation_submarine_returns_to_the_next_blind_after_the_shop',
+    category = { 'jokers', 'stardust_crusaders', 'speedwagon_foundation_submarine' },
+    jokers = { 'j_jojoker_speedwagon_foundation_submarine' },
+    no_auto_start = true,
+    execute = function()
+        skip_blind_into_shop()
+        Balatest.exit_shop()
+        Balatest.wait()
+    end,
+    assert = function()
+        Balatest.assert_eq(G.STATE, G.STATES.BLIND_SELECT, "Speedwagon Foundation Submarine did not return to blind select after the shop")
+        Balatest.assert_eq(G.GAME.blind_on_deck, 'Big', "Speedwagon Foundation Submarine did not move on to the Big Blind after the shop")
+        Balatest.assert_eq(G.GAME.round_resets.blind_states.Small, 'Skipped', "Speedwagon Foundation Submarine did not leave the Small Blind skipped")
+    end
+}
+
+Balatest.TestPlay {
+    name = 'speedwagon_foundation_submarine_triggers_on_every_skipped_blind',
+    category = { 'jokers', 'stardust_crusaders', 'speedwagon_foundation_submarine' },
+    jokers = { 'j_jojoker_speedwagon_foundation_submarine' },
+    dollars = 0,
+    no_auto_start = true,
+    execute = function()
+        skip_blind_into_shop()
+        Balatest.exit_shop()
+        skip_blind_into_shop()
+    end,
+    assert = function()
+        Balatest.assert_eq(G.STATE, G.STATES.SHOP, "Speedwagon Foundation Submarine did not open the shop after skipping the Big Blind")
+        Balatest.assert_dollars(G.jokers.cards[1].ability.extra.money * 2, "Speedwagon Foundation Submarine did not give money for both skipped blinds")
+    end
+}
+
+Balatest.TestPlay {
+    name = 'speedwagon_foundation_submarine_waits_for_tag_booster_pack_before_shop',
+    category = { 'jokers', 'stardust_crusaders', 'speedwagon_foundation_submarine' },
+    jokers = { 'j_jojoker_speedwagon_foundation_submarine' },
+    no_auto_start = true,
+    execute = function()
+        skip_blind_for_tag('tag_charm')
+        Balatest.wait_for_input(G.STATES.SMODS_BOOSTER_OPENED)
+        Balatest.q(function()
+            G.FUNCS.skip_booster()
+        end)
+        Balatest.wait_for_input(G.STATES.SHOP)
+    end,
+    assert = function()
+        Balatest.assert_eq(G.STATE, G.STATES.SHOP, "Speedwagon Foundation Submarine did not open the shop after the tag's booster pack")
+    end
+}
+
+Balatest.TestPlay {
+    name = 'speedwagon_foundation_submarine_copies_give_money_but_open_one_shop',
+    category = { 'jokers', 'stardust_crusaders', 'speedwagon_foundation_submarine' },
+    jokers = { 'j_jojoker_khnum', 'j_jojoker_speedwagon_foundation_submarine' },
+    dollars = 0,
+    no_auto_start = true,
+    execute = function()
+        skip_blind_into_shop()
+        Balatest.exit_shop()
+        Balatest.wait()
+    end,
+    assert = function()
+        Balatest.assert_dollars(G.jokers.cards[2].ability.extra.money * 2, "Khnum did not copy Speedwagon Foundation Submarine's money")
+        Balatest.assert_eq(G.STATE, G.STATES.BLIND_SELECT, "Speedwagon Foundation Submarine opened the shop more than once for one skip")
+    end
+}
+
+Balatest.TestPlay {
+    name = 'speedwagon_foundation_submarine_does_not_trigger_when_blind_is_played',
+    category = { 'jokers', 'stardust_crusaders', 'speedwagon_foundation_submarine' },
+    jokers = { 'j_jojoker_speedwagon_foundation_submarine' },
+    dollars = 0,
+    execute = function()
+        Balatest.play_hand { '2S' }
+    end,
+    assert = function()
+        Balatest.assert_dollars(0, "Speedwagon Foundation Submarine gave money without a blind being skipped")
+        Balatest.assert_eq(G.STATE, G.STATES.SELECTING_HAND, "Speedwagon Foundation Submarine left the blind without it being skipped")
+    end
+}
+-- #endregion

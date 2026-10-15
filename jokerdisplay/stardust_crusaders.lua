@@ -196,6 +196,16 @@ jd_def["j_jojoker_hat_hair"] = {
     },
 }
 
+jd_def["j_jojoker_speedwagon_foundation_submarine"] = {
+    text = {
+        { text = "+$", colour = G.C.MONEY },
+        { ref_table = "card.ability.extra", ref_value = "money", retrigger_type = "money", colour = G.C.MONEY },
+    },
+    reminder_text = {
+        { text = "On skipped blind", colour = G.C.GREY },
+    }
+}
+
 jd_def["j_jojoker_enya"] = {
     text = {
         { ref_table = "card.ability.extra", ref_value = "most_used_tarot_name", retrigger_type = "most_used_tarot_name", colour = G.C.PURPLE },

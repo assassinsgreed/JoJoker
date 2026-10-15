@@ -475,3 +475,37 @@ jojoker_rank_id = function(card)
   end
   return card.base.id
 end
+
+-- Keyed to G.GAME rather than stored in it, so a save mid-skip or a new run cannot leave it stuck
+jojoker_open_shop_after_skip = function()
+  if G.jojoker_skip_shop_game == G.GAME then return end
+  G.jojoker_skip_shop_game = G.GAME
+
+  -- Non-blocking so booster packs opened by the skip tag can finish first
+  G.E_MANAGER:add_event(Event({
+    blocking = false,
+    func = function()
+      if G.STATE ~= G.STATES.BLIND_SELECT or not G.blind_select or G.GAME.PACK_INTERRUPT then return false end
+      for lock, locked in pairs(G.CONTROLLER.locks) do
+        if locked and lock ~= 'skip_blind' then return false end
+      end
+
+      sendDebugMessage("Speedwagon Foundation Submarine: Opening the shop after skipping a blind.")
+      G.jojoker_skip_shop_game = nil
+      G.blind_select:remove()
+      G.blind_prompt_box:remove()
+      G.blind_select = nil
+
+      G.GAME.current_round.reroll_cost_increase = 0
+      G.GAME.current_round.used_packs = {}
+      G.GAME.current_round.free_rerolls = G.GAME.round_resets.free_rerolls
+      calculate_reroll_cost(true)
+      G.GAME.shop_free = nil
+      G.GAME.shop_d6ed = nil
+
+      G.STATE = G.STATES.SHOP
+      G.STATE_COMPLETE = false
+      return true
+    end
+  }))
+end

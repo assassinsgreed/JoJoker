@@ -72,7 +72,39 @@ local hat_hair = {
     end
 }
 
+local speedwagon_foundation_submarine = {
+    name = "speedwagon_foundation_submarine",
+    rarity = 1,
+    cost = 3,
+    jtype = "Effect",
+    part = "stardust_crusaders",
+    blueprint_compat = true,
+    perishable_compat = true,
+    eternal_compat = true,
+    config = { extra = { money = 3 } },
+    loc_vars = function(self, info_queue, center)
+        return {vars = { center.ability.extra.money }}
+    end,
+    calculate = function(self, card, context)
+        -- Give money and enter the shop when skipping a blind
+        if context.skip_blind then
+            -- Copies only pay out; one shop per skip
+            if not context.blueprint then
+                jojoker_open_shop_after_skip()
+            end
+            ease_dollars(card.ability.extra.money)
+            sendDebugMessage("Speedwagon Foundation Submarine: Gave $"..card.ability.extra.money.." for skipping a blind.")
+
+            return {
+                message = localize('$')..card.ability.extra.money,
+                colour = G.C.MONEY,
+                card = card
+            }
+        end
+    end
+}
+
 return {
     name = "Stardust Crusaders Effect Jokers",
-    list = { joestar_birthmark, hat_hair },
+    list = { joestar_birthmark, hat_hair, speedwagon_foundation_submarine },
 }

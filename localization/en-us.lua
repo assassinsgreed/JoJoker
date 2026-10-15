@@ -442,6 +442,13 @@ return {
                     "Randomly gives {C:chips}+#1#{} or {C:mult}+#2#{}."
                 }
             },
+            j_jojoker_speedwagon_foundation_submarine = {
+                name = "Speedwagon Foundation Submarine",
+                text = {
+                    "Earn {C:money}$#1#{} when skipping a {C:attention}Blind{}.",
+                    "Visit the {C:attention}shop{} after skipping."
+                }
+            },
             -- Part 4: Diamond is Unbreakable
             j_jojoker_voice_of_love = {
                 name = "Voice of Love",
