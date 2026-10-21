@@ -185,6 +185,16 @@ get_harvest_payout = function(card)
   return math.floor(spent / card.ability.extra.spend_per_payout) * card.ability.extra.money_mod
 end
 
+get_goo_goo_dolls_mult = function(card)
+  local missing = G.playing_cards and (G.GAME.starting_deck_size - #G.playing_cards) or 0
+  return math.max(0, missing) * card.ability.extra.mult
+end
+
+get_bad_company_mult = function(card)
+  local extra = G.playing_cards and (#G.playing_cards - G.GAME.starting_deck_size) or 0
+  return math.max(0, extra) * card.ability.extra.mult
+end
+
 jojoker_track_bosses_beaten = function(context)
   if not (context.end_of_round and context.game_over == false and context.main_eval and context.beat_boss) then return end
   if context.individual or context.repetition then return end

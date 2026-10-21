@@ -202,11 +202,10 @@ local bad_company = {
     }
     end,
     calculate = function(self, card, context)
-        -- Each card above 52 gives +5 mult
-        if context.cardarea == G.jokers and context.scoring_hand then
-            if context.joker_main and #G.playing_cards > G.GAME.starting_deck_size then
-                local mult_given = card.ability.extra.mult * (#G.playing_cards - G.GAME.starting_deck_size)
-                sendDebugMessage("Bad Company: Giviing "..mult_given.." mult based on current deck size of "..#G.playing_cards..".")
+        if context.joker_main then
+            local mult_given = get_bad_company_mult(card)
+            if mult_given > 0 then
+                sendDebugMessage("Bad Company: Giving "..mult_given.." mult based on current deck size of "..#G.playing_cards..".")
                 return {
                     message = localize{type = 'variable', key = 'a_mult', vars = {mult_given}},
                     colour = G.C.MULT,

@@ -3,11 +3,17 @@ local jd_def = JokerDisplay.Definitions
 jd_def["j_jojoker_goo_goo_dolls"] = {
     text = {
         { text = "+", colour = G.C.MULT },
-        { ref_table = "card.ability.extra", ref_value = "mult", retrigger_type = "mult",  colour = G.C.MULT },
+        { ref_table = "card.joker_display_values", ref_value = "mult", colour = G.C.MULT },
     },
     reminder_text = {
-        { text = "Per scored 2-6", colour = G.C.GREY, },
+        { text = "<", colour = G.C.GREY, },
+        { ref_table = "card.joker_display_values", ref_value = "starting_deck_size", colour = G.C.GREY },
+        { text = " in deck", colour = G.C.GREY, },
     },
+    calc_function = function(card)
+        card.joker_display_values.mult = get_goo_goo_dolls_mult(card)
+        card.joker_display_values.starting_deck_size = G.GAME.starting_deck_size
+    end
 }
 
 jd_def["j_jojoker_stone_free"] = {

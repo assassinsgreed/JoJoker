@@ -3,26 +3,29 @@
 local goo_goo_dolls = {
     name = "goo_goo_dolls",
     rarity = 1,
-    cost = 3,
+    cost = 4,
     jtype = "Stand",
     jclass = "Close Range",
     part = "stone_ocean",
     blueprint_compat = true,
+    perishable_compat = true,
+    eternal_compat = true,
     config = { extra = { mult = 4 } },
     loc_vars = function(self, info_queue, center)
-     return {
-        vars = {center.ability.extra.mult},
-        key = jojoker_config.use_localized_names and self.key..'_alt' or self.key
-    }
-   end,
+        return {
+            vars = {center.ability.extra.mult, G.GAME.starting_deck_size, get_goo_goo_dolls_mult(center)},
+            key = jojoker_config.use_localized_names and self.key..'_alt' or self.key
+        }
+    end,
     calculate = function(self, card, context)
-        if context.individual and context.cardarea == G.play and not context.other_card.debuff then
-            local id = context.other_card:get_id()
-            if id and id >= 2 and id <= 6 then
-                sendDebugMessage("Goo Goo Dolls: Scored card is rank: "..id)
+        if context.joker_main then
+            local mult_given = get_goo_goo_dolls_mult(card)
+            if mult_given > 0 then
+                sendDebugMessage("Goo Goo Dolls: Giving "..mult_given.." mult based on current deck size of "..#G.playing_cards..".")
                 return {
-                    mult = card.ability.extra.mult,
-                    card = card
+                    message = localize{type = 'variable', key = 'a_mult', vars = {mult_given}},
+                    colour = G.C.MULT,
+                    mult_mod = mult_given
                 }
             end
         end

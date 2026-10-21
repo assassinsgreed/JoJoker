@@ -882,15 +882,19 @@ return {
             j_jojoker_goo_goo_dolls = {
                 name = "Goo Goo Dolls",
                 text = {
-                    "Each scored {C:attention}2-6{}",
-                    "gives {C:mult}+#1#{}.",
+                    "{C:mult}+#1#{} Mult for each card",
+                    "below {C:attention}#2#{} in your {C:attention}full deck{}.",
+                    "{br:2}line break",
+                    "{C:inactive}Currently: {C:mult}+#3#{C:inactive} Mult"
                 }
             },
             j_jojoker_goo_goo_dolls_alt = {
                 name = "G.G. Dolls",
                 text = {
-                    "Each scored {C:attention}2-6{}",
-                    "gives {C:mult}+#1#{}.",
+                    "{C:mult}+#1#{} Mult for each card",
+                    "below {C:attention}#2#{} in your {C:attention}full deck{}.",
+                    "{br:2}line break",
+                    "{C:inactive}Currently: {C:mult}+#3#{C:inactive} Mult"
                 }
             },
             j_jojoker_stone_free = {

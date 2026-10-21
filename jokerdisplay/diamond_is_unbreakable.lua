@@ -84,11 +84,7 @@ jd_def["j_jojoker_bad_company"] = {
         { text = " in deck", colour = G.C.GREY, },
     },
     calc_function = function(card)
-        local mult = 0
-        if #G.playing_cards > G.GAME.starting_deck_size then
-            mult = card.ability.extra.mult * (#G.playing_cards - G.GAME.starting_deck_size)
-        end
-        card.joker_display_values.mult = mult
+        card.joker_display_values.mult = get_bad_company_mult(card)
         card.joker_display_values.starting_deck_size = G.GAME.starting_deck_size
     end
 }

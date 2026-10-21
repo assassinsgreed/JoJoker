@@ -1,35 +1,50 @@
 --#region Goo Goo Dolls
 Balatest.TestPlay {
-    name = 'goo_goo_dolls_does_not_give_mult_for_incorrect_card_ranks',
+    name = 'goo_goo_dolls_gives_no_mult_at_starting_deck_size',
     category = { 'jokers', 'stone_ocean', 'goo_goo_dolls' },
     jokers = { 'j_jojoker_goo_goo_dolls' },
     execute = function()
-        Balatest.play_hand { '10H' }
+        Balatest.play_hand { '2S' }
     end,
     assert = function()
-        Balatest.assert_chips(15, "Goo Goo Dolls gave mult for a card rank outside of 2-6")
+        Balatest.assert_chips(7, "Goo Goo Dolls gave mult with a full starting deck")
     end
 }
 Balatest.TestPlay {
-    name = 'goo_goo_dolls_gives_mult_for_cards_within_rank_2_to_6',
+    name = 'goo_goo_dolls_gives_mult_for_each_destroyed_card',
     category = { 'jokers', 'stone_ocean', 'goo_goo_dolls' },
     jokers = { 'j_jojoker_goo_goo_dolls' },
+    consumeables = { 'c_hanged_man' },
+    deck = { cards = {
+        { r = '2', s = 'S' },
+        { r = '3', s = 'C' },
+        { r = '5', s = 'H' },
+        { r = '7', s = 'D' },
+        { r = '9', s = 'S' } } },
     execute = function()
-        Balatest.play_hand { '4S', '4C' }
+        Balatest.highlight { '3C', '5H' }
+        Balatest.use(G.consumeables.cards[1])
+        Balatest.play_hand { '2S' }
     end,
     assert = function()
-        Balatest.assert_chips(18 * (G.jokers.cards[1].ability.extra.mult * 2 + 2), "Goo Goo Dolls did not give mult for each scored low card")
+        Balatest.assert_eq(get_goo_goo_dolls_mult(G.jokers.cards[1]), G.jokers.cards[1].ability.extra.mult * 2, "Goo Goo Dolls did not count both destroyed cards")
+        Balatest.assert_chips(7 * (G.jokers.cards[1].ability.extra.mult * 2 + 1), "Goo Goo Dolls did not give mult for each card below starting deck size")
     end
 }
 Balatest.TestPlay {
-    name = 'goo_goo_dolls_gives_mult_only_for_scored_cards',
+    name = 'goo_goo_dolls_gives_no_mult_when_deck_exceeds_starting_size',
     category = { 'jokers', 'stone_ocean', 'goo_goo_dolls' },
     jokers = { 'j_jojoker_goo_goo_dolls' },
     execute = function()
-        Balatest.play_hand { '4S', '3C' }
+        local copy = copy_card(G.hand.cards[1], nil, nil, G.playing_card)
+        copy:add_to_deck()
+        G.deck.config.card_limit = G.deck.config.card_limit + 1
+        table.insert(G.playing_cards, copy)
+        G.deck:emplace(copy)
+        Balatest.play_hand { '2D' }
     end,
     assert = function()
-        Balatest.assert_chips(9 * (G.jokers.cards[1].ability.extra.mult + 1), "Goo Goo Dolls did not give mult for only scored low card")
+        Balatest.assert_chips(7, "Goo Goo Dolls gave mult when deck was larger than starting size")
     end
 }
 --#endregion
