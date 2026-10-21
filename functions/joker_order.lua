@@ -20,6 +20,7 @@ jojoker.joker_order = {
     "kars_stopped_thinking",
     "kars_ultimate_lifeform",
     "leaky_eye_luca",
+    "loccobarocco_and_charlotte",
     "ndoul",
     "nypd",
     "old_joseph_joestar",

@@ -476,6 +476,16 @@ jojoker_rank_id = function(card)
   return card.base.id
 end
 
+get_loccobarocco_chips = function(card, scoring_hand)
+  local chips = 0
+  for _, scored_card in ipairs(scoring_hand or {}) do
+    if scored_card.debuff then
+      chips = chips + scored_card:get_chip_bonus() * card.ability.extra.chip_multiplier
+    end
+  end
+  return chips
+end
+
 -- Keyed to G.GAME rather than stored in it, so a save mid-skip or a new run cannot leave it stuck
 jojoker_open_shop_after_skip = function()
   if G.jojoker_skip_shop_game == G.GAME then return end

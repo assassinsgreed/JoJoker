@@ -20,6 +20,14 @@ count_playing_cards = function(rank, suit)
     return count
 end
 
+debuff_playing_cards = function(rank, suit)
+    for _, c in ipairs(G.playing_cards) do
+        if c.base.value == rank and (not suit or c.base.suit == suit) then
+            SMODS.debuff_card(c, true, 'balatest')
+        end
+    end
+end
+
 force_hat_hair_roll = function(roll)
     local original_pseudorandom = pseudorandom
     pseudorandom = function(seed, ...)

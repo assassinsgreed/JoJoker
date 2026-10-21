@@ -1110,6 +1110,13 @@ return {
                     "Retrigger each played {C:attention}Jack{} {C:attention}#1#{} times."
                 }
             },
+            j_jojoker_loccobarocco_and_charlotte = {
+                name = "Loccobarocco and Charlotte",
+                text = {
+                    "Scored {C:red}debuffed{} cards give",
+                    "{C:attention}X#1#{} their {C:chips}chips{}."
+                }
+            },
             -- Part 7: Steel Ball Run
             j_jojoker_mandom = {
                 name = "Mandom",

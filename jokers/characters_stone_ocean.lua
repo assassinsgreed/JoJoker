@@ -57,7 +57,36 @@ local pucci = {
     end
 }
 
+local loccobarocco_and_charlotte = {
+    name = "loccobarocco_and_charlotte",
+    rarity = 1,
+    cost = 3,
+    jtype = "Character",
+    part = "stone_ocean",
+    blueprint_compat = true,
+    perishable_compat = true,
+    eternal_compat = true,
+    config = { extra = { chip_multiplier = 5 } },
+    loc_vars = function(self, info_queue, card)
+      return {vars = {card.ability.extra.chip_multiplier}}
+    end,
+    calculate = function(self, card, context)
+        -- Debuffed cards are skipped by scoring entirely, so their chips are paid out from the joker
+        if context.joker_main then
+            local chips = get_loccobarocco_chips(card, context.scoring_hand)
+            if chips > 0 then
+                sendDebugMessage("Loccobarocco and Charlotte: Giving "..chips.." chips for debuffed scored cards")
+                return {
+                    message = localize{type='variable', key='a_chips', vars={chips}},
+                    colour = G.C.CHIPS,
+                    chip_mod = chips,
+                }
+            end
+        end
+    end
+}
+
 return {
     name = "Stone Ocean Character Jokers",
-    list = { savage_garden, pucci },
+    list = { savage_garden, pucci, loccobarocco_and_charlotte },
 }

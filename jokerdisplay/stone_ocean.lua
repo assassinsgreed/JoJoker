@@ -187,3 +187,17 @@ jd_def["j_jojoker_jumpin_jack_flash"] = {
         return playing_card:get_id() == 11 and joker_card.ability.extra.retriggers or 0
     end,
 }
+
+jd_def["j_jojoker_loccobarocco_and_charlotte"] = {
+    text = {
+        { text = "+", colour = G.C.CHIPS },
+        { ref_table = "card.joker_display_values", ref_value = "chips", retrigger_type = "mult", colour = G.C.CHIPS },
+    },
+    reminder_text = {
+        { text = "Debuffed cards", colour = G.C.GREY },
+    },
+    calc_function = function(card)
+        local _, _, scoring_hand = JokerDisplay.evaluate_hand()
+        card.joker_display_values.chips = get_loccobarocco_chips(card, scoring_hand)
+    end
+}
