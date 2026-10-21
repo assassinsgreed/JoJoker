@@ -13,8 +13,7 @@ local ndoul = {
     loc_vars = function(self, info_queue, center)
       info_queue[#info_queue + 1] = { set = 'Joker', key = 'j_smeared', config = {} }
       return {
-        vars = {},
-        key = jojoker_config.use_localized_names and self.key..'_alt' or self.key
+        vars = {}
     }
     end
 }
@@ -126,8 +125,7 @@ local enya = {
     config = { extra = { most_used_tarot_key = nil, most_used_tarot_name = "none" } }, -- Default for displayed strings in desc & jokerdisplay
     loc_vars = function(self, info_queue, card)
       return {
-        vars = {card.ability.extra.most_used_tarot_name},
-        key = jojoker_config.use_localized_names and self.key..'_alt' or self.key
+        vars = {card.ability.extra.most_used_tarot_name}
       }
     end,
     update = function(self, card, dt)

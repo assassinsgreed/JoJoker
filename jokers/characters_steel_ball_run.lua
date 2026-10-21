@@ -143,8 +143,7 @@ local sugar_mountain = {
     config = {extra = { money_given = 20, spend_left = 20, in_shop = false }},
     loc_vars = function(self, info_queue, center)
         return {
-            vars = { center.ability.extra.money_given, center.ability.extra.spend_left },
-            key = jojoker_config.use_localized_names and self.key..'_alt' or self.key
+            vars = { center.ability.extra.money_given, center.ability.extra.spend_left }
         }
     end,
     calculate = function(self, card, context)

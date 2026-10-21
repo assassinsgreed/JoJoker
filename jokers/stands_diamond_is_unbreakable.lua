@@ -13,8 +13,7 @@ local red_hot_chili_pepper = {
     config = { extra = { mult_mod = 0.5, money_mod = 1, mult = 0 } },
     loc_vars = function(self, info_queue, card)
       return {
-        vars = { card.ability.extra.mult_mod, card.ability.extra.money_mod, card.ability.extra.mult },
-        key = jojoker_config.use_localized_names and self.key..'_alt' or self.key
+        vars = { card.ability.extra.mult_mod, card.ability.extra.money_mod, card.ability.extra.mult }
     }
     end,
     calculate = function(self, card, context)
@@ -159,8 +158,7 @@ local crazy_diamond = {
     config = { extra = { mult = 4 } },
     loc_vars = function(self, info_queue, center)
       return {
-        vars = {center.ability.extra.mult},
-        key = jojoker_config.use_localized_names and self.key..'_alt' or self.key
+        vars = {center.ability.extra.mult}
     }
     end,
     calculate = function(self, card, context)
@@ -197,8 +195,7 @@ local bad_company = {
     config = { extra = { mult = 5 } },
     loc_vars = function(self, info_queue, center)
       return {
-        vars = {center.ability.extra.mult, G.GAME.starting_deck_size},
-        key = jojoker_config.use_localized_names and self.key..'_alt' or self.key
+        vars = {center.ability.extra.mult, G.GAME.starting_deck_size}
     }
     end,
     calculate = function(self, card, context)
@@ -229,8 +226,7 @@ local cheap_trick = {
     config = { extra = { Xmult_mod = 2, Xmult = 1 } },
     loc_vars = function(self, info_queue, card)
       return {
-        vars = {card.ability.extra.Xmult_mod, card.ability.extra.Xmult},
-        key = jojoker_config.use_localized_names and self.key..'_alt' or self.key
+        vars = {card.ability.extra.Xmult_mod, card.ability.extra.Xmult}
     }
     end,
     calculate = function(self, card, context)
@@ -267,7 +263,6 @@ local cinderella = {
     config = { extra = { is_disabled = false } },
     loc_vars = function(self, info_queue, card)
       return {
-        key = jojoker_config.use_localized_names and self.key..'_alt' or self.key
     }
     end,
     calculate = function(self, card, context)
@@ -322,8 +317,7 @@ local atom_heart_father = {
     config = { extra = { Xmult_mod = 0.5, Xmult = 1 } },
     loc_vars = function(self, info_queue, card)
       return {
-        vars = {card.ability.extra.Xmult_mod, card.ability.extra.Xmult},
-        key = jojoker_config.use_localized_names and self.key..'_alt' or self.key
+        vars = {card.ability.extra.Xmult_mod, card.ability.extra.Xmult}
     }
     end,
     calculate = function(self, card, context)
@@ -364,7 +358,6 @@ local surface = {
     eternal_compat = true,
     loc_vars = function(self, info_queue, card)
       return {
-        key = jojoker_config.use_localized_names and self.key..'_alt' or self.key
     }
     end,
     calculate = function(self, card, context)
@@ -390,8 +383,7 @@ local killer_queen = {
     config = { extra = { numerator = 1, denominator = 3 } },
     loc_vars = function(self, info_queue, card)
       return {
-        vars = {card.ability.extra.numerator, card.ability.extra.denominator },
-        key = jojoker_config.use_localized_names and self.key..'_alt' or self.key
+        vars = {card.ability.extra.numerator, card.ability.extra.denominator }
     }
     end,
     calculate = function(self, card, context)

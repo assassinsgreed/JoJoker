@@ -219,8 +219,7 @@ local sethan = {
     config = { extra = { Xmult_mod = 0.4, Xmult = 1 } },
     loc_vars = function(self, info_queue, center)
       return {
-        vars = { center.ability.extra.Xmult_mod, center.ability.extra.Xmult },
-        key = jojoker_config.use_localized_names and self.key..'_alt' or self.key
+        vars = { center.ability.extra.Xmult_mod, center.ability.extra.Xmult }
     }
     end,
     calculate = function(self, card, context)

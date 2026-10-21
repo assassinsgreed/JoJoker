@@ -57,8 +57,7 @@ local kiss = {
     config = { extra = { chips_mod = 30, chips = 0 } },
     loc_vars = function(self, info_queue, center)
         return {
-            vars = {center.ability.extra.chips_mod, center.ability.extra.chips},
-            key = jojoker_config.use_localized_names and self.key..'_alt' or self.key
+            vars = {center.ability.extra.chips_mod, center.ability.extra.chips}
         }
     end,
     calculate = function(self, card, context)
@@ -139,22 +138,15 @@ jd_def["j_jojoker_kiss"] = {
 
 `localization/en-us.lua`, in the part's section, positioned to match the joker list order.
 
-**Every joker with a real-world name has a localized (copyright-safe) alt name.** Write
-both entries and have `loc_vars` return the `_alt` key via the
-`jojoker_config.use_localized_names` pattern shown above. If you do not know the correct
+**Every joker with a real-world name has a localized (copyright-safe) alt name.** Give the
+entry an `alt_name`; `jojoker.load_joker` swaps to it automatically when
+`use_localized_names` is on, so `loc_vars` never returns a `key`. If you do not know the correct
 alt name for that stand or character, ask — do not invent one.
 
 ```lua
 j_jojoker_kiss = {
     name = "Kiss",
-    text = {
-        "Gains {C:chips}+#1#{} whenever a {C:attention}card{} is {C:attention}duplicated{}.",
-        "{br:2}line break",
-        "{C:inactive}Currently: {C:chips}+#2#{}"
-    }
-},
-j_jojoker_kiss_alt = {
-    name = "Smack",
+    alt_name = "Smack",
     text = {
         "Gains {C:chips}+#1#{} whenever a {C:attention}card{} is {C:attention}duplicated{}.",
         "{br:2}line break",
@@ -163,8 +155,9 @@ j_jojoker_kiss_alt = {
 },
 ```
 
-Both entries carry identical `text`; only `name` differs. Scaling jokers end with the
-`{br:2}line break` / `{C:inactive}Currently:` footer.
+Never write a `_alt` entry by hand: the loop at the bottom of `en-us.lua` generates
+`j_jojoker_kiss_alt` from `alt_name`, sharing the base entry's `text`. Scaling jokers end
+with the `{br:2}line break` / `{C:inactive}Currently:` footer.
 
 ## 8. Tests
 

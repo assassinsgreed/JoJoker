@@ -29,8 +29,7 @@ local turbo_eyes = {
     loc_vars = function(self, info_queue, center)
         info_queue[#info_queue + 1] = {set = 'Other', key = 'scan_cards'}
         return {
-            vars = {center.ability.extra.cards},
-            key = jojoker_config.use_localized_names and self.key..'_alt' or self.key
+            vars = {center.ability.extra.cards}
         }
     end,
     calculate = function(self, card, context)

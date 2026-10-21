@@ -13,8 +13,7 @@ local sex_pistols = {
     config = { extra = { mult = 0, chosen_rank = "undecided", deactivated = false } }, -- Default for displayed strings in desc
     loc_vars = function(self, info_queue, card)
         return {
-            vars = {card.ability.extra.mult, card.ability.extra.chosen_rank},
-            key = jojoker_config.use_localized_names and self.key..'_alt' or self.key
+            vars = {card.ability.extra.mult, card.ability.extra.chosen_rank}
         }
     end,
     calculate = function(self, card, context)
@@ -87,8 +86,7 @@ local grateful_dead = {
     config = { extra = { starting_mult = 25, mult_decay = 5, mult = 25, } },
     loc_vars = function(self, info_queue, card)
         return {
-            vars = {card.ability.extra.starting_mult, card.ability.extra.mult_decay, card.ability.extra.mult},
-            key = jojoker_config.use_localized_names and self.key..'_alt' or self.key
+            vars = {card.ability.extra.starting_mult, card.ability.extra.mult_decay, card.ability.extra.mult}
         }
     end,
     calculate = function(self, card, context)
@@ -124,8 +122,7 @@ local spice_girl = {
     config = { extra = { chips_mod = 25, Xmult_mod = 0.25, chips = 0, Xmult = 1 } },
     loc_vars = function(self, info_queue, card)
         return {
-            vars = {card.ability.extra.chips_mod, card.ability.extra.Xmult_mod, card.ability.extra.chips, card.ability.extra.Xmult},
-            key = jojoker_config.use_localized_names and self.key..'_alt' or self.key
+            vars = {card.ability.extra.chips_mod, card.ability.extra.Xmult_mod, card.ability.extra.chips, card.ability.extra.Xmult}
         }
     end,
     calculate = function(self, card, context)
@@ -182,8 +179,7 @@ local sticky_fingers = {
     loc_vars = function(self, info_queue, center)
         info_queue[#info_queue + 1] = { set = 'Joker', key = 'j_four_fingers', config = {} }
         return {
-            vars = {},
-            key = jojoker_config.use_localized_names and self.key..'_alt' or self.key
+            vars = {}
         }
     end
 }
@@ -201,8 +197,7 @@ local gold_experience = {
     config = { extra = { numerator = 1, denominator = 10 } },
     loc_vars = function(self, info_queue, center)
       return {
-        vars = { center.ability.extra.numerator, center.ability.extra.denominator },
-        key = jojoker_config.use_localized_names and self.key..'_alt' or self.key
+        vars = { center.ability.extra.numerator, center.ability.extra.denominator }
     }
     end,
     calculate = function(self, card, context)
@@ -236,12 +231,6 @@ local gold_experience_requiem = {
     perishable_compat = true,
     eternal_compat = true,
     config = { extra = { } },
-    loc_vars = function(self, info_queue, center)
-      return {
-        vars = {},
-        key = jojoker_config.use_localized_names and self.key..'_alt' or self.key
-    }
-    end,
     calculate = function(self, card, context)
         -- Disables active boss blinds
         if context.setting_blind then
@@ -266,8 +255,7 @@ local king_crimson = {
     config = { extra = { Xmult_mod = 2, Xmult = 1, } },
     loc_vars = function(self, info_queue, center)
       return {
-        vars = { center.ability.extra.Xmult_mod, center.ability.extra.Xmult },
-        key = jojoker_config.use_localized_names and self.key..'_alt' or self.key
+        vars = { center.ability.extra.Xmult_mod, center.ability.extra.Xmult }
     }
     end,
     calculate = function(self, card, context)
@@ -303,8 +291,7 @@ local moody_blues = {
     config = { extra = { numerator = 1, denominator = 3, retriggers = 1 } },
     loc_vars = function(self, info_queue, center)
       return {
-        vars = {center.ability.extra.numerator, center.ability.extra.denominator},
-        key = jojoker_config.use_localized_names and self.key..'_alt' or self.key
+        vars = {center.ability.extra.numerator, center.ability.extra.denominator}
     }
     end,
     calculate = function(self, card, context)
@@ -338,8 +325,7 @@ local baby_face = {
     config = { extra = { numerator = 1, denominator = 5 } },
     loc_vars = function(self, info_queue, center)
       return {
-        vars = {center.ability.extra.numerator, center.ability.extra.denominator},
-        key = jojoker_config.use_localized_names and self.key..'_alt' or self.key
+        vars = {center.ability.extra.numerator, center.ability.extra.denominator}
     }
     end,
     calculate = function(self, card, context)
@@ -375,8 +361,7 @@ local little_feet = {
     config = { extra = { Xmult = 1.5 } },
     loc_vars = function(self, info_queue, center)
      return {
-        vars = {center.ability.extra.Xmult},
-        key = jojoker_config.use_localized_names and self.key..'_alt' or self.key
+        vars = {center.ability.extra.Xmult}
     }
    end,
     calculate = function(self, card, context)
@@ -428,8 +413,7 @@ local black_sabbath = {
     config = { extra = { curr_chips = 40, curr_mult = 10, enhanced_chips = 200, enhanced_mult = 50 } }, -- x5 for both, but split to separate vars for easier balancing
     loc_vars = function(self, info_queue, center)
      return {
-        vars = {center.ability.extra.curr_chips, center.ability.extra.curr_mult, center.ability.extra.enhanced_chips, center.ability.extra.enhanced_mult},
-        key = jojoker_config.use_localized_names and self.key..'_alt' or self.key
+        vars = {center.ability.extra.curr_chips, center.ability.extra.curr_mult, center.ability.extra.enhanced_chips, center.ability.extra.enhanced_mult}
     }
    end,
     calculate = function(self, card, context)
@@ -522,8 +506,7 @@ local notorious_big = {
     config = { extra = { Xmult = 2.5 } },
     loc_vars = function(self, info_queue, center)
         return {
-            vars = {center.ability.extra.Xmult},
-            key = jojoker_config.use_localized_names and self.key..'_alt' or self.key
+            vars = {center.ability.extra.Xmult}
         }
     end,
     calculate = function(self, card, context)

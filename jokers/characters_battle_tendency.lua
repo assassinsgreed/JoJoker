@@ -231,8 +231,7 @@ local suzi_q = {
     config = { },
     loc_vars = function(self, info_queue, card)
       return {
-        vars = { },
-        key = jojoker_config.use_localized_names and self.key..'_alt' or self.key
+        vars = { }
     }
     end,
     calculate = function(self, card, context)

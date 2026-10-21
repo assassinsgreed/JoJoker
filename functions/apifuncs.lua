@@ -30,6 +30,17 @@ jojoker.load_joker = function(item)
     -- Set detail badges
     item.set_badges = jojoker_set_joker_badges
 
+    -- Programmatically set the joker names to localized or standard based on config
+    local joker_loc_vars = item.loc_vars
+    item.loc_vars = function(self, info_queue, card)
+        local ret = joker_loc_vars and joker_loc_vars(self, info_queue, card) or {}
+        local alt_key = self.key..'_alt'
+        if jojoker_config.use_localized_names and G.localization.descriptions.Joker[alt_key] then
+            ret.key = alt_key
+        end
+        return ret
+    end
+
     local joker_calculate = item.calculate
     item.calculate = function(self, card, context)
         local ret, triggered

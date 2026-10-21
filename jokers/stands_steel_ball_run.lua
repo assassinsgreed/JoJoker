@@ -13,8 +13,7 @@ local mandom = {
     config = {extra = {retriggers = 1, card_max = 6, cards = 0}},
     loc_vars = function(self, info_queue, center)
         return {
-            vars = {center.ability.extra.retriggers, center.ability.extra.card_max, center.ability.extra.card_max - center.ability.extra.cards},
-            key = jojoker_config.use_localized_names and self.key..'_alt' or self.key
+            vars = {center.ability.extra.retriggers, center.ability.extra.card_max, center.ability.extra.card_max - center.ability.extra.cards}
         }
     end,
     calculate = function(self, card, context)
@@ -88,8 +87,7 @@ local oh_lonesome_me = {
     config = {extra = {hand_size = 1}},
     loc_vars = function(self, info_queue, center)
         return {
-            vars = {center.ability.extra.hand_size},
-            key = jojoker_config.use_localized_names and self.key..'_alt' or self.key
+            vars = {center.ability.extra.hand_size}
         }
     end,
     -- Effect persists while debuffed, so ignore add/remove calls that come from debuffing
@@ -321,8 +319,7 @@ local in_a_silent_way = {
     config = { extra = { mult_mod = 3, current_mult = 0 } },
     loc_vars = function(self, info_queue, center)
       return {
-        vars = { center.ability.extra.mult_mod, center.ability.extra.current_mult },
-        key = jojoker_config.use_localized_names and self.key..'_alt' or self.key
+        vars = { center.ability.extra.mult_mod, center.ability.extra.current_mult }
     }
     end,
     calculate = function(self, card, context)

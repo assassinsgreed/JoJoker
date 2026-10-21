@@ -13,8 +13,7 @@ local goo_goo_dolls = {
     config = { extra = { mult = 4 } },
     loc_vars = function(self, info_queue, center)
         return {
-            vars = {center.ability.extra.mult, G.GAME.starting_deck_size, get_goo_goo_dolls_mult(center)},
-            key = jojoker_config.use_localized_names and self.key..'_alt' or self.key
+            vars = {center.ability.extra.mult, G.GAME.starting_deck_size, get_goo_goo_dolls_mult(center)}
         }
     end,
     calculate = function(self, card, context)
@@ -43,8 +42,7 @@ local stone_free = {
     config = {extra = {retriggers = 1}},
     loc_vars = function(self, info_queue, center)
         return {
-            vars = {center.ability.extra.retriggers},
-            key = jojoker_config.use_localized_names and self.key..'_alt' or self.key
+            vars = {center.ability.extra.retriggers}
         }
     end,
     calculate = function(self, card, context)
@@ -74,8 +72,7 @@ local made_in_heaven = {
     config = {extra = {hands = 1, discards = 0, Xmult = 1, Xmult_mod = 1}},
     loc_vars = function(self, info_queue, center)
         return {
-            vars = {center.ability.extra.hands, center.ability.extra.discards, center.ability.extra.Xmult, center.ability.extra.Xmult_mod},
-            key = jojoker_config.use_localized_names and self.key..'_alt' or self.key
+            vars = {center.ability.extra.hands, center.ability.extra.discards, center.ability.extra.Xmult, center.ability.extra.Xmult_mod}
         }
     end,
     calculate = function(self, card, context)
@@ -136,8 +133,7 @@ local dragons_dream = {
                 center.ability.extra.curr_chips,
                 center.ability.extra.curr_mult,
                 center.ability.extra.curr_money,
-                center.ability.extra.curr_Xmult},
-            key = jojoker_config.use_localized_names and self.key..'_alt' or self.key
+                center.ability.extra.curr_Xmult}
             }
     end,
     calculate = function(self, card, context)
@@ -204,8 +200,7 @@ local green_green_grass_of_home = {
     config = {extra = { Xchips = 2 }},
     loc_vars = function(self, info_queue, center)
         return {
-            vars = { center.ability.extra.Xchips },
-            key = jojoker_config.use_localized_names and self.key..'_alt' or self.key
+            vars = { center.ability.extra.Xchips }
         }
     end,
     calculate = function(self, card, context)
@@ -253,8 +248,7 @@ local foo_fighters = {
     config = { extra = { chips_mod = 5, chips = 0 } },
     loc_vars = function(self, info_queue, center)
         return {
-            vars = {center.ability.extra.chips_mod, center.ability.extra.chips},
-            key = jojoker_config.use_localized_names and self.key..'_alt' or self.key
+            vars = {center.ability.extra.chips_mod, center.ability.extra.chips}
         }
     end,
     calculate = function(self, card, context)
@@ -295,8 +289,7 @@ local white_snake = {
     config = { extra = { numerator = 1, denominator = 3 } },
     loc_vars = function(self, info_queue, center)
       return {
-        vars = { center.ability.extra.numerator, center.ability.extra.denominator },
-        key = jojoker_config.use_localized_names and self.key..'_alt' or self.key
+        vars = { center.ability.extra.numerator, center.ability.extra.denominator }
     }
     end,
     calculate = function(self, card, context)
@@ -332,7 +325,6 @@ local burning_down_the_house = {
     config = { extra = { } },
     loc_vars = function(self, info_queue, center)
       return {
-        key = jojoker_config.use_localized_names and self.key..'_alt' or self.key
     }
     end,
     calculate = function(self, card, context)
@@ -375,8 +367,7 @@ local limp_bizkit = {
     config = { extra = { numerator = 1, denominator = 2 } },
     loc_vars = function(self, info_queue, center)
       return {
-        vars = {center.ability.extra.numerator, center.ability.extra.denominator},
-        key = jojoker_config.use_localized_names and self.key..'_alt' or self.key
+        vars = {center.ability.extra.numerator, center.ability.extra.denominator}
       }
     end,
     calculate = function(self, card, context)
@@ -414,8 +405,7 @@ local marilyn_manson = {
     config = { extra = { debt = 15, debt_repay = 2 } },
     loc_vars = function(self, info_queue, center)
       return {
-        vars = {center.ability.extra.debt, center.ability.extra.debt_repay},
-        key = jojoker_config.use_localized_names and self.key..'_alt' or self.key
+        vars = {center.ability.extra.debt, center.ability.extra.debt_repay}
       }
     end,
     calc_dollar_bonus = function(self, card)
@@ -444,7 +434,6 @@ local c_moon = {
     eternal_compat = true,
     loc_vars = function(self, info_queue, center)
         return {
-            key = jojoker_config.use_localized_names and self.key..'_alt' or self.key
         }
     end,
     calculate = function(self, card, context)
@@ -552,8 +541,7 @@ local kiss = {
     config = { extra = { chips_mod = 30, chips = 0 } },
     loc_vars = function(self, info_queue, center)
         return {
-            vars = {center.ability.extra.chips_mod, center.ability.extra.chips},
-            key = jojoker_config.use_localized_names and self.key..'_alt' or self.key
+            vars = {center.ability.extra.chips_mod, center.ability.extra.chips}
         }
     end,
     calculate = function(self, card, context)
@@ -592,8 +580,7 @@ local jumpin_jack_flash = {
     config = { extra = { retriggers = 2 } },
     loc_vars = function(self, info_queue, center)
         return {
-            vars = {center.ability.extra.retriggers},
-            key = jojoker_config.use_localized_names and self.key..'_alt' or self.key
+            vars = {center.ability.extra.retriggers}
         }
     end,
     calculate = function(self, card, context)

@@ -1,7 +1,7 @@
 -- This is for English (US) localization.
 -- This is the default file; if other localizations do not have a key, the value from this file will be used.
 
-return {
+local loc = {
     descriptions = {
         Joker = {
             -- Part 1: Phantom Blood
@@ -111,14 +111,7 @@ return {
             },
             j_jojoker_tarkus = {
                 name = "Tarkus",
-                text = {
-                    "When exiting a shop without buying anything, gains {X:mult,C:white} X#2# {}.",
-                    "{br:2}line break",
-                    "{C:inactive}Currently: {C:attention}#1#"
-                }
-            },
-            j_jojoker_tarkus_alt = {
-                name = "Tarukus",
+                alt_name = "Tarukus",
                 text = {
                     "When exiting a shop without buying anything, gains {X:mult,C:white} X#2# {}.",
                     "{br:2}line break",
@@ -185,13 +178,7 @@ return {
             },
             j_jojoker_suzi_q = {
                 name = "Suzi Q",
-                text = {
-                    "Scored {C:attention}Queens{} are given a",
-                    "{C:attention}Gold Seal{} if it has no other seals."
-                }
-            },
-            j_jojoker_suzi_q_alt = {
-                name = "Suzie Q",
+                alt_name = "Suzie Q",
                 text = {
                     "Scored {C:attention}Queens{} are given a",
                     "{C:attention}Gold Seal{} if it has no other seals."
@@ -206,12 +193,7 @@ return {
             },
             j_jojoker_santana = {
                 name = "Santana",
-                text = {
-                    "Each scored {C:attention}face card{} permanently gains {C:chips}+#1#{}."
-                }
-            },
-            j_jojoker_santana_alt = {
-                name = "Santviento",
+                alt_name = "Santviento",
                 text = {
                     "Each scored {C:attention}face card{} permanently gains {C:chips}+#1#{}."
                 }
@@ -271,12 +253,7 @@ return {
             },
             j_jojoker_ndoul = {
                 name = "N'Doul",
-                text = {
-                    "Applies {C:attention}Smeared{}."
-                }
-            },
-            j_jojoker_ndoul_alt = {
-                name = "N'Dool",
+                alt_name = "N'Dool",
                 text = {
                     "Applies {C:attention}Smeared{}."
                 }
@@ -320,15 +297,7 @@ return {
             },
             j_jojoker_sethan = {
                 name = "Sethan",
-                text = {
-                    "Reverts level of played hand to {C:attention}Level 1{},",
-                    "then gains {X:mult,C:white} X#1# {} per level lost.",
-                    "{br:2}line break",
-                    "{C:inactive}Currently: {X:mult,C:white} X#2#"
-                }
-            },
-            j_jojoker_sethan_alt = {
-                name = "Set",
+                alt_name = "Set",
                 text = {
                     "Reverts level of played hand to {C:attention}Level 1{},",
                     "then gains {X:mult,C:white} X#1# {} per level lost.",
@@ -420,15 +389,7 @@ return {
             },
             j_jojoker_enya = {
                 name = "Enya",
-                text = {
-                    "{C:attention}Arcana Packs{} always contain the",
-                    "{C:tarot}Tarot{} card used most this run.",
-                    "{br:2}line break",
-                    "{C:inactive}Most used: #1#"
-                }
-            },
-            j_jojoker_enya_alt = {
-                name = "Enyaba",
+                alt_name = "Enyaba",
                 text = {
                     "{C:attention}Arcana Packs{} always contain the",
                     "{C:tarot}Tarot{} card used most this run.",
@@ -469,12 +430,7 @@ return {
             },
             j_jojoker_red_hot_chili_pepper = {
                 name = "Red Hot Chili Pepper",
-                text = {
-                    "{C:mult}+#1#{} per {C:money}$#2#{} held."
-                }
-            },
-            j_jojoker_red_hot_chili_pepper_alt = {
-                name = "Chili Pepper",
+                alt_name = "Chili Pepper",
                 text = {
                     "{C:mult}+#1#{} per {C:money}$#2#{} held."
                 }
@@ -499,13 +455,7 @@ return {
             },
             j_jojoker_crazy_diamond = {
                 name = "Crazy Diamond",
-                text = {
-                    "Each scored {C:diamonds}Diamond{} card",
-                    "gives {C:mult}+#1#{}.",
-                }
-            },
-            j_jojoker_crazy_diamond_alt = {
-                name = "Shining Diamond",
+                alt_name = "Shining Diamond",
                 text = {
                     "Each scored {C:diamonds}Diamond{} card",
                     "gives {C:mult}+#1#{}.",
@@ -513,13 +463,7 @@ return {
             },
             j_jojoker_bad_company = {
                 name = "Bad Company",
-                text = {
-                    "Gives {C:mult}+#1#{} for each card",
-                    "over {C:attention}#2#{} in the deck.",
-                }
-            },
-            j_jojoker_bad_company_alt = {
-                name = "Worse Company",
+                alt_name = "Worse Company",
                 text = {
                     "Gives {C:mult}+#1#{} for each card",
                     "over {C:attention}#2#{} in the deck.",
@@ -527,14 +471,7 @@ return {
             },
             j_jojoker_cheap_trick = {
                 name = "Cheap Trick",
-                text = {
-                    "Gains {X:mult,C:white} X#1# {} whenever a joker is {S:1.1,C:red,E:2}destroyed{}.",
-                    "{br:2}line break",
-                    "{C:inactive}Currently: {X:mult,C:white} X#2# {}"
-                }
-            },
-            j_jojoker_cheap_trick_alt = {
-                name = "Cheap Trap",
+                alt_name = "Cheap Trap",
                 text = {
                     "Gains {X:mult,C:white} X#1# {} whenever a joker is {S:1.1,C:red,E:2}destroyed{}.",
                     "{br:2}line break",
@@ -549,13 +486,7 @@ return {
             },
             j_jojoker_cinderella = {
                 name = "Cinderella",
-                text = {
-                    "Transforms the first scored card of the blind into either",
-                    "a {C:attention}Queen{} or {C:attention}King{}, if it is not already either rank."
-                }
-            },
-            j_jojoker_cinderella_alt = {
-                name = "Fashionista",
+                alt_name = "Fashionista",
                 text = {
                     "Transforms the first scored card of the blind into either",
                     "a {C:attention}Queen{} or {C:attention}King{}, if it is not already either rank."
@@ -569,14 +500,7 @@ return {
             },
             j_jojoker_atom_heart_father = {
                 name = "Atom Heart Father",
-                text = {
-                    "Gains {X:mult,C:white} X#1# {} for each card with a {C:attention}seal{} in the deck.",
-                    "{br:2}line break",
-                    "{C:inactive}Currently: {X:mult,C:white} X#2#"
-                }
-            },
-            j_jojoker_atom_heart_father_alt = {
-                name = "Heart Father",
+                alt_name = "Heart Father",
                 text = {
                     "Gains {X:mult,C:white} X#1# {} for each card with a {C:attention}seal{} in the deck.",
                     "{br:2}line break",
@@ -585,24 +509,14 @@ return {
             },
             j_jojoker_surface = {
                 name = "Surface",
-                text = {
-                    "Copies ability of leftmost {C:attention}Joker{}."
-                }
-            },
-            j_jojoker_surface_alt = {
-                name = "Show Off",
+                alt_name = "Show Off",
                 text = {
                     "Copies ability of leftmost {C:attention}Joker{}."
                 }
             },
             j_jojoker_killer_queen = {
                 name = "Killer Queen",
-                text = {
-                    "{C:attention}#1# in #2#{} chance to rewind blind when defeating a boss."
-                }
-            },
-            j_jojoker_killer_queen_alt = {
-                name = "Deadly Queen",
+                alt_name = "Deadly Queen",
                 text = {
                     "{C:attention}#1# in #2#{} chance to rewind blind when defeating a boss."
                 }
@@ -645,17 +559,7 @@ return {
             -- Part 5: Golden Wind
             j_jojoker_sex_pistols = {
                 name = "Sex Pistols",
-                text = {
-                    "When {C:attention}Blind{} is selected, randomly picks from",
-                    "{C:attention}[Ace, 2, 3, 5, 6, 7]{}.",
-                    "Increases mult by rank the first time it is scored per blind.",
-                    "{br:2}line break",
-                    "{C:inactive}Currently: {C:mult}+#1#",
-                    "{C:inactive}Chosen rank: {C:attention}#2#",
-                }
-            },
-            j_jojoker_sex_pistols_alt = {
-                name = "Six Bullets",
+                alt_name = "Six Bullets",
                 text = {
                     "When {C:attention}Blind{} is selected, randomly picks from",
                     "{C:attention}[Ace, 2, 3, 5, 6, 7]{}.",
@@ -667,15 +571,7 @@ return {
             },
             j_jojoker_grateful_dead = {
                 name = "The Grateful Dead",
-                text = {
-                    "Starts with {C:mult}+#1#{}.",
-                    "{C:mult}-#2#{} at the end of each blind.",
-                    "{br:2}line break",
-                    "{C:inactive}Remaining: {C:mult}+#3#",
-                }
-            },
-            j_jojoker_grateful_dead_alt = {
-                name = "The Thankful Dead",
+                alt_name = "The Thankful Dead",
                 text = {
                     "Starts with {C:mult}+#1#{}.",
                     "{C:mult}-#2#{} at the end of each blind.",
@@ -685,18 +581,7 @@ return {
             },
             j_jojoker_spice_girl = {
                 name = "Spice Girl",
-                text = {
-                    "Removes scored {C:attention}stone card{}",
-                    "enhancement and gains {C:chips}+#1#{}.",
-                    "Removes scored {C:attention}steel card{}",
-                    "enhancement and gains {X:mult,C:white} X#2# {}.",
-                    "{br:2}line break",
-                    "{C:inactive}Current chips: {C:chips}+#3#{}",
-                    "{C:inactive}Current mult: {X:mult,C:white} X#4# {}",
-                }
-            },
-            j_jojoker_spice_girl_alt = {
-                name = "Spicy Lady",
+                alt_name = "Spicy Lady",
                 text = {
                     "Removes scored {C:attention}stone card{}",
                     "enhancement and gains {C:chips}+#1#{}.",
@@ -709,12 +594,7 @@ return {
             },
             j_jojoker_sticky_fingers = {
                 name = "Sticky Fingers",
-                text = {
-                    "Applies {C:attention}Four Fingers{}."
-                }
-            },
-            j_jojoker_sticky_fingers_alt = {
-                name = "Zipper Man",
+                alt_name = "Zipper Man",
                 text = {
                     "Applies {C:attention}Four Fingers{}."
                 }
@@ -728,14 +608,7 @@ return {
             },
             j_jojoker_gold_experience = {
                 name = "Gold Experience",
-                text = {
-                    "Scored cards have a {C:attention}#1# in #2#{}",
-                    "chance to become {C:dark_edition}Polychrome{} if",
-                    "they do not have an edition."
-                }
-            },
-            j_jojoker_gold_experience_alt = {
-                name = "Golden Wind",
+                alt_name = "Golden Wind",
                 text = {
                     "Scored cards have a {C:attention}#1# in #2#{}",
                     "chance to become {C:dark_edition}Polychrome{} if",
@@ -744,26 +617,14 @@ return {
             },
             j_jojoker_gold_experience_requiem = {
                 name = "Gold Experience Requiem",
-                text = {
-                    "Disables all {C:attention}active boss blinds{}."
-                }
-            },
-            j_jojoker_gold_experience_requiem_alt = {
-                name = "Golden Wind Requiem",
+                alt_name = "Golden Wind Requiem",
                 text = {
                     "Disables all {C:attention}active boss blinds{}."
                 }
             },
             j_jojoker_king_crimson = {
                 name = "King Crimson",
-                text = {
-                    "Gains {X:mult,C:white} X#1# {} for each skipped blind.",
-                    "{br:2}line break",
-                    "{C:inactive}Currently: {X:mult,C:white} X#2#",
-                }
-            },
-            j_jojoker_king_crimson_alt = {
-                name = "Emperor Crimson",
+                alt_name = "Emperor Crimson",
                 text = {
                     "Gains {X:mult,C:white} X#1# {} for each skipped blind.",
                     "{br:2}line break",
@@ -772,14 +633,7 @@ return {
             },
             j_jojoker_epitaph = {
                 name = "Epitaph",
-                text = {
-                    "Shows the next {C:attention}#1#{} cards in",
-                    "the deck as a prediction, then adds their",
-                    "total {C:chips}chips{} to the scoring hand.",
-                }
-            },
-            j_jojoker_epitaph_alt = {
-                name = "Eulogy",
+                alt_name = "Eulogy",
                 text = {
                     "Shows the next {C:attention}#1#{} cards in",
                     "the deck as a prediction, then adds their",
@@ -788,13 +642,7 @@ return {
             },
             j_jojoker_moody_blues = {
                 name = "Moody Blues",
-                text = {
-                    "Scored cards have a {C:attention}#1# in #2#{}",
-                    "chance to retrigger."
-                }
-            },
-            j_jojoker_moody_blues_alt = {
-                name = "Moody Jazz",
+                alt_name = "Moody Jazz",
                 text = {
                     "Scored cards have a {C:attention}#1# in #2#{}",
                     "chance to retrigger."
@@ -816,13 +664,7 @@ return {
             },
             j_jojoker_little_feet = {
                 name = "Little Feet",
-                text = {
-                    "Each scored {C:attention}2-5{} gives {X:mult,C:white} X#1# {}.",
-                    "{C:attention}Face cards{} are debuffed."
-                }
-            },
-            j_jojoker_little_feet_alt = {
-                name = "Tiny Feet",
+                alt_name = "Tiny Feet",
                 text = {
                     "Each scored {C:attention}2-5{} gives {X:mult,C:white} X#1# {}.",
                     "{C:attention}Face cards{} are debuffed."
@@ -830,13 +672,7 @@ return {
             },
             j_jojoker_black_sabbath = {
                 name = "Black Sabbath",
-                text = {
-                    "Gives {C:chips}+#1#{} and {C:mult}+#2#{}. If score catches fire,",
-                    "becomes {C:attention}Perishable{} and gives {C:chips}+#3#{} and {C:mult}+#4#{} instead."
-                }
-            },
-            j_jojoker_black_sabbath_alt = {
-                name = "Shadow Sabbath",
+                alt_name = "Shadow Sabbath",
                 text = {
                     "Gives {C:chips}+#1#{} and {C:mult}+#2#{}. If score catches fire,",
                     "becomes {C:attention}Perishable{} and gives {C:chips}+#3#{} and {C:mult}+#4#{} instead."
@@ -844,13 +680,7 @@ return {
             },
             j_jojoker_rolling_stones = {
                 name = "Rolling Stones",
-                text = {
-                    "Gives {X:mult,C:white} X#1# {}, but all",
-                    "{C:green}probabilities{} are set to {C:green}0{}."
-                }
-            },
-            j_jojoker_rolling_stones_alt = {
-                name = "Prophecy Stones",
+                alt_name = "Prophecy Stones",
                 text = {
                     "Gives {X:mult,C:white} X#1# {}, but all",
                     "{C:green}probabilities{} are set to {C:green}0{}."
@@ -858,14 +688,7 @@ return {
             },
             j_jojoker_notorious_big = {
                 name = "Notorious B.I.G.",
-                text = {
-                    "When {C:attention}destroyed{} by a {C:attention}Joker{},",
-                    "that Joker permanently",
-                    "gains {X:mult,C:white} X#1# {} Mult"
-                }
-            },
-            j_jojoker_notorious_big_alt = {
-                name = "Notorious Chase",
+                alt_name = "Notorious Chase",
                 text = {
                     "When {C:attention}destroyed{} by a {C:attention}Joker{},",
                     "that Joker permanently",
@@ -881,15 +704,7 @@ return {
             -- Part 6: Stone Ocean
             j_jojoker_goo_goo_dolls = {
                 name = "Goo Goo Dolls",
-                text = {
-                    "{C:mult}+#1#{} Mult for each card",
-                    "below {C:attention}#2#{} in your {C:attention}full deck{}.",
-                    "{br:2}line break",
-                    "{C:inactive}Currently: {C:mult}+#3#{C:inactive} Mult"
-                }
-            },
-            j_jojoker_goo_goo_dolls_alt = {
-                name = "G.G. Dolls",
+                alt_name = "G.G. Dolls",
                 text = {
                     "{C:mult}+#1#{} Mult for each card",
                     "below {C:attention}#2#{} in your {C:attention}full deck{}.",
@@ -899,13 +714,7 @@ return {
             },
             j_jojoker_stone_free = {
                 name = "Stone Free",
-                text = {
-                    "Retriggers each scored",
-                    "{C:attention}Stone{} card.",
-                }
-            },
-            j_jojoker_stone_free_alt = {
-                name = "Stone Ocean",
+                alt_name = "Stone Ocean",
                 text = {
                     "Retriggers each scored",
                     "{C:attention}Stone{} card.",
@@ -913,16 +722,7 @@ return {
             },
             j_jojoker_made_in_heaven = {
                 name = "Made in Heaven",
-                text = {
-                    "Reduces hands to {C:attention}#1#{} and discards to {C:attention}#2#{},",
-                    "increases hand size to the {C:attention}size of your deck{}.",
-                    "Gains {X:mult,C:white} X#4# {} for each lost hand and discard.",
-                    "{br:2}line break",
-                    "{C:inactive}Currently: {X:mult,C:white} X#3#"
-                }
-            },
-            j_jojoker_made_in_heaven_alt = {
-                name = "Maiden Heaven",
+                alt_name = "Maiden Heaven",
                 text = {
                     "Reduces hands to {C:attention}#1#{} and discards to {C:attention}#2#{},",
                     "increases hand size to the {C:attention}size of your deck{}.",
@@ -933,16 +733,7 @@ return {
             },
             j_jojoker_dragons_dream = {
                 name = "Dragon's Dream",
-                text = {
-                    "Randomly gains or loses {C:chips}+/- #1#{}, {C:mult}+/- #2#{},",
-                    "{C:money} +/- $#3#{}, or {X:mult,C:white} X#4# {} mult per played hand.",
-                    "All values cannot drop below 0.",
-                    "{br:2}line break",
-                    "{C:inactive}Currently: {C:chips}+#5#{}, {C:mult}+#6#{}, {C:money}$#7#{}, {X:mult,C:white} X#8# {}",
-                }
-            },
-            j_jojoker_dragons_dream_alt = {
-                name = "Drake's Dream",
+                alt_name = "Drake's Dream",
                 text = {
                     "Randomly gains or loses {C:chips}+/- #1#{}, {C:mult}+/- #2#{},",
                     "{C:money} +/- $#3#{}, or {X:mult,C:white} X#4# {} mult per played hand.",
@@ -953,12 +744,7 @@ return {
             },
             j_jojoker_green_green_grass_of_home = {
                 name = "Green, Green Grass of Home",
-                text = {
-                    "Doubles scored {C:chips}chips{} if a {C:attention}High Card{} is played.",
-                }
-            },
-            j_jojoker_green_green_grass_of_home_alt = {
-                name = "Green, Green, Green Home",
+                alt_name = "Green, Green, Green Home",
                 text = {
                     "Doubles scored {C:chips}chips{} if a {C:attention}High Card{} is played.",
                 }
@@ -971,14 +757,7 @@ return {
             },
             j_jojoker_foo_fighters = {
                 name = "Foo Fighters",
-                text = {
-                    "Gives {C:chips}+#1#{} for each {C:attention}unique card played{} this ante.",
-                    "{br:2}line break",
-                    "{C:inactive}Currently: {C:chips}#2#{}"
-                }
-            },
-            j_jojoker_foo_fighters_alt = {
-                name = "F.F.",
+                alt_name = "F.F.",
                 text = {
                     "Gives {C:chips}+#1#{} for each {C:attention}unique card played{} this ante.",
                     "{br:2}line break",
@@ -987,12 +766,7 @@ return {
             },
             j_jojoker_savage_garden = {
                 name = "Savage Garden",
-                text = {
-                    "Gives {X:mult,C:white} X#1# {} on the {C:attention}final hand{} of round."
-                }
-            },
-            j_jojoker_savage_garden_alt = {
-                name = "Savage Guardian",
+                alt_name = "Savage Guardian",
                 text = {
                     "Gives {X:mult,C:white} X#1# {} on the {C:attention}final hand{} of round."
                 }
@@ -1006,14 +780,7 @@ return {
             },
             j_jojoker_white_snake = {
                 name = "White Snake",
-                text = {
-                    "Scored cards have a {C:attention}#1# in #2#{}",
-                    "chance to become {C:dark_edition}Wild{} if",
-                    "they do not have an enhancement."
-                }
-            },
-            j_jojoker_white_snake_alt = {
-                name = "Pale Snake",
+                alt_name = "Pale Snake",
                 text = {
                     "Scored cards have a {C:attention}#1# in #2#{}",
                     "chance to become {C:dark_edition}Wild{} if",
@@ -1022,13 +789,7 @@ return {
             },
             j_jojoker_burning_down_the_house = {
                 name = "Burning Down the House",
-                text = {
-                    "On loss, is {S:1.1,C:red,E:2}destroyed{}, then skips",
-                    "the current blind."
-                }
-            },
-            j_jojoker_burning_down_the_house_alt = {
-                name = "Burn the House Down",
+                alt_name = "Burn the House Down",
                 text = {
                     "On loss, is {S:1.1,C:red,E:2}destroyed{}, then skips",
                     "the current blind."
@@ -1036,13 +797,7 @@ return {
             },
             j_jojoker_limp_bizkit = {
                 name = "Limp Bizkit",
-                text = {
-                    "Whenever a Joker is {S:1.1,C:red,E:2}destroyed{}, has",
-                    "a {C:attention}#1# in #2#{} chance to be recreated as {C:dark_edition}Negative{}."
-                }
-            },
-            j_jojoker_limp_bizkit_alt = {
-                name = "Flaccid Pancake", -- I know the latest official one is Limp Viscuit, but this is a fan favorite and it would be insane not to use it
+                alt_name = "Flaccid Pancake", -- I know the latest official one is Limp Viscuit, but this is a fan favorite and it would be insane not to use it
                 text = {
                     "Whenever a Joker is {S:1.1,C:red,E:2}destroyed{}, has",
                     "a {C:attention}#1# in #2#{} chance to be recreated as {C:dark_edition}Negative{}."
@@ -1050,13 +805,7 @@ return {
             },
             j_jojoker_marilyn_manson = {
                 name = "Marilyn Manson",
-                text = {
-                    "Go up to {C:money}$#1#{} in debt.",
-                    "Earn {C:money}$#2#{} after blind if 0 discards remain."
-                }
-            },
-            j_jojoker_marilyn_manson_alt = {
-                name = "Mary Lynn Manson",
+                alt_name = "Mary Lynn Manson",
                 text = {
                     "Go up to {C:money}$#1#{} in debt.",
                     "Earn {C:money}$#2#{} after blind if 0 discards remain."
@@ -1064,38 +813,21 @@ return {
             },
             j_jojoker_c_moon = {
                 name = "C-Moon",
-                text = {
-                    "Equalizes scored {C:chips}chips{} and {C:mult}mult{}.",
-                }
-            },
-            j_jojoker_c_moon_alt = {
-                name = "See Moon",
+                alt_name = "See Moon",
                 text = {
                     "Equalizes scored {C:chips}chips{} and {C:mult}mult{}.",
                 }
             },
             j_jojoker_planet_waves = {
                 name = "Planet Waves",
-                text = {
-                    "Played {C:planet}planet cards{} have a {C:attention}#1# in #2#{} chance to be duplicated."
-                }
-            },
-            j_jojoker_planet_waves_alt = {
-                name = "Starlight Waves",
+                alt_name = "Starlight Waves",
                 text = {
                     "Played {C:planet}planet cards{} have a {C:attention}#1# in #2#{} chance to be duplicated."
                 }
             },
             j_jojoker_kiss = {
                 name = "Kiss",
-                text = {
-                    "Gains {C:chips}+#1#{} whenever a {C:attention}card{} is {C:attention}duplicated{}.",
-                    "{br:2}line break",
-                    "{C:inactive}Currently: {C:chips}+#2#{}"
-                }
-            },
-            j_jojoker_kiss_alt = {
-                name = "Smack",
+                alt_name = "Smack",
                 text = {
                     "Gains {C:chips}+#1#{} whenever a {C:attention}card{} is {C:attention}duplicated{}.",
                     "{br:2}line break",
@@ -1104,12 +836,7 @@ return {
             },
             j_jojoker_jumpin_jack_flash = {
                 name = "Jumpin' Jack Flash",
-                text = {
-                    "Retrigger each played {C:attention}Jack{} {C:attention}#1#{} times."
-                }
-            },
-            j_jojoker_jumpin_jack_flash_alt = {
-                name = "Jumping Jack Spark",
+                alt_name = "Jumping Jack Spark",
                 text = {
                     "Retrigger each played {C:attention}Jack{} {C:attention}#1#{} times."
                 }
@@ -1124,15 +851,7 @@ return {
             -- Part 7: Steel Ball Run
             j_jojoker_mandom = {
                 name = "Mandom",
-                text = {
-                    "Retrigger the first {C:attention}#2#{}",
-                    "cards scored each round.",
-                    "{br:2}line break",
-                    "{C:inactive}Remaining: {C:attention}#3# {C:inactive}times{}"
-                }
-            },
-            j_jojoker_mandom_alt = {
-                name = "Mando",
+                alt_name = "Mando",
                 text = {
                     "Retrigger the first {C:attention}#2#{}",
                     "cards scored each round.",
@@ -1155,13 +874,7 @@ return {
             },
             j_jojoker_oh_lonesome_me = {
                 name = "Oh! Lonesome Me",
-                text = {
-                    "Increases {C:attention}hand size{} by {C:attention}#1#{}.",
-                    "Effect persists while debuffed."
-                }
-            },
-            j_jojoker_oh_lonesome_me_alt = {
-                name = "Lasso Blues",
+                alt_name = "Lasso Blues",
                 text = {
                     "Increases {C:attention}hand size{} by {C:attention}#1#{}.",
                     "Effect persists while debuffed."
@@ -1282,14 +995,7 @@ return {
             },
             j_jojoker_in_a_silent_way = {
                 name = "In a Silent Way",
-                text = {
-                    "Gains {C:mult}+#1#{} for each opened {C:attention}Booster Pack{}.",
-                    "{br:2}line break",
-                    "{C:inactive}Currently: {C:mult}+#2#{}"
-                }
-            },
-            j_jojoker_in_a_silent_way_alt = {
-                name = "Silent Ways",
+                alt_name = "Silent Ways",
                 text = {
                     "Gains {C:mult}+#1#{} for each opened {C:attention}Booster Pack{}.",
                     "{br:2}line break",
@@ -1298,14 +1004,7 @@ return {
             },
             j_jojoker_sugar_mountain = {
                 name = "Sugar Mountain",
-                text = {
-                    "Gives {C:money}$#1#{} when entering shops. If exactly",
-                    "that amount is not spent or joker is sold in shop,",
-                    "is {S:1.1,C:red,E:2}destroyed{} and sets money to {C:money}$0{}."
-                }
-            },
-            j_jojoker_sugar_mountain_alt = {
-                name = "Snow Mountain",
+                alt_name = "Snow Mountain",
                 text = {
                     "Gives {C:money}$#1#{} when entering shops. If exactly",
                     "that amount is not spent or joker is sold in shop,",
@@ -1357,27 +1056,14 @@ return {
             },
             j_jojoker_i_am_a_rock = {
                 name = "I Am a Rock",
-                text = {
-                    "Converts unscored cards to {C:attention}stone{} cards.",
-                }
-            },
-            j_jojoker_i_am_a_rock_alt = {
-                name = "I, Rock",
+                alt_name = "I, Rock",
                 text = {
                     "Converts unscored cards to {C:attention}stone{} cards.",
                 }
             },
             j_jojoker_california_king_bed = {
                 name = "California King Bed",
-                text = {
-                    "Before scoring, gains {X:mult,C:white} X#1# {} for each {C:attention}unique hand type{}",
-                    "played this round. Resets at the end of the round.",
-                    "{br:2}line break",
-                    "{C:inactive}Currently: {X:mult,C:white} X#2#"
-                }
-            },
-            j_jojoker_california_king_bed_alt = {
-                name = "King Bed",
+                alt_name = "King Bed",
                 text = {
                     "Before scoring, gains {X:mult,C:white} X#1# {} for each {C:attention}unique hand type{}",
                     "played this round. Resets at the end of the round.",
@@ -1403,13 +1089,7 @@ return {
             },
             j_jojoker_paisley_park = {
                 name = "Paisley Park",
-                text = {
-                    "Increases {C:attention}booster pack{} limit in shops by {C:attention}#1#{}.",
-                    "{C:attention}Booster packs{} have {C:attention}#2#{} more card in them."
-                }
-            },
-            j_jojoker_paisley_park_alt = {
-                name = "Flower Park",
+                alt_name = "Flower Park",
                 text = {
                     "Increases {C:attention}booster pack{} limit in shops by {C:attention}#1#{}.",
                     "{C:attention}Booster packs{} have {C:attention}#2#{} more card in them."
@@ -1658,3 +1338,15 @@ return {
         },
     }
 }
+
+local alts = {}
+for key, entry in pairs(loc.descriptions.Joker) do
+    if entry.alt_name then
+        alts[key..'_alt'] = {name = entry.alt_name, text = entry.text}
+    end
+end
+for key, entry in pairs(alts) do
+    loc.descriptions.Joker[key] = entry
+end
+
+return loc

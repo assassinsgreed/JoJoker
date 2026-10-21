@@ -119,9 +119,6 @@ local i_am_a_rock = {
     blueprint_compat = false,
     perishable_compat = true,
     eternal_compat = true,
-    loc_vars = function(self, info_queue, center)
-      return {key = jojoker_config.use_localized_names and self.key..'_alt' or self.key}
-    end,
     calculate = function(self, card, context)
         -- Set unscored cards to stone cards, if they don't have another enhancement
         if context.before and context.cardarea == G.jokers and not context.blueprint then
@@ -160,8 +157,7 @@ local california_king_bed = {
     config = { extra = { Xmult_mod = 0.5, Xmult = 1, tracked_hands = {} } },
     loc_vars = function(self, info_queue, center)
      return {
-        vars = {center.ability.extra.Xmult_mod, center.ability.extra.Xmult},
-        key = jojoker_config.use_localized_names and self.key..'_alt' or self.key
+        vars = {center.ability.extra.Xmult_mod, center.ability.extra.Xmult}
     }
     end,
     calculate = function(self, card, context)
@@ -297,8 +293,7 @@ local paisley_park = {
     config = { extra = { booster_limit = 1, extra_choices = 1 } },
     loc_vars = function(self, info_queue, card)
       return {
-        vars = { card.ability.extra.booster_limit, card.ability.extra.extra_choices },
-        key = jojoker_config.use_localized_names and self.key..'_alt' or self.key
+        vars = { card.ability.extra.booster_limit, card.ability.extra.extra_choices }
     }
     end,
     add_to_deck = function(self, card, from_debuff)
