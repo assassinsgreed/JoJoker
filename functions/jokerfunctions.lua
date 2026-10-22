@@ -496,6 +496,82 @@ get_loccobarocco_chips = function(card, scoring_hand)
   return chips
 end
 
+-- Pairs are matched by id because they persist after a reload
+get_d4c_partner = function(card)
+  if not G.jokers then return nil end
+  for _, joker in ipairs(G.jokers.cards) do
+    if joker ~= card and joker.config.center.key == 'j_jojoker_d4c' and not joker.removed
+       and joker.ability.extra.pair_id == card.ability.extra.pair_id
+       and not joker.ability.extra.is_copy ~= not card.ability.extra.is_copy then
+      return joker
+    end
+  end
+  return nil
+end
+
+-- Other D4C pairs' copies are skipped so D4C cannot reroll them into free eternal negative legendaries
+get_d4c_caught_jokers = function(card)
+  local partner = get_d4c_partner(card)
+  if not partner then return {} end
+  local first, last = find_joker_pos(card), find_joker_pos(partner)
+  if not first or not last then return {} end
+  if first > last then first, last = last, first end
+
+  local caught = {}
+  for i = first + 1, last - 1 do
+    local joker = G.jokers.cards[i]
+    if not (joker.config.center.key == 'j_jojoker_d4c' and joker.ability.extra.is_copy) then
+      caught[#caught + 1] = joker
+    end
+  end
+  return caught
+end
+
+jojoker_spawn_d4c_copy = function(card)
+  G.GAME.jojoker_d4c_pairs = (G.GAME.jojoker_d4c_pairs or 0) + 1
+  card.ability.extra.pair_id = G.GAME.jojoker_d4c_pairs
+
+  local copy = SMODS.create_card({ key = 'j_jojoker_d4c', area = G.jokers, edition = 'e_negative', no_edition = true })
+  copy.ability.extra.is_copy = true
+  copy.ability.extra.pair_id = card.ability.extra.pair_id
+  -- D4C is not eternal compatible like every legendary, so the copy bypasses the check
+  copy:add_sticker('eternal', true)
+  copy:add_to_deck()
+  G.jokers:emplace(copy)
+  sendDebugMessage("D4C: Spawned eternal negative copy for pair "..card.ability.extra.pair_id)
+  return copy
+end
+
+-- The replacement's own eternal/perishable compatibility decides which stickers remain
+jojoker_replace_joker_same_rarity = function(old)
+  local rarity = old.config.center.rarity
+  local new = SMODS.create_card({
+    set = 'Joker',
+    area = G.jokers,
+    rarity = ({ 'Common', 'Uncommon', 'Rare', 'Legendary' })[rarity] or rarity,
+    edition = old.edition and old.edition.key,
+    no_edition = true,
+    key_append = 'd4c',
+  })
+  if old.ability.eternal then new:set_eternal(true) end
+  if old.ability.perishable then
+    new:set_perishable(true)
+    if new.ability.perishable then
+      new.ability.perish_tally = old.ability.perish_tally
+      SMODS.recalc_debuff(new)
+    end
+  end
+  if old.ability.rental then new:set_rental(true) end
+
+  new:add_to_deck()
+  G.jokers:emplace(new)
+  table.remove(G.jokers.cards, find_joker_pos(new))
+  table.insert(G.jokers.cards, find_joker_pos(old), new)
+  sendDebugMessage("D4C: Replaced "..old.config.center.key.." with "..new.config.center.key)
+  old:start_dissolve()
+  return new
+end
+
 -- Keyed to G.GAME rather than stored in it, so a save mid-skip or a new run cannot leave it stuck
 jojoker_open_shop_after_skip = function()
   if G.jojoker_skip_shop_game == G.GAME then return end

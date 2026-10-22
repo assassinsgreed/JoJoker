@@ -73,3 +73,17 @@ skip_blind_into_shop = function()
     skip_blind_for_tag('tag_double')
     Balatest.wait_for_input(G.STATES.SHOP)
 end
+
+-- Balatest cannot enter a blind that counts as a boss, so the flag is set before the round ends
+end_boss_round = function()
+    Balatest.q(function() G.GAME.blind.boss = true end)
+    Balatest.end_round()
+    Balatest.wait(1)
+end
+
+force_d4c_replacement = function(key)
+    Balatest.hook(_G, 'create_card', function(orig, t, a, l, r, k, s, forced_key, key_append, ...)
+        if key_append == 'd4c' then forced_key = key end
+        return orig(t, a, l, r, k, s, forced_key, key_append, ...)
+    end)
+end

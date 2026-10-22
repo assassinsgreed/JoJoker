@@ -342,7 +342,58 @@ local in_a_silent_way = {
     end
 }
 
+local d4c = {
+    name = "d4c",
+    rarity = 4,
+    cost = 10,
+    jtype = "Stand",
+    jclass = "Close Range",
+    part = "steel_ball_run",
+    blueprint_compat = false,
+    perishable_compat = false,
+    eternal_compat = false,
+    config = { extra = { pair_id = 0, is_copy = false } },
+    add_to_deck = function(self, card, from_debuff)
+        if from_debuff or card.ability.extra.is_copy then return end
+        G.E_MANAGER:add_event(Event({
+            func = function()
+                if not card.removed then jojoker_spawn_d4c_copy(card) end
+                return true
+            end
+        }))
+    end,
+    remove_from_deck = function(self, card, from_debuff)
+        if from_debuff or card.ability.extra.is_copy or G.in_delete_run then return end
+        local copy = get_d4c_partner(card)
+        if copy then
+            sendDebugMessage("D4C: Removing copy for pair "..card.ability.extra.pair_id)
+            copy:start_dissolve()
+        end
+    end,
+    calculate = function(self, card, context)
+        -- Only the original swaps, so each pair replaces its caught jokers once per boss
+        if context.end_of_round and context.main_eval and context.beat_boss and not context.blueprint and not card.ability.extra.is_copy then
+            local caught = get_d4c_caught_jokers(card)
+            if #caught == 0 then return end
+
+            -- Deferred so the joker row is not reordered while end of round effects iterate it
+            G.E_MANAGER:add_event(Event({
+                func = function()
+                    for _, joker in ipairs(caught) do
+                        if not joker.removed then jojoker_replace_joker_same_rarity(joker) end
+                    end
+                    return true
+                end
+            }))
+            return {
+                message = localize('sound_dojyaaan'),
+                colour = G.C.PURPLE,
+            }
+        end
+    end
+}
+
 return {
     name = "Steel Ball Run Stand Jokers",
-    list = { mandom, chocolate_disco, oh_lonesome_me, hey_ya, tattoo_you, civil_war, ball_breaker, love_train, in_a_silent_way },
+    list = { mandom, chocolate_disco, oh_lonesome_me, hey_ya, tattoo_you, civil_war, ball_breaker, love_train, in_a_silent_way, d4c },
 }

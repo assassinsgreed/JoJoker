@@ -1011,6 +1011,15 @@ local loc = {
                     "is {S:1.1,C:red,E:2}destroyed{} and sets money to {C:money}$0{}."
                 }
             },
+            j_jojoker_d4c = {
+                name = "D4C",
+                text = {
+                    "Creates an {C:dark_edition}Eternal Negative{} copy, removed",
+                    "when this is {C:attention}sold{} or {C:red}destroyed{}. After {C:attention}Boss Blinds{},",
+                    "jokers {C:attention}between{} the two are {C:attention}replaced{} by",
+                    "a random joker of the {C:attention}same rarity{}."
+                }
+            },
             -- Part 8: Jojolion
             j_jojoker_soft_and_wet = {
                 name = "Soft & Wet",
@@ -1273,6 +1282,7 @@ local loc = {
             sound_muda = "Muda Muda Muda!",
             sound_value_down = "Value down!",
             sound_value_up = "Value up!",
+            sound_dojyaaan = "Dojyaaan~",
 
             -- Common strings
             a_hand = "a hand",

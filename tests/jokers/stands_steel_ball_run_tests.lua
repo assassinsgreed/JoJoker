@@ -392,3 +392,203 @@ Balatest.TestPlay {
     end
 }
 --#endregion
+
+--#region D4C
+Balatest.TestPlay {
+    name = 'd4c_spawns_an_eternal_negative_copy',
+    category = { 'jokers', 'steel_ball_run', 'd4c' },
+    jokers = { 'j_jojoker_d4c' },
+    execute = function()
+        Balatest.wait()
+    end,
+    assert = function()
+        Balatest.assert_eq(#G.jokers.cards, 2, "D4C did not spawn a copy")
+        local copy = G.jokers.cards[2]
+        Balatest.assert_eq(copy.config.center.key, 'j_jojoker_d4c', "D4C's copy was not D4C")
+        Balatest.assert(copy.ability.extra.is_copy, "D4C's copy was not marked as the copy")
+        Balatest.assert(copy.ability.eternal, "D4C's copy was not eternal")
+        Balatest.assert(copy.edition and copy.edition.negative, "D4C's copy was not negative")
+        Balatest.assert_eq(copy.ability.extra.pair_id, G.jokers.cards[1].ability.extra.pair_id, "D4C's copy was not paired to the original")
+    end
+}
+
+Balatest.TestPlay {
+    name = 'd4c_copy_removed_when_d4c_sold',
+    category = { 'jokers', 'steel_ball_run', 'd4c' },
+    jokers = { 'j_jojoker_d4c' },
+    execute = function()
+        Balatest.wait()
+        Balatest.sell(function() return G.jokers.cards[1] end)
+        Balatest.wait(1)
+    end,
+    assert = function()
+        Balatest.assert_eq(#G.jokers.cards, 0, "D4C's copy was not removed when D4C was sold")
+    end
+}
+
+Balatest.TestPlay {
+    name = 'd4c_copy_removed_when_d4c_destroyed',
+    category = { 'jokers', 'steel_ball_run', 'd4c' },
+    jokers = { 'j_jojoker_d4c' },
+    execute = function()
+        Balatest.wait()
+        Balatest.q(function() G.jokers.cards[1]:start_dissolve() end)
+        Balatest.wait(1)
+    end,
+    assert = function()
+        Balatest.assert_eq(#G.jokers.cards, 0, "D4C's copy was not removed when D4C was destroyed")
+    end
+}
+
+Balatest.TestPlay {
+    name = 'd4c_keeps_its_copy_after_reload',
+    category = { 'jokers', 'steel_ball_run', 'd4c' },
+    jokers = { 'j_jojoker_d4c' },
+    execute = function()
+        Balatest.wait()
+        Balatest.reload()
+        Balatest.wait(1)
+    end,
+    assert = function()
+        Balatest.assert_eq(#G.jokers.cards, 2, "D4C lost or duplicated its copy after a reload")
+        local copy = G.jokers.cards[2]
+        Balatest.assert(copy.ability.extra.is_copy, "D4C's copy was not marked as the copy after a reload")
+        Balatest.assert(copy.ability.eternal, "D4C's copy was not eternal after a reload")
+        Balatest.assert(copy.edition and copy.edition.negative, "D4C's copy was not negative after a reload")
+        Balatest.assert_eq(get_d4c_partner(G.jokers.cards[1]), copy, "D4C was not paired to its copy after a reload")
+    end
+}
+
+Balatest.TestPlay {
+    name = 'd4c_copy_still_removed_after_reload_and_sell',
+    category = { 'jokers', 'steel_ball_run', 'd4c' },
+    jokers = { 'j_jojoker_d4c' },
+    execute = function()
+        Balatest.wait()
+        Balatest.reload()
+        Balatest.sell(function() return G.jokers.cards[1] end)
+        Balatest.wait(1)
+    end,
+    assert = function()
+        Balatest.assert_eq(#G.jokers.cards, 0, "D4C lost track of its copy after a reload")
+    end
+}
+
+Balatest.TestPlay {
+    name = 'd4c_replaces_caught_joker_with_same_rarity_after_boss',
+    category = { 'jokers', 'steel_ball_run', 'd4c' },
+    jokers = { 'j_jojoker_d4c', 'j_jojoker_mandom' },
+    execute = function()
+        Balatest.wait()
+        end_boss_round()
+    end,
+    assert = function()
+        Balatest.assert_eq(#G.jokers.cards, 3, "D4C changed the number of jokers")
+        local replacement = G.jokers.cards[2]
+        Balatest.assert_neq(replacement.config.center.key, 'j_jojoker_mandom', "D4C did not replace the caught joker")
+        Balatest.assert_eq(replacement.config.center.rarity, 2, "D4C replaced the caught joker with a different rarity")
+    end
+}
+
+Balatest.TestPlay {
+    name = 'd4c_replaces_every_caught_joker_after_boss',
+    category = { 'jokers', 'steel_ball_run', 'd4c' },
+    jokers = { 'j_jojoker_d4c', 'j_jojoker_tattoo_you', 'j_jojoker_in_a_silent_way' },
+    execute = function()
+        force_d4c_replacement('j_jojoker_civil_war')
+        Balatest.wait()
+        end_boss_round()
+    end,
+    assert = function()
+        Balatest.assert_eq(G.jokers.cards[2].config.center.key, 'j_jojoker_civil_war', "D4C did not replace the first caught joker")
+        Balatest.assert_eq(G.jokers.cards[3].config.center.key, 'j_jojoker_civil_war', "D4C did not replace the second caught joker")
+        Balatest.assert(G.jokers.cards[4].ability.extra.is_copy, "D4C's replacements were not kept in place")
+    end
+}
+
+Balatest.TestPlay {
+    name = 'd4c_does_not_replace_jokers_outside_the_pair',
+    category = { 'jokers', 'steel_ball_run', 'd4c' },
+    jokers = { 'j_jojoker_tattoo_you', 'j_jojoker_d4c' },
+    execute = function()
+        Balatest.wait()
+        end_boss_round()
+    end,
+    assert = function()
+        Balatest.assert_eq(G.jokers.cards[1].config.center.key, 'j_jojoker_tattoo_you', "D4C replaced a joker outside the pair")
+    end
+}
+
+Balatest.TestPlay {
+    name = 'd4c_does_not_replace_after_non_boss_blind',
+    category = { 'jokers', 'steel_ball_run', 'd4c' },
+    jokers = { 'j_jojoker_d4c', 'j_jojoker_tattoo_you' },
+    execute = function()
+        Balatest.wait()
+        Balatest.end_round()
+        Balatest.wait(1)
+    end,
+    assert = function()
+        Balatest.assert_eq(G.jokers.cards[2].config.center.key, 'j_jojoker_tattoo_you', "D4C replaced a joker after a non-Boss blind")
+    end
+}
+
+Balatest.TestPlay {
+    name = 'd4c_replacement_keeps_edition_and_stickers',
+    category = { 'jokers', 'steel_ball_run', 'd4c' },
+    jokers = { 'j_jojoker_d4c', 'j_jojoker_tattoo_you' },
+    execute = function()
+        force_d4c_replacement('j_jojoker_civil_war')
+        Balatest.wait()
+        Balatest.q(function()
+            local caught = G.jokers.cards[2]
+            caught:set_edition('e_foil', true, true)
+            caught:set_perishable(true)
+            caught.ability.perish_tally = 3
+            caught:set_rental(true)
+        end)
+        end_boss_round()
+    end,
+    assert = function()
+        local replacement = G.jokers.cards[2]
+        Balatest.assert_eq(replacement.config.center.key, 'j_jojoker_civil_war', "D4C did not replace the caught joker")
+        Balatest.assert(replacement.edition and replacement.edition.foil, "D4C's replacement did not keep the edition")
+        Balatest.assert(replacement.ability.perishable, "D4C's replacement did not keep perishable")
+        -- The boss round ticks the tally down before D4C swaps
+        Balatest.assert_eq(replacement.ability.perish_tally, 2, "D4C's replacement did not keep the perish tally")
+        Balatest.assert(replacement.ability.rental, "D4C's replacement did not keep rental")
+    end
+}
+
+Balatest.TestPlay {
+    name = 'd4c_replaces_eternal_jokers_and_keeps_eternal',
+    category = { 'jokers', 'steel_ball_run', 'd4c' },
+    jokers = { 'j_jojoker_d4c', { id = 'j_jojoker_tattoo_you', eternal = true } },
+    execute = function()
+        force_d4c_replacement('j_jojoker_civil_war')
+        Balatest.wait()
+        end_boss_round()
+    end,
+    assert = function()
+        local replacement = G.jokers.cards[2]
+        Balatest.assert_eq(replacement.config.center.key, 'j_jojoker_civil_war', "D4C did not replace an eternal joker")
+        Balatest.assert(replacement.ability.eternal, "D4C's replacement did not keep eternal")
+    end
+}
+
+Balatest.TestPlay {
+    name = 'd4c_replacement_drops_stickers_it_is_not_compatible_with',
+    category = { 'jokers', 'steel_ball_run', 'd4c' },
+    jokers = { 'j_jojoker_d4c', { id = 'j_jojoker_tattoo_you', eternal = true }, 'j_jojoker_in_a_silent_way' },
+    execute = function()
+        force_d4c_replacement('j_jojoker_black_sabbath')
+        Balatest.wait()
+        Balatest.q(function() G.jokers.cards[3]:set_perishable(true) end)
+        end_boss_round()
+    end,
+    assert = function()
+        Balatest.assert(not G.jokers.cards[2].ability.eternal, "D4C's replacement kept eternal despite not being eternal compatible")
+        Balatest.assert(not G.jokers.cards[3].ability.perishable, "D4C's replacement kept perishable despite not being perishable compatible")
+    end
+}
+--#endregion

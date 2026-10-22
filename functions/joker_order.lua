@@ -83,6 +83,7 @@ jojoker.joker_order = {
     "cinderella",
     "civil_war",
     "crazy_diamond",
+    "d4c",
     "death_thirteen",
     "doctor_wu",
     "dragons_dream",
