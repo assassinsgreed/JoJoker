@@ -510,7 +510,55 @@ local harvest = {
     end
 }
 
+local echoes_act_3 = {
+    name = "echoes_act_3",
+    rarity = 3,
+    cost = 8,
+    jtype = "Stand",
+    jclass = "Close Range",
+    part = "diamond_is_unbreakable",
+    blueprint_compat = true,
+    perishable_compat = true,
+    eternal_compat = true,
+    config = { extra = { Xmult_mod = 0.5, Xmult = 1 } },
+    loc_vars = function(self, info_queue, card)
+      return {
+        vars = {card.ability.extra.Xmult_mod, card.ability.extra.Xmult}
+    }
+    end,
+    calculate = function(self, card, context)
+        -- Destroy before scoring so the gain applies to the hand that killed the Queens
+        if context.before and not context.blueprint then
+            local queens = {}
+            for _, held_card in ipairs(G.hand.cards) do
+                if held_card:get_id() == 12 and not held_card.getting_sliced then
+                    queens[#queens + 1] = held_card
+                end
+            end
+            if #queens > 0 then
+                card.ability.extra.Xmult = card.ability.extra.Xmult + #queens * card.ability.extra.Xmult_mod
+                sendDebugMessage("Echoes Act 3: Destroying "..#queens.." Queens held in hand, increasing XMult to "..card.ability.extra.Xmult)
+                SMODS.destroy_cards(queens)
+                return {
+                    message = localize('sound_kill_da_hoe'),
+                    colour = G.C.XMULT
+                }
+            end
+        end
+
+        -- Give XMult for each destroyed queen
+        if context.joker_main and card.ability.extra.Xmult ~= 1 then
+            sendDebugMessage("Echoes Act 3: Giving XMult of "..card.ability.extra.Xmult)
+            return {
+                message = localize('sound_beeeetch'),
+                colour = G.C.XMULT,
+                Xmult_mod = card.ability.extra.Xmult
+            }
+        end
+    end
+}
+
 return {
     name = "Diamond is Unbreakable Stand Jokers",
-    list = { red_hot_chili_pepper, the_hand, superfly, crazy_diamond, bad_company, cheap_trick, cinderella, atom_heart_father, surface, killer_queen, heavens_door, the_lock, harvest },
+    list = { red_hot_chili_pepper, the_hand, superfly, crazy_diamond, bad_company, cheap_trick, cinderella, atom_heart_father, surface, killer_queen, heavens_door, the_lock, harvest, echoes_act_3 },
 }

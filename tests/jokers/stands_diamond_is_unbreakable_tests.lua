@@ -504,3 +504,61 @@ Balatest.TestPlay {
     end
 }
 --#endregion
+--#region Echoes Act 3
+Balatest.TestPlay {
+    name = 'echoes_act_3_destroys_queens_held_in_hand_and_gains_xmult',
+    category = { 'jokers', 'diamond_is_unbreakable', 'echoes_act_3' },
+    jokers = { 'j_jojoker_echoes_act_3' },
+    deck = { cards = {
+        { r = 'Q', s = 'H' },
+        { r = 'Q', s = 'S' },
+        { r = '2', s = 'C' },
+        { r = '3', s = 'D' },
+        { r = '4', s = 'S' },
+        { r = '5', s = 'S' } } },
+    execute = function()
+        Balatest.play_hand { '2C' }
+    end,
+    assert = function()
+        local echoes = G.jokers.cards[1]
+        Balatest.assert_eq(#G.playing_cards, 4, "Echoes Act 3 did not destroy both Queens held in hand")
+        Balatest.assert_eq(echoes.ability.extra.Xmult, 1 + 2 * echoes.ability.extra.Xmult_mod, "Echoes Act 3 did not gain Xmult for each destroyed Queen")
+        Balatest.assert_chips(7 * echoes.ability.extra.Xmult, "Echoes Act 3 did not apply the gained Xmult to the hand that destroyed the Queens") -- High Card (5) + 2
+    end
+}
+Balatest.TestPlay {
+    name = 'echoes_act_3_does_not_destroy_played_queens',
+    category = { 'jokers', 'diamond_is_unbreakable', 'echoes_act_3' },
+    jokers = { 'j_jojoker_echoes_act_3' },
+    deck = { cards = {
+        { r = 'Q', s = 'H' },
+        { r = '2', s = 'C' },
+        { r = '3', s = 'D' } } },
+    execute = function()
+        Balatest.play_hand { 'QH' }
+    end,
+    assert = function()
+        Balatest.assert_eq(#G.playing_cards, 3, "Echoes Act 3 destroyed a played Queen")
+        Balatest.assert_eq(G.jokers.cards[1].ability.extra.Xmult, 1, "Echoes Act 3 gained Xmult without destroying a Queen")
+        Balatest.assert_chips(15, "Echoes Act 3 changed the score without destroying a Queen") -- High Card (5) + Queen (10)
+    end
+}
+Balatest.TestPlay {
+    name = 'echoes_act_3_copied_by_surface_only_scales_once',
+    category = { 'jokers', 'diamond_is_unbreakable', 'echoes_act_3' },
+    jokers = { 'j_jojoker_echoes_act_3', 'j_jojoker_surface' },
+    deck = { cards = {
+        { r = 'Q', s = 'H' },
+        { r = 'Q', s = 'S' },
+        { r = '2', s = 'C' },
+        { r = '3', s = 'D' } } },
+    execute = function()
+        Balatest.play_hand { '2C' }
+    end,
+    assert = function()
+        local echoes = G.jokers.cards[1]
+        Balatest.assert_eq(echoes.ability.extra.Xmult, 1 + 2 * echoes.ability.extra.Xmult_mod, "Echoes Act 3 scaled more than once when copied by Surface")
+        Balatest.assert_chips(7 * echoes.ability.extra.Xmult ^ 2, "Surface did not copy Echoes Act 3's Xmult")
+    end
+}
+--#endregion

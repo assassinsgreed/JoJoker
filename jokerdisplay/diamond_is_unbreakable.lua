@@ -201,6 +201,17 @@ jd_def["j_jojoker_harvest"] = {
     end
 }
 
+jd_def["j_jojoker_echoes_act_3"] = {
+    text = {
+        {
+            border_nodes = {
+                { text = "X" },
+                { ref_table = "card.ability.extra", ref_value = "Xmult" }
+            }
+        }
+    }
+}
+
 jd_def["j_jojoker_ghost_girl_alley"] = {
     text = {
         { text = "+", colour = G.C.CHIPS },

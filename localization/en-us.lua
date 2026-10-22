@@ -546,6 +546,16 @@ local loc = {
                     "{C:inactive}Currently: {C:money}$#3#{}"
                 }
             },
+            j_jojoker_echoes_act_3 = {
+                name = "Echoes Act 3",
+                alt_name = "Reverb Act 3",
+                text = {
+                    "Destroys every {C:attention}Queen{} held in hand before scoring.",
+                    "Gains {X:mult,C:white} X#1# {} for each {C:attention}Queen{} destroyed.",
+                    "{br:2}line break",
+                    "{C:inactive}Currently: {X:mult,C:white} X#2#"
+                }
+            },
             j_jojoker_ghost_girl_alley = {
                 name = "Ghost Girl Alley",
                 text = {
@@ -1283,6 +1293,8 @@ local loc = {
             sound_value_down = "Value down!",
             sound_value_up = "Value up!",
             sound_dojyaaan = "Dojyaaan~",
+            sound_kill_da_hoe = "Let's kill da hoe!",
+            sound_beeeetch = "Beeeetch!",
 
             -- Common strings
             a_hand = "a hand",

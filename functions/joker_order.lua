@@ -87,6 +87,7 @@ jojoker.joker_order = {
     "death_thirteen",
     "doctor_wu",
     "dragons_dream",
+    "echoes_act_3",
     "foo_fighters",
     "fun_fun_fun",
     "gold_experience",
