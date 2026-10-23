@@ -97,6 +97,7 @@ jojoker.joker_order = {
     "green_green_grass_of_home",
     "harvest",
     "heavens_door",
+    "hermit_purple",
     "hey_ya",
     "hierophant_green",
     "i_am_a_rock",

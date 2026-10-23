@@ -368,11 +368,8 @@ local loc = {
             j_jojoker_thoth = {
                 name = "Thoth",
                 text = {
-                    "Picks a random hand type at the start of blinds.",
-                    "When played, hand {C:attention}gains #1# levels.",
-                    "When not, hand {C:attention}loses #2# level{} if above 1.",
-                    "{br:2}line break",
-                    "{C:inactive}Chosen Hand: #3#"
+                    "Hover over a {C:attention}Booster Pack{} in the shop",
+                    "to preview the cards inside."
                 }
             },
             j_jojoker_joestar_birthmark = {
@@ -408,6 +405,16 @@ local loc = {
                 text = {
                     "Earn {C:money}$#1#{} when skipping a {C:attention}Blind{}.",
                     "Visit the {C:attention}shop{} after skipping."
+                }
+            },
+            j_jojoker_hermit_purple = {
+                name = "Hermit Purple",
+                text = {
+                    "Picks a random hand type at the start of blinds.",
+                    "When played, hand {C:attention}gains #1# levels.",
+                    "When not, hand {C:attention}loses #2# level{} if above 1.",
+                    "{br:2}line break",
+                    "{C:inactive}Chosen Hand: #3#"
                 }
             },
             -- Part 4: Diamond is Unbreakable

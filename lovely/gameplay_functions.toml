@@ -115,7 +115,7 @@ end
 '''
 match_indent = true
 
-## Force a specific card into a booster pack (Enya)
+## Force a specific card into a booster pack (Enya, Thoth)
 [[patches]]
 [patches.pattern]
 target = "card.lua"
@@ -123,7 +123,44 @@ pattern = "local _card_to_spawn = booster_obj:create_card(self, i)"
 position = "after"
 payload = '''
 if type(jojoker_force_pack_card) == "function" then
-  _card_to_spawn = jojoker_force_pack_card(self, i) or _card_to_spawn
+  _card_to_spawn = jojoker_force_pack_card(self, i, _card_to_spawn) or _card_to_spawn
+end
+'''
+match_indent = true
+
+## Booster pack preview on hover (Thoth)
+[[patches]]
+[patches.pattern]
+target = "card.lua"
+pattern = "function Card:hover()"
+position = "after"
+payload = '''
+if type(thoth_show_booster_preview) == "function" then
+  thoth_show_booster_preview(self)
+end
+'''
+match_indent = true
+
+[[patches]]
+[patches.pattern]
+target = "card.lua"
+pattern = "function Card:stop_hover()"
+position = "after"
+payload = '''
+if type(thoth_hide_booster_preview) == "function" then
+  thoth_hide_booster_preview(self)
+end
+'''
+match_indent = true
+
+[[patches]]
+[patches.pattern]
+target = "card.lua"
+pattern = "function Card:open()"
+position = "after"
+payload = '''
+if type(thoth_hide_booster_preview) == "function" then
+  thoth_hide_booster_preview(self)
 end
 '''
 match_indent = true

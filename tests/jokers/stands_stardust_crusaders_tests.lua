@@ -458,71 +458,109 @@ Balatest.TestPlay {
 --#endregion
 --#region Thoth
 Balatest.TestPlay {
-    name = 'thoth_does_not_level_down_hand_below_one',
+    name = 'thoth_prerolls_contents_of_shop_booster_packs',
     category = { 'jokers', 'stardust_crusaders', 'thoth' },
     jokers = { 'j_jojoker_thoth' },
     execute = function()
-        G.jokers.cards[1].ability.extra.chosen_hand_type = "Two Pair"
-        Balatest.play_hand { '2S' }
+        Balatest.end_round()
+        Balatest.cash_out()
     end,
     assert = function()
-        local two_pair_hand_level = G.GAME.hands["Two Pair"].level
-        Balatest.assert_eq(two_pair_hand_level, 1, "Two Pair hand wasn't level 1")
+        Balatest.assert(#G.shop_booster.cards > 0, "Shop had no booster packs to preroll")
+        for _, booster in ipairs(G.shop_booster.cards) do
+            Balatest.assert_eq(#(booster.ability.thoth_contents or {}), thoth_booster_size(booster), "Thoth did not preroll every card in "..booster.config.center.key)
+        end
     end
 }
 Balatest.TestPlay {
-    name = 'thoth_levels_up_hand_when_correct_hand_played',
+    name = 'thoth_does_not_preroll_booster_packs_when_not_owned',
     category = { 'jokers', 'stardust_crusaders', 'thoth' },
-    jokers = { 'j_jojoker_thoth' },
     execute = function()
-        G.jokers.cards[1].ability.extra.chosen_hand_type = "Two Pair"
-        Balatest.play_hand { '2S', '2C', '7H', '7D' }
+        Balatest.end_round()
+        Balatest.cash_out()
     end,
     assert = function()
-        local two_pair_hand_level = G.GAME.hands["Two Pair"].level
-        Balatest.assert_eq(two_pair_hand_level, 1 + G.jokers.cards[1].ability.extra.level_change_up, "Thoth didn't level up 2 pair hand after it was played")
+        for _, booster in ipairs(G.shop_booster.cards) do
+            Balatest.assert_eq(booster.ability.thoth_contents, nil, "Booster pack was prerolled without Thoth")
+        end
     end
 }
 Balatest.TestPlay {
-    name = 'thoth_levels_up_hand_multiple_times_per_blind',
+    name = 'thoth_prerolls_booster_packs_when_bought_mid_shop',
     category = { 'jokers', 'stardust_crusaders', 'thoth' },
-    jokers = { 'j_jojoker_thoth' },
     execute = function()
-        G.jokers.cards[1].ability.extra.chosen_hand_type = "High Card"
-        Balatest.play_hand { '2S' }
-        Balatest.play_hand { '2D' }
+        Balatest.end_round()
+        Balatest.cash_out()
+        Balatest.q(function() SMODS.add_card({ key = 'j_jojoker_thoth' }) end)
     end,
     assert = function()
-        local two_pair_hand_level = G.GAME.hands["High Card"].level
-        Balatest.assert_eq(two_pair_hand_level, 1 + 2 * G.jokers.cards[1].ability.extra.level_change_up, "Thoth didn't level up two pair hand to level 3, after it was played twice")
+        for _, booster in ipairs(G.shop_booster.cards) do
+            Balatest.assert_eq(#(booster.ability.thoth_contents or {}), thoth_booster_size(booster), "Thoth did not preroll booster packs already in the shop")
+        end
+    end
+}
+local thoth_previewed_keys = {}
+Balatest.TestPlay {
+    name = 'thoth_opened_booster_pack_matches_preview',
+    category = { 'jokers', 'stardust_crusaders', 'thoth' },
+    jokers = { 'j_jojoker_thoth' },
+    dollars = 20,
+    execute = function()
+        Balatest.end_round()
+        Balatest.cash_out()
+        Balatest.q(function()
+            thoth_show_booster_preview(G.shop_booster.cards[1])
+            thoth_previewed_keys = {}
+            for i, card in ipairs(G.thoth_booster_preview.cards) do thoth_previewed_keys[i] = card.config.center_key..(card.config.card_key or '') end
+        end)
+        Balatest.open(function() return G.shop_booster.cards[1] end)
+        Balatest.wait(3)
+    end,
+    assert = function()
+        Balatest.assert(#thoth_previewed_keys > 0, "Thoth did not show a preview for the hovered booster pack")
+        Balatest.assert_eq(#G.pack_cards.cards, #thoth_previewed_keys, "Opened booster pack had a different number of cards than previewed")
+        for i, card in ipairs(G.pack_cards.cards) do
+            Balatest.assert_eq(card.config.center_key..(card.config.card_key or ''), thoth_previewed_keys[i], "Opened booster pack card "..i.." did not match the preview")
+        end
     end
 }
 Balatest.TestPlay {
-    name = 'thoth_does_not_level_up_two_pair_contained_in_full_house',
+    name = 'thoth_prerolled_contents_survive_reload',
     category = { 'jokers', 'stardust_crusaders', 'thoth' },
     jokers = { 'j_jojoker_thoth' },
+    dollars = 20,
     execute = function()
-        G.jokers.cards[1].ability.extra.chosen_hand_type = "Two Pair"
-        G.jokers.cards[1].ability.extra.jokerdisplay_hand_type = "Two Pair" -- Purely for viewer sanity; this does not matter for the test
-        Balatest.play_hand { '2S', '2C', '7H', '7D', '7S' }
+        Balatest.end_round()
+        Balatest.cash_out()
+        Balatest.q(function()
+            thoth_previewed_keys = {}
+            for i, saved in ipairs(G.shop_booster.cards[1].ability.thoth_contents) do thoth_previewed_keys[i] = saved.save_fields.center..(saved.save_fields.card or '') end
+        end)
+        Balatest.reload()
+        Balatest.open(function() return G.shop_booster.cards[1] end)
+        Balatest.wait(3)
     end,
     assert = function()
-        local two_pair_hand_level = G.GAME.hands["Two Pair"].level
-        Balatest.assert_eq(two_pair_hand_level, 1, "Thoth leveled up Two Pair hand when Full House was played, but should not have")
+        Balatest.assert_eq(#G.pack_cards.cards, #thoth_previewed_keys, "Opened booster pack had a different number of cards than prerolled before reload")
+        for i, card in ipairs(G.pack_cards.cards) do
+            Balatest.assert_eq(card.config.center_key..(card.config.card_key or ''), thoth_previewed_keys[i], "Opened booster pack card "..i.." did not match the prerolled card after reload")
+        end
     end
 }
 Balatest.TestPlay {
-    name = 'thoth_levels_down_chosen_hand_if_different_hand_played',
+    name = 'thoth_preview_hides_when_hover_stops',
     category = { 'jokers', 'stardust_crusaders', 'thoth' },
     jokers = { 'j_jojoker_thoth' },
     execute = function()
-        G.GAME.hands["Two Pair"].level = 5
-        G.jokers.cards[1].ability.extra.chosen_hand_type = "Two Pair"
-        Balatest.play_hand { '2S' }
+        Balatest.end_round()
+        Balatest.cash_out()
+        Balatest.q(function()
+            thoth_show_booster_preview(G.shop_booster.cards[1])
+            G.shop_booster.cards[1]:stop_hover()
+        end)
     end,
     assert = function()
-        local two_pair_hand_level = G.GAME.hands["Two Pair"].level
-        Balatest.assert_eq(two_pair_hand_level, 5 - G.jokers.cards[1].ability.extra.level_change_down, "Thoth did not level down Two Pair hand when different hand was played")
+        Balatest.assert_eq(G.thoth_booster_preview, nil, "Thoth preview stayed visible after hover stopped")
     end
 }
 --#endregion
@@ -549,6 +587,77 @@ Balatest.TestPlay {
     end,
     assert = function()
         Balatest.assert_chips(108, "The Sun gave chips for hand containing Pair")
+    end
+}
+--#endregion
+
+--#region Hermit Purple
+Balatest.TestPlay {
+    name = 'hermit_purple_does_not_level_down_hand_below_one',
+    category = { 'jokers', 'stardust_crusaders', 'hermit_purple' },
+    jokers = { 'j_jojoker_hermit_purple' },
+    execute = function()
+        G.jokers.cards[1].ability.extra.chosen_hand_type = "Two Pair"
+        Balatest.play_hand { '2S' }
+    end,
+    assert = function()
+        local two_pair_hand_level = G.GAME.hands["Two Pair"].level
+        Balatest.assert_eq(two_pair_hand_level, 1, "Two Pair hand wasn't level 1")
+    end
+}
+Balatest.TestPlay {
+    name = 'hermit_purple_levels_up_hand_when_correct_hand_played',
+    category = { 'jokers', 'stardust_crusaders', 'hermit_purple' },
+    jokers = { 'j_jojoker_hermit_purple' },
+    execute = function()
+        G.jokers.cards[1].ability.extra.chosen_hand_type = "Two Pair"
+        Balatest.play_hand { '2S', '2C', '7H', '7D' }
+    end,
+    assert = function()
+        local two_pair_hand_level = G.GAME.hands["Two Pair"].level
+        Balatest.assert_eq(two_pair_hand_level, 1 + G.jokers.cards[1].ability.extra.level_change_up, "Hermit Purple didn't level up 2 pair hand after it was played")
+    end
+}
+Balatest.TestPlay {
+    name = 'hermit_purple_levels_up_hand_multiple_times_per_blind',
+    category = { 'jokers', 'stardust_crusaders', 'hermit_purple' },
+    jokers = { 'j_jojoker_hermit_purple' },
+    execute = function()
+        G.jokers.cards[1].ability.extra.chosen_hand_type = "High Card"
+        Balatest.play_hand { '2S' }
+        Balatest.play_hand { '2D' }
+    end,
+    assert = function()
+        local two_pair_hand_level = G.GAME.hands["High Card"].level
+        Balatest.assert_eq(two_pair_hand_level, 1 + 2 * G.jokers.cards[1].ability.extra.level_change_up, "Hermit Purple didn't level up two pair hand to level 3, after it was played twice")
+    end
+}
+Balatest.TestPlay {
+    name = 'hermit_purple_does_not_level_up_two_pair_contained_in_full_house',
+    category = { 'jokers', 'stardust_crusaders', 'hermit_purple' },
+    jokers = { 'j_jojoker_hermit_purple' },
+    execute = function()
+        G.jokers.cards[1].ability.extra.chosen_hand_type = "Two Pair"
+        G.jokers.cards[1].ability.extra.jokerdisplay_hand_type = "Two Pair" -- Purely for viewer sanity; this does not matter for the test
+        Balatest.play_hand { '2S', '2C', '7H', '7D', '7S' }
+    end,
+    assert = function()
+        local two_pair_hand_level = G.GAME.hands["Two Pair"].level
+        Balatest.assert_eq(two_pair_hand_level, 1, "Hermit Purple leveled up Two Pair hand when Full House was played, but should not have")
+    end
+}
+Balatest.TestPlay {
+    name = 'hermit_purple_levels_down_chosen_hand_if_different_hand_played',
+    category = { 'jokers', 'stardust_crusaders', 'hermit_purple' },
+    jokers = { 'j_jojoker_hermit_purple' },
+    execute = function()
+        G.GAME.hands["Two Pair"].level = 5
+        G.jokers.cards[1].ability.extra.chosen_hand_type = "Two Pair"
+        Balatest.play_hand { '2S' }
+    end,
+    assert = function()
+        local two_pair_hand_level = G.GAME.hands["Two Pair"].level
+        Balatest.assert_eq(two_pair_hand_level, 5 - G.jokers.cards[1].ability.extra.level_change_down, "Hermit Purple did not level down Two Pair hand when different hand was played")
     end
 }
 --#endregion

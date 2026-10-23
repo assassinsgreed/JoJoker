@@ -450,7 +450,13 @@ jojoker_card_duplicated = function(card)
 end
 
 -- Booster contents are built from spawn tables, so Enya guarantees its tarot by replacing the first one
-jojoker_force_pack_card = function(booster_card, i)
+jojoker_force_pack_card = function(booster_card, i, spawned)
+  local prerolled = thoth_take_prerolled_card(booster_card, i)
+  if prerolled then
+    if type((spawned or {}).is) == 'function' and spawned:is(Card) then spawned:remove() end
+    return prerolled
+  end
+
   if i ~= 1 or G.STAGE ~= G.STAGES.RUN then return nil end
   if not booster_card or not booster_card.config or booster_card.config.center.kind ~= 'Arcana' then return nil end
   if #SMODS.find_card('j_jojoker_enya') == 0 then return nil end
@@ -460,6 +466,92 @@ jojoker_force_pack_card = function(booster_card, i)
 
   sendDebugMessage("Enya: Forcing "..tarot.name.." into the opened Arcana Pack")
   return { set = 'Tarot', area = G.pack_cards, skip_materialize = true, soulable = true, key = tarot.key, key_append = 'ar1' }
+end
+
+-- Matches the pack size Card:open uses, including the extra picks it adds to ability.extra
+thoth_booster_size = function(booster)
+  return math.max(1, booster.ability.extra + (G.GAME.extra_booster_picks or 0) + (G.GAME.modifiers.booster_size_mod or 0))
+end
+
+-- Contents are saved on the booster's ability so the preview survives a reload and opening gives the same cards
+thoth_preroll_booster = function(booster)
+  if not booster or booster.ability.thoth_contents or not booster.config.center.create_card then return end
+
+  local size = thoth_booster_size(booster)
+  local prev_pack_cards, prev_opened_booster = G.pack_cards, SMODS.OPENED_BOOSTER
+  -- Spawn tables and sticker/edition polls compare against G.pack_cards, so stand in for the opened pack
+  G.pack_cards = CardArea(0, 0, G.CARD_W, G.CARD_H, { card_limit = size, type = 'consumeable' })
+  SMODS.OPENED_BOOSTER = booster
+
+  local cards = {}
+  for i = 1, size do
+    local spawn = booster.config.center:create_card(booster, i)
+    spawn = jojoker_force_pack_card(booster, i, spawn) or spawn
+    cards[i] = (type((spawn or {}).is) == 'function' and spawn:is(Card)) and spawn or SMODS.create_card(spawn)
+  end
+
+  booster.ability.thoth_contents = {}
+  for i, card in ipairs(cards) do
+    booster.ability.thoth_contents[i] = copy_table(card:save())
+    card:remove()
+  end
+
+  G.pack_cards:remove()
+  G.pack_cards, SMODS.OPENED_BOOSTER = prev_pack_cards, prev_opened_booster
+  sendDebugMessage("Thoth: Prerolled "..size.." cards for "..booster.config.center.key)
+end
+
+thoth_preroll_shop_boosters = function()
+  for _, booster in ipairs(G.shop_booster and G.shop_booster.cards or {}) do
+    thoth_preroll_booster(booster)
+  end
+end
+
+thoth_load_card = function(saved)
+  loading = true
+  local card = Card(0, 0, G.CARD_W, G.CARD_H, G.P_CENTERS.j_joker, G.P_CENTERS.c_base)
+  loading = nil
+  card:load(copy_table(saved))
+  return card
+end
+
+thoth_take_prerolled_card = function(booster, i)
+  local contents = booster and booster.ability and booster.ability.thoth_contents
+  if not contents or not contents[i] then return nil end
+  sendDebugMessage("Thoth: Using prerolled card "..i.." for "..booster.config.center.key)
+  return thoth_load_card(contents[i])
+end
+
+thoth_show_booster_preview = function(booster)
+  if booster.area ~= G.shop_booster or not next(SMODS.find_card('j_jojoker_thoth')) then return end
+  thoth_preroll_booster(booster)
+  local contents = booster.ability.thoth_contents
+  if not contents then return end
+
+  thoth_hide_booster_preview()
+  local scale = 0.7
+  local preview = CardArea(0, 0, math.min(#contents, 5) * G.CARD_W * scale, G.CARD_H * scale, { card_limit = #contents, type = 'title' })
+  preview.T.x = booster.T.x + booster.T.w / 2 - preview.T.w / 2
+  preview.T.y = booster.T.y - preview.T.h - 0.2
+  preview:hard_set_VT()
+  preview.thoth_booster = booster
+
+  for _, saved in ipairs(contents) do
+    local card = thoth_load_card(saved)
+    local w, h = card.T.w * scale, card.T.h * scale
+    card:hard_set_T(booster.T.x + booster.T.w / 2 - w / 2, booster.T.y + booster.T.h / 2 - h / 2, w, h)
+    card.states.drag.can = false
+    card.states.hover.can = false
+    preview:emplace(card)
+  end
+  G.thoth_booster_preview = preview
+end
+
+thoth_hide_booster_preview = function(booster)
+  local preview = G.thoth_booster_preview
+  if not preview or (booster and preview.thoth_booster ~= booster) then return end
+  preview:remove()
+  G.thoth_booster_preview = nil
 end
 
 -- Must fire before the destroyed joker is marked getting_sliced, which excludes it from calculation
