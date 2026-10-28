@@ -463,7 +463,38 @@ local tequila_joseph = {
     end,
 }
 
+local wamuu = {
+    name = "wamuu",
+    rarity = 3,
+    cost = 8,
+    jtype = "Character",
+    part = "battle_tendency",
+    blueprint_compat = true,
+    perishable_compat = true,
+    eternal_compat = true,
+    config = { extra = { chips_mod = 40, mult_mod = 10 } },
+    loc_vars = function(self, info_queue, card)
+      local empty_slots = G.consumeables and math.max(0, G.consumeables.config.card_limit - #G.consumeables.cards) or 0
+      return {vars = { card.ability.extra.chips_mod, card.ability.extra.mult_mod, card.ability.extra.chips_mod * empty_slots, card.ability.extra.mult_mod * empty_slots }}
+    end,
+    calculate = function(self, card, context)
+        -- Give chips and mult per free consumable slot
+        if context.joker_main then
+            local empty_slots = math.max(0, G.consumeables.config.card_limit - #G.consumeables.cards)
+            if empty_slots > 0 then
+                local chips = card.ability.extra.chips_mod * empty_slots
+                local mult = card.ability.extra.mult_mod * empty_slots
+                sendDebugMessage("Wamuu: Giving +"..chips.." chips and +"..mult.." mult for "..empty_slots.." empty consumable slot(s)")
+                return {
+                    chips = chips,
+                    mult = mult
+                }
+            end
+        end
+    end
+}
+
 return {
     name = "Battle Tendency Character Jokers",
-    list = { joseph_joestar, esidisi, speedwagon_bt, caesar, kars_ultimate_lifeform, kars_stopped_thinking, suzi_q, nypd, santana, stroheim, stroheim_german_engineering, smokey, tequila_joseph },
+    list = { joseph_joestar, esidisi, speedwagon_bt, caesar, kars_ultimate_lifeform, kars_stopped_thinking, suzi_q, nypd, santana, stroheim, stroheim_german_engineering, smokey, tequila_joseph, wamuu },
 }

@@ -230,6 +230,15 @@ local loc = {
                     "considered {C:attention}Queens{}."
                 }
             },
+            j_jojoker_wamuu = {
+                name = "Wamuu",
+                text = {
+                    "Gives {C:chips}+#1#{} and {C:mult}+#2#{} for each",
+                    "empty {C:attention}consumable{} slot.",
+                    "{br:2}line break",
+                    "{C:inactive}Currently: {C:chips}+#3#{C:inactive} and {C:mult}+#4#"
+                }
+            },
             j_jojoker_clacker_balls = {
                 name = "Clacker Balls",
                 text = {
@@ -667,13 +676,7 @@ local loc = {
             },
             j_jojoker_baby_face = {
                 name = "Baby Face",
-                text = {
-                    "After blinds, has a {C:attention}#1# in #2#{} chance",
-                    "to spawn a {C:dark_edition}Negative{} {C:blue}Common{} Joker."
-                }
-            },
-            j_jojoker_baby_head = {
-                name = "Baby Head",
+                alt_name = "Baby Head",
                 text = {
                     "After blinds, has a {C:attention}#1# in #2#{} chance",
                     "to spawn a {C:dark_edition}Negative{} {C:blue}Common{} Joker."

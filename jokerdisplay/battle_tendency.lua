@@ -142,6 +142,23 @@ jd_def["j_jojoker_tequila_joseph"] = {
     },
 }
 
+jd_def["j_jojoker_wamuu"] = {
+    text = {
+        { text = "+", colour = G.C.CHIPS },
+        { ref_table = "card.joker_display_values", ref_value = "chips", retrigger_type = "chips", colour = G.C.CHIPS },
+        { text = " +", colour = G.C.MULT },
+        { ref_table = "card.joker_display_values", ref_value = "mult", retrigger_type = "mult", colour = G.C.MULT },
+    },
+    reminder_text = {
+        { text = "Per empty consumable slot", colour = G.C.GREY },
+    },
+    calc_function = function(card)
+        local empty_slots = G.consumeables and math.max(0, G.consumeables.config.card_limit - #G.consumeables.cards) or 0
+        card.joker_display_values.chips = card.ability.extra.chips_mod * empty_slots
+        card.joker_display_values.mult = card.ability.extra.mult_mod * empty_slots
+    end
+}
+
 jd_def["j_jojoker_clacker_balls"] = {
     text = {
         { text = "<= ", colour = G.C.GREY },

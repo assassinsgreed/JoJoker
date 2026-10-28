@@ -42,6 +42,7 @@ jojoker.joker_order = {
     "tarkus",
     "tequila_joseph",
     "valkyrie",
+    "wamuu",
     "yoshikage_kira",
     "zombies",
     

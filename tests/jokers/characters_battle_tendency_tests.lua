@@ -708,3 +708,91 @@ Balatest.TestPlay {
     end
 }
 --#endregion
+--#region Wamuu
+Balatest.TestPlay {
+    name = 'wamuu_gives_chips_and_mult_per_empty_consumable_slot',
+    category = { 'jokers', 'battle_tendency', 'wamuu' },
+    jokers = { 'j_jojoker_wamuu' },
+    deck = { cards = { { r = '2', s = 'S' }, { r = '5', s = 'H' } } },
+    execute = function()
+        Balatest.play_hand { '2S' }
+    end,
+    assert = function()
+        local extra = G.jokers.cards[1].ability.extra
+        Balatest.assert_chips((5 + 2 + extra.chips_mod * 2) * (1 + extra.mult_mod * 2), "Wamuu did not give a bonus for both empty consumable slots") -- High Card base 5 chips x1 mult
+    end
+}
+Balatest.TestPlay {
+    name = 'wamuu_does_not_count_occupied_consumable_slots',
+    category = { 'jokers', 'battle_tendency', 'wamuu' },
+    jokers = { 'j_jojoker_wamuu' },
+    consumeables = { 'c_mars' },
+    deck = { cards = { { r = '2', s = 'S' }, { r = '5', s = 'H' } } },
+    execute = function()
+        Balatest.play_hand { '2S' }
+    end,
+    assert = function()
+        local extra = G.jokers.cards[1].ability.extra
+        Balatest.assert_chips((5 + 2 + extra.chips_mod) * (1 + extra.mult_mod), "Wamuu counted an occupied consumable slot as empty")
+    end
+}
+Balatest.TestPlay {
+    name = 'wamuu_gives_nothing_when_consumable_slots_are_full',
+    category = { 'jokers', 'battle_tendency', 'wamuu' },
+    jokers = { 'j_jojoker_wamuu' },
+    consumeables = { 'c_mars', 'c_mars' },
+    deck = { cards = { { r = '2', s = 'S' }, { r = '5', s = 'H' } } },
+    execute = function()
+        Balatest.play_hand { '2S' }
+    end,
+    assert = function()
+        Balatest.assert_chips(5 + 2, "Wamuu gave a bonus with every consumable slot full")
+    end
+}
+Balatest.TestPlay {
+    name = 'wamuu_treats_negative_consumable_slot_as_empty',
+    category = { 'jokers', 'battle_tendency', 'wamuu' },
+    jokers = { 'j_jojoker_wamuu' },
+    consumeables = { 'c_mars', 'c_mars' },
+    deck = { cards = { { r = '2', s = 'S' }, { r = '5', s = 'H' } } },
+    execute = function()
+        make_consumeable_negative(1)
+        Balatest.play_hand { '2S' }
+    end,
+    assert = function()
+        local extra = G.jokers.cards[1].ability.extra
+        Balatest.assert_chips((5 + 2 + extra.chips_mod) * (1 + extra.mult_mod), "Wamuu counted a Negative consumable as occupying a slot")
+    end
+}
+Balatest.TestPlay {
+    name = 'wamuu_treats_all_negative_consumables_as_empty_slots',
+    category = { 'jokers', 'battle_tendency', 'wamuu' },
+    jokers = { 'j_jojoker_wamuu' },
+    consumeables = { 'c_mars', 'c_mars' },
+    deck = { cards = { { r = '2', s = 'S' }, { r = '5', s = 'H' } } },
+    execute = function()
+        make_consumeable_negative(1)
+        make_consumeable_negative(2)
+        Balatest.play_hand { '2S' }
+    end,
+    assert = function()
+        local extra = G.jokers.cards[1].ability.extra
+        Balatest.assert_chips((5 + 2 + extra.chips_mod * 2) * (1 + extra.mult_mod * 2), "Wamuu counted Negative consumables as occupying slots")
+    end
+}
+Balatest.TestPlay {
+    name = 'wamuu_counts_slot_freed_by_using_a_consumable',
+    category = { 'jokers', 'battle_tendency', 'wamuu' },
+    jokers = { 'j_jojoker_wamuu' },
+    consumeables = { 'c_mars', 'c_mars' },
+    deck = { cards = { { r = '2', s = 'S' }, { r = '5', s = 'H' } } },
+    execute = function()
+        Balatest.use(G.consumeables.cards[1])
+        Balatest.play_hand { '2S' }
+    end,
+    assert = function()
+        local extra = G.jokers.cards[1].ability.extra
+        Balatest.assert_chips((5 + 2 + extra.chips_mod) * (1 + extra.mult_mod), "Wamuu did not count the slot freed by using a consumable")
+    end
+}
+--#endregion

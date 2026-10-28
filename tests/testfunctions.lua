@@ -87,3 +87,8 @@ force_d4c_replacement = function(key)
         return orig(t, a, l, r, k, s, forced_key, key_append, ...)
     end)
 end
+
+make_consumeable_negative = function(index)
+    Balatest.q(function() G.consumeables.cards[index]:set_edition('e_negative', true, true) end)
+    Balatest.wait()
+end
