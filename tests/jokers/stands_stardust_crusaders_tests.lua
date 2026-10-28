@@ -660,4 +660,104 @@ Balatest.TestPlay {
         Balatest.assert_eq(two_pair_hand_level, 5 - G.jokers.cards[1].ability.extra.level_change_down, "Hermit Purple did not level down Two Pair hand when different hand was played")
     end
 }
+--#endregion--#region Atum
+Balatest.TestPlay {
+    name = 'atum_gives_seal_to_scored_card_without_seal',
+    category = { 'jokers', 'stardust_crusaders', 'atum' },
+    jokers = { 'j_jojoker_atum' },
+    deck = { cards = {
+        { r = 'Q', s = 'S' },
+        { r = 'Q', s = 'C' },
+        { r = '5', s = 'H' } } },
+    execute = function()
+        G.jokers.cards[1].ability.extra.numerator = 1
+        G.jokers.cards[1].ability.extra.denominator = 1
+        Balatest.play_hand { 'QS' }
+        Balatest.end_round() -- End round to return cards to deck
+    end,
+    assert = function()
+        Balatest.assert(G.deck.cards[1].seal ~= nil, "Atum didn't give a seal to scored card with no seal")
+    end
+}
+
+Balatest.TestPlay {
+    name = 'atum_gives_seal_to_multiple_scored_cards_without_seal',
+    category = { 'jokers', 'stardust_crusaders', 'atum' },
+    jokers = { 'j_jojoker_atum' },
+    deck = { cards = {
+        { r = 'Q', s = 'S' },
+        { r = 'Q', s = 'C' },
+        { r = '5', s = 'H' } } },
+    execute = function()
+        G.jokers.cards[1].ability.extra.numerator = 1
+        G.jokers.cards[1].ability.extra.denominator = 1
+        Balatest.play_hand { 'QS', 'QC' }
+        Balatest.end_round() -- End round to return cards to deck
+    end,
+    assert = function()
+        Balatest.assert(G.deck.cards[1].seal ~= nil, "Atum didn't give a seal to scored card with no seal")
+        Balatest.assert(G.deck.cards[2].seal ~= nil, "Atum didn't give a seal to scored card with no seal")
+    end
+}
+
+Balatest.TestPlay {
+    name = 'atum_does_not_replace_existing_seal',
+    category = { 'jokers', 'stardust_crusaders', 'atum' },
+    jokers = { 'j_jojoker_atum' },
+    deck = { cards = {
+        { r = 'Q', s = 'S' },
+        { r = 'Q', s = 'C' },
+        { r = '5', s = 'H' } } },
+    execute = function()
+        G.jokers.cards[1].ability.extra.numerator = 1
+        G.jokers.cards[1].ability.extra.denominator = 1
+        G.hand.cards[1].seal = 'Red'
+        Balatest.play_hand { 'QS' }
+        Balatest.end_round() -- End round to return cards to deck
+    end,
+    assert = function()
+        Balatest.assert_eq(G.deck.cards[1].seal, 'Red', "Atum replaced the existing seal on a scored card")
+    end
+}
+
+Balatest.TestPlay {
+    name = 'atum_does_not_give_seal_to_unscored_card',
+    category = { 'jokers', 'stardust_crusaders', 'atum' },
+    jokers = { 'j_jojoker_atum' },
+    deck = { cards = {
+        { r = 'Q', s = 'S' },
+        { r = '5', s = 'H' },
+        { r = '2', s = 'C' } } },
+    execute = function()
+        G.jokers.cards[1].ability.extra.numerator = 1
+        G.jokers.cards[1].ability.extra.denominator = 1
+        Balatest.play_hand { 'QS', '5H' }
+        Balatest.end_round() -- End round to return cards to deck
+    end,
+    assert = function()
+        local sealed_cards = 0
+        for _, deck_card in ipairs(G.deck.cards) do
+            if deck_card.seal then sealed_cards = sealed_cards + 1 end
+        end
+        Balatest.assert_eq(sealed_cards, 1, "Atum gave a seal to a card that was played but not scored")
+    end
+}
+
+Balatest.TestPlay {
+    name = 'atum_does_not_give_seal_when_chance_fails',
+    category = { 'jokers', 'stardust_crusaders', 'atum' },
+    jokers = { 'j_jojoker_atum' },
+    deck = { cards = {
+        { r = 'Q', s = 'S' },
+        { r = 'Q', s = 'C' },
+        { r = '5', s = 'H' } } },
+    execute = function()
+        G.jokers.cards[1].ability.extra.numerator = 0
+        Balatest.play_hand { 'QS' }
+        Balatest.end_round() -- End round to return cards to deck
+    end,
+    assert = function()
+        Balatest.assert_eq(G.deck.cards[1].seal, nil, "Atum gave a seal even though the chance was 0")
+    end
+}
 --#endregion

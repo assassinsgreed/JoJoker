@@ -610,7 +610,43 @@ local hermit_purple = {
     end
 }
 
+local atum = {
+    name = "atum",
+    rarity = 3,
+    cost = 7,
+    jtype = "Stand",
+    jclass = "Close Range",
+    part = "stardust_crusaders",
+    blueprint_compat = true,
+    perishable_compat = true,
+    eternal_compat = true,
+    config = { extra = { numerator = 1, denominator = 10 } },
+    loc_vars = function(self, info_queue, center)
+        return {
+            vars = { center.ability.extra.numerator, center.ability.extra.denominator }
+        }
+    end,
+    calculate = function(self, card, context)
+        -- For each scored card, potentially give it a random seal if it doesn't have one
+        if context.individual and context.cardarea == G.play and not context.other_card.debuff then
+            if not context.other_card.seal then
+                if SMODS.pseudorandom_probability(card, 'atum', card.ability.extra.numerator, card.ability.extra.denominator, 'atum') then
+                    card:juice_up()
+                    context.other_card:juice_up()
+                    context.other_card:set_seal(SMODS.poll_seal({ guaranteed = true, key = 'atum_seal' }), nil, true)
+                    sendDebugMessage("Atum: Scored card being given a seal")
+
+                    return {
+                        message = localize('k_upgrade_ex'),
+                        colour = G.C.GOLD
+                    }
+                end
+            end
+        end
+    end
+}
+
 return {
     name = "Stardust Crusaders Stand Jokers",
-    list = { magician_red, yellow_temperance, star_platinum, wheel_of_fortune, the_lovers, anubis, sethan, the_world, death_thirteen, tenore_sax, khnum, hierophant_green, the_fool, thoth, the_sun, hermit_purple },
+    list = { magician_red, yellow_temperance, star_platinum, wheel_of_fortune, the_lovers, anubis, sethan, the_world, death_thirteen, tenore_sax, khnum, hierophant_green, the_fool, thoth, the_sun, hermit_purple, atum },
 }

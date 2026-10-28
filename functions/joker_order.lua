@@ -72,6 +72,7 @@ jojoker.joker_order = {
     -- Stands
     "anubis",
     "atom_heart_father",
+    "atum",
     "baby_face",
     "bad_company",
     "ball_breaker",

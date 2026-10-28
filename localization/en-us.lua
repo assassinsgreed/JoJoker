@@ -426,6 +426,14 @@ local loc = {
                     "{C:inactive}Chosen Hand: #3#"
                 }
             },
+            j_jojoker_atum = {
+                name = "Atum",
+                text = {
+                    "Scored cards have a {C:attention}#1# in #2#{}",
+                    "chance to gain a random {C:attention}seal{} if",
+                    "they do not have one."
+                }
+            },
             -- Part 4: Diamond is Unbreakable
             j_jojoker_voice_of_love = {
                 name = "Voice of Love",

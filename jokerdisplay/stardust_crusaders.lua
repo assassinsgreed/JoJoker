@@ -220,3 +220,14 @@ jd_def["j_jojoker_hermit_purple"] = {
         { ref_table = "card.ability.extra", ref_value = "chosen_hand_type", retrigger_type = "chosen_hand_type", colour = G.C.GREY }
     }
 }
+
+jd_def["j_jojoker_atum"] = {
+    text = {
+        { ref_table = "card.ability.extra", ref_value = "numerator", retrigger_type = "numerator",  colour = G.C.GOLD },
+        { text = " in ", colour = G.C.GOLD },
+        { ref_table = "card.ability.extra", ref_value = "denominator", retrigger_type = "denominator",  colour = G.C.GOLD },
+    },
+    reminder_text = {
+        { text = "Add Seal", colour = G.C.GREY }
+    },
+}
