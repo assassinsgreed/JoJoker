@@ -592,3 +592,92 @@ Balatest.TestPlay {
     end
 }
 --#endregion
+--#region Tomb of the Boom
+Balatest.TestPlay {
+    name = 'tomb_of_the_boom_pulls_every_remaining_copy_over_hand_size',
+    category = { 'jokers', 'steel_ball_run', 'tomb_of_the_boom' },
+    jokers = { 'j_jojoker_tomb_of_the_boom' },
+    deck = { cards = {
+        { r = '2', s = 'S' }, { r = '2', s = 'S' }, { r = '2', s = 'S' }, { r = '2', s = 'S' },
+        { r = '2', s = 'S' }, { r = '2', s = 'S' }, { r = '2', s = 'S' }, { r = '2', s = 'S' } } },
+    hand_size = 2,
+    execute = function()
+        Balatest.play_hand { '2S' }
+        Balatest.wait()
+    end,
+    assert = function()
+        Balatest.assert_eq(#G.deck.cards, 0, "Tomb of the Boom did not pull every remaining 2 from the deck")
+        Balatest.assert_eq(#G.hand.cards, 7, "Tomb of the Boom did not pull the 2s on top of a full hand")
+    end
+}
+
+Balatest.TestPlay {
+    name = 'tomb_of_the_boom_pulls_only_the_lowest_scored_rank',
+    category = { 'jokers', 'steel_ball_run', 'tomb_of_the_boom' },
+    jokers = { 'j_jojoker_tomb_of_the_boom' },
+    deck = { cards = {
+        { r = '5', s = 'D' }, { r = '5', s = 'D' }, { r = '5', s = 'D' }, { r = '5', s = 'D' },
+        { r = '5', s = 'D' }, { r = '5', s = 'D' }, { r = '5', s = 'D' }, { r = '5', s = 'D' },
+        { r = '5', s = 'D' }, { r = '5', s = 'D' }, { r = '5', s = 'D' }, { r = '5', s = 'D' },
+        { r = '5', s = 'D' } } },
+    hand_size = 4,
+    execute = function()
+        Balatest.q(function()
+            set_card_bases(G.hand, { 'S_3', 'H_3', 'S_2', 'H_2' })
+            -- Bottom of the deck, so the refill draws 5s and leaves these behind
+            set_card_bases(G.deck, { 'C_2', 'D_2', 'C_3', 'D_3' })
+        end)
+        Balatest.play_hand { '3S', '3H', '2S', '2H' }
+        Balatest.wait()
+    end,
+    assert = function()
+        Balatest.assert_eq(count_cards_in_area(G.hand, 2), 2, "Tomb of the Boom did not pull the remaining 2s")
+        Balatest.assert_eq(count_cards_in_area(G.deck, 3), 2, "Tomb of the Boom pulled a rank higher than the lowest scored rank")
+    end
+}
+
+Balatest.TestPlay {
+    name = 'tomb_of_the_boom_ignores_played_cards_that_do_not_score',
+    category = { 'jokers', 'steel_ball_run', 'tomb_of_the_boom' },
+    jokers = { 'j_jojoker_tomb_of_the_boom' },
+    deck = { cards = {
+        { r = '5', s = 'D' }, { r = '5', s = 'D' }, { r = '5', s = 'D' }, { r = '5', s = 'D' },
+        { r = '5', s = 'D' }, { r = '5', s = 'D' }, { r = '5', s = 'D' } } },
+    hand_size = 2,
+    execute = function()
+        Balatest.q(function()
+            set_card_bases(G.hand, { 'S_K', 'S_2' })
+            set_card_bases(G.deck, { 'C_2' })
+        end)
+        Balatest.play_hand { 'KS', '2S' } -- High Card, only the King scores
+        Balatest.wait()
+    end,
+    assert = function()
+        Balatest.assert_eq(count_cards_in_area(G.deck, 2), 1, "Tomb of the Boom pulled a rank from a played card that did not score")
+    end
+}
+
+Balatest.TestPlay {
+    name = 'tomb_of_the_boom_only_pulls_on_the_first_hand',
+    category = { 'jokers', 'steel_ball_run', 'tomb_of_the_boom' },
+    jokers = { 'j_jojoker_tomb_of_the_boom' },
+    deck = { cards = {
+        { r = '5', s = 'D' }, { r = '5', s = 'D' }, { r = '5', s = 'D' }, { r = '5', s = 'D' },
+        { r = '5', s = 'D' }, { r = '5', s = 'D' }, { r = '5', s = 'D' }, { r = '5', s = 'D' } } },
+    hand_size = 2,
+    execute = function()
+        Balatest.q(function()
+            set_card_bases(G.hand, { 'S_3', 'H_3' })
+        end)
+        Balatest.play_hand { '3S' }
+        Balatest.q(function()
+            set_card_bases(G.deck, { 'C_3' })
+        end)
+        Balatest.play_hand { '3H' }
+        Balatest.wait()
+    end,
+    assert = function()
+        Balatest.assert_eq(count_cards_in_area(G.deck, 3), 1, "Tomb of the Boom pulled cards on a hand after the first")
+    end
+}
+--#endregion

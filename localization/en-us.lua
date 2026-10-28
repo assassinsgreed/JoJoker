@@ -1064,6 +1064,15 @@ local loc = {
                     "a random joker of the {C:attention}same rarity{}."
                 }
             },
+            j_jojoker_tomb_of_the_boom = {
+                name = "Tomb of the Boom",
+                alt_name = "Tomb of the Noise",
+                text = {
+                    "On {C:attention}first scored hand{}, draws",
+                    "all cards matching the {C:attention}lowest scored rank{}",
+                    "from the deck {C:attention}drawn{} into the hand."
+                }
+            },
             -- Part 8: Jojolion
             j_jojoker_soft_and_wet = {
                 name = "Soft & Wet",
@@ -1298,6 +1307,7 @@ local loc = {
             sound_lucky = "Lucky!",
             sound_unlucky = "Unlucky...",
             sound_neutral = "I'm neutral, remember?",
+            sound_attracted = "Attracted!",
             sound_retired = "Retired!",
             sound_perished = "Perished!",
             sound_joseph_quip_oh_my_god = "Oh my gawwwd!",

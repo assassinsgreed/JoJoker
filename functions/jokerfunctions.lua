@@ -578,6 +578,44 @@ jojoker_rank_id = function(card)
   return card.base.id
 end
 
+get_lowest_scored_rank_id = function(scoring_hand)
+  local lowest = nil
+  for _, scored_card in ipairs(scoring_hand or {}) do
+    if not SMODS.has_no_rank(scored_card) and (not lowest or scored_card:get_id() < lowest) then
+      lowest = scored_card:get_id()
+    end
+  end
+  return lowest
+end
+
+jojoker_pull_rank_from_deck = function(rank_id)
+  local matches = {}
+  for _, deck_card in ipairs(G.deck.cards) do
+    if not SMODS.has_no_rank(deck_card) and deck_card:get_id() == rank_id then
+      matches[#matches + 1] = deck_card
+    end
+  end
+  for _, match in ipairs(matches) do
+    draw_card(G.deck, G.hand, nil, 'up', true, match)
+  end
+
+  -- Pulled cards are not a hand draw, so keep them out of the next hand_drawn context
+  G.E_MANAGER:add_event(Event({
+    func = function()
+      for i = #(SMODS.drawn_cards or {}), 1, -1 do
+        for _, match in ipairs(matches) do
+          if SMODS.drawn_cards[i] == match then
+            table.remove(SMODS.drawn_cards, i)
+            break
+          end
+        end
+      end
+      return true
+    end
+  }))
+  return #matches
+end
+
 get_loccobarocco_chips = function(card, scoring_hand)
   local chips = 0
   for _, scored_card in ipairs(scoring_hand or {}) do

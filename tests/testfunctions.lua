@@ -92,3 +92,20 @@ make_consumeable_negative = function(index)
     Balatest.q(function() G.consumeables.cards[index]:set_edition('e_negative', true, true) end)
     Balatest.wait()
 end
+
+-- Overwrites cards from the bottom of the area up, so a deck's draw order stays deterministic
+set_card_bases = function(area, keys)
+    for i, key in ipairs(keys) do
+        area.cards[i]:set_base(G.P_CARDS[key])
+    end
+end
+
+count_cards_in_area = function(area, rank_id)
+    local count = 0
+    for _, c in ipairs(area.cards) do
+        if c:get_id() == rank_id then
+            count = count + 1
+        end
+    end
+    return count
+end

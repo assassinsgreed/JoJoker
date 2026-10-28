@@ -140,6 +140,7 @@ JokerSprites = {
         {name = "in_a_silent_way", base = {pos = {x = 3, y = 3}}, part_atlas = "steel_ball_run" },
         {name = "sugar_mountain", base = {pos = {x = 4, y = 3}}, part_atlas = "steel_ball_run" },
         {name = "d4c", base = {pos = {x = 0, y = 4}}, part_atlas = "steel_ball_run" },
+        {name = "tomb_of_the_boom", base = {pos = {x = 1, y = 4}}, part_atlas = "steel_ball_run" },
         -- Part 8: Jojolion
         {name = "soft_and_wet", base = {pos = {x = 0, y = 0}}, part_atlas = "jojolion" },
         {name = "paper_moon_king", base = {pos = {x = 1, y = 0}}, part_atlas = "jojolion" },

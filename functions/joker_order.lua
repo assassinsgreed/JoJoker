@@ -149,6 +149,7 @@ jojoker.joker_order = {
     "the_sun",
     "the_world",
     "thoth",
+    "tomb_of_the_boom",
     "wheel_of_fortune",
     "white_snake",
     "wonder_of_u",

@@ -249,6 +249,16 @@ jd_def["j_jojoker_d4c"] = {
     end,
 }
 
+jd_def["j_jojoker_tomb_of_the_boom"] = {
+    text = {
+        { ref_table = "card.joker_display_values", ref_value = "status", colour = G.C.GREY },
+    },
+    calc_function = function(card)
+        local first_hand = G.GAME and G.GAME.current_round.hands_played == 0
+        card.joker_display_values.status = first_hand and "Active" or "Inactive"
+    end,
+}
+
 jd_def["j_jojoker_sugar_mountain"] = {
     text = {
         { text = "$", colour = G.C.MONEY },

@@ -393,7 +393,42 @@ local d4c = {
     end
 }
 
+local tomb_of_the_boom = {
+    name = "tomb_of_the_boom",
+    rarity = 1,
+    cost = 4,
+    jtype = "Stand",
+    jclass = "Close Range",
+    part = "steel_ball_run",
+    blueprint_compat = false,
+    perishable_compat = true,
+    eternal_compat = true,
+    config = { extra = { pull_rank = nil } },
+    calculate = function(self, card, context)
+        if context.before and G.GAME.current_round.hands_played == 0 then
+            card.ability.extra.pull_rank = get_lowest_scored_rank_id(context.scoring_hand)
+        end
+
+        -- Pulled after the hand is drawn regularly, so the matching cards are added on top of a full hand
+        if context.hand_drawn and card.ability.extra.pull_rank then
+            local pulled = jojoker_pull_rank_from_deck(card.ability.extra.pull_rank)
+            card.ability.extra.pull_rank = nil
+            if pulled > 0 then
+                sendDebugMessage("Tomb of the Boom: Pulled "..pulled.." cards from the deck.")
+                return {
+                    message = localize('sound_attracted'),
+                    colour = G.C.ATTENTION,
+                }
+            end
+        end
+
+        if context.end_of_round and context.main_eval then
+            card.ability.extra.pull_rank = nil
+        end
+    end
+}
+
 return {
     name = "Steel Ball Run Stand Jokers",
-    list = { mandom, chocolate_disco, oh_lonesome_me, hey_ya, tattoo_you, civil_war, ball_breaker, love_train, in_a_silent_way, d4c },
+    list = { mandom, chocolate_disco, oh_lonesome_me, hey_ya, tattoo_you, civil_war, ball_breaker, love_train, in_a_silent_way, d4c, tomb_of_the_boom },
 }
