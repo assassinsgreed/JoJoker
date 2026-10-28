@@ -580,6 +580,13 @@ local loc = {
                     "{C:inactive}Currently: {X:mult,C:white} X#2#"
                 }
             },
+            j_jojoker_aqua_necklace = {
+                name = "Aqua Necklace",
+                text = {
+                    "Gives {C:chips}+#1#{} chips if played",
+                    "hand contains a {C:attention}Flush{}."
+                }
+            },
             j_jojoker_ghost_girl_alley = {
                 name = "Ghost Girl Alley",
                 text = {

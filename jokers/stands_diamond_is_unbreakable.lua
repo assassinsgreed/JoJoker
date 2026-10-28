@@ -558,7 +558,34 @@ local echoes_act_3 = {
     end
 }
 
+local aqua_necklace = {
+    name = "aqua_necklace",
+    rarity = 1,
+    cost = 5,
+    jtype = "Stand",
+    jclass = "Long Range",
+    part = "diamond_is_unbreakable",
+    blueprint_compat = true,
+    perishable_compat = true,
+    eternal_compat = true,
+    config = { extra = { chips = 80 } },
+    loc_vars = function(self, info_queue, center)
+        return {vars = { center.ability.extra.chips }}
+    end,
+    calculate = function(self, card, context)
+        -- Gives chips when a flush is played
+        if context.joker_main and next(context.poker_hands["Flush"]) then
+            sendDebugMessage("Aqua Necklace: Giving "..card.ability.extra.chips.." chips for hand containing a Flush")
+            return {
+                message = localize{type='variable', key='a_chips', vars={card.ability.extra.chips}},
+                colour = G.C.CHIPS,
+                chip_mod = card.ability.extra.chips,
+            }
+        end
+    end
+}
+
 return {
     name = "Diamond is Unbreakable Stand Jokers",
-    list = { red_hot_chili_pepper, the_hand, superfly, crazy_diamond, bad_company, cheap_trick, cinderella, atom_heart_father, surface, killer_queen, heavens_door, the_lock, harvest, echoes_act_3 },
+    list = { red_hot_chili_pepper, the_hand, superfly, crazy_diamond, bad_company, cheap_trick, cinderella, atom_heart_father, surface, killer_queen, heavens_door, the_lock, harvest, echoes_act_3, aqua_necklace },
 }

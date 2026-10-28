@@ -212,6 +212,16 @@ jd_def["j_jojoker_echoes_act_3"] = {
     }
 }
 
+jd_def["j_jojoker_aqua_necklace"] = {
+    text = {
+        { text = "+", colour = G.C.CHIPS },
+        { ref_table = "card.ability.extra", ref_value = "chips", retrigger_type = "chips",  colour = G.C.CHIPS },
+    },
+    reminder_text = {
+        { text = "Flush", colour = G.C.GREY },
+    }
+}
+
 jd_def["j_jojoker_ghost_girl_alley"] = {
     text = {
         { text = "+", colour = G.C.CHIPS },

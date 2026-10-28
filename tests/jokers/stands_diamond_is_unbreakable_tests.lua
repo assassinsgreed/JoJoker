@@ -562,3 +562,38 @@ Balatest.TestPlay {
     end
 }
 --#endregion
+--#region Aqua Necklace
+Balatest.TestPlay {
+    name = 'aqua_necklace_does_not_give_chips_without_flush',
+    category = { 'jokers', 'diamond_is_unbreakable', 'aqua_necklace' },
+    jokers = { 'j_jojoker_aqua_necklace' },
+    execute = function()
+        Balatest.play_hand { '2S', '3S', '4S', '5S', '7H' }
+    end,
+    assert = function()
+        Balatest.assert_chips(12, "Aqua Necklace gave chips for a hand without a Flush")
+    end
+}
+Balatest.TestPlay {
+    name = 'aqua_necklace_gives_chips_for_flush',
+    category = { 'jokers', 'diamond_is_unbreakable', 'aqua_necklace' },
+    jokers = { 'j_jojoker_aqua_necklace' },
+    execute = function()
+        Balatest.play_hand { '2S', '3S', '4S', '5S', '7S' }
+    end,
+    assert = function()
+        Balatest.assert_chips(544, "Aqua Necklace did not give chips for a Flush")
+    end
+}
+Balatest.TestPlay {
+    name = 'aqua_necklace_gives_chips_for_straight_flush',
+    category = { 'jokers', 'diamond_is_unbreakable', 'aqua_necklace' },
+    jokers = { 'j_jojoker_aqua_necklace' },
+    execute = function()
+        Balatest.play_hand { '2S', '3S', '4S', '5S', '6S' }
+    end,
+    assert = function()
+        Balatest.assert_chips(1600, "Aqua Necklace did not give chips for a hand containing a Flush")
+    end
+}
+--#endregion
