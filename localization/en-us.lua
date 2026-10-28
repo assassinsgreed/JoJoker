@@ -434,6 +434,15 @@ local loc = {
                     "they do not have one."
                 }
             },
+            j_jojoker_horus = {
+                name = "Horus",
+                text = {
+                    "Gains {C:chips}+#1#{} Chips per hand played.",
+                    "Resets to {C:chips}+#1#{} if score catches fire.",
+                    "{br:2}line break",
+                    "{C:inactive}Currently: {C:chips}+#2#{}"
+                }
+            },
             -- Part 4: Diamond is Unbreakable
             j_jojoker_voice_of_love = {
                 name = "Voice of Love",

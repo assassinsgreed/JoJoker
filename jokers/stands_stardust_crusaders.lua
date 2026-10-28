@@ -646,7 +646,59 @@ local atum = {
     end
 }
 
+local horus = {
+    name = "horus",
+    rarity = 2,
+    cost = 6,
+    jtype = "Stand",
+    jclass = "Close Range",
+    part = "stardust_crusaders",
+    blueprint_compat = true,
+    perishable_compat = true,
+    eternal_compat = true,
+    config = { extra = { chips_mod = 30, chips = 30 } },
+    loc_vars = function(self, info_queue, center)
+        return {
+            vars = { center.ability.extra.chips_mod, center.ability.extra.chips }
+        }
+    end,
+    -- Show accumulated chips
+    calculate = function(self, card, context)
+        if context.joker_main then
+            return {
+                message = localize{type='variable', key='a_chips', vars={card.ability.extra.chips}},
+                colour = G.C.CHIPS,
+                chip_mod = card.ability.extra.chips,
+            }
+        end
+
+        -- Checked after scoring so the fire check sees the hand's final score
+        if context.after and not context.blueprint then
+            local caught_fire = SMODS.calculate_round_score() > G.GAME.blind.chips
+            -- Queued so JokerDisplay doesn't update before the scoring animation shows the chips given
+            G.E_MANAGER:add_event(Event({
+                func = function()
+                    if caught_fire then
+                        card.ability.extra.chips = card.ability.extra.chips_mod
+                        sendDebugMessage("Horus: Score caught fire, resetting chips to "..card.ability.extra.chips)
+                    else
+                        -- Earn chips for each hand played that doesn't catch fire
+                        card.ability.extra.chips = card.ability.extra.chips + card.ability.extra.chips_mod
+                        sendDebugMessage("Horus: Hand played, increasing chips to "..card.ability.extra.chips)
+                    end
+                    return true
+                end
+            }))
+
+            return {
+                message = caught_fire and localize('k_reset') or localize('k_upgrade_ex'),
+                colour = G.C.CHIPS
+            }
+        end
+    end
+}
+
 return {
     name = "Stardust Crusaders Stand Jokers",
-    list = { magician_red, yellow_temperance, star_platinum, wheel_of_fortune, the_lovers, anubis, sethan, the_world, death_thirteen, tenore_sax, khnum, hierophant_green, the_fool, thoth, the_sun, hermit_purple, atum },
+    list = { magician_red, yellow_temperance, star_platinum, wheel_of_fortune, the_lovers, anubis, sethan, the_world, death_thirteen, tenore_sax, khnum, hierophant_green, the_fool, thoth, the_sun, hermit_purple, atum, horus },
 }

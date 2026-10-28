@@ -231,3 +231,10 @@ jd_def["j_jojoker_atum"] = {
         { text = "Add Seal", colour = G.C.GREY }
     },
 }
+
+jd_def["j_jojoker_horus"] = {
+    text = {
+        { text = "+", colour = G.C.CHIPS },
+        { ref_table = "card.ability.extra", ref_value = "chips", retrigger_type = "chips", colour = G.C.CHIPS },
+    },
+}

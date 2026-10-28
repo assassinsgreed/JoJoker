@@ -761,3 +761,84 @@ Balatest.TestPlay {
     end
 }
 --#endregion
+--#region Horus
+Balatest.TestPlay {
+    name = 'horus_gives_starting_chips',
+    category = { 'jokers', 'stardust_crusaders', 'horus' },
+    jokers = { 'j_jojoker_horus' },
+    execute = function()
+        Balatest.play_hand { '2S' }
+    end,
+    assert = function()
+        Balatest.assert_chips(37, "Horus did not give its starting chips") -- 5 from High Card + 2 from card + 30 from Horus
+    end
+}
+
+Balatest.TestPlay {
+    name = 'horus_gains_chips_after_hand_played',
+    category = { 'jokers', 'stardust_crusaders', 'horus' },
+    jokers = { 'j_jojoker_horus' },
+    execute = function()
+        Balatest.play_hand { '2S' }
+    end,
+    assert = function()
+        local extra = G.jokers.cards[1].ability.extra
+        Balatest.assert_eq(extra.chips, 2 * extra.chips_mod, "Horus did not gain chips after a hand was played")
+    end
+}
+
+Balatest.TestPlay {
+    name = 'horus_gains_chips_for_each_hand_played',
+    category = { 'jokers', 'stardust_crusaders', 'horus' },
+    jokers = { 'j_jojoker_horus' },
+    execute = function()
+        Balatest.play_hand { '2S' }
+        Balatest.play_hand { '3S' }
+    end,
+    assert = function()
+        local extra = G.jokers.cards[1].ability.extra
+        Balatest.assert_eq(extra.chips, 3 * extra.chips_mod, "Horus did not gain chips for each hand played")
+    end
+}
+
+Balatest.TestPlay {
+    name = 'horus_resets_chips_when_score_catches_fire',
+    category = { 'jokers', 'stardust_crusaders', 'horus' },
+    jokers = { 'j_jojoker_horus' },
+    execute = function()
+        G.jokers.cards[1].ability.extra.chips = 90
+        Balatest.play_hand { '4S', '5S', '6S', '7S', '8S' }
+    end,
+    assert = function()
+        local extra = G.jokers.cards[1].ability.extra
+        Balatest.assert_eq(extra.chips, extra.chips_mod, "Horus did not reset its chips when score caught fire")
+    end
+}
+
+Balatest.TestPlay {
+    name = 'horus_does_not_reset_chips_when_score_does_not_catch_fire',
+    category = { 'jokers', 'stardust_crusaders', 'horus' },
+    jokers = { 'j_jojoker_horus' },
+    execute = function()
+        G.jokers.cards[1].ability.extra.chips = 90
+        Balatest.play_hand { '2S' }
+    end,
+    assert = function()
+        local extra = G.jokers.cards[1].ability.extra
+        Balatest.assert_eq(extra.chips, 90 + extra.chips_mod, "Horus reset its chips when score did not catch fire")
+    end
+}
+
+Balatest.TestPlay {
+    name = 'horus_gives_scaled_chips',
+    category = { 'jokers', 'stardust_crusaders', 'horus' },
+    jokers = { 'j_jojoker_horus' },
+    execute = function()
+        G.jokers.cards[1].ability.extra.chips = 90
+        Balatest.play_hand { '2S' }
+    end,
+    assert = function()
+        Balatest.assert_chips(97, "Horus did not give its scaled chips") -- 5 from High Card + 2 from card + 90 from Horus
+    end
+}
+--#endregion

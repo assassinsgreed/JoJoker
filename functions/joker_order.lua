@@ -103,6 +103,7 @@ jojoker.joker_order = {
     "hermit_purple",
     "hey_ya",
     "hierophant_green",
+    "horus",
     "i_am_a_rock",
     "in_a_silent_way",
     "john_rod",
