@@ -151,6 +151,7 @@ jojoker.joker_order = {
     "thoth",
     "tomb_of_the_boom",
     "wheel_of_fortune",
+    "white_album",
     "white_snake",
     "wonder_of_u",
     "yellow_temperance",

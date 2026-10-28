@@ -739,6 +739,14 @@ local loc = {
                     "gains {X:mult,C:white} X#1# {} Mult"
                 }
             },
+            j_jojoker_white_album = {
+                name = "White Album",
+                alt_name = "White Ice",
+                text = {
+                    "When sold, disables the {C:attention}active boss blind{}.",
+                    "Only works on boss blinds."
+                }
+            },
             j_jojoker_seven_page_muda = {
                 name = "Seven Page Muda",
                 text = {

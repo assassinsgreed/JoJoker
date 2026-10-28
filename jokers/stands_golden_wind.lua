@@ -526,7 +526,30 @@ local notorious_big = {
     end
 }
 
+local white_album = {
+    name = "white_album",
+    rarity = 2,
+    cost = 5,
+    jtype = "Stand",
+    jclass = "Close Range",
+    part = "golden_wind",
+    blueprint_compat = false,
+    perishable_compat = true,
+    eternal_compat = false,
+    config = { extra = { } },
+    calculate = function(self, card, context)
+        -- When sold, disables active boss blind
+        if context.selling_self and not context.blueprint then
+            if G.GAME.blind and G.GAME.blind:get_type() == 'Boss' then
+                sendDebugMessage("White Album: Sold, disabling boss blind")
+                card_eval_status_text(card, 'extra', nil, nil, nil, {message = localize('ph_boss_disabled')})
+                G.GAME.blind:disable()
+            end
+        end
+    end
+}
+
 return {
     name = "Golden Wind Stand Jokers",
-    list = { sex_pistols, grateful_dead, spice_girl, sticky_fingers, gold_experience, gold_experience_requiem, king_crimson, moody_blues, baby_face, little_feet, black_sabbath, rolling_stones, notorious_big },
+    list = { sex_pistols, grateful_dead, spice_girl, sticky_fingers, gold_experience, gold_experience_requiem, king_crimson, moody_blues, baby_face, little_feet, black_sabbath, rolling_stones, notorious_big, white_album },
 }

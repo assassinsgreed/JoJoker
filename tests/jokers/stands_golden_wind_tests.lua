@@ -527,3 +527,31 @@ Balatest.TestPlay {
     end
 }
 --#endregion
+--#region White Album
+Balatest.TestPlay {
+    name = 'white_album_disables_boss_blind_on_sell',
+    category = { 'jokers', 'golden_wind', 'white_album' },
+    jokers = { 'j_jojoker_white_album' },
+    blind = 'bl_wheel',
+    execute = function()
+        Balatest.assert_eq(G.GAME.blind.disabled, false, "White Album didn't start on an enabled boss blind")
+        Balatest.sell(function() return G.jokers.cards[1] end)
+    end,
+    assert = function()
+        Balatest.assert_eq(G.GAME.blind.disabled, true, "White Album didn't disable the boss blind on sell")
+    end
+}
+
+Balatest.TestPlay {
+    name = 'white_album_does_not_disable_non_boss_blind_on_sell',
+    category = { 'jokers', 'golden_wind', 'white_album' },
+    jokers = { 'j_jojoker_white_album' },
+    blind = 'bl_small',
+    execute = function()
+        Balatest.sell(function() return G.jokers.cards[1] end)
+    end,
+    assert = function()
+        Balatest.assert_eq(G.GAME.blind.disabled, false, "White Album disabled a non-boss blind on sell")
+    end
+}
+--#endregion
