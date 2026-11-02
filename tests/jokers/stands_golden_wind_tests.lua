@@ -555,3 +555,52 @@ Balatest.TestPlay {
     end
 }
 --#endregion
+--#region Aerosmith
+Balatest.TestPlay {
+    name = 'aerosmith_gives_xmult_per_unscored_card_in_high_card',
+    category = { 'jokers', 'golden_wind', 'aerosmith' },
+    jokers = { 'j_jojoker_aerosmith' },
+    execute = function()
+        Balatest.play_hand { 'KS', '2H', '4C', '6D', '8S' }
+    end,
+    assert = function()
+        Balatest.assert_chips(15 * (1 + 4 * G.jokers.cards[1].ability.extra.xmult_mod), "Aerosmith did not give Xmult for 4 unscored cards")
+    end
+}
+
+Balatest.TestPlay {
+    name = 'aerosmith_scales_with_fewer_unscored_cards',
+    category = { 'jokers', 'golden_wind', 'aerosmith' },
+    jokers = { 'j_jojoker_aerosmith' },
+    execute = function()
+        Balatest.play_hand { 'KS', '2H', '4C' }
+    end,
+    assert = function()
+        Balatest.assert_chips(15 * (1 + 2 * G.jokers.cards[1].ability.extra.xmult_mod), "Aerosmith did not give Xmult for 2 unscored cards")
+    end
+}
+
+Balatest.TestPlay {
+    name = 'aerosmith_does_nothing_for_single_card_high_card',
+    category = { 'jokers', 'golden_wind', 'aerosmith' },
+    jokers = { 'j_jojoker_aerosmith' },
+    execute = function()
+        Balatest.play_hand { 'KS' }
+    end,
+    assert = function()
+        Balatest.assert_chips(15, "Aerosmith gave Xmult with no unscored cards")
+    end
+}
+
+Balatest.TestPlay {
+    name = 'aerosmith_does_nothing_for_non_high_card_hand',
+    category = { 'jokers', 'golden_wind', 'aerosmith' },
+    jokers = { 'j_jojoker_aerosmith' },
+    execute = function()
+        Balatest.play_hand { 'KS', 'KH', '2C' }
+    end,
+    assert = function()
+        Balatest.assert_chips(60, "Aerosmith gave Xmult for a non High Card hand")
+    end
+}
+--#endregion

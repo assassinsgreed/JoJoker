@@ -747,6 +747,14 @@ local loc = {
                     "Only works on boss blinds."
                 }
             },
+            j_jojoker_aerosmith = {
+                name = "Aerosmith",
+                alt_name = "Li'l Bomber",
+                text = {
+                    "If played hand is a {C:attention}High Card{}, gives",
+                    "{X:mult,C:white} X1 {} Mult plus {X:mult,C:white} X#1# {} per {C:attention}unscored{} card"
+                }
+            },
             j_jojoker_seven_page_muda = {
                 name = "Seven Page Muda",
                 text = {

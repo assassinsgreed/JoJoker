@@ -70,6 +70,7 @@ jojoker.joker_order = {
     "wavering_heart",
     
     -- Stands
+    "aerosmith",
     "anubis",
     "aqua_necklace",
     "atom_heart_father",

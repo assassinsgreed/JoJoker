@@ -199,3 +199,22 @@ jd_def["j_jojoker_white_album"] = {
         { text = "When sold", colour = G.C.GREY, }
     }
 }
+
+jd_def["j_jojoker_aerosmith"] = {
+    text = {
+        {
+            border_nodes = {
+                { text = "X" },
+                { ref_table = "card.joker_display_values", ref_value = "xmult", retrigger_type = "exp" }
+            }
+        }
+    },
+    reminder_text = {
+        { text = "(High Card)", colour = G.C.GREY },
+    },
+    calc_function = function(card)
+        local text, _, scoring_hand = JokerDisplay.evaluate_hand()
+        local unscored = text == "High Card" and #JokerDisplay.current_hand - #scoring_hand or 0
+        card.joker_display_values.xmult = 1 + unscored * card.ability.extra.xmult_mod
+    end
+}

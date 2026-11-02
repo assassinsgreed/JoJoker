@@ -549,7 +549,39 @@ local white_album = {
     end
 }
 
+local aerosmith = {
+    name = "aerosmith",
+    rarity = 3,
+    cost = 8,
+    jtype = "Stand",
+    jclass = "Long Range",
+    part = "golden_wind",
+    blueprint_compat = true,
+    perishable_compat = true,
+    eternal_compat = true,
+    config = { extra = { xmult_mod = 0.5 } },
+    loc_vars = function(self, info_queue, center)
+        return {
+            vars = {center.ability.extra.xmult_mod}
+        }
+    end,
+    calculate = function(self, card, context)
+        if context.joker_main and context.scoring_name == "High Card" then
+            local unscored = #context.full_hand - #context.scoring_hand
+            if unscored > 0 then
+                local xmult = 1 + unscored * card.ability.extra.xmult_mod
+                sendDebugMessage("Aerosmith: High Card with "..unscored.." unscored cards, giving X"..xmult)
+                return {
+                    message = localize{type = 'variable', key = 'a_xmult', vars = {xmult}},
+                    colour = G.C.XMULT,
+                    Xmult_mod = xmult
+                }
+            end
+        end
+    end
+}
+
 return {
     name = "Golden Wind Stand Jokers",
-    list = { sex_pistols, grateful_dead, spice_girl, sticky_fingers, gold_experience, gold_experience_requiem, king_crimson, moody_blues, baby_face, little_feet, black_sabbath, rolling_stones, notorious_big, white_album },
+    list = { sex_pistols, grateful_dead, spice_girl, sticky_fingers, gold_experience, gold_experience_requiem, king_crimson, moody_blues, baby_face, little_feet, black_sabbath, rolling_stones, notorious_big, white_album, aerosmith },
 }
