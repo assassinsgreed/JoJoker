@@ -386,7 +386,68 @@ local fun_fun_fun = {
     end
 }
 
+local blue_hawaii = {
+    name = "blue_hawaii",
+    rarity = 3,
+    cost = 8,
+    jtype = "Stand",
+    part = "jojolion",
+    themes = { support = { jojoker.themes.ENHANCEMENT_EATERS, jojoker.themes.LUCKY_CARDS, jojoker.themes.GLASS_CARDS } },
+    blueprint_compat = false,
+    perishable_compat = true,
+    eternal_compat = true,
+    config = { extra = { max_targets = 2 } },
+    loc_vars = function(self, info_queue, center)
+      return {vars = {center.ability.extra.max_targets}}
+    end,
+    calculate = function(self, card, context)
+        -- Spread the first scored enhancement to unenhanced scored cards, stripping it from the source
+        if context.before and context.cardarea == G.jokers and not context.blueprint then
+            local source = nil
+            local unenhanced = {}
+            for _, scored_card in ipairs(context.scoring_hand) do
+                if not scored_card.debuff and not scored_card.vampired then
+                    if scored_card.config.center == G.P_CENTERS.c_base then
+                        unenhanced[#unenhanced + 1] = scored_card
+                    elseif not source then
+                        source = scored_card
+                    end
+                end
+            end
+            if not source or #unenhanced == 0 then return end
+
+            -- Find target(s)
+            local enhancement = source.config.center
+            for _ = 1, math.min(card.ability.extra.max_targets, #unenhanced) do
+                local target, index = pseudorandom_element(unenhanced, pseudoseed('jojoker_blue_hawaii'))
+                table.remove(unenhanced, index)
+                target:set_ability(enhancement, nil, true)
+                G.E_MANAGER:add_event(Event({
+                    func = function()
+                        target:juice_up()
+                        return true
+                    end
+                }))
+            end
+            -- Set enhancement
+            source:set_ability(G.P_CENTERS.c_base, nil, true)
+            G.E_MANAGER:add_event(Event({
+                func = function()
+                    source:juice_up()
+                    return true
+                end
+            }))
+            sendDebugMessage("Blue Hawaii: Spreading "..enhancement.key.." from the first enhanced scored card")
+
+            return {
+                message = localize('k_copied_ex'),
+                colour = G.C.SECONDARY_SET.Enhanced
+            }
+        end
+    end
+}
+
 return {
     name = "Jojolion Stands Jokers",
-    list = { soft_and_wet, paper_moon_king, milagro_man, i_am_a_rock, california_king_bed, doctor_wu, wonder_of_u, paisley_park, space_trucking, fun_fun_fun },
+    list = { soft_and_wet, paper_moon_king, milagro_man, i_am_a_rock, california_king_bed, doctor_wu, wonder_of_u, paisley_park, space_trucking, fun_fun_fun, blue_hawaii },
 }

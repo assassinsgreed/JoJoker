@@ -1189,6 +1189,14 @@ local loc = {
                     "held in hand and permanently gives it {C:mult}+#1#{} Mult."
                 }
             },
+            j_jojoker_blue_hawaii = {
+                name = "Blue Hawaii",
+                text = {
+                    "The first scored {C:attention}enhanced{} card copies its",
+                    "enhancement to up to {C:attention}#1#{} random unenhanced",
+                    "scored cards, then {C:red}loses{} its enhancement."
+                }
+            },
             -- Part 9: THE JOJOLands
             j_jojoker_smooth_operator = {
                 name = "Smooth Operators",

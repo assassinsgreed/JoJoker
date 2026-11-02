@@ -307,3 +307,107 @@ Balatest.TestPlay {
     end
 }
 --#endregion
+--#region Blue Hawaii
+Balatest.TestPlay {
+    name = 'blue_hawaii_transfers_enhancement_to_unenhanced_scored_cards',
+    category = { 'jokers', 'jojolion', 'blue_hawaii' },
+    jokers = { 'j_jojoker_blue_hawaii' },
+    deck = { cards = {
+        { r = '2', s = 'S', e = 'm_bonus' },
+        { r = '2', s = 'C' },
+        { r = '2', s = 'H' },
+        { r = '9', s = 'D' } } },
+    execute = function()
+        Balatest.play_hand { '2S', '2C', '2H' }
+    end,
+    assert = function()
+        Balatest.assert(find_playing_card('2', 'Clubs').config.center == G.P_CENTERS.m_bonus, "Blue Hawaii did not copy the enhancement to the 2 of Clubs")
+        Balatest.assert(find_playing_card('2', 'Hearts').config.center == G.P_CENTERS.m_bonus, "Blue Hawaii did not copy the enhancement to the 2 of Hearts")
+        Balatest.assert(find_playing_card('2', 'Spades').config.center == G.P_CENTERS.c_base, "Blue Hawaii did not remove the enhancement from the source card")
+    end
+}
+Balatest.TestPlay {
+    name = 'blue_hawaii_copies_to_at_most_max_targets_cards',
+    category = { 'jokers', 'jojolion', 'blue_hawaii' },
+    jokers = { 'j_jojoker_blue_hawaii' },
+    deck = { cards = {
+        { r = '2', s = 'S', e = 'm_bonus' },
+        { r = '2', s = 'C' },
+        { r = '2', s = 'H' },
+        { r = '2', s = 'D' },
+        { r = '9', s = 'D' } } },
+    execute = function()
+        Balatest.play_hand { '2S', '2C', '2H', '2D' }
+    end,
+    assert = function()
+        Balatest.assert_eq(count_enhanced_playing_cards('m_bonus'), G.jokers.cards[1].ability.extra.max_targets, "Blue Hawaii copied the enhancement to the wrong number of cards")
+        Balatest.assert(find_playing_card('2', 'Spades').config.center == G.P_CENTERS.c_base, "Blue Hawaii did not remove the enhancement from the source card")
+    end
+}
+Balatest.TestPlay {
+    name = 'blue_hawaii_only_transfers_from_the_first_enhanced_card',
+    category = { 'jokers', 'jojolion', 'blue_hawaii' },
+    jokers = { 'j_jojoker_blue_hawaii' },
+    deck = { cards = {
+        { r = '2', s = 'S', e = 'm_bonus' },
+        { r = '2', s = 'C', e = 'm_mult' },
+        { r = '2', s = 'H' },
+        { r = '9', s = 'D' } } },
+    execute = function()
+        Balatest.play_hand { '2S', '2C', '2H' }
+    end,
+    assert = function()
+        Balatest.assert_eq(count_enhanced_playing_cards('c_base'), 2, "Blue Hawaii should leave only the source and the unplayed card unenhanced")
+        Balatest.assert(find_playing_card('2', 'Hearts').config.center ~= G.P_CENTERS.c_base, "Blue Hawaii did not enhance the unenhanced scored card")
+    end
+}
+Balatest.TestPlay {
+    name = 'blue_hawaii_does_not_enhance_unscored_cards',
+    category = { 'jokers', 'jojolion', 'blue_hawaii' },
+    jokers = { 'j_jojoker_blue_hawaii' },
+    deck = { cards = {
+        { r = '2', s = 'S', e = 'm_bonus' },
+        { r = '2', s = 'C' },
+        { r = '5', s = 'H' },
+        { r = '9', s = 'D' } } },
+    execute = function()
+        Balatest.play_hand { '2S', '2C', '5H' }
+    end,
+    assert = function()
+        Balatest.assert(find_playing_card('2', 'Clubs').config.center == G.P_CENTERS.m_bonus, "Blue Hawaii did not copy the enhancement to the scored 2 of Clubs")
+        Balatest.assert(find_playing_card('5', 'Hearts').config.center == G.P_CENTERS.c_base, "Blue Hawaii enhanced an unscored card")
+    end
+}
+Balatest.TestPlay {
+    name = 'blue_hawaii_keeps_enhancement_without_unenhanced_targets',
+    category = { 'jokers', 'jojolion', 'blue_hawaii' },
+    jokers = { 'j_jojoker_blue_hawaii' },
+    deck = { cards = {
+        { r = '2', s = 'S', e = 'm_bonus' },
+        { r = '2', s = 'C', e = 'm_mult' },
+        { r = '9', s = 'D' } } },
+    execute = function()
+        Balatest.play_hand { '2S', '2C' }
+    end,
+    assert = function()
+        Balatest.assert_eq(count_enhanced_playing_cards('c_base'), 1, "Blue Hawaii stripped an enhancement with nothing to copy it to")
+    end
+}
+Balatest.TestPlay {
+    name = 'blue_hawaii_copied_enhancements_score_this_hand',
+    category = { 'jokers', 'jojolion', 'blue_hawaii' },
+    jokers = { 'j_jojoker_blue_hawaii' },
+    deck = { cards = {
+        { r = '2', s = 'S', e = 'm_bonus' },
+        { r = '2', s = 'C' },
+        { r = '2', s = 'H' },
+        { r = '9', s = 'D' } } },
+    execute = function()
+        Balatest.play_hand { '2S', '2C', '2H' }
+    end,
+    assert = function()
+        -- (30 from three of a kind + 3 * 2 + 2 copied Bonus * 30) * 3 from three of a kind
+        Balatest.assert_chips((30 + 3 * 2 + 2 * 30) * 3, "Blue Hawaii's copied enhancements did not score")
+    end
+}
+--#endregion

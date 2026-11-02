@@ -20,6 +20,24 @@ count_playing_cards = function(rank, suit)
     return count
 end
 
+find_playing_card = function(rank, suit)
+    for _, c in ipairs(G.playing_cards) do
+        if c.base.value == rank and c.base.suit == suit then
+            return c
+        end
+    end
+end
+
+count_enhanced_playing_cards = function(center_key)
+    local count = 0
+    for _, c in ipairs(G.playing_cards) do
+        if c.config.center == G.P_CENTERS[center_key] then
+            count = count + 1
+        end
+    end
+    return count
+end
+
 debuff_playing_cards = function(rank, suit)
     for _, c in ipairs(G.playing_cards) do
         if c.base.value == rank and (not suit or c.base.suit == suit) then

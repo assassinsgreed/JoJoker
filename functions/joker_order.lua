@@ -79,6 +79,7 @@ jojoker.joker_order = {
     "bad_company",
     "ball_breaker",
     "black_sabbath",
+    "blue_hawaii",
     "burning_down_the_house",
     "c_moon",
     "california_king_bed",

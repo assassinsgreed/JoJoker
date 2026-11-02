@@ -120,3 +120,9 @@ jd_def["j_jojoker_fun_fun_fun"] = {
         { text = "To discarded held card", colour = G.C.GREY },
     },
 }
+
+jd_def["j_jojoker_blue_hawaii"] = {
+    text = {
+        { text = "Spreads enhancement", colour = G.C.GREY },
+    },
+}
