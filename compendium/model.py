@@ -10,7 +10,6 @@ class Joker:
     rarity: int
     cost: int
     jtype: str
-    jclass: str | None
     part: str
     sprite: tuple[int, int, str] | None
     vars: list[str] | None = None

@@ -47,7 +47,6 @@ end
 --         return weight
 --     end,
 -- }
--- -- TODO: Other rarities for things like close range, automatic, etc.
 
 -- Load helper function files
 function loadFile(path)

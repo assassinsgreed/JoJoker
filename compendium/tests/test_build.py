@@ -39,7 +39,7 @@ def test_search_text_includes_alt_name_lowercased(data):
 
 def test_joker_record_shape(data):
     world = next(j for j in data["jokers"] if j["key"] == "the_world")
-    assert (world["type"], world["cls"], world["part"], world["rarity"]) == ("Stand", "Close Range", "stardust_crusaders", 4)
+    assert (world["type"], world["part"], world["rarity"]) == ("Stand", "stardust_crusaders", 4)
     assert world["sprite"] == [4, 1, "stardust_crusaders"]
     assert '<hr class="div">' in world["html"]
     assert {c["key"] for c in world["conflicts"]} == {"enya"}

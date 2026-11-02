@@ -22,9 +22,8 @@ def test_aerosmith_fields(mod):
     assert j.text[0] == "If played hand is a {C:attention}High Card{}, gives"
 
 
-def test_sprite_and_class(mod):
+def test_sprite(mod):
     assert find(mod, "danny").sprite == (0, 0, "phantom_blood")
-    assert find(mod, "star_platinum").jclass == "Close Range"
 
 
 def test_escaped_quotes_survive(mod):

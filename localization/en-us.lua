@@ -1374,10 +1374,6 @@ local loc = {
             joker_type_character_badge = "Character",
             joker_type_effect_badge = "Effect",
 
-            joker_class_automatic_badge = "Automatic",
-            joker_class_close_range_badge = "Close Range",
-            joker_class_long_range_badge = "Long Range",
-
             -- Config Menu
             jojoker_settings_header_norestart = "No Restart Required:",
             jojoker_settings_jojoker_only = "JoJoker Only?",

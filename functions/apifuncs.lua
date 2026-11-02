@@ -18,14 +18,6 @@ jojoker.load_joker = function(item)
             item.config.extra = {jtype = item.jtype}
         end
     end
-    -- Class, optional (Close Range, Automatic, etc.)
-    if item.jclass then
-        if item.config and item.config.extra then
-            item.config.extra.jclass = item.jclass
-        elseif item.config then
-            item.config.extra = {jclass = item.jclass}
-        end
-    end
 
     -- Set detail badges
     item.set_badges = jojoker_set_joker_badges

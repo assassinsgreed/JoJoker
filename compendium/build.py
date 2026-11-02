@@ -51,7 +51,6 @@ def joker_record(joker, relations) -> dict:
         "rarity": joker.rarity,
         "cost": joker.cost,
         "type": joker.jtype,
-        "cls": joker.jclass,
         "part": joker.part,
         "sprite": list(joker.sprite) if joker.sprite else None,
         "html": render_description(joker.text, joker.vars),

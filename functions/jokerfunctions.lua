@@ -32,15 +32,6 @@ get_type = function(card)
   return nil
 end
 
-get_class = function(card)
-  if card.ability then
-    if type(card.ability.extra) == "table" and card.ability.extra.jclass then
-      return card.ability.extra.jclass
-    end
-  end
-  return nil
-end
-
 jojoker_set_joker_badges = function(self, card, badges)
   -- Joker type (ex. stand, user, effect, etc.)
   local jtype = get_type(card)
@@ -51,14 +42,6 @@ jojoker_set_joker_badges = function(self, card, badges)
     badges[#badges+1] = create_badge(jtype, G.ARGS.LOC_COLOURS[lower_jtype], text_colour, 1.2 )
   end
   
-  -- Joker class, optional (ex. Close Range, Automatic, etc.)
-  local jclass = get_class(card)
-  if jclass then
-    local lower_jclass = string.lower(string.gsub(jclass, " ", "_"))
-    jclass = localize('joker_class_'..lower_jclass..'_badge')
-    badges[#badges+1] = create_badge(jclass, G.ARGS.LOC_COLOURS[lower_jclass], G.C.WHITE, 1.2 )
-  end
-
   if card.ability and card.ability.jojoker_notorious_xmult then
     local notorious = localize{type = 'variable', key = 'jojoker_notorious_badge', vars = {card.ability.jojoker_notorious_xmult}}
     badges[#badges+1] = create_badge(notorious, G.C.XMULT, G.C.WHITE, 1.2 )

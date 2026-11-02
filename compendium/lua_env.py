@@ -104,7 +104,6 @@ def to_joker(item, loc_jokers, sprites) -> Joker:
         rarity=int(item.rarity),
         cost=int(item.cost),
         jtype=item.jtype,
-        jclass=item.jclass,
         part=item.part,
         sprite=sprites.get(key),
         themes_core=lua_list(item.themes and item.themes.core),

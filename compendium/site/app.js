@@ -103,7 +103,7 @@
       <h2 id="sheet-title">${esc(j.name)}</h2>${j.alt ? `<div class="alt">Also known as: ${esc(j.alt)}</div>` : ""}
       <dl class="facts">
         <div><dt>Rarity</dt><dd>${pill(rname, rcol, "#fff")}</dd></div>
-        <div><dt>Type</dt><dd>${pill(j.type + (j.cls ? " · " + j.cls : ""), tbg, tfg, tborder)}</dd></div>
+        <div><dt>Type</dt><dd>${pill(j.type, tbg, tfg, tborder)}</dd></div>
         <div><dt>Part</dt><dd>${pill(`${pn} · ${pname}`, pbg, pfg)}</dd></div>
         <div><dt>Cost</dt><dd class="money">$${j.cost}</dd></div>
       </dl>

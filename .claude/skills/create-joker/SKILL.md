@@ -49,7 +49,6 @@ local kiss = {
     rarity = 1,
     cost = 5,
     jtype = "Stand",
-    jclass = "Close Range",
     part = "stone_ocean",
     blueprint_compat = true,
     perishable_compat = true,
@@ -74,8 +73,7 @@ local kiss = {
 
 - `name` is the snake_case key suffix; the registered key becomes `j_jojoker_<name>`.
 - `rarity`: 1 Common, 2 Uncommon, 3 Rare, 4 Legendary.
-- `jtype`: `Stand`, `Character`, or `Effect`. `jclass` (stands only): `Close Range`,
-  `Long Range`, or `Automatic`.
+- `jtype`: `Stand`, `Character`, or `Effect`.
 - Permanently scaling values live in `config.extra` as a `<thing>_mod` / `<thing>` pair.
 - Guard state-mutating branches with `not context.blueprint` so a copying joker cannot
   scale the original twice.
