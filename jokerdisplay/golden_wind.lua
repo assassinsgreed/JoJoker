@@ -193,11 +193,8 @@ jd_def["j_jojoker_notorious_big"] = {
 
 jd_def["j_jojoker_white_album"] = {
     text = {
-        { text = "Disable boss blind", colour = G.C.GREY }
+        { text = "Perishable frozen", colour = G.C.GREY }
     },
-    reminder_text = {
-        { text = "When sold", colour = G.C.GREY, }
-    }
 }
 
 jd_def["j_jojoker_aerosmith"] = {

@@ -529,29 +529,105 @@ Balatest.TestPlay {
 --#endregion
 --#region White Album
 Balatest.TestPlay {
-    name = 'white_album_disables_boss_blind_on_sell',
+    name = 'white_album_freezes_perishable_countdown',
     category = { 'jokers', 'golden_wind', 'white_album' },
-    jokers = { 'j_jojoker_white_album' },
-    blind = 'bl_wheel',
+    jokers = { 'j_jojoker_white_album', 'j_jojoker_leaky_eye_luca' },
     execute = function()
-        Balatest.assert_eq(G.GAME.blind.disabled, false, "White Album didn't start on an enabled boss blind")
-        Balatest.sell(function() return G.jokers.cards[1] end)
+        G.jokers.cards[2].ability.perishable = true
+        G.jokers.cards[2].ability.perish_tally = 1
+        Balatest.end_round()
     end,
     assert = function()
-        Balatest.assert_eq(G.GAME.blind.disabled, true, "White Album didn't disable the boss blind on sell")
+        Balatest.assert_eq(G.jokers.cards[2].ability.perish_tally, 1, "White Album did not freeze the perishable countdown")
+        Balatest.assert(not G.jokers.cards[2].debuff, "White Album let a perishable joker perish")
     end
 }
 
 Balatest.TestPlay {
-    name = 'white_album_does_not_disable_non_boss_blind_on_sell',
+    name = 'white_album_freezes_perishable_countdown_across_rounds',
     category = { 'jokers', 'golden_wind', 'white_album' },
-    jokers = { 'j_jojoker_white_album' },
-    blind = 'bl_small',
+    jokers = { 'j_jojoker_white_album', 'j_jojoker_leaky_eye_luca' },
     execute = function()
-        Balatest.sell(function() return G.jokers.cards[1] end)
+        G.jokers.cards[2].ability.perishable = true
+        G.jokers.cards[2].ability.perish_tally = 2
+        Balatest.next_round()
+        Balatest.end_round()
     end,
     assert = function()
-        Balatest.assert_eq(G.GAME.blind.disabled, false, "White Album disabled a non-boss blind on sell")
+        Balatest.assert_eq(G.jokers.cards[2].ability.perish_tally, 2, "White Album did not keep the perishable countdown frozen across rounds")
+    end
+}
+
+Balatest.TestPlay {
+    name = 'perishable_countdown_resumes_after_white_album_is_sold',
+    category = { 'jokers', 'golden_wind', 'white_album' },
+    jokers = { 'j_jojoker_white_album', 'j_jojoker_leaky_eye_luca' },
+    execute = function()
+        G.jokers.cards[2].ability.perishable = true
+        G.jokers.cards[2].ability.perish_tally = 1
+        Balatest.sell(function() return G.jokers.cards[1] end)
+        Balatest.end_round()
+    end,
+    assert = function()
+        Balatest.assert_eq(G.jokers.cards[1].ability.perish_tally, 0, "Perishable countdown did not resume after White Album was sold")
+        Balatest.assert(G.jokers.cards[1].debuff, "Perishable joker did not perish after White Album was sold")
+    end
+}
+
+Balatest.TestPlay {
+    name = 'white_album_does_not_revive_perished_joker',
+    category = { 'jokers', 'golden_wind', 'white_album' },
+    jokers = { 'j_jojoker_white_album', 'j_jojoker_leaky_eye_luca' },
+    execute = function()
+        G.jokers.cards[2].ability.perishable = true
+        G.jokers.cards[2].ability.perish_tally = 0
+        G.jokers.cards[2]:set_debuff()
+        Balatest.end_round()
+    end,
+    assert = function()
+        Balatest.assert(G.jokers.cards[2].debuff, "White Album revived a perished joker")
+    end
+}
+
+Balatest.TestPlay {
+    name = 'white_album_freezes_black_sabbath_after_it_becomes_perishable',
+    category = { 'jokers', 'golden_wind', 'white_album' },
+    jokers = { 'j_jojoker_white_album', 'j_jojoker_black_sabbath' },
+    hands = 3,
+    execute = function()
+        Balatest.play_hand { 'AS', 'KS', 'QS', 'JS', '10S' }
+    end,
+    assert = function()
+        Balatest.assert(G.jokers.cards[2].ability.perishable, "Black Sabbath did not become perishable while White Album was held")
+        Balatest.assert_eq(G.jokers.cards[2].ability.perish_tally, G.GAME.perishable_rounds, "White Album did not freeze Black Sabbath's new perishable countdown")
+    end
+}
+
+local white_album_perishable_rolls
+Balatest.TestPlay {
+    name = 'white_album_prevents_shop_jokers_from_rolling_perishable',
+    category = { 'jokers', 'golden_wind', 'white_album' },
+    jokers = { 'j_jojoker_white_album' },
+    execute = function()
+        skip_blind_into_shop()
+        Balatest.q(function() white_album_perishable_rolls = count_perishable_shop_rolls(30) end)
+    end,
+    assert = function()
+        Balatest.assert_eq(white_album_perishable_rolls, 0, "A shop joker rolled perishable while White Album was held")
+    end
+}
+
+local unprotected_perishable_rolls
+Balatest.TestPlay {
+    name = 'shop_jokers_roll_perishable_without_white_album',
+    category = { 'jokers', 'golden_wind', 'white_album' },
+    jokers = { 'j_jojoker_leaky_eye_luca' },
+    execute = function()
+        skip_blind_into_shop()
+        Balatest.q(function() unprotected_perishable_rolls = count_perishable_shop_rolls(30) end)
+    end,
+    assert = function()
+        Balatest.assert(unprotected_perishable_rolls > 0, "No shop joker rolled perishable without White Album, so the White Album shop test proves nothing")
     end
 }
 --#endregion

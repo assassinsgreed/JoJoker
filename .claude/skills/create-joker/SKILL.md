@@ -80,10 +80,12 @@ local kiss = {
 - Guard state-mutating branches with `not context.blueprint` so a copying joker cannot
   scale the original twice.
 - Use `sendDebugMessage` on branches that fire, matching the surrounding wording.
-- Never declare helper functions as locals in the joker file. Put them in
-  `functions/jokerfunctions.lua` as globals (ex. `get_harvest_payout(card)`), so the joker,
-  its JokerDisplay `calc_function`, and its tests all call the same code instead of
-  duplicating the math.
+- Never declare helper functions as locals in the joker file. When logic is sizeable or
+  complex, put it in `functions/jokerfunctions.lua` as a global (ex.
+  `get_harvest_payout(card)`), so the joker, its JokerDisplay `calc_function`, and its
+  tests all call the same code instead of duplicating the math. Small logic (ex. a
+  one-line `next(SMODS.find_card(...))` check) stays inline where it is used, even in a
+  lovely patch payload; it does not justify a new jokerfunction.
 
 ### Run-wide state
 

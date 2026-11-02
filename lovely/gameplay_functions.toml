@@ -202,3 +202,26 @@ return type(jojoker_rank_id) == "function" and jojoker_rank_id(self) or self.bas
 '''
 match_indent = true
 overwrite = true
+
+## Shop and pack jokers can't roll Perishable (White Album)
+[[patches]]
+[patches.pattern]
+target = "functions/common_events.lua"
+pattern = "card:set_perishable(true)"
+position = "at"
+payload = '''
+if not next(SMODS.find_card("j_jojoker_white_album")) then card:set_perishable(true) end
+'''
+match_indent = true
+overwrite = true
+
+## Perishable countdowns are frozen (White Album)
+[[patches]]
+[patches.pattern]
+target = "card.lua"
+pattern = "function Card:calculate_perishable()"
+position = "after"
+payload = '''
+if next(SMODS.find_card("j_jojoker_white_album")) then return end
+'''
+match_indent = true

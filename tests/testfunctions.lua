@@ -109,3 +109,14 @@ count_cards_in_area = function(area, rank_id)
     end
     return count
 end
+
+count_perishable_shop_rolls = function(rolls)
+    G.GAME.modifiers.enable_perishables_in_shop = true
+    local perishable = 0
+    for _ = 1, rolls do
+        local card = create_card('Joker', G.shop_jokers, nil, nil, nil, nil, nil, 'perishable_roll')
+        if card.ability.perishable then perishable = perishable + 1 end
+        card:remove()
+    end
+    return perishable
+end

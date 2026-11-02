@@ -743,8 +743,10 @@ local loc = {
                 name = "White Album",
                 alt_name = "White Ice",
                 text = {
-                    "When sold, disables the {C:attention}active boss blind{}.",
-                    "Only works on boss blinds."
+                    "{C:attention}Jokers{} in the shop and packs",
+                    "can't be {C:attention}Perishable{}.",
+                    "{C:attention}Perishable{} countdowns are",
+                    "frozen while this is held."
                 }
             },
             j_jojoker_aerosmith = {

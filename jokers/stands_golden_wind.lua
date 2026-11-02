@@ -534,19 +534,14 @@ local white_album = {
     jclass = "Close Range",
     part = "golden_wind",
     blueprint_compat = false,
-    perishable_compat = true,
+    -- Would freeze its own countdown
+    perishable_compat = false,
     eternal_compat = false,
     config = { extra = { } },
-    calculate = function(self, card, context)
-        -- When sold, disables active boss blind
-        if context.selling_self and not context.blueprint then
-            if G.GAME.blind and G.GAME.blind:get_type() == 'Boss' then
-                sendDebugMessage("White Album: Sold, disabling boss blind")
-                card_eval_status_text(card, 'extra', nil, nil, nil, {message = localize('ph_boss_disabled')})
-                G.GAME.blind:disable()
-            end
-        end
-    end
+    loc_vars = function(self, info_queue, card)
+        info_queue[#info_queue + 1] = { key = 'perishable', set = 'Other', vars = { G.GAME.perishable_rounds or 5, G.GAME.perishable_rounds or 5 } }
+    end,
+    -- Perishables do not count down. Effect lives in lovely patches on the shop sticker roll and Card:calculate_perishable
 }
 
 local aerosmith = {
