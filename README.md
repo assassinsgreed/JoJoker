@@ -4,6 +4,8 @@ A balatro mod that provides JoJo's Bizarre Adventure themed jokers, consumables,
 
 This mod emphasizes fun and creativity first and foremost, with balance coming afterward.
 
+See the [JoJoker Compendium](https://assassinsgreed.github.io/JoJoker/) for a list of content added by this game and example synergies.
+
 ## Installation
 
 1. Make sure you have installed the latest release of both [Lovely](https://github.com/ethangreen-dev/lovely-injector) and [Steamodded](https://github.com/Steamopollys/Steamodded)
