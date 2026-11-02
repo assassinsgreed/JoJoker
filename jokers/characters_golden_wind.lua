@@ -6,6 +6,8 @@ local leaky_eye_luca = {
     cost = 5,
     jtype = "Character",
     part = "golden_wind",
+    themes = { core = { jojoker.themes.SPADES } },
+    similar = { jojoker.similar.SUIT_MULT },
     blueprint_compat = true,
     perishable_compat = true,
     eternal_compat = false,

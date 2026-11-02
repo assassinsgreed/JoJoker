@@ -1,0 +1,32 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>JoJoker Compendium</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<header><div class="in"><h1>JoJoker Compendium</h1><small>{{VERSION}}</small></div></header>
+<main class="wrap">
+  <input class="search" id="q" type="search" placeholder="Search by name, alt name, or effect…" autocomplete="off" aria-label="Search jokers">
+  <div class="filters">
+    <label class="lab" for="part">Part</label><select id="part"></select>
+    <span class="sep"></span><label class="lab" for="type">Type</label><select id="type"></select>
+    <span class="sep"></span><label class="lab" for="rarity">Rarity</label><select id="rarity"></select>
+    <span class="sep"></span><label class="lab" for="theme">Synergy</label><select id="theme"></select>
+  </div>
+  <div class="count"><span id="count"></span><button id="reset" type="button" hidden>Clear filters</button></div>
+  <div id="sections"></div>
+</main>
+<div class="sheet" id="sheet" hidden>
+  <div class="panel" role="dialog" aria-modal="true" aria-labelledby="sheet-title">
+    <button class="close" id="close" type="button" aria-label="Close">×</button>
+    <div id="body"></div>
+  </div>
+</div>
+<div class="tip" id="tip" hidden></div>
+<script src="data.js"></script>
+<script src="app.js"></script>
+</body>
+</html>

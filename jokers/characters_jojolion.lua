@@ -6,6 +6,8 @@ local josuke_higashikata_jjl = {
     cost = 4,
     jtype = "Character",
     part = "jojolion",
+    themes = { core = { jojoker.themes.TWO_PAIR_FULL_HOUSE } },
+    similar = { jojoker.similar.HAND_TYPE_MULT },
     blueprint_compat = true,
     perishable_compat = true,
     eternal_compat = true,

@@ -29,6 +29,21 @@ For developer resources, consult the [repo wiki](https://github.com/assassinsgre
 
 In the future, we'll look at other ways to get in touch, such as Discord.
 
+### Compendium site
+
+The [JoJoker Compendium](https://assassinsgreed.github.io/JoJoker/) documents every joker, with search, filters, similar jokers and example synergies. It is generated from the mod's own Lua and republished automatically whenever a GitHub Release is published (or manually from **Actions → Compendium → Run workflow**). The repository's **Settings → Pages → Source** must be set to **GitHub Actions** once.
+
+To preview it locally:
+
+```sh
+python -m venv .venv
+.venv/Scripts/python -m pip install -r compendium/requirements.txt   # .venv/bin/python on macOS/Linux
+.venv/Scripts/python -m pytest -q
+.venv/Scripts/python -m compendium.build
+```
+
+Then open `_site/index.html`. Synergy themes, similar-joker groups and conflicts live on each joker definition; see the `maintain-compendium` skill in `.claude/skills/` for how to classify new jokers.
+
 ## Credits
 
 JoJokers is made and maintained by Assassins_Greed and PurpleHaunter.

@@ -1,6 +1,6 @@
 ---
 name: create-joker
-description: Add a new Joker to the JoJoker Balatro mod. Use when asked to implement, add, or create a joker (or stand/character/effect card), or to wire up art that has already been dropped into a joker atlas. Covers the joker definition, sprite registration, joker order, JokerDisplay, localization, and Balatest tests.
+description: Add a new Joker to the JoJoker Balatro mod. Use when asked to implement, add, or create a joker (or stand/character/effect card), or to wire up art that has already been dropped into a joker atlas. Covers the joker definition, sprite registration, joker order, JokerDisplay, localization, compendium synergies, and Balatest tests.
 ---
 
 # Creating a JoJoker joker
@@ -161,7 +161,14 @@ Never write a `_alt` entry by hand: the loop at the bottom of `en-us.lua` genera
 `j_jojoker_kiss_alt` from `alt_name`, sharing the base entry's `text`. Scaling jokers end
 with the `{br:2}line break` / `{C:inactive}Currently:` footer.
 
-## 8. Tests
+## 8. Compendium synergies
+
+Every joker appears on the compendium site, so classify it before calling it done: give the
+definition its `themes`, `similar` and `conflicts` fields (or deliberately none). Follow the
+`maintain-compendium` skill, which walks through the classification checklist and the
+verification commands. A joker with no real partners gets no fields; don't invent loose ones.
+
+## 9. Tests
 
 `tests/jokers/<same file name>_tests.lua`, in a `--#region <Joker Name>` block placed to
 match the joker list order.

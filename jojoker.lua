@@ -85,6 +85,7 @@ end
 
 -- TODO: Others as they are added
 loadFile("functions/joker_order.lua")
+loadFile("functions/themes.lua")
 loadFile("functions/joker_sprite_load.lua")
 loadFile("functions/apifuncs.lua")
 loadFile("functions/jokerfunctions.lua")
