@@ -225,3 +225,14 @@ payload = '''
 if next(SMODS.find_card("j_jojoker_white_album")) then return end
 '''
 match_indent = true
+
+## Heated joker stays locked to Speed King's right side (Speed King)
+[[patches]]
+[patches.pattern]
+target = "cardarea.lua"
+pattern = "if self.config.type == 'consumeable'then"
+position = "before"
+payload = '''
+if type(jojoker_keep_speed_king_targets_adjacent) == "function" then jojoker_keep_speed_king_targets_adjacent(self) end
+'''
+match_indent = true

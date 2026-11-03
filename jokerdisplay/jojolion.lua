@@ -126,3 +126,27 @@ jd_def["j_jojoker_blue_hawaii"] = {
         { text = "Spreads enhancement", colour = G.C.GREY },
     },
 }
+
+jd_def["j_jojoker_speed_king"] = {
+    text = {
+        { ref_table = "card.joker_display_values", ref_value = "heat", colour = G.C.RED },
+    },
+    reminder_text = {
+        { ref_table = "card.joker_display_values", ref_value = "status", colour = G.C.GREY },
+    },
+    calc_function = function(card)
+        if card.ability.extra.unlocked then
+            card.joker_display_values.heat = "Joker lost"
+            card.joker_display_values.status = "Until next blind"
+        elseif card.ability.extra.blocked_by_eternal then
+            card.joker_display_values.heat = "Can't heat"
+            card.joker_display_values.status = "Eternal to the right"
+        elseif jojoker_speed_king_target(card) then
+            card.joker_display_values.heat = card.ability.extra.heat.."/"..card.ability.extra.burnout_rounds.." rounds"
+            card.joker_display_values.status = "Until burnout"
+        else
+            card.joker_display_values.heat = "Unlocked"
+            card.joker_display_values.status = "Locks on blind start"
+        end
+    end
+}

@@ -141,6 +141,7 @@ jojoker.joker_order = {
     "smooth_operator",
     "soft_and_wet",
     "space_trucking",
+    "speed_king",
     "spice_girl",
     "star_platinum",
     "sticky_fingers",

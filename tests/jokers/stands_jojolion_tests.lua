@@ -430,3 +430,185 @@ Balatest.TestPlay {
     end
 }
 --#endregion
+--#region Speed King
+Balatest.TestPlay {
+    name = 'speed_king_retriggers_the_joker_to_its_right',
+    category = { 'jokers', 'jojolion', 'speed_king' },
+    jokers = { 'j_jojoker_speed_king', 'j_jojoker_danny' },
+    execute = function()
+        Balatest.play_hand { '2H' }
+    end,
+    assert = function()
+        -- (5 from high card + 2) * (1 + 15 from Danny + 15 from the retrigger)
+        Balatest.assert_chips((5 + 2) * (1 + 15 + 15), "Speed King did not retrigger the joker to its right")
+    end
+}
+Balatest.TestPlay {
+    name = 'speed_king_does_not_retrigger_the_joker_to_its_left',
+    category = { 'jokers', 'jojolion', 'speed_king' },
+    jokers = { 'j_jojoker_danny', 'j_jojoker_speed_king' },
+    execute = function()
+        Balatest.play_hand { '2H' }
+    end,
+    assert = function()
+        Balatest.assert_chips((5 + 2) * (1 + 15), "Speed King retriggered the joker to its left")
+    end
+}
+Balatest.TestPlay {
+    name = 'speed_king_heats_the_joker_each_round',
+    category = { 'jokers', 'jojolion', 'speed_king' },
+    jokers = { 'j_jojoker_speed_king', 'j_jojoker_space_trucking' },
+    execute = function()
+        Balatest.next_round()
+    end,
+    assert = function()
+        Balatest.assert_eq(G.jokers.cards[1].ability.extra.heat, 1, "Speed King did not heat the joker at the end of the round")
+        Balatest.assert_eq(#G.jokers.cards, 2, "Speed King burnt out the joker too early")
+    end
+}
+Balatest.TestPlay {
+    name = 'speed_king_burns_out_the_joker_and_heats_the_next_one',
+    category = { 'jokers', 'jojolion', 'speed_king' },
+    jokers = { 'j_jojoker_speed_king', 'j_jojoker_space_trucking', 'j_jojoker_paper_moon_king' },
+    execute = function()
+        for _ = 1, G.P_CENTERS.j_jojoker_speed_king.config.extra.burnout_rounds do
+            Balatest.next_round()
+        end
+    end,
+    assert = function()
+        Balatest.assert_eq(#G.jokers.cards, 2, "Speed King did not burn out the heated joker")
+        Balatest.assert_eq(G.jokers.cards[2].config.center.key, 'j_jojoker_paper_moon_king', "Speed King burnt out the wrong joker")
+        Balatest.assert_eq(G.jokers.cards[1].ability.extra.target_id, G.jokers.cards[2].sort_id, "Speed King did not start heating the next joker")
+        Balatest.assert_eq(G.jokers.cards[1].ability.extra.heat, 0, "Speed King did not reset its heat after a burnout")
+        Balatest.assert(not G.jokers.cards[1].debuff, "Speed King stayed debuffed after the next blind started")
+    end
+}
+Balatest.TestPlay {
+    name = 'speed_king_heated_joker_snaps_back_when_dragged',
+    category = { 'jokers', 'jojolion', 'speed_king' },
+    jokers = { 'j_jojoker_speed_king', 'j_jojoker_space_trucking', 'j_jojoker_paper_moon_king' },
+    execute = function()
+        Balatest.q(function()
+            drag_joker(G.jokers.cards[2], G.jokers.cards[3].T.x + 1)
+        end)
+    end,
+    assert = function()
+        Balatest.assert_eq(G.jokers.cards[2].config.center.key, 'j_jojoker_space_trucking', "The heated joker left Speed King's right side")
+    end
+}
+Balatest.TestPlay {
+    name = 'speed_king_pulls_the_heated_joker_along_when_moved',
+    category = { 'jokers', 'jojolion', 'speed_king' },
+    jokers = { 'j_jojoker_paper_moon_king', 'j_jojoker_speed_king', 'j_jojoker_space_trucking' },
+    execute = function()
+        Balatest.q(function()
+            drag_joker(G.jokers.cards[2], G.jokers.cards[1].T.x - 1)
+        end)
+    end,
+    assert = function()
+        Balatest.assert_eq(G.jokers.cards[1].config.center.key, 'j_jojoker_speed_king', "Speed King did not move")
+        Balatest.assert_eq(G.jokers.cards[2].config.center.key, 'j_jojoker_space_trucking', "The heated joker did not follow Speed King")
+    end
+}
+Balatest.TestPlay {
+    name = 'speed_king_locks_the_next_joker_on_blind_start_after_a_sale',
+    category = { 'jokers', 'jojolion', 'speed_king' },
+    jokers = { 'j_jojoker_speed_king', 'j_jojoker_space_trucking', 'j_jojoker_paper_moon_king' },
+    execute = function()
+        Balatest.next_round()
+        Balatest.sell(function() return G.jokers.cards[2] end)
+        Balatest.next_round()
+    end,
+    assert = function()
+        Balatest.assert_eq(G.jokers.cards[1].ability.extra.target_id, G.jokers.cards[2].sort_id, "Speed King did not lock onto the next joker on blind start")
+        Balatest.assert(not G.jokers.cards[1].debuff, "Speed King stayed debuffed after the next blind started")
+    end
+}
+Balatest.TestPlay {
+    name = 'speed_king_waits_for_blind_start_after_the_heated_joker_is_sold',
+    category = { 'jokers', 'jojolion', 'speed_king' },
+    jokers = { 'j_jojoker_speed_king', 'j_jojoker_space_trucking', 'j_jojoker_paper_moon_king' },
+    execute = function()
+        Balatest.next_round()
+        Balatest.sell(function() return G.jokers.cards[2] end)
+        Balatest.wait()
+    end,
+    assert = function()
+        Balatest.assert_eq(G.jokers.cards[1].ability.extra.target_id, nil, "Speed King locked onto a new joker before the blind started")
+        Balatest.assert_eq(G.jokers.cards[1].ability.extra.heat, 0, "Speed King kept the sold joker's heat")
+        Balatest.assert(G.jokers.cards[1].debuff, "Speed King was not debuffed after its locked joker was sold")
+    end
+}
+Balatest.TestPlay {
+    name = 'speed_king_is_debuffed_after_burning_out_its_joker',
+    category = { 'jokers', 'jojolion', 'speed_king' },
+    jokers = { 'j_jojoker_speed_king', 'j_jojoker_space_trucking', 'j_jojoker_paper_moon_king' },
+    execute = function()
+        for _ = 1, G.P_CENTERS.j_jojoker_speed_king.config.extra.burnout_rounds - 1 do
+            Balatest.next_round()
+        end
+        Balatest.end_round()
+    end,
+    assert = function()
+        Balatest.assert(G.jokers.cards[1].debuff, "Speed King was not debuffed after burning out its joker")
+    end
+}
+Balatest.TestPlay {
+    name = 'speed_king_does_not_retrigger_while_debuffed',
+    category = { 'jokers', 'jojolion', 'speed_king' },
+    jokers = { 'j_jojoker_speed_king', 'j_jojoker_danny' },
+    execute = function()
+        Balatest.q(function()
+            SMODS.debuff_card(G.jokers.cards[1], true, 'speed_king_test')
+        end)
+        Balatest.play_hand { '2H' }
+    end,
+    assert = function()
+        Balatest.assert_chips((5 + 2) * (1 + 15), "Speed King retriggered while debuffed")
+    end
+}
+Balatest.TestPlay {
+    name = 'speed_king_does_not_heat_while_debuffed',
+    category = { 'jokers', 'jojolion', 'speed_king' },
+    jokers = { 'j_jojoker_speed_king', 'j_jojoker_space_trucking' },
+    execute = function()
+        Balatest.q(function()
+            SMODS.debuff_card(G.jokers.cards[1], true, 'speed_king_test')
+        end)
+        Balatest.next_round()
+    end,
+    assert = function()
+        Balatest.assert_eq(G.jokers.cards[1].ability.extra.heat, 0, "Speed King heated its joker while debuffed")
+        Balatest.assert_eq(G.jokers.cards[1].ability.extra.target_id, G.jokers.cards[2].sort_id, "Speed King lost its lock while debuffed")
+    end
+}
+Balatest.TestPlay {
+    name = 'speed_king_is_disabled_by_an_eternal_joker',
+    category = { 'jokers', 'jojolion', 'speed_king' },
+    jokers = { 'j_jojoker_speed_king', { id = 'j_jojoker_space_trucking', eternal = true } },
+    execute = function()
+        Balatest.next_round()
+    end,
+    assert = function()
+        Balatest.assert(G.jokers.cards[1].debuff, "Speed King was not disabled by the Eternal joker")
+        Balatest.assert_eq(G.jokers.cards[1].ability.extra.target_id, nil, "Speed King heated an Eternal joker")
+        Balatest.assert_eq(#G.jokers.cards, 2, "Speed King destroyed an Eternal joker")
+    end
+}
+Balatest.TestPlay {
+    name = 'speed_king_recovers_when_the_eternal_joker_is_gone',
+    category = { 'jokers', 'jojolion', 'speed_king' },
+    jokers = { 'j_jojoker_speed_king', { id = 'j_jojoker_space_trucking', eternal = true } },
+    execute = function()
+        Balatest.wait()
+        Balatest.q(function()
+            G.jokers.cards[2].ability.eternal = nil
+        end)
+        Balatest.next_round()
+    end,
+    assert = function()
+        Balatest.assert(not G.jokers.cards[1].debuff, "Speed King stayed disabled after the Eternal joker lost Eternal")
+        Balatest.assert_eq(G.jokers.cards[1].ability.extra.target_id, G.jokers.cards[2].sort_id, "Speed King did not heat the joker once it was no longer Eternal")
+    end
+}
+--#endregion

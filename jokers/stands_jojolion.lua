@@ -450,7 +450,67 @@ local blue_hawaii = {
     end
 }
 
+local speed_king = {
+    name = "speed_king",
+    rarity = 3,
+    cost = 8,
+    jtype = "Stand",
+    part = "jojolion",
+    themes = { support = { jojoker.themes.JOKER_DESTRUCTION } },
+    similar = { jojoker.similar.DESTROY_JOKERS },
+    blueprint_compat = true,
+    perishable_compat = true,
+    eternal_compat = true,
+    config = { extra = { retriggers = 1, burnout_rounds = 3, heat = 0 } },
+    loc_vars = function(self, info_queue, center)
+      return {vars = {center.ability.extra.burnout_rounds, center.ability.extra.heat}}
+    end,
+    calculate = function(self, card, context)
+        -- Retrigger the joker it has locked to the right
+        local target = jojoker_speed_king_target(card)
+        if not target then return end
+
+        if context.retrigger_joker_check and not context.retrigger_joker and context.other_card == target then
+            return {
+                message = localize('k_again_ex'),
+                repetitions = card.ability.extra.retriggers,
+                card = card
+            }
+        end
+
+        -- Accumulate heat after every round, destroying the locked joker at 3 heat
+        if context.end_of_round and not context.individual and not context.repetition and not context.blueprint and not context.retrigger_joker then
+            card.ability.extra.heat = card.ability.extra.heat + 1
+            if card.ability.extra.heat < card.ability.extra.burnout_rounds then
+                sendDebugMessage("Speed King: Heated "..target.ability.name.." to "..card.ability.extra.heat)
+                return { message = localize('k_upgrade_ex'), colour = G.C.RED }
+            end
+
+            sendDebugMessage("Speed King: "..target.ability.name.." burnt out")
+            card.ability.extra.heat = 0
+            card.ability.extra.target_id = nil
+            card.ability.extra.unlocked = true
+            if SMODS.is_eternal(target) then return end
+            jojoker_joker_destroyed_by_joker(target, card)
+            target.getting_sliced = true
+            G.E_MANAGER:add_event(Event({
+                func = function()
+                    card_eval_status_text(target, 'extra', nil, nil, nil, {message = localize('sound_burnt_out'), colour = G.C.RED})
+                    target:start_dissolve({ G.C.RED }, nil, 1.6)
+                    play_sound('slice1', 0.96 + math.random() * 0.08)
+                    return true
+                end
+            }))
+        end
+    end,
+    update = function(self, card, dt)
+        if G.STAGE == G.STAGES.RUN and card.area == G.jokers then
+            jojoker_update_speed_king(card)
+        end
+    end,
+}
+
 return {
     name = "Jojolion Stands Jokers",
-    list = { soft_and_wet, paper_moon_king, milagro_man, i_am_a_rock, california_king_bed, doctor_wu, wonder_of_u, paisley_park, space_trucking, fun_fun_fun, blue_hawaii },
+    list = { soft_and_wet, paper_moon_king, milagro_man, i_am_a_rock, california_king_bed, doctor_wu, wonder_of_u, paisley_park, space_trucking, fun_fun_fun, blue_hawaii, speed_king },
 }

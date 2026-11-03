@@ -1258,6 +1258,16 @@ local loc = {
                     "scored cards, then {C:red}loses{} its enhancement."
                 }
             },
+            j_jojoker_speed_king = {
+                name = "Speed King",
+                text = {
+                    "Locks Joker to the right on blind start.",
+                    "{C:attention}Retriggers{} it every hand and",
+                    "{C:red}destroys{} it after {C:attention}#1#{} rounds.",
+                    "{br:2}line break",
+                    "{C:inactive}Currently: {C:attention}#2#{C:inactive}/#1# rounds"
+                }
+            },
             -- Part 9: THE JOJOLands
             j_jojoker_smooth_operator = {
                 name = "Smooth Operators",
@@ -1391,6 +1401,7 @@ local loc = {
             sound_time_moves = "Time has started to move...",
             sound_stopped_thinking = "Eventually Kars stopped thinking",
             sound_grr = "Grr!",
+            sound_burnt_out = "Burnt out!",
             sound_lucky = "Lucky!",
             sound_unlucky = "Unlucky...",
             sound_neutral = "I'm neutral, remember?",

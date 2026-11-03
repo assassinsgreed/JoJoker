@@ -741,3 +741,85 @@ jojoker_open_shop_after_skip = function()
     end
   }))
 end
+
+jojoker_speed_king_target = function(speed_king)
+  local target_id = speed_king.ability.extra.target_id
+  if not target_id or not G.jokers then return nil end
+  for _, joker in ipairs(G.jokers.cards) do
+    if joker.sort_id == target_id and not joker.getting_sliced then return joker end
+  end
+end
+
+jojoker_is_heated_by_speed_king = function(joker)
+  for _, speed_king in ipairs(SMODS.find_card('j_jojoker_speed_king', true)) do
+    if speed_king.ability.extra.target_id == joker.sort_id then return true end
+  end
+  return false
+end
+
+jojoker_joker_right_of = function(joker)
+  for i, other in ipairs(G.jokers.cards) do
+    if other == joker then return G.jokers.cards[i + 1] end
+  end
+end
+
+-- Runs from the mod-level calculate so a Speed King debuffed by an Eternal neighbour still checks again each blind
+jojoker_lock_speed_king_targets = function(context)
+  if not context.setting_blind then return end
+  for _, speed_king in ipairs(SMODS.find_card('j_jojoker_speed_king', true)) do
+    speed_king.ability.extra.unlocked = nil
+    local right = jojoker_joker_right_of(speed_king)
+    if not jojoker_speed_king_target(speed_king) and right and not right.ability.eternal
+      and not right.getting_sliced and not jojoker_is_heated_by_speed_king(right) then
+      speed_king.ability.extra.target_id = right.sort_id
+      speed_king.ability.extra.heat = 0
+      sendDebugMessage("Speed King: Locking onto "..right.ability.name)
+    end
+  end
+end
+
+-- Speed King is debuffed when it has nothing to retrigger: its locked joker is gone until the next blind,
+-- or an Eternal joker (which can't burn out) waits on its right side
+jojoker_update_speed_king = function(speed_king)
+  local extra = speed_king.ability.extra
+  local blocked_by_eternal = false
+  if not jojoker_speed_king_target(speed_king) then
+    if extra.target_id then
+      extra.unlocked = true
+      sendDebugMessage("Speed King: Locked joker is gone, debuffed until the next blind")
+    end
+    extra.target_id = nil
+    extra.heat = 0
+    local right = jojoker_joker_right_of(speed_king)
+    blocked_by_eternal = right and right.ability.eternal and true or false
+  end
+  extra.blocked_by_eternal = blocked_by_eternal
+  local should_debuff = blocked_by_eternal or extra.unlocked or false
+  local debuffed = speed_king.ability.debuff_sources and speed_king.ability.debuff_sources.jojoker_speed_king or false
+  if debuffed ~= should_debuff then
+    SMODS.debuff_card(speed_king, should_debuff, 'jojoker_speed_king')
+  end
+end
+
+-- Runs after the joker area sorts by position, so a dragged Speed King pulls its heated joker along and the heated joker snaps back
+jojoker_keep_speed_king_targets_adjacent = function(area)
+  if area ~= G.jokers then return end
+  for _, speed_king in ipairs(SMODS.find_card('j_jojoker_speed_king', true)) do
+    local target = jojoker_speed_king_target(speed_king)
+    if target then
+      for i, joker in ipairs(area.cards) do
+        if joker == speed_king then
+          if area.cards[i + 1] ~= target then
+            for j = #area.cards, 1, -1 do
+              if area.cards[j] == target then table.remove(area.cards, j) end
+            end
+            for k, other in ipairs(area.cards) do
+              if other == speed_king then table.insert(area.cards, k + 1, target) break end
+            end
+          end
+          break
+        end
+      end
+    end
+  end
+end

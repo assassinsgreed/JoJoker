@@ -145,3 +145,12 @@ force_scary_monsters_suit = function(suit)
         return orig(t, seed, ...)
     end)
 end
+
+-- align_cards only keeps a card's x position while it is being dragged, so fake the drag until it settles
+drag_joker = function(card, x)
+    card.states.drag.is = true
+    card.T.x = x
+    G.jokers:align_cards()
+    card.states.drag.is = false
+    G.jokers:align_cards()
+end
