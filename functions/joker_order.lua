@@ -57,6 +57,7 @@ jojoker.joker_order = {
     "higashikata_fruit_parlor",
     "joestar_birthmark",
     "left_side_ataxia",
+    "roundabout",
     "seven_page_muda",
     "speedwagon_foundation_submarine",
     "sword_of_luck_and_pluck",

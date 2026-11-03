@@ -162,3 +162,23 @@ jd_def["j_jojoker_tarkus"] = {
         }
     }
 }
+
+jd_def["j_jojoker_roundabout"] = {
+    text = {
+        { text = "+", colour = G.C.GREY },
+        { ref_table = "card.joker_display_values", ref_value = "retriggers", colour = G.C.GREY },
+        { text = " retriggers", colour = G.C.GREY },
+    },
+    reminder_text = {
+        { text = "Per unscored card", colour = G.C.GREY },
+    },
+    calc_function = function(card)
+        local text, _, scoring_hand = JokerDisplay.evaluate_hand()
+        local unscored = text ~= "Unknown" and #JokerDisplay.current_hand - #scoring_hand or 0
+        card.joker_display_values.retriggers = unscored * card.ability.extra.retriggers_per
+    end,
+    retrigger_function = function(playing_card, scoring_hand, held_in_hand, joker_card)
+        if held_in_hand then return 0 end
+        return joker_card.joker_display_values and joker_card.joker_display_values.retriggers or 0
+    end,
+}

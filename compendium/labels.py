@@ -34,7 +34,7 @@ LABELS = Labels(
         'two_pair_full_house': ('Two Pair & Full House', 'Reward hands containing a Two Pair.'),
         'straights': ('Straights', 'Reward Straights; Shortcut and Four Fingers make them easier to hit.'),
         'flushes': ('Flushes', 'Reward Flushes; Smeared, Four Fingers and Wild cards make them easier to hit.'),
-        'high_card': ('High Card', 'Reward High Card; German Engineering levels it up.'),
+        'high_card': ('High Card', 'Reward High Card; German Engineering levels it up, and Roundabout retriggers its lone scoring card for every card played alongside it.'),
         'hand_levels': ('Hand levels', 'Sethan cashes in hand levels; these jokers keep handing them out.'),
         'stone_cards': ('Stone cards', 'I Am a Rock and Doctor Wu fill your deck with Stone cards for these to use.'),
         'enhancement_eaters': ('Enhancement eaters', 'Soft & Wet strips any scoring enhancement for chips; these hand out enhancements to eat.'),
@@ -112,5 +112,7 @@ LABELS = Labels(
         'rewards_spending_in_the_shop': 'rewards spending in the shop',
         'wants_a_thinner_deck': 'wants a thinner deck',
         'wants_a_bigger_deck': 'wants a bigger deck',
+        'makes_every_played_card_score': 'makes every played card score',
+        'turns_unscored_cards_into_stone': 'turns unscored cards into Stone cards, which always score',
     },
 )

@@ -110,7 +110,37 @@ local vampiric_touch = {
     end
 }
 
+local roundabout = {
+    name = "roundabout",
+    rarity = 2,
+    cost = 7,
+    jtype = "Effect",
+    part = "phantom_blood",
+    themes = { core = { jojoker.themes.RETRIGGERS }, support = { jojoker.themes.HIGH_CARD } },
+    blueprint_compat = true,
+    perishable_compat = true,
+    eternal_compat = true,
+    config = { extra = { retriggers_per = 1 } },
+    loc_vars = function(self, info_queue, center)
+      return {vars = { center.ability.extra.retriggers_per }}
+    end,
+    calculate = function(self, card, context)
+        -- Each scored card retriggers for each unscored card in the played hand
+        if context.repetition and not context.end_of_round and context.cardarea == G.play then
+            local unscored = #context.full_hand - #context.scoring_hand
+            if unscored > 0 then
+                sendDebugMessage("Roundabout: Retriggering scored card for " .. unscored .. " unscored cards")
+                return {
+                    message = localize('k_again_ex'),
+                    repetitions = unscored * card.ability.extra.retriggers_per,
+                    card = card
+                }
+            end
+        end
+    end
+}
+
 return {
     name = "Phantom Blood Effect Jokers",
-    list = { sword_of_luck_and_pluck, thunder_cross_split_attack, vampiric_touch },
+    list = { sword_of_luck_and_pluck, thunder_cross_split_attack, vampiric_touch, roundabout },
 }

@@ -119,6 +119,7 @@ local i_am_a_rock = {
     jtype = "Stand",
     part = "jojolion",
     themes = { core = { jojoker.themes.STONE_CARDS, jojoker.themes.SCORE_EVERY_CARD }, support = { jojoker.themes.ENHANCEMENT_EATERS, jojoker.themes.STONE_STEEL_EATER } },
+    conflicts = { roundabout = "turns_unscored_cards_into_stone" },
     similar = { jojoker.similar.STONE_CARD_MAKERS },
     blueprint_compat = false,
     perishable_compat = true,

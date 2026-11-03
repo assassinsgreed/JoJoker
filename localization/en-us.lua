@@ -118,6 +118,13 @@ local loc = {
                     "{C:inactive}Currently: {C:attention}#1#"
                 }
             },
+            j_jojoker_roundabout = {
+                name = "Roundabout",
+                text = {
+                    "{C:attention}Scored cards{} retrigger {C:attention}#1#{} time",
+                    "for each {C:attention}unscored card{} in played hand."
+                }
+            },
             -- Part 2: Battle Tendency
             j_jojoker_joseph_joestar = {
                 name = "Joseph Joestar",

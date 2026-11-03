@@ -228,6 +228,7 @@ local survivor = {
     jtype = "Stand",
     part = "stone_ocean",
     themes = { core = { jojoker.themes.SCORE_EVERY_CARD } },
+    conflicts = { roundabout = "makes_every_played_card_score" },
     similar = { jojoker.similar.VANILLA_JOKER_RULES },
     blueprint_compat = false,
     perishable_compat = true,
