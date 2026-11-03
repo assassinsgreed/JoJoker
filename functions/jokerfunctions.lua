@@ -823,3 +823,19 @@ jojoker_keep_speed_king_targets_adjacent = function(area)
     end
   end
 end
+
+is_four_of_a_kind_of_fours = function(poker_hands)
+  local group = poker_hands["Four of a Kind"] and poker_hands["Four of a Kind"][1]
+  return group ~= nil and group[1]:get_id() == 4
+end
+
+-- Remove debuff state on Mista after round ends
+jojoker_recover_mista = function(context)
+  if not (context.end_of_round and context.main_eval) or context.individual or context.repetition then return end
+  for _, mista in ipairs(SMODS.find_card('j_jojoker_mista', true)) do
+    if mista.ability.debuff_sources and mista.ability.debuff_sources.jojoker_mista then
+      sendDebugMessage("Mista: Round over, no longer debuffed")
+      SMODS.debuff_card(mista, false, 'jojoker_mista')
+    end
+  end
+end

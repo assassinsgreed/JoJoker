@@ -673,6 +673,15 @@ local loc = {
                     "gives {C:mult}+#1#{}.",
                 }
             },
+            j_jojoker_mista = {
+                name = "Mista",
+                text = {
+                    "Each scored {C:attention}4{}: {C:chips}+#1#{} and {C:mult}+#2#{}",
+                    "{C:attention}Four of a Kind{}: {C:chips}+#3#{} and {C:mult}+#4#{}",
+                    "{C:attention}Four 4s{}: {C:chips}+#5#{} and {C:mult}+#6#{}",
+                    "{C:red}Debuffed{} until end of round after triggering",
+                }
+            },
             j_jojoker_gold_experience = {
                 name = "Gold Experience",
                 alt_name = "Golden Wind",

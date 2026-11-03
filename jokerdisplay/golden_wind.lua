@@ -54,6 +54,35 @@ jd_def["j_jojoker_leaky_eye_luca"] = {
     },
 }
 
+jd_def["j_jojoker_mista"] = {
+    text = {
+        { text = "+", colour = G.C.CHIPS },
+        { ref_table = "card.joker_display_values", ref_value = "chips", retrigger_type = "mult", colour = G.C.CHIPS },
+        { text = " +", colour = G.C.MULT },
+        { ref_table = "card.joker_display_values", ref_value = "mult", retrigger_type = "mult", colour = G.C.MULT },
+    },
+    reminder_text = {
+        { text = "(4s)", colour = G.C.GREY },
+    },
+    calc_function = function(card)
+        local text, poker_hands, scoring_hand = JokerDisplay.evaluate_hand()
+        if text == "Four of a Kind" then
+            local of_fours = is_four_of_a_kind_of_fours(poker_hands)
+            card.joker_display_values.chips = of_fours and card.ability.extra.fours_hand_chips or card.ability.extra.hand_chips
+            card.joker_display_values.mult = of_fours and card.ability.extra.fours_hand_mult or card.ability.extra.hand_mult
+            return
+        end
+        local fours = 0
+        for _, v in pairs(scoring_hand) do
+            if v:get_id() == 4 and not v.debuff then
+                fours = fours + JokerDisplay.calculate_card_triggers(v, scoring_hand)
+            end
+        end
+        card.joker_display_values.chips = fours * card.ability.extra.card_chips
+        card.joker_display_values.mult = fours * card.ability.extra.card_mult
+    end
+}
+
 jd_def["j_jojoker_gold_experience"] = {
     text = {
         { ref_table = "card.ability.extra", ref_value = "numerator", retrigger_type = "numerator",  colour = G.C.GOLD },

@@ -92,6 +92,11 @@ skip_blind_into_shop = function()
     Balatest.wait_for_input(G.STATES.SHOP)
 end
 
+-- A big scoring hand would win the round and fire end of round effects before assert runs
+keep_blind_unbeaten = function()
+    Balatest.q(function() G.GAME.blind.chips = 1e12 end)
+end
+
 -- Balatest cannot enter a blind that counts as a boss, so the flag is set before the round ends
 end_boss_round = function()
     Balatest.q(function() G.GAME.blind.boss = true end)

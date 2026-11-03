@@ -118,8 +118,9 @@ inside the helper, not inside each joker.
 
 ## 5. Joker order
 
-`functions/joker_order.lua` is one flat alphabetical list of `name` values. Insert in the
-correct alphabetical position.
+`functions/joker_order.lua` is grouped by `jtype` (`-- Characters`, `-- Effects`,
+`-- Stands`, `-- Other`), alphabetical within each group; the in-game collection reads its
+sections from it. Insert into the group matching the joker's `jtype`, not the whole list.
 
 ## 6. JokerDisplay
 
@@ -216,6 +217,13 @@ Useful Balatest settings: `jokers`, `consumeables`, `deck = { cards = {...} }`,
 `hand_size`, `hands`, `discards`, `dollars`, `vouchers`, `seed`, `stake`. Useful actions:
 `play_hand`, `highlight`, `use`, `discard`, `next_round`, `end_round`, `cash_out`, `buy`,
 `sell`, `wait`.
+
+### Hands that beat the blind
+
+A hand that beats the blind ends the round, so end-of-round effects (resets, recoveries,
+decay) fire before `assert` runs. When asserting on state that the round's end would
+change, call `keep_blind_unbeaten()` at the start of `execute`. Assertions on
+`G.GAME.chips` are unaffected.
 
 ### Small custom decks
 

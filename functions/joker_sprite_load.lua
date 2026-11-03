@@ -106,6 +106,7 @@ JokerSprites = {
         {name = "purple_haze", base = {pos = {x = 3, y = 3}}, part_atlas = "golden_wind" },
         {name = "talking_head", base = {pos = {x = 4, y = 3}}, part_atlas = "golden_wind" },
         {name = "metallica", base = {pos = {x = 0, y = 4}}, part_atlas = "golden_wind" },
+        {name = "mista", base = {pos = {x = 1, y = 4}}, part_atlas = "golden_wind" },
         -- Part 6: Stone Ocean
         {name = "goo_goo_dolls", base = {pos = {x = 0, y = 0}}, part_atlas = "stone_ocean" },
         {name = "stone_free", base = {pos = {x = 1, y = 0}}, part_atlas = "stone_ocean" },
