@@ -89,8 +89,8 @@ local loc = {
             j_jojoker_thunder_cross_split_attack = {
                 name = "Thunder Cross Split Attack",
                 text = {
-                    "Removes up to {C:money}$#1#{} per {C:attention}scored card{}, then",
-                    "gaining {X:mult,C:white} X#2# {} for each.",
+                    "Removes {C:money}$#1#{} per {C:attention}scored card{}, then",
+                    "gains {X:mult,C:white} X#2# {} for each.",
                     "{br:2}line break",
                     "{C:inactive}Currently: {X:mult,C:white} X#3# {}"
                 }
@@ -971,7 +971,7 @@ local loc = {
                 text = {
                     "Scored cards have a {C:attention}#1# in #2#{}",
                     "chance to become {C:attention}Lucky Cards{} if",
-                    "they do not have an edition.",
+                    "they do not have an enhancement.",
                     "{C:attention}Lucky Cards{} always trigger {C:mult}mult{} bonus,",
                     "and {C:money}money{} bonus becomes {C:attention}1 in 5{}."
                 }
@@ -1018,9 +1018,9 @@ local loc = {
             j_jojoker_the_first_napkin = {
                 name = "The First Napkin",
                 text = {
-                    "When first hand is {C:chips}played{}, all cards permanently",
+                    "When first hand is {C:chips}played{}, played cards permanently",
                     "gain {C:chips}chips{} equal to {C:attention}highest played rank{}.",
-                    "When first hand is {C:mult}discarded{}, all cards permanently", 
+                    "When first hand is {C:mult}discarded{}, discarded cards permanently",
                     "gain {C:mult}mult{} equal to {C:attention}lowest discarded rank{}.",
                 }
             },
@@ -1219,8 +1219,8 @@ local loc = {
             j_jojoker_space_trucking = {
                 name = "Space Trucking",
                 text = {
-                    "When entering the shop, held consumables have a",
-                    "{C:attention}#1# in #2#{} chance to be made {C:dark_edition}Negative{}."
+                    "When entering the shop, has a {C:attention}#1# in #2#{} chance",
+                    "to make a random held consumable {C:dark_edition}Negative{}."
                 }
             },
             j_jojoker_fun_fun_fun = {

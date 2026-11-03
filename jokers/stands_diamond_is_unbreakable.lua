@@ -228,7 +228,7 @@ local cheap_trick = {
     blueprint_compat = true,
     perishable_compat = true,
     eternal_compat = true,
-    config = { extra = { Xmult_mod = 2, Xmult = 1 } },
+    config = { extra = { Xmult_mod = 1.5, Xmult = 1 } },
     loc_vars = function(self, info_queue, card)
       return {
         vars = {card.ability.extra.Xmult_mod, card.ability.extra.Xmult}
@@ -320,7 +320,7 @@ local atom_heart_father = {
     blueprint_compat = true,
     perishable_compat = true,
     eternal_compat = true,
-    config = { extra = { Xmult_mod = 0.5, Xmult = 1 } },
+    config = { extra = { Xmult_mod = 0.25, Xmult = 1 } },
     loc_vars = function(self, info_queue, card)
       return {
         vars = {card.ability.extra.Xmult_mod, card.ability.extra.Xmult}

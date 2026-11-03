@@ -229,6 +229,25 @@ Balatest.TestPlay {
         Balatest.assert_eq(G.consumeables.cards[1].edition.negative, true, "Space Trucking did not make a held consumeable with an existing edition negative")
     end
 }
+
+Balatest.TestPlay {
+    name = 'space_trucking_makes_only_one_consumeable_negative_per_shop',
+    category = { 'jokers', 'jojolion', 'space_trucking' },
+    jokers = { 'j_jojoker_space_trucking' },
+    consumeables = { 'c_mars', 'c_venus' },
+    execute = function()
+        G.jokers.cards[1].ability.extra.denominator = G.jokers.cards[1].ability.extra.numerator
+        Balatest.end_round()
+        Balatest.cash_out()
+    end,
+    assert = function()
+        local negatives = 0
+        for _, consumeable in ipairs(G.consumeables.cards) do
+            if consumeable.edition and consumeable.edition.negative then negatives = negatives + 1 end
+        end
+        Balatest.assert_eq(negatives, 1, "Space Trucking did not make exactly one held consumeable negative")
+    end
+}
 -- No test for increased booster pack contents; the options presented are random
 --#endregion
 --#region Fun Fun Fun

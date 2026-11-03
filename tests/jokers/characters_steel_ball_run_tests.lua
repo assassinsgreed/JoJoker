@@ -46,6 +46,22 @@ Balatest.TestPlay {
         Balatest.assert_eq(#G.jokers.cards, 2, "Danny SBR did not destroy a single random joker when there were multiple")
     end
 }
+
+Balatest.TestPlay {
+    name = 'danny_sbr_does_not_destroy_eternal_jokers',
+    category = { 'jokers', 'steel_ball_run', 'danny_sbr' },
+    jokers = { { id = 'j_jojoker_oh_lonesome_me', eternal = true } },
+    consumeables = { 'c_judgement' },
+    execute = function()
+        Balatest.hook(_G, 'create_card', function(orig, t, a, l, r, k, s, forced_key, ...)
+            return orig(t, a, l, r, k, s, 'j_jojoker_danny_sbr', ...)
+        end)
+        Balatest.use(G.consumeables.cards[1]) -- Trigger Danny to be added via registered hook
+    end,
+    assert = function()
+        Balatest.assert_eq(#G.jokers.cards, 2, "Danny SBR destroyed an eternal joker")
+    end
+}
 --#endregion
 
 --#region Slow Dancer

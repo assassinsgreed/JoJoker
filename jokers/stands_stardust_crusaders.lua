@@ -505,7 +505,7 @@ local the_fool = {
 
 local thoth = {
     name = "thoth",
-    rarity = 3,
+    rarity = 2,
     cost = 8,
     jtype = "Stand",
     part = "stardust_crusaders",

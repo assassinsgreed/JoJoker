@@ -30,7 +30,7 @@ local savage_garden = {
 
 local pucci = {
     name = "pucci",
-    rarity = 1,
+    rarity = 2,
     cost = 4,
     jtype = "Character",
     part = "stone_ocean",

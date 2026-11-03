@@ -2,7 +2,7 @@
 
 local joestar_birthmark = {
     name = "joestar_birthmark",
-    rarity = 3,
+    rarity = 2,
     cost = 8,
     jtype = "Effect",
     part = "stardust_crusaders",

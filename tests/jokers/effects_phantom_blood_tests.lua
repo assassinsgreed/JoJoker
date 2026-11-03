@@ -12,7 +12,7 @@ Balatest.TestPlay {
         Balatest.play_hand { '2S' }
     end,
     assert = function()
-        Balatest.assert_dollars(1, "Thunder Cross Split Attack did not remove the expected money when a card was played")
+        Balatest.assert_dollars(0, "Thunder Cross Split Attack did not remove the expected money when a card was played")
         Balatest.assert_eq(1.2, G.jokers.cards[1].ability.extra.Xmult, "Thunder Cross Split Attack did not increase Xmult when money was removed")
     end
 }
@@ -26,8 +26,22 @@ Balatest.TestPlay {
         Balatest.play_hand { '2S', '2C', '3C' }
     end,
     assert = function()
-        Balatest.assert_dollars(8, "Thunder Cross Split Attack did not remove the expected money when a card was played")
+        Balatest.assert_dollars(6, "Thunder Cross Split Attack did not remove the expected money when a card was played")
         Balatest.assert_eq(1.4, G.jokers.cards[1].ability.extra.Xmult, "Thunder Cross Split Attack did not increase Xmult when money was removed")
+    end
+}
+
+Balatest.TestPlay {
+    name = 'thunder_cross_split_attack_does_not_proc_without_enough_money',
+    category = { 'jokers', 'phantom_blood', 'thunder_cross_split_attack' },
+    jokers = { 'j_jojoker_thunder_cross_split_attack' },
+    execute = function()
+        G.GAME.dollars = 1
+        Balatest.play_hand { '2S' }
+    end,
+    assert = function()
+        Balatest.assert_dollars(1, "Thunder Cross Split Attack removed money when there was not enough to take")
+        Balatest.assert_eq(1, G.jokers.cards[1].ability.extra.Xmult, "Thunder Cross Split Attack increased Xmult without taking money")
     end
 }
 

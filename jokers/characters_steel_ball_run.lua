@@ -29,10 +29,15 @@ local danny_sbr = {
     add_to_deck = function(self, card, from_debuff)
         -- Danny is not yet emplaced into G.jokers when add_to_deck runs, so
         -- G.jokers.cards only contains other jokers at this point.
-        if #G.jokers.cards > 0 then
-            local joker_to_destroy_index = math.random(#G.jokers.cards)
-            sendDebugMessage("Danny is destroying joker at index " .. joker_to_destroy_index.." ("..G.jokers.cards[joker_to_destroy_index].ability.name..")")
-            local destroyed_joker = G.jokers.cards[joker_to_destroy_index]
+        local destroyable = {}
+        for _, joker in ipairs(G.jokers.cards) do
+            if not joker.ability.eternal and not joker.getting_sliced then
+                destroyable[#destroyable + 1] = joker
+            end
+        end
+        if #destroyable > 0 then
+            local destroyed_joker = destroyable[math.random(#destroyable)]
+            sendDebugMessage("Danny is destroying "..destroyed_joker.ability.name)
             jojoker_joker_destroyed_by_joker(destroyed_joker, card)
             destroyed_joker.getting_sliced = true
             G.E_MANAGER:add_event(Event({

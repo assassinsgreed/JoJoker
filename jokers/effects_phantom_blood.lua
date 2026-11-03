@@ -36,13 +36,13 @@ local thunder_cross_split_attack = {
     blueprint_compat = false,
     perishable_compat = true,
     eternal_compat = true,
-    config = { extra = { money_loss = 1, Xmult_gain = 0.2, Xmult = 1 } },
+    config = { extra = { money_loss = 2, Xmult_gain = 0.2, Xmult = 1 } },
     loc_vars = function(self, info_queue, center)
       return {vars = { center.ability.extra.money_loss, center.ability.extra.Xmult_gain, center.ability.extra.Xmult }}
     end,
     calculate = function(self, card, context)
         if context.individual and context.cardarea == G.play and not context.other_card.debuff then
-            if G.GAME.dollars > 0 then
+            if G.GAME.dollars >= card.ability.extra.money_loss then
                 sendDebugMessage("Thunder Cross Split Attack: Removing money and giving Xmult")
                 G.GAME.dollars = G.GAME.dollars - card.ability.extra.money_loss
                 card.ability.extra.Xmult = card.ability.extra.Xmult + card.ability.extra.Xmult_gain
@@ -112,7 +112,7 @@ local vampiric_touch = {
 
 local roundabout = {
     name = "roundabout",
-    rarity = 2,
+    rarity = 3,
     cost = 7,
     jtype = "Effect",
     part = "phantom_blood",

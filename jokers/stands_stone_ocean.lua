@@ -282,7 +282,7 @@ local foo_fighters = {
 
 local white_snake = {
     name = "white_snake",
-    rarity = 3,
+    rarity = 2,
     cost = 6,
     jtype = "Stand",
     part = "stone_ocean",
@@ -320,7 +320,7 @@ local white_snake = {
 local burning_down_the_house = {
     name = "burning_down_the_house",
     rarity = 3,
-    cost = 10,
+    cost = 8,
     jtype = "Stand",
     part = "stone_ocean",
     blueprint_compat = false,

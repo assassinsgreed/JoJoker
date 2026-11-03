@@ -221,7 +221,7 @@ local dark_determination = {
     blueprint_compat = true,
     perishable_compat = true,
     eternal_compat = true,
-    config = { extra = { Xmult = 1, Xmult_mod = 0.5, has_rerolled = false } },
+    config = { extra = { Xmult = 1, Xmult_mod = 0.2, has_rerolled = false } },
     loc_vars = function(self, info_queue, card)
       return {vars = {card.ability.extra.Xmult, card.ability.extra.Xmult_mod}}
     end,
@@ -259,7 +259,7 @@ local dark_determination = {
 
 local left_side_ataxia = {
     name = "left_side_ataxia",
-    rarity = 3,
+    rarity = 2,
     cost = 7,
     jtype = "Effect",
     part = "steel_ball_run",

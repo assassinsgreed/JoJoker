@@ -328,19 +328,20 @@ local space_trucking = {
       return {vars = {center.ability.extra.numerator, center.ability.extra.denominator}}
     end,
     calculate = function(self, card, context)
-        -- Potentially make held consumeables negative at the start of the shop
+        -- Potentially make one random held consumeable negative at the start of the shop
         if context.starting_shop then
-            for i = 1, #G.consumeables.cards do
-                local consumeable = G.consumeables.cards[i]
+            local candidates = {}
+            for _, consumeable in ipairs(G.consumeables.cards) do
                 if not consumeable.edition or not consumeable.edition.negative then
-                    sendDebugMessage("Space Trucking: Found held consumeable, checking for negative conversion")
-                    if SMODS.pseudorandom_probability(card, 'space_trucking', card.ability.extra.numerator, card.ability.extra.denominator, 'space_trucking') then
-                        sendDebugMessage("Space Trucking: Making held consumeable negative")
-                        consumeable:juice_up()
-                        consumeable:set_edition('e_negative')
-                        play_sound('negative', 1.5, 0.4)
-                    end
+                    candidates[#candidates + 1] = consumeable
                 end
+            end
+            if #candidates > 0 and SMODS.pseudorandom_probability(card, 'space_trucking', card.ability.extra.numerator, card.ability.extra.denominator, 'space_trucking') then
+                local consumeable = pseudorandom_element(candidates, pseudoseed('space_trucking'))
+                sendDebugMessage("Space Trucking: Making held consumeable negative")
+                consumeable:juice_up()
+                consumeable:set_edition('e_negative')
+                play_sound('negative', 1.5, 0.4)
             end
         end
     end

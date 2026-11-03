@@ -134,12 +134,12 @@ local caesar = {
     blueprint_compat = true,
     perishable_compat = true,
     eternal_compat = true,
-    config = { extra = { Xmult_mod = 3 } },
+    config = { extra = { Xmult_mod = 1.5 } },
     loc_vars = function(self, info_queue, card)
       return {vars = {card.ability.extra.Xmult_mod}}
     end,
     calculate = function(self, card, context)
-        -- For each scored stone card, give it 3x mult then destroy it
+        -- For each scored stone card, give it Xmult then destroy it
         if context.individual and not context.end_of_round and context.cardarea == G.play then
             if context.other_card.config.center == G.P_CENTERS.m_stone then
                 sendDebugMessage("Caesar: Triggering 3x mult on stone card and destroying it")
@@ -483,7 +483,7 @@ local tequila_joseph = {
 
 local wamuu = {
     name = "wamuu",
-    rarity = 3,
+    rarity = 2,
     cost = 8,
     jtype = "Character",
     part = "battle_tendency",

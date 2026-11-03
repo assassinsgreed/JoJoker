@@ -278,7 +278,7 @@ Balatest.TestPlay {
         Balatest.exit_shop()
     end,
     assert = function()
-        Balatest.assert_eq(G.jokers.cards[1].ability.extra.Xmult, 1.5, "Dark Determination did not increase Xmult correctly after ending shop without rerolling")
+        Balatest.assert_eq(G.jokers.cards[1].ability.extra.Xmult, 1.2, "Dark Determination did not increase Xmult correctly after ending shop without rerolling")
     end
 }
 
