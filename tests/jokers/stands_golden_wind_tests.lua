@@ -825,3 +825,90 @@ Balatest.TestPlay {
     end
 }
 --#endregion
+--#region Talking Head
+Balatest.TestPlay {
+    name = 'talking_head_duplicates_used_tarot_card',
+    category = { 'jokers', 'golden_wind', 'talking_head' },
+    jokers = { 'j_jojoker_talking_head' },
+    consumeables = { 'c_hermit' },
+    execute = function()
+        G.jokers.cards[1].ability.extra.denominator = G.jokers.cards[1].ability.extra.numerator
+        Balatest.use(G.consumeables.cards[1])
+    end,
+    assert = function()
+        Balatest.assert_eq(#G.consumeables.cards, 1, "Talking Head did not duplicate the used tarot card")
+        Balatest.assert_eq(G.consumeables.cards[1].config.center.key, "c_hermit", "Talking Head did not duplicate the correct tarot card")
+    end
+}
+
+Balatest.TestPlay {
+    name = 'talking_head_duplicates_used_spectral_card',
+    category = { 'jokers', 'golden_wind', 'talking_head' },
+    jokers = { 'j_jojoker_talking_head' },
+    consumeables = { 'c_black_hole' },
+    execute = function()
+        G.jokers.cards[1].ability.extra.denominator = G.jokers.cards[1].ability.extra.numerator
+        Balatest.use(G.consumeables.cards[1])
+    end,
+    assert = function()
+        Balatest.assert_eq(#G.consumeables.cards, 1, "Talking Head did not duplicate the used spectral card")
+        Balatest.assert_eq(G.consumeables.cards[1].config.center.key, "c_black_hole", "Talking Head did not duplicate the correct spectral card")
+    end
+}
+
+Balatest.TestPlay {
+    name = 'talking_head_duplicates_each_used_consumable',
+    category = { 'jokers', 'golden_wind', 'talking_head' },
+    jokers = { 'j_jojoker_talking_head' },
+    consumeables = { 'c_hermit', 'c_mars' },
+    execute = function()
+        G.jokers.cards[1].ability.extra.denominator = G.jokers.cards[1].ability.extra.numerator
+        Balatest.use(G.consumeables.cards[1])
+        Balatest.use(G.consumeables.cards[1])
+    end,
+    assert = function()
+        Balatest.assert_eq(#G.consumeables.cards, 2, "Talking Head did not duplicate both used consumables")
+    end
+}
+
+Balatest.TestPlay {
+    name = 'talking_head_needs_room_for_the_duplicate',
+    category = { 'jokers', 'golden_wind', 'talking_head' },
+    jokers = { 'j_jojoker_talking_head' },
+    consumeables = { 'c_emperor' },
+    execute = function()
+        G.jokers.cards[1].ability.extra.denominator = G.jokers.cards[1].ability.extra.numerator
+        Balatest.use(G.consumeables.cards[1])
+    end,
+    assert = function()
+        Balatest.assert_eq(#G.consumeables.cards, G.consumeables.config.card_limit, "Talking Head duplicated a consumable without room for it")
+    end
+}
+
+Balatest.TestPlay {
+    name = 'talking_head_does_not_duplicate_with_rolling_stones',
+    category = { 'jokers', 'golden_wind', 'talking_head' },
+    jokers = { 'j_jojoker_talking_head', 'j_jojoker_rolling_stones' },
+    consumeables = { 'c_hermit' },
+    execute = function()
+        Balatest.use(G.consumeables.cards[1])
+    end,
+    assert = function()
+        Balatest.assert_eq(#G.consumeables.cards, 0, "Talking Head duplicated a consumable while Rolling Stones set every chance to 0")
+    end
+}
+
+Balatest.TestPlay {
+    name = 'talking_head_duplicate_feeds_kiss',
+    category = { 'jokers', 'golden_wind', 'talking_head' },
+    jokers = { 'j_jojoker_talking_head', 'j_jojoker_kiss' },
+    consumeables = { 'c_hermit' },
+    execute = function()
+        G.jokers.cards[1].ability.extra.denominator = G.jokers.cards[1].ability.extra.numerator
+        Balatest.use(G.consumeables.cards[1])
+    end,
+    assert = function()
+        Balatest.assert_eq(G.jokers.cards[2].ability.extra.chips, G.jokers.cards[2].ability.extra.chips_mod, "Kiss did not gain chips when Talking Head duplicated a consumable")
+    end
+}
+--#endregion

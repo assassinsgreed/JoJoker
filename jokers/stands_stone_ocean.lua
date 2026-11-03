@@ -497,6 +497,7 @@ local planet_waves = {
     jtype = "Stand",
     part = "stone_ocean",
     themes = { support = { jojoker.themes.LUCK, jojoker.themes.DUPLICATION } },
+    similar = { jojoker.similar.CONSUMABLE_DUPLICATORS },
     blueprint_compat = false,
     perishable_compat = true,
     eternal_compat = true,

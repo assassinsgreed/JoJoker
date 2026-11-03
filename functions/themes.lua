@@ -79,4 +79,5 @@ jojoker.similar = {
     STONE_CARD_MAKERS = "stone_card_makers",
     RANK_CHANGERS = "rank_changers",
     CHIPS_INTO_MULT = "chips_into_mult",
+    CONSUMABLE_DUPLICATORS = "consumable_duplicators",
 }

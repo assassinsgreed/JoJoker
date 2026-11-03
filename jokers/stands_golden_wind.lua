@@ -470,7 +470,7 @@ local rolling_stones = {
     cost = 6,
     jtype = "Stand",
     part = "golden_wind",
-    conflicts = { darby_brothers = "sets_every_chance_to_0", sword_of_luck_and_pluck = "sets_every_chance_to_0", zombies = "sets_every_chance_to_0", star_platinum = "sets_every_chance_to_0", old_joseph_joestar = "sets_every_chance_to_0", atum = "sets_every_chance_to_0", killer_queen = "sets_every_chance_to_0", gold_experience = "sets_every_chance_to_0", moody_blues = "sets_every_chance_to_0", baby_face = "sets_every_chance_to_0", white_snake = "sets_every_chance_to_0", limp_bizkit = "sets_every_chance_to_0", planet_waves = "sets_every_chance_to_0", hey_ya = "sets_every_chance_to_0", space_trucking = "sets_every_chance_to_0" },
+    conflicts = { darby_brothers = "sets_every_chance_to_0", sword_of_luck_and_pluck = "sets_every_chance_to_0", zombies = "sets_every_chance_to_0", star_platinum = "sets_every_chance_to_0", old_joseph_joestar = "sets_every_chance_to_0", atum = "sets_every_chance_to_0", killer_queen = "sets_every_chance_to_0", gold_experience = "sets_every_chance_to_0", moody_blues = "sets_every_chance_to_0", baby_face = "sets_every_chance_to_0", white_snake = "sets_every_chance_to_0", limp_bizkit = "sets_every_chance_to_0", planet_waves = "sets_every_chance_to_0", talking_head = "sets_every_chance_to_0", hey_ya = "sets_every_chance_to_0", space_trucking = "sets_every_chance_to_0" },
     blueprint_compat = false,
     perishable_compat = true,
     eternal_compat = true,
@@ -621,7 +621,54 @@ local purple_haze = {
     -- Infected jokers grow as they score, in jojoker_add_purple_haze_bonus
 }
 
+local talking_head = {
+    name = "talking_head",
+    rarity = 1,
+    cost = 5,
+    jtype = "Stand",
+    part = "golden_wind",
+    themes = { support = { jojoker.themes.LUCK, jojoker.themes.DUPLICATION } },
+    similar = { jojoker.similar.CONSUMABLE_DUPLICATORS },
+    blueprint_compat = false,
+    perishable_compat = true,
+    eternal_compat = true,
+    config = { extra = { numerator = 1, denominator = 5 } },
+    loc_vars = function(self, info_queue, center)
+      return {vars = {center.ability.extra.numerator, center.ability.extra.denominator}}
+    end,
+    calculate = function(self, card, context)
+        -- Has a 1 in 5 chance to duplicate a consumable when used, if there is room
+        if context.using_consumeable and #G.consumeables.cards + G.GAME.consumeable_buffer < G.consumeables.config.card_limit then
+            if SMODS.pseudorandom_probability(card, 'talking_head', card.ability.extra.numerator, card.ability.extra.denominator, 'talking_head') then
+                sendDebugMessage("Talking Head: Duplicating used consumable "..context.consumeable.config.center.key)
+                G.GAME.consumeable_buffer = G.GAME.consumeable_buffer + 1
+                local set, key = context.consumeable.ability.set, context.consumeable.config.center.key
+
+                G.E_MANAGER:add_event(Event({trigger = 'after', delay = 0.4, func = function()
+                    G.GAME.consumeable_buffer = G.GAME.consumeable_buffer - 1
+                    -- Cards like The Emperor fill slots through their own events without reserving the buffer
+                    if #G.consumeables.cards < G.consumeables.config.card_limit then
+                        local _card = SMODS.create_card({
+                            set = set,
+                            area = G.consumeables,
+                            key = key
+                        })
+                        _card:add_to_deck()
+                        G.consumeables:emplace(_card)
+                        jojoker_card_duplicated(_card)
+                    end
+                    return true end })
+                )
+
+                return {
+                    message = localize('k_copied_ex')
+                }
+            end
+        end
+    end
+}
+
 return {
     name = "Golden Wind Stand Jokers",
-    list = { sex_pistols, grateful_dead, spice_girl, sticky_fingers, gold_experience, gold_experience_requiem, king_crimson, moody_blues, baby_face, little_feet, black_sabbath, rolling_stones, notorious_big, white_album, aerosmith, purple_haze },
+    list = { sex_pistols, grateful_dead, spice_girl, sticky_fingers, gold_experience, gold_experience_requiem, king_crimson, moody_blues, baby_face, little_feet, black_sabbath, rolling_stones, notorious_big, white_album, aerosmith, purple_haze, talking_head },
 }

@@ -87,6 +87,7 @@ LABELS = Labels(
         'stone_card_makers': 'Stone card makers',
         'rank_changers': 'Rank changers',
         'chips_into_mult': 'Chips into mult',
+        'consumable_duplicators': 'Consumable duplicators',
     },
     conflicts={
         'sets_every_chance_to_0': 'sets every chance to 0',

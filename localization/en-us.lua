@@ -773,6 +773,14 @@ local loc = {
                     "{C:attention}Joker{} scores, it gains {C:chips}+#1#{} and {C:mult}+#2#{}."
                 }
             },
+            j_jojoker_talking_head = {
+                name = "Talking Head",
+                alt_name = "Talking Mouth",
+                text = {
+                    "Used {C:attention}consumables{} have a {C:attention}#1# in #2#{} chance to be duplicated.",
+                    "{C:inactive}(Must have room){}"
+                }
+            },
             j_jojoker_seven_page_muda = {
                 name = "Seven Page Muda",
                 text = {

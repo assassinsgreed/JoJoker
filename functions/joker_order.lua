@@ -144,6 +144,7 @@ jojoker.joker_order = {
     "superfly",
     "surface",
     "survivor",
+    "talking_head",
     "tattoo_you",
     "tenore_sax",
     "the_fool",
