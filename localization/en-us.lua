@@ -791,6 +791,16 @@ local loc = {
                     "{C:inactive}(Must have room){}"
                 }
             },
+            j_jojoker_metallica = {
+                name = "Metallica",
+                alt_name = "Metallic",
+                text = {
+                    "Gains {X:mult,C:white} X#1# {} for each scored",
+                    "{C:attention}Steel{} or {C:attention}Gold{} card.",
+                    "{br:2}line break",
+                    "{C:inactive}Currently: {X:mult,C:white} X#2# {}"
+                }
+            },
             j_jojoker_seven_page_muda = {
                 name = "Seven Page Muda",
                 text = {

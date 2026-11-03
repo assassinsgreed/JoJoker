@@ -248,3 +248,14 @@ jd_def["j_jojoker_talking_head"] = {
         { text = "Duplicate consumables", colour = G.C.GREY, },
     },
 }
+
+jd_def["j_jojoker_metallica"] = {
+    text = {
+        {
+            border_nodes = {
+                { text = "X" },
+                { ref_table = "card.ability.extra", ref_value = "Xmult", retrigger_type = "exp" }
+            }
+        }
+    },
+}

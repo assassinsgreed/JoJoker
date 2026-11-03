@@ -6,7 +6,7 @@ local jodio_joestar = {
     cost = 5,
     jtype = "Character",
     part = "the_jojolands",
-    themes = { support = { jojoker.themes.MONEY_HELD } },
+    themes = { core = { jojoker.themes.STEEL_GOLD_CARDS }, support = { jojoker.themes.MONEY_HELD } },
     blueprint_compat = true,
     perishable_compat = true,
     eternal_compat = true,

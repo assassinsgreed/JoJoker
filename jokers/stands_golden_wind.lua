@@ -115,7 +115,7 @@ local spice_girl = {
     jtype = "Stand",
     part = "golden_wind",
     themes = { core = { jojoker.themes.STONE_STEEL_EATER } },
-    conflicts = { caesar = "strips_the_stone_cards_these", stone_free = "strips_the_stone_cards_these" },
+    conflicts = { caesar = "strips_the_stone_cards_these", stone_free = "strips_the_stone_cards_these", metallica = "strips_the_metal_cards_metallica" },
     similar = { jojoker.similar.ENHANCEMENT_STRIPPERS },
     blueprint_compat = true,
     perishable_compat = true,
@@ -668,7 +668,54 @@ local talking_head = {
     end
 }
 
+local metallica = {
+    name = "metallica",
+    rarity = 2,
+    cost = 6,
+    jtype = "Stand",
+    part = "golden_wind",
+    themes = { core = { jojoker.themes.STEEL_GOLD_CARDS } },
+    blueprint_compat = true,
+    perishable_compat = true,
+    eternal_compat = true,
+    config = { extra = { Xmult_mod = 0.1, Xmult = 1 } },
+    loc_vars = function(self, info_queue, center)
+        info_queue[#info_queue + 1] = G.P_CENTERS.m_steel
+        info_queue[#info_queue + 1] = G.P_CENTERS.m_gold
+        return {
+            vars = {center.ability.extra.Xmult_mod, center.ability.extra.Xmult}
+        }
+    end,
+    calculate = function(self, card, context)
+        -- Gain xmult per scored steel and gold card
+        if context.before and not context.blueprint then
+            local metal_count = 0
+            for _, scoring_card in ipairs(context.scoring_hand) do
+                if not scoring_card.debuff and (SMODS.has_enhancement(scoring_card, 'm_steel') or SMODS.has_enhancement(scoring_card, 'm_gold')) then
+                    metal_count = metal_count + 1
+                end
+            end
+            if metal_count > 0 then
+                card.ability.extra.Xmult = card.ability.extra.Xmult + card.ability.extra.Xmult_mod * metal_count
+                sendDebugMessage("Metallica: Scored "..metal_count.." steel/gold cards. Xmult is now "..card.ability.extra.Xmult)
+                return {
+                    message = localize('k_upgrade_ex'),
+                    colour = G.C.MULT
+                }
+            end
+        end
+
+        -- Give accumulated xmult during scoring
+        if context.joker_main and card.ability.extra.Xmult > 1 then
+            return {
+                message = localize{type = 'variable', key = 'a_xmult', vars = {card.ability.extra.Xmult}},
+                Xmult_mod = card.ability.extra.Xmult
+            }
+        end
+    end
+}
+
 return {
     name = "Golden Wind Stand Jokers",
-    list = { sex_pistols, grateful_dead, spice_girl, sticky_fingers, gold_experience, gold_experience_requiem, king_crimson, moody_blues, baby_face, little_feet, black_sabbath, rolling_stones, notorious_big, white_album, aerosmith, purple_haze, talking_head },
+    list = { sex_pistols, grateful_dead, spice_girl, sticky_fingers, gold_experience, gold_experience_requiem, king_crimson, moody_blues, baby_face, little_feet, black_sabbath, rolling_stones, notorious_big, white_album, aerosmith, purple_haze, talking_head, metallica },
 }

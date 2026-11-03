@@ -124,6 +124,7 @@ jojoker.joker_order = {
     "magician_red",
     "mandom",
     "marilyn_manson",
+    "metallica",
     "milagro_man",
     "moody_blues",
     "notorious_big",

@@ -912,3 +912,111 @@ Balatest.TestPlay {
     end
 }
 --#endregion
+--#region Metallica
+Balatest.TestPlay {
+    name = 'metallica_gains_xmult_for_each_scored_steel_card',
+    category = { 'jokers', 'golden_wind', 'metallica' },
+    jokers = { 'j_jojoker_metallica' },
+    deck = { cards = {
+        { r = '2', s = 'S', e = 'm_steel' },
+        { r = '2', s = 'C', e = 'm_steel' },
+        { r = '3', s = 'H' } } },
+    execute = function()
+        Balatest.play_hand { '2S', '2C' }
+    end,
+    assert = function()
+        local expected_xmult = 1 + G.jokers.cards[1].ability.extra.Xmult_mod * 2
+        Balatest.assert_eq(G.jokers.cards[1].ability.extra.Xmult, expected_xmult, "Metallica xmult wasn't "..expected_xmult.." after scoring two steel cards")
+    end
+}
+
+Balatest.TestPlay {
+    name = 'metallica_gains_xmult_for_scored_gold_card',
+    category = { 'jokers', 'golden_wind', 'metallica' },
+    jokers = { 'j_jojoker_metallica' },
+    deck = { cards = {
+        { r = '2', s = 'S', e = 'm_gold' },
+        { r = '2', s = 'C' },
+        { r = '3', s = 'H' } } },
+    execute = function()
+        Balatest.play_hand { '2S', '2C' }
+    end,
+    assert = function()
+        local expected_xmult = 1 + G.jokers.cards[1].ability.extra.Xmult_mod
+        Balatest.assert_eq(G.jokers.cards[1].ability.extra.Xmult, expected_xmult, "Metallica xmult wasn't "..expected_xmult.." after scoring one gold card")
+    end
+}
+
+Balatest.TestPlay {
+    name = 'metallica_gains_xmult_for_mixed_steel_and_gold_cards',
+    category = { 'jokers', 'golden_wind', 'metallica' },
+    jokers = { 'j_jojoker_metallica' },
+    deck = { cards = {
+        { r = '2', s = 'S', e = 'm_steel' },
+        { r = '2', s = 'C', e = 'm_gold' },
+        { r = '3', s = 'H' } } },
+    execute = function()
+        Balatest.play_hand { '2S', '2C' }
+    end,
+    assert = function()
+        local expected_xmult = 1 + G.jokers.cards[1].ability.extra.Xmult_mod * 2
+        Balatest.assert_eq(G.jokers.cards[1].ability.extra.Xmult, expected_xmult, "Metallica xmult wasn't "..expected_xmult.." after scoring a steel and a gold card")
+    end
+}
+
+Balatest.TestPlay {
+    name = 'metallica_accumulates_across_hands',
+    category = { 'jokers', 'golden_wind', 'metallica' },
+    jokers = { 'j_jojoker_metallica' },
+    deck = { cards = {
+        { r = '2', s = 'S', e = 'm_steel' },
+        { r = '4', s = 'C', e = 'm_gold' },
+        { r = '3', s = 'H' } } },
+    hand_size = 3,
+    execute = function()
+        Balatest.play_hand { '2S' }
+        Balatest.play_hand { '4C' }
+    end,
+    assert = function()
+        local xmult_mod = G.jokers.cards[1].ability.extra.Xmult_mod
+        local expected_xmult = 1 + xmult_mod + xmult_mod
+        Balatest.assert_eq(G.jokers.cards[1].ability.extra.Xmult, expected_xmult, "Metallica xmult wasn't "..expected_xmult.." after two hands with one metal card each")
+    end
+}
+
+Balatest.TestPlay {
+    name = 'metallica_ignores_unscored_steel_and_gold_cards',
+    category = { 'jokers', 'golden_wind', 'metallica' },
+    jokers = { 'j_jojoker_metallica' },
+    deck = { cards = {
+        { r = '2', s = 'S' },
+        { r = '2', s = 'C' },
+        { r = '9', s = 'H', e = 'm_steel' },
+        { r = '8', s = 'D', e = 'm_gold' },
+        { r = '3', s = 'H' } } },
+    execute = function()
+        Balatest.play_hand { '2S', '2C', '9H', '8D' }
+    end,
+    assert = function()
+        Balatest.assert_eq(G.jokers.cards[1].ability.extra.Xmult, 1, "Metallica gained xmult from unscored steel or gold cards")
+    end
+}
+
+Balatest.TestPlay {
+    name = 'metallica_applies_xmult_when_scoring',
+    category = { 'jokers', 'golden_wind', 'metallica' },
+    jokers = { 'j_jojoker_metallica' },
+    deck = { cards = {
+        { r = '2', s = 'S' },
+        { r = '2', s = 'C' },
+        { r = '3', s = 'H' } } },
+    execute = function()
+        G.jokers.cards[1].ability.extra.Xmult = 2
+        Balatest.play_hand { '2S', '2C' }
+    end,
+    assert = function()
+        -- Pair of 2s: (10 + 2 + 2) chips * 2 mult * X2
+        Balatest.assert_chips(56, "Metallica did not apply its Xmult during scoring")
+    end
+}
+--#endregion
