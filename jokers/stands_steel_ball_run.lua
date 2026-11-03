@@ -473,7 +473,41 @@ local scary_monsters = {
     end
 }
 
+local boku_no_rhythm_wo_kiitekure = {
+    name = "boku_no_rhythm_wo_kiitekure",
+    rarity = 2,
+    cost = 6,
+    jtype = "Stand",
+    part = "steel_ball_run",
+    themes = { support = { jojoker.themes.DISCARDS, jojoker.themes.DECK_SHRINKING } },
+    blueprint_compat = false,
+    perishable_compat = true,
+    eternal_compat = true,
+    config = { d_size = 1, extra = { target_index = nil } },
+    loc_vars = function(self, info_queue, center)
+        return {vars = { center.ability.d_size }}
+    end,
+    calculate = function(self, card, context)
+        -- Destroys a random discarded card per discard
+        -- Pick the target before cards are discarded one at a time, so exactly one is destroyed
+        if context.pre_discard and not context.hook and not context.blueprint then
+            card.ability.extra.target_index = pseudorandom('jojoker_boku_no_rhythm_wo_kiitekure', 1, #context.full_hand)
+        end
+
+        if context.discard and not context.blueprint and card.ability.extra.target_index
+            and context.other_card == context.full_hand[card.ability.extra.target_index] then
+            card.ability.extra.target_index = nil
+            sendDebugMessage("Boku no Rhythm wo Kiitekure: Destroying a random discarded card.")
+            return {
+                remove = true,
+                message = localize('sound_boom'),
+                colour = G.C.RED,
+            }
+        end
+    end
+}
+
 return {
     name = "Steel Ball Run Stand Jokers",
-    list = { mandom, chocolate_disco, oh_lonesome_me, hey_ya, tattoo_you, civil_war, ball_breaker, love_train, in_a_silent_way, d4c, tomb_of_the_boom, scary_monsters },
+    list = { mandom, chocolate_disco, oh_lonesome_me, hey_ya, tattoo_you, civil_war, ball_breaker, love_train, in_a_silent_way, d4c, tomb_of_the_boom, scary_monsters, boku_no_rhythm_wo_kiitekure },
 }

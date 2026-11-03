@@ -756,3 +756,80 @@ Balatest.TestPlay {
     end
 }
 --#endregion
+--#region Boku no Rhythm wo Kiitekure
+Balatest.TestPlay {
+    name = 'boku_no_rhythm_wo_kiitekure_gives_an_extra_discard',
+    category = { 'jokers', 'steel_ball_run', 'boku_no_rhythm_wo_kiitekure' },
+    jokers = { 'j_jojoker_boku_no_rhythm_wo_kiitekure' },
+    discards = 3,
+    execute = function() end,
+    assert = function()
+        Balatest.assert_eq(G.GAME.current_round.discards_left, 3 + G.jokers.cards[1].ability.d_size, "Boku no Rhythm wo Kiitekure did not add a discard")
+    end
+}
+
+Balatest.TestPlay {
+    name = 'boku_no_rhythm_wo_kiitekure_removes_the_discard_when_sold',
+    category = { 'jokers', 'steel_ball_run', 'boku_no_rhythm_wo_kiitekure' },
+    jokers = { 'j_jojoker_boku_no_rhythm_wo_kiitekure' },
+    discards = 3,
+    execute = function()
+        Balatest.sell(function() return G.jokers.cards[1] end)
+    end,
+    assert = function()
+        Balatest.assert_eq(G.GAME.current_round.discards_left, 3, "Boku no Rhythm wo Kiitekure kept its discard after being sold")
+    end
+}
+
+Balatest.TestPlay {
+    name = 'boku_no_rhythm_wo_kiitekure_destroys_one_discarded_card',
+    category = { 'jokers', 'steel_ball_run', 'boku_no_rhythm_wo_kiitekure' },
+    jokers = { 'j_jojoker_boku_no_rhythm_wo_kiitekure' },
+    deck = { cards = {
+        { r = '2', s = 'S' }, { r = '2', s = 'S' }, { r = '2', s = 'S' }, { r = '2', s = 'S' }, { r = '2', s = 'S' },
+        { r = '2', s = 'S' }, { r = '2', s = 'S' }, { r = '2', s = 'S' }, { r = '2', s = 'S' }, { r = '2', s = 'S' } } },
+    hand_size = 5,
+    execute = function()
+        Balatest.discard { '2S', '2S', '2S' }
+    end,
+    assert = function()
+        Balatest.assert_eq(#G.playing_cards, 9, "Boku no Rhythm wo Kiitekure did not destroy exactly one discarded card")
+        Balatest.assert_eq(#G.discard.cards, 2, "Boku no Rhythm wo Kiitekure did not leave the other discarded cards in the discard pile")
+    end
+}
+
+Balatest.TestPlay {
+    name = 'boku_no_rhythm_wo_kiitekure_destroys_a_card_on_every_discard',
+    category = { 'jokers', 'steel_ball_run', 'boku_no_rhythm_wo_kiitekure' },
+    jokers = { 'j_jojoker_boku_no_rhythm_wo_kiitekure' },
+    deck = { cards = {
+        { r = '2', s = 'S' }, { r = '2', s = 'S' }, { r = '2', s = 'S' }, { r = '2', s = 'S' }, { r = '2', s = 'S' },
+        { r = '2', s = 'S' }, { r = '2', s = 'S' }, { r = '2', s = 'S' }, { r = '2', s = 'S' }, { r = '2', s = 'S' } } },
+    hand_size = 5,
+    discards = 3,
+    execute = function()
+        Balatest.discard { '2S', '2S' }
+        Balatest.discard { '2S' }
+    end,
+    assert = function()
+        Balatest.assert_eq(#G.playing_cards, 8, "Boku no Rhythm wo Kiitekure did not destroy a card on each discard")
+    end
+}
+
+Balatest.TestPlay {
+    name = 'boku_no_rhythm_wo_kiitekure_does_not_destroy_played_cards',
+    category = { 'jokers', 'steel_ball_run', 'boku_no_rhythm_wo_kiitekure' },
+    jokers = { 'j_jojoker_boku_no_rhythm_wo_kiitekure' },
+    deck = { cards = {
+        { r = '2', s = 'S' }, { r = '2', s = 'S' }, { r = '2', s = 'S' }, { r = '2', s = 'S' }, { r = '2', s = 'S' },
+        { r = '2', s = 'S' }, { r = '2', s = 'S' }, { r = '2', s = 'S' }, { r = '2', s = 'S' }, { r = '2', s = 'S' } } },
+    hand_size = 5,
+    execute = function()
+        Balatest.play_hand { '2S', '2S' }
+    end,
+    assert = function()
+        Balatest.assert_eq(#G.playing_cards, 10, "Boku no Rhythm wo Kiitekure destroyed a played card")
+        Balatest.assert_chips((10 + 2 + 2) * 2, "Boku no Rhythm wo Kiitekure changed the score of a played hand")
+    end
+}
+--#endregion

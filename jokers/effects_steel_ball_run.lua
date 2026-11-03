@@ -66,7 +66,7 @@ local the_true_mans_world = {
     jtype = "Effect",
     part = "steel_ball_run",
     themes = { support = { jojoker.themes.HANDS_PLAYED } },
-    conflicts = { speedwagon = "resets_every_time_you_discard", old_joseph_joestar = "resets_every_time_you_discard", marilyn_manson = "resets_every_time_you_discard" },
+    conflicts = { speedwagon = "resets_every_time_you_discard", old_joseph_joestar = "resets_every_time_you_discard", marilyn_manson = "resets_every_time_you_discard", boku_no_rhythm_wo_kiitekure = "resets_every_time_you_discard" },
     similar = { jojoker.similar.STREAK_SCALING },
     blueprint_compat = true,
     perishable_compat = true,

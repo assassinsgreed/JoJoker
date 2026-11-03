@@ -69,7 +69,7 @@ local made_in_heaven = {
     jtype = "Stand",
     part = "stone_ocean",
     themes = { core = { jojoker.themes.MADE_IN_HEAVEN }, support = { jojoker.themes.HAND_SIZE } },
-    conflicts = { horus = "cuts_your_hands_down_to", the_true_mans_world = "cuts_your_hands_down_to", speedwagon_bt = "cuts_your_hands_down_to", california_king_bed = "cuts_your_hands_down_to", speedwagon = "cuts_your_discards_down_to", old_joseph_joestar = "cuts_your_discards_down_to" },
+    conflicts = { horus = "cuts_your_hands_down_to", the_true_mans_world = "cuts_your_hands_down_to", speedwagon_bt = "cuts_your_hands_down_to", california_king_bed = "cuts_your_hands_down_to", speedwagon = "cuts_your_discards_down_to", old_joseph_joestar = "cuts_your_discards_down_to", boku_no_rhythm_wo_kiitekure = "cuts_your_discards_down_to" },
     blueprint_compat = false,
     perishable_compat = false,
     eternal_compat = false,

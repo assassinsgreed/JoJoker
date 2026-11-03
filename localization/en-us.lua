@@ -1123,6 +1123,15 @@ local loc = {
                     "of all scored cards, except {C:attention}Wild Cards{}."
                 }
             },
+            j_jojoker_boku_no_rhythm_wo_kiitekure = {
+                name = "Boku no Rhythm wo Kiitekure",
+                alt_name = "Tic Tac Boom",
+                text = {
+                    "{C:red}+#1#{} discard.",
+                    "Each {C:attention}discard{} destroys",
+                    "{C:attention}1{} random discarded card."
+                }
+            },
             -- Part 8: Jojolion
             j_jojoker_soft_and_wet = {
                 name = "Soft & Wet",
@@ -1390,6 +1399,7 @@ local loc = {
             sound_reverting = "Reverting!",
             sound_rewriting = "Rewriting!",
             sound_use_it_all = "Use it all up!",
+            sound_boom = "Boom!",
             sound_lose_everything = "Lose Everything!",
             sound_muda = "Muda Muda Muda!",
             sound_value_down = "Value down!",

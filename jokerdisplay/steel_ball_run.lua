@@ -266,6 +266,17 @@ jd_def["j_jojoker_scary_monsters"] = {
     }
 }
 
+jd_def["j_jojoker_boku_no_rhythm_wo_kiitekure"] = {
+    text = {
+        { text = "+", colour = G.C.RED },
+        { ref_table = "card.ability", ref_value = "d_size", colour = G.C.RED },
+        { text = " Discard", colour = G.C.GREY },
+    },
+    reminder_text = {
+        { text = "(Destroys 1 random discarded card)", colour = G.C.GREY },
+    },
+}
+
 jd_def["j_jojoker_sugar_mountain"] = {
     text = {
         { text = "$", colour = G.C.MONEY },

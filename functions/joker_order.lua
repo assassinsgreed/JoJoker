@@ -81,6 +81,7 @@ jojoker.joker_order = {
     "ball_breaker",
     "black_sabbath",
     "blue_hawaii",
+    "boku_no_rhythm_wo_kiitekure",
     "burning_down_the_house",
     "c_moon",
     "california_king_bed",
