@@ -20,6 +20,7 @@ jojoker.themes = {
     JACKS = "jacks",
     JACK_DECK = "jack_deck",
     SEVENS = "sevens",
+    LOW_RANKS = "low_ranks",
     FACE_CARDS = "face_cards",
     PAIRS = "pairs",
     TWO_PAIR_FULL_HOUSE = "two_pair_full_house",

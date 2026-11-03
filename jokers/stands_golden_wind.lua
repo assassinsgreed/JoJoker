@@ -360,7 +360,7 @@ local little_feet = {
     cost = 5,
     jtype = "Stand",
     part = "golden_wind",
-    themes = { support = { jojoker.themes.DEBUFFED_CARDS } },
+    themes = { core = { jojoker.themes.LOW_RANKS }, support = { jojoker.themes.DEBUFFED_CARDS } },
     conflicts = { santana = "debuffs_face_cards", yellow_temperance = "debuffs_face_cards", suzi_q = "debuffs_face_cards", jumpin_jack_flash = "debuffs_face_cards", paper_moon_king = "debuffs_face_cards", tattoo_you = "debuffs_face_cards", cinderella = "debuffs_face_cards" },
     blueprint_compat = true,
     config = { extra = { Xmult = 1.5 } },

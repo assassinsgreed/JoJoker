@@ -42,6 +42,7 @@ local mista = {
     cost = 6,
     jtype = "Character",
     part = "golden_wind",
+    themes = { support = { jojoker.themes.LOW_RANKS } },
     blueprint_compat = true,
     perishable_compat = true,
     eternal_compat = true,
