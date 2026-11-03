@@ -67,7 +67,7 @@ def render_line(line: str) -> str:
 
 def render_description(lines: list[str], vars: list[str] | None) -> str:
     return '<hr class="div">'.join(
-        '<p class="ln">' + render_line(" ".join(fill(l, vars) for l in block)) + "</p>" for block in blocks(lines)
+        '<p class="ln">' + "<br>".join(render_line(fill(l, vars)) for l in block) + "</p>" for block in blocks(lines)
     )
 
 

@@ -8,10 +8,10 @@ KARS = [
 ]
 
 
-def test_blocks_divider_and_flowing_text():
+def test_blocks_divider_and_in_game_line_breaks():
     html = render_description(KARS, ["2", "1"])
     assert html.count('<p class="ln">') == 2 and html.count('<hr class="div">') == 1
-    assert "for each unique <span" in html
+    assert "for each unique<br><span" in html
 
 
 def test_xmult_highlight_wraps_value_only():
