@@ -159,6 +159,16 @@ Never write a `_alt` entry by hand: the loop at the bottom of `en-us.lua` genera
 `j_jojoker_kiss_alt` from `alt_name`, sharing the base entry's `text`. Scaling jokers end
 with the `{br:2}line break` / `{C:inactive}Currently:` footer.
 
+**Keep descriptions short and sweet without losing clarity.** Use one strong verb instead
+of a step-by-step account, and drop anything the `Currently:` footer or the colour codes
+already say. Ex. "removes all extra chips and extra mult from scoring cards and adds them
+to this Joker" becomes:
+
+```lua
+"Before scoring, drains all bonus {C:chips}chips{}",
+"and {C:mult}mult{} from scoring cards.",
+```
+
 ## 8. Compendium synergies
 
 Every joker appears on the compendium site, so classify it before calling it done: give the

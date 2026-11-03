@@ -135,7 +135,7 @@ local the_lovers = {
     cost = 4,
     jtype = "Stand",
     part = "stardust_crusaders",
-    themes = { core = { jojoker.themes.HEARTS } },
+    themes = { core = { jojoker.themes.HEARTS }, support = { jojoker.themes.PERMANENT_BUFF_EATER } },
     similar = { jojoker.similar.PERMANENT_CARD_BUFFS },
     blueprint_compat = true,
     perishable_compat = true,

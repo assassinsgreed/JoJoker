@@ -222,6 +222,15 @@ jd_def["j_jojoker_aqua_necklace"] = {
     }
 }
 
+jd_def["j_jojoker_highway_star"] = {
+    text = {
+        { text = "+", colour = G.C.CHIPS },
+        { ref_table = "card.ability.extra", ref_value = "chips", retrigger_type = "mult", colour = G.C.CHIPS },
+        { text = " +", colour = G.C.MULT },
+        { ref_table = "card.ability.extra", ref_value = "mult", retrigger_type = "mult", colour = G.C.MULT },
+    },
+}
+
 jd_def["j_jojoker_ghost_girl_alley"] = {
     text = {
         { text = "+", colour = G.C.CHIPS },

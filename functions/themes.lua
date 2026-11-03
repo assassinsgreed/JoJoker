@@ -30,6 +30,7 @@ jojoker.themes = {
     STONE_CARDS = "stone_cards",
     ENHANCEMENT_EATERS = "enhancement_eaters",
     STONE_STEEL_EATER = "stone_steel_eater",
+    PERMANENT_BUFF_EATER = "permanent_buff_eater",
     GLASS_CARDS = "glass_cards",
     SEALS = "seals",
     RETRIGGERS = "retriggers",

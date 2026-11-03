@@ -603,6 +603,16 @@ local loc = {
                     "hand contains a {C:attention}Flush{}."
                 }
             },
+            j_jojoker_highway_star = {
+                name = "Highway Star",
+                alt_name = "Highway Go Go",
+                text = {
+                    "Before scoring, drains all bonus {C:chips}chips{}",
+                    "and {C:mult}mult{} from scoring cards.",
+                    "{br:2}line break",
+                    "{C:inactive}Currently: {C:chips}+#1#{} {C:mult}+#2#{}"
+                }
+            },
             j_jojoker_ghost_girl_alley = {
                 name = "Ghost Girl Alley",
                 text = {

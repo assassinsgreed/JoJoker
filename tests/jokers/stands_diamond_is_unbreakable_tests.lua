@@ -597,3 +597,96 @@ Balatest.TestPlay {
     end
 }
 --#endregion
+--#region Highway Star
+Balatest.TestPlay {
+    name = 'highway_star_absorbs_extra_chips_and_mult_from_scoring_card',
+    category = { 'jokers', 'diamond_is_unbreakable', 'highway_star' },
+    jokers = { 'j_jojoker_highway_star' },
+    deck = { cards = {
+        { r = 'K', s = 'S' },
+        { r = '5', s = 'H' },
+        { r = '2', s = 'C' } } },
+    execute = function()
+        local king = find_playing_card('King', 'Spades')
+        king.ability.perma_bonus = 20
+        king.ability.perma_mult = 3
+        Balatest.play_hand { 'KS' }
+    end,
+    assert = function()
+        local king = find_playing_card('King', 'Spades')
+        Balatest.assert_eq(G.jokers.cards[1].ability.extra.chips, 20, "Highway Star did not absorb the scoring card's extra chips")
+        Balatest.assert_eq(G.jokers.cards[1].ability.extra.mult, 3, "Highway Star did not absorb the scoring card's extra mult")
+        Balatest.assert_eq(king.ability.perma_bonus, 0, "Highway Star did not remove the scoring card's extra chips")
+        Balatest.assert_eq(king.ability.perma_mult, 0, "Highway Star did not remove the scoring card's extra mult")
+    end
+}
+Balatest.TestPlay {
+    name = 'highway_star_scores_absorbed_bonuses_instead_of_the_card',
+    category = { 'jokers', 'diamond_is_unbreakable', 'highway_star' },
+    jokers = { 'j_jojoker_highway_star' },
+    deck = { cards = {
+        { r = 'K', s = 'S' },
+        { r = '5', s = 'H' },
+        { r = '2', s = 'C' } } },
+    execute = function()
+        local king = find_playing_card('King', 'Spades')
+        king.ability.perma_bonus = 20
+        king.ability.perma_mult = 3
+        Balatest.play_hand { 'KS' }
+    end,
+    assert = function()
+        -- High Card (5 + 10 King) + 20 absorbed chips, times (1 + 3 absorbed mult); counted once, not twice
+        Balatest.assert_chips(140, "Highway Star did not score the absorbed chips and mult exactly once")
+    end
+}
+Balatest.TestPlay {
+    name = 'highway_star_absorbs_from_every_scoring_card',
+    category = { 'jokers', 'diamond_is_unbreakable', 'highway_star' },
+    jokers = { 'j_jojoker_highway_star' },
+    deck = { cards = {
+        { r = 'K', s = 'S' },
+        { r = 'K', s = 'C' },
+        { r = '2', s = 'C' } } },
+    execute = function()
+        find_playing_card('King', 'Spades').ability.perma_bonus = 10
+        find_playing_card('King', 'Clubs').ability.perma_mult = 2
+        Balatest.play_hand { 'KS', 'KC' }
+    end,
+    assert = function()
+        Balatest.assert_eq(G.jokers.cards[1].ability.extra.chips, 10, "Highway Star did not absorb extra chips from the first scoring card")
+        Balatest.assert_eq(G.jokers.cards[1].ability.extra.mult, 2, "Highway Star did not absorb extra mult from the second scoring card")
+    end
+}
+Balatest.TestPlay {
+    name = 'highway_star_does_not_absorb_from_unscored_card',
+    category = { 'jokers', 'diamond_is_unbreakable', 'highway_star' },
+    jokers = { 'j_jojoker_highway_star' },
+    deck = { cards = {
+        { r = 'K', s = 'S' },
+        { r = '5', s = 'H' },
+        { r = '2', s = 'C' } } },
+    execute = function()
+        find_playing_card('5', 'Hearts').ability.perma_bonus = 20
+        Balatest.play_hand { 'KS', '5H' }
+    end,
+    assert = function()
+        Balatest.assert_eq(G.jokers.cards[1].ability.extra.chips, 0, "Highway Star absorbed extra chips from an unscored card")
+        Balatest.assert_eq(find_playing_card('5', 'Hearts').ability.perma_bonus, 20, "Highway Star removed extra chips from an unscored card")
+    end
+}
+Balatest.TestPlay {
+    name = 'highway_star_absorbs_chips_the_first_napkin_adds_before_scoring',
+    category = { 'jokers', 'diamond_is_unbreakable', 'highway_star' },
+    jokers = { 'j_jojoker_the_first_napkin', 'j_jojoker_highway_star' },
+    deck = { cards = {
+        { r = 'K', s = 'S' },
+        { r = '5', s = 'H' },
+        { r = '2', s = 'C' } } },
+    execute = function()
+        Balatest.play_hand { 'KS' }
+    end,
+    assert = function()
+        Balatest.assert_eq(G.jokers.cards[2].ability.extra.chips, 13, "Highway Star did not absorb the chips The First Napkin gave the King")
+    end
+}
+--#endregion

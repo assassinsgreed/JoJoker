@@ -6,7 +6,7 @@ local joestar_birthmark = {
     cost = 8,
     jtype = "Effect",
     part = "stardust_crusaders",
-    themes = { support = { jojoker.themes.SCORE_EVERY_CARD } },
+    themes = { support = { jojoker.themes.SCORE_EVERY_CARD, jojoker.themes.PERMANENT_BUFF_EATER } },
     similar = { jojoker.similar.PERMANENT_CARD_BUFFS },
     blueprint_compat = true,
     perishable_compat = true,

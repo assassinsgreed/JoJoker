@@ -115,6 +115,7 @@ local the_first_napkin = {
     cost = 7,
     jtype = "Effect",
     part = "steel_ball_run",
+    themes = { support = { jojoker.themes.PERMANENT_BUFF_EATER } },
     blueprint_compat = false,
     perishable_compat = true,
     eternal_compat = true,

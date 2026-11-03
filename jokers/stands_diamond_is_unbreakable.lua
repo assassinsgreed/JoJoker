@@ -596,7 +596,56 @@ local aqua_necklace = {
     end
 }
 
+local highway_star = {
+    name = "highway_star",
+    rarity = 2,
+    cost = 6,
+    jtype = "Stand",
+    part = "diamond_is_unbreakable",
+    themes = { core = { jojoker.themes.PERMANENT_BUFF_EATER } },
+    blueprint_compat = true,
+    perishable_compat = true,
+    eternal_compat = true,
+    config = { extra = { chips = 0, mult = 0 } },
+    loc_vars = function(self, info_queue, center)
+        return {vars = { center.ability.extra.chips, center.ability.extra.mult }}
+    end,
+    calculate = function(self, card, context)
+        -- Drain before scoring so the stripped cards score without their bonuses this hand
+        if context.before and not context.blueprint then
+            local chips, mult = 0, 0
+            for _, scoring_card in ipairs(context.scoring_hand) do
+                if (scoring_card.ability.perma_bonus or 0) > 0 then
+                    chips = chips + scoring_card.ability.perma_bonus
+                    scoring_card.ability.perma_bonus = 0
+                end
+                if (scoring_card.ability.perma_mult or 0) > 0 then
+                    mult = mult + scoring_card.ability.perma_mult
+                    scoring_card.ability.perma_mult = 0
+                end
+            end
+            if chips > 0 or mult > 0 then
+                card.ability.extra.chips = card.ability.extra.chips + chips
+                card.ability.extra.mult = card.ability.extra.mult + mult
+                sendDebugMessage("Highway Star: Absorbing "..chips.." chips and "..mult.." mult from scoring cards, now at "..card.ability.extra.chips.." chips and "..card.ability.extra.mult.." mult")
+                return {
+                    message = localize('k_upgrade_ex'),
+                    colour = G.C.CHIPS
+                }
+            end
+        end
+
+        if context.joker_main and (card.ability.extra.chips > 0 or card.ability.extra.mult > 0) then
+            sendDebugMessage("Highway Star: Giving "..card.ability.extra.chips.." chips and "..card.ability.extra.mult.." mult")
+            return {
+                chips = card.ability.extra.chips,
+                mult = card.ability.extra.mult,
+            }
+        end
+    end
+}
+
 return {
     name = "Diamond is Unbreakable Stand Jokers",
-    list = { red_hot_chili_pepper, the_hand, superfly, crazy_diamond, bad_company, cheap_trick, cinderella, atom_heart_father, surface, killer_queen, heavens_door, the_lock, harvest, echoes_act_3, aqua_necklace },
+    list = { red_hot_chili_pepper, the_hand, superfly, crazy_diamond, bad_company, cheap_trick, cinderella, atom_heart_father, surface, killer_queen, heavens_door, the_lock, harvest, echoes_act_3, aqua_necklace, highway_star },
 }

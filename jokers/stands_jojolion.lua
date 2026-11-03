@@ -353,6 +353,7 @@ local fun_fun_fun = {
     cost = 5,
     jtype = "Stand",
     part = "jojolion",
+    themes = { support = { jojoker.themes.PERMANENT_BUFF_EATER } },
     blueprint_compat = false,
     perishable_compat = true,
     eternal_compat = true,

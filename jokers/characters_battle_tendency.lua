@@ -302,7 +302,7 @@ local santana = {
     cost = 5,
     jtype = "Character",
     part = "battle_tendency",
-    themes = { core = { jojoker.themes.FACE_CARDS } },
+    themes = { core = { jojoker.themes.FACE_CARDS }, support = { jojoker.themes.PERMANENT_BUFF_EATER } },
     similar = { jojoker.similar.PERMANENT_CARD_BUFFS },
     blueprint_compat = true,
     perishable_compat = true,
