@@ -138,3 +138,10 @@ count_perishable_shop_rolls = function(rolls)
     end
     return perishable
 end
+
+force_scary_monsters_suit = function(suit)
+    Balatest.hook(_G, 'pseudorandom_element', function(orig, t, seed, ...)
+        if seed == 'jojoker_scary_monsters' then return SMODS.Suits[suit], suit end
+        return orig(t, seed, ...)
+    end)
+end

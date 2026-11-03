@@ -132,6 +132,7 @@ jojoker.joker_order = {
     "purple_haze",
     "red_hot_chili_pepper",
     "rolling_stones",
+    "scary_monsters",
     "sethan",
     "sex_pistols",
     "smooth_operator",

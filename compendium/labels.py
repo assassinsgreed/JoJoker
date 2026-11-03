@@ -115,5 +115,6 @@ LABELS = Labels(
         'wants_a_bigger_deck': 'wants a bigger deck',
         'makes_every_played_card_score': 'makes every played card score',
         'turns_unscored_cards_into_stone': 'turns unscored cards into Stone cards, which always score',
+        'randomizes_the_suits_these': 'randomizes the suits these rely on',
     },
 )

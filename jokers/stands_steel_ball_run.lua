@@ -430,7 +430,50 @@ local tomb_of_the_boom = {
     end
 }
 
+local scary_monsters = {
+    name = "scary_monsters",
+    rarity = 1,
+    cost = 4,
+    jtype = "Stand",
+    part = "steel_ball_run",
+    conflicts = {
+        voice_of_love = "randomizes_the_suits_these",
+        the_lovers = "randomizes_the_suits_these",
+        crazy_diamond = "randomizes_the_suits_these",
+        nypd = "randomizes_the_suits_these",
+        leaky_eye_luca = "randomizes_the_suits_these",
+        aqua_necklace = "randomizes_the_suits_these",
+    },
+    blueprint_compat = false,
+    perishable_compat = true,
+    eternal_compat = true,
+    calculate = function(self, card, context)
+        -- Randomly change all scored cards' suits after scoring, except for Wild Cards
+        if context.after and not context.blueprint then
+            local targets = {}
+            for _, scored in ipairs(context.scoring_hand) do
+                if not SMODS.has_enhancement(scored, 'm_wild') then
+                    targets[#targets + 1] = { card = scored, suit = pseudorandom_element(SMODS.Suits, 'jojoker_scary_monsters').key }
+                end
+            end
+            if #targets == 0 then return end
+
+            -- Deferred so the new suits appear after the hand has finished scoring
+            G.E_MANAGER:add_event(Event({
+                func = function()
+                    for _, target in ipairs(targets) do
+                        SMODS.change_base(target.card, target.suit)
+                        target.card:juice_up()
+                    end
+                    sendDebugMessage("Scary Monsters: Randomized the suits of "..#targets.." scored cards.")
+                    return true
+                end
+            }))
+        end
+    end
+}
+
 return {
     name = "Steel Ball Run Stand Jokers",
-    list = { mandom, chocolate_disco, oh_lonesome_me, hey_ya, tattoo_you, civil_war, ball_breaker, love_train, in_a_silent_way, d4c, tomb_of_the_boom },
+    list = { mandom, chocolate_disco, oh_lonesome_me, hey_ya, tattoo_you, civil_war, ball_breaker, love_train, in_a_silent_way, d4c, tomb_of_the_boom, scary_monsters },
 }

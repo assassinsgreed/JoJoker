@@ -681,3 +681,78 @@ Balatest.TestPlay {
     end
 }
 --#endregion
+--#region Scary Monsters
+Balatest.TestPlay {
+    name = 'scary_monsters_randomizes_the_suit_of_every_scored_card',
+    category = { 'jokers', 'steel_ball_run', 'scary_monsters' },
+    jokers = { 'j_jojoker_scary_monsters' },
+    deck = { cards = {
+        { r = '2', s = 'S' }, { r = '2', s = 'S' }, { r = '2', s = 'S' }, { r = '2', s = 'S' }, { r = '2', s = 'S' },
+        { r = '2', s = 'S' }, { r = '2', s = 'S' }, { r = '2', s = 'S' }, { r = '2', s = 'S' }, { r = '2', s = 'S' } } },
+    hand_size = 5,
+    execute = function()
+        force_scary_monsters_suit('Hearts')
+        Balatest.play_hand { '2S', '2S', '2S', '2S', '2S' }
+        Balatest.wait()
+    end,
+    assert = function()
+        Balatest.assert_eq(count_playing_cards('2', 'Hearts'), 5, "Scary Monsters did not change the suit of every scored card")
+        Balatest.assert_eq(count_playing_cards('2', 'Spades'), 5, "Scary Monsters changed the suit of cards that were not played")
+    end
+}
+
+Balatest.TestPlay {
+    name = 'scary_monsters_changes_suits_after_the_hand_scores',
+    category = { 'jokers', 'steel_ball_run', 'scary_monsters' },
+    jokers = { 'j_jojoker_scary_monsters', 'j_jojoker_leaky_eye_luca' },
+    deck = { cards = {
+        { r = '2', s = 'S' }, { r = '2', s = 'S' }, { r = '2', s = 'S' }, { r = '2', s = 'S' } } },
+    hand_size = 2,
+    execute = function()
+        force_scary_monsters_suit('Hearts')
+        Balatest.play_hand { '2S' }
+    end,
+    assert = function()
+        Balatest.assert_chips(7 * (1 + G.jokers.cards[2].ability.extra.mult), "Scary Monsters changed the suit before the hand finished scoring")
+    end
+}
+
+Balatest.TestPlay {
+    name = 'scary_monsters_ignores_wild_cards',
+    category = { 'jokers', 'steel_ball_run', 'scary_monsters' },
+    jokers = { 'j_jojoker_scary_monsters' },
+    deck = { cards = {
+        { r = '2', s = 'S', e = 'm_wild' }, { r = '2', s = 'S', e = 'm_wild' }, { r = '2', s = 'S', e = 'm_wild' },
+        { r = '2', s = 'S', e = 'm_wild' } } },
+    hand_size = 2,
+    execute = function()
+        force_scary_monsters_suit('Hearts')
+        Balatest.play_hand { '2S', '2S' }
+        Balatest.wait()
+    end,
+    assert = function()
+        Balatest.assert_eq(count_playing_cards('2', 'Hearts'), 0, "Scary Monsters changed the suit of a Wild Card")
+    end
+}
+
+Balatest.TestPlay {
+    name = 'scary_monsters_ignores_played_cards_that_do_not_score',
+    category = { 'jokers', 'steel_ball_run', 'scary_monsters' },
+    jokers = { 'j_jojoker_scary_monsters' },
+    deck = { cards = {
+        { r = '2', s = 'S' }, { r = '2', s = 'S' }, { r = '2', s = 'S' }, { r = '2', s = 'S' } } },
+    hand_size = 2,
+    execute = function()
+        force_scary_monsters_suit('Hearts')
+        Balatest.q(function()
+            set_card_bases(G.hand, { 'S_K', 'S_2' })
+        end)
+        Balatest.play_hand { 'KS', '2S' } -- High Card, only the King scores
+        Balatest.wait()
+    end,
+    assert = function()
+        Balatest.assert_eq(count_playing_cards('King', 'Hearts'), 1, "Scary Monsters did not change the suit of the scored card")
+        Balatest.assert_eq(count_playing_cards('2', 'Hearts'), 0, "Scary Monsters changed the suit of a played card that did not score")
+    end
+}
+--#endregion

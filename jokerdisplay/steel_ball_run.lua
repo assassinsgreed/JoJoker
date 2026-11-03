@@ -259,6 +259,13 @@ jd_def["j_jojoker_tomb_of_the_boom"] = {
     end,
 }
 
+jd_def["j_jojoker_scary_monsters"] = {
+    text = {
+        { text = "Randomize ", colour = G.C.GREY },
+        { text = "Scored Suits", colour = G.C.GREEN },
+    }
+}
+
 jd_def["j_jojoker_sugar_mountain"] = {
     text = {
         { text = "$", colour = G.C.MONEY },

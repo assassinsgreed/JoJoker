@@ -1115,6 +1115,14 @@ local loc = {
                     "from the deck {C:attention}drawn{} into the hand."
                 }
             },
+            j_jojoker_scary_monsters = {
+                name = "Scary Monsters",
+                alt_name = "Frightening Monsters",
+                text = {
+                    "After scoring, {C:attention}randomizes{} the {C:attention}suits{}",
+                    "of all scored cards, except {C:attention}Wild Cards{}."
+                }
+            },
             -- Part 8: Jojolion
             j_jojoker_soft_and_wet = {
                 name = "Soft & Wet",
