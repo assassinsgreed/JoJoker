@@ -45,6 +45,7 @@ LABELS = Labels(
         'score_every_card': ('Score every card', 'Splash and Stone cards make every played card score, for jokers that pay per scored card.'),
         'debuffed_cards': ('Debuffed cards', 'Loccobarocco & Charlotte turns debuffed cards into chips; these debuff cards for it.'),
         'debuffed_jokers': ('Debuffed jokers', 'Left Side Ataxia debuffs its neighbours; Oh! Lonesome Me keeps working while debuffed.'),
+        'perishable_jokers': ('Perishable jokers', 'White Album freezes Perishable countdowns, so jokers that pay off while Perishable keep paying forever.'),
         'joker_destruction': ('Joker destruction', 'Profit when jokers are destroyed; these do the destroying.'),
         'sell_value': ('Sell value', "Death Thirteen eats a joker's sell value; these build sell value up."),
         'selling_jokers': ('Selling jokers', 'Anubis grows each time you sell a joker; these are built to be sold.'),

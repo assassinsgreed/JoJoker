@@ -46,25 +46,48 @@ jojoker_set_joker_badges = function(self, card, badges)
     local notorious = localize{type = 'variable', key = 'jojoker_notorious_badge', vars = {card.ability.jojoker_notorious_xmult}}
     badges[#badges+1] = create_badge(notorious, G.C.XMULT, G.C.WHITE, 1.2 )
   end
+
+  if card.ability and card.ability.jojoker_purple_haze_chips then
+    local infected = localize{type = 'variable', key = 'jojoker_purple_haze_badge', vars = {card.ability.jojoker_purple_haze_chips, card.ability.jojoker_purple_haze_mult}}
+    badges[#badges+1] = create_badge(infected, G.C.PURPLE, G.C.WHITE, 1.2 )
+  end
 end
 
--- Chained as the deepest extra so the Notorious B.I.G. Xmult scores after the joker's own effect
-jojoker_add_notorious_xmult = function(card, context, ret)
+-- Chained as the deepest extra so the bonus scores after the joker's own effect
+jojoker_append_joker_main_bonus = function(context, ret, bonus)
   if not (context and context.joker_main and not context.blueprint) then return ret end
-  if not (card and card.ability and card.ability.jojoker_notorious_xmult) then return ret end
   if ret ~= nil and type(ret) ~= 'table' then return ret end
-
-  local notorious = {
-    message = localize{type = 'variable', key = 'a_xmult', vars = {card.ability.jojoker_notorious_xmult}},
-    colour = G.C.XMULT,
-    Xmult_mod = card.ability.jojoker_notorious_xmult
-  }
-  if not ret then return notorious end
+  if not ret then return bonus end
 
   local last = ret
   while last.extra do last = last.extra end
-  last.extra = notorious
+  last.extra = bonus
   return ret
+end
+
+jojoker_add_notorious_xmult = function(card, context, ret)
+  if not (card and card.ability and card.ability.jojoker_notorious_xmult) then return ret end
+  return jojoker_append_joker_main_bonus(context, ret, {
+    message = localize{type = 'variable', key = 'a_xmult', vars = {card.ability.jojoker_notorious_xmult}},
+    colour = G.C.XMULT,
+    Xmult_mod = card.ability.jojoker_notorious_xmult
+  })
+end
+
+-- Grows before scoring so the first activation already counts; retriggers and copies only score it
+jojoker_add_purple_haze_bonus = function(card, context, ret)
+  if not (card and card.ability and card.ability.jojoker_purple_haze_chips) then return ret end
+  if not (context and context.joker_main and not context.blueprint) then return ret end
+  if not context.retrigger_joker then
+    local growth = G.P_CENTERS.j_jojoker_purple_haze.config.extra
+    card.ability.jojoker_purple_haze_chips = card.ability.jojoker_purple_haze_chips + growth.chips_mod
+    card.ability.jojoker_purple_haze_mult = card.ability.jojoker_purple_haze_mult + growth.mult_mod
+    sendDebugMessage("Purple Haze: "..card.ability.name.." grew to +"..card.ability.jojoker_purple_haze_chips.." chips and +"..card.ability.jojoker_purple_haze_mult.." mult")
+  end
+  return jojoker_append_joker_main_bonus(context, ret, {
+    chips = card.ability.jojoker_purple_haze_chips,
+    mult = card.ability.jojoker_purple_haze_mult
+  })
 end
 
 remove = function(self, card, context)

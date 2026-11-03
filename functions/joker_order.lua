@@ -128,6 +128,7 @@ jojoker.joker_order = {
     "paisley_park",
     "paper_moon_king",
     "planet_waves",
+    "purple_haze",
     "red_hot_chili_pepper",
     "rolling_stones",
     "sethan",

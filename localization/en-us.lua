@@ -38,9 +38,9 @@ local loc = {
             j_jojoker_straizo = {
                 name = "Straizo",
                 text = {
-                    "Gives {C:chips}+#1#{} chips for each",
+                    "Gives {C:chips}+#1#{} for each",
                     "played {C:attention}Straight{}.",
-                    "Gives {C:chips}+#2#{} chips for each",
+                    "Gives {C:chips}+#2#{} for each",
                     "played {C:attention}Straight / Royal Flush{}."
                 }
             },
@@ -437,7 +437,7 @@ local loc = {
             j_jojoker_horus = {
                 name = "Horus",
                 text = {
-                    "Gains {C:chips}+#1#{} Chips per hand played.",
+                    "Gains {C:chips}+#1#{} per hand played.",
                     "Resets to {C:chips}+#1#{} if score catches fire.",
                     "{br:2}line break",
                     "{C:inactive}Currently: {C:chips}+#2#{}"
@@ -592,14 +592,14 @@ local loc = {
             j_jojoker_aqua_necklace = {
                 name = "Aqua Necklace",
                 text = {
-                    "Gives {C:chips}+#1#{} chips if played",
+                    "Gives {C:chips}+#1#{} if played",
                     "hand contains a {C:attention}Flush{}."
                 }
             },
             j_jojoker_ghost_girl_alley = {
                 name = "Ghost Girl Alley",
                 text = {
-                    "{C:chips}+#1#{} Chips, {C:mult}+#2#{} Mult, and {C:money}$#3#{} at end of round",
+                    "{C:chips}+#1#{}, {C:mult}+#2#{}, and {C:money}$#3#{} at end of round",
                     "for each {C:attention}Ante{} cleared this run.",
                     "Destroyed if the {C:attention}Ante{} is reversed.",
                     "{br:2}line break",
@@ -757,6 +757,15 @@ local loc = {
                     "{X:mult,C:white} X1 {} Mult plus {X:mult,C:white} X#1# {} per {C:attention}unscored{} card"
                 }
             },
+            j_jojoker_purple_haze = {
+                name = "Purple Haze",
+                alt_name = "Purple Smoke",
+                text = {
+                    "When {C:attention}Blind{} is selected, makes a random",
+                    "{C:attention}Joker{} {C:attention}Perishable{}. Each time an infected",
+                    "{C:attention}Joker{} scores, it gains {C:chips}+#1#{} and {C:mult}+#2#{}."
+                }
+            },
             j_jojoker_seven_page_muda = {
                 name = "Seven Page Muda",
                 text = {
@@ -768,10 +777,10 @@ local loc = {
                 name = "Goo Goo Dolls",
                 alt_name = "G.G. Dolls",
                 text = {
-                    "{C:mult}+#1#{} Mult for each card",
+                    "{C:mult}+#1#{} for each card",
                     "below {C:attention}#2#{} in your {C:attention}full deck{}.",
                     "{br:2}line break",
-                    "{C:inactive}Currently: {C:mult}+#3#{C:inactive} Mult"
+                    "{C:inactive}Currently: {C:mult}+#3#{}"
                 }
             },
             j_jojoker_stone_free = {
@@ -1123,7 +1132,7 @@ local loc = {
             j_jojoker_higashikata_house = {
                 name = "Higashikata House",
                 text = {
-                    "Gives {C:chips}+#1#{} chips for each",
+                    "Gives {C:chips}+#1#{} for each",
                     "played {C:attention}Full House{}."
                 }
             },
@@ -1186,7 +1195,7 @@ local loc = {
                 name = "Fun Fun Fun",
                 text = {
                     "When a hand is played, {C:attention}discards{} a random card",
-                    "held in hand and permanently gives it {C:mult}+#1#{} Mult."
+                    "held in hand and permanently gives it {C:mult}+#1#{}."
                 }
             },
             j_jojoker_blue_hawaii = {
@@ -1202,7 +1211,7 @@ local loc = {
                 name = "Smooth Operators",
                 text = {
                     "Shuffles the order of each card {C:attention}played{},",
-                    "then gives {C:chips}+#1#{} chips for each {C:attention}scored{} card."
+                    "then gives {C:chips}+#1#{} for each {C:attention}scored{} card."
                 }
             },
             j_jojoker_jodio_joestar = {
@@ -1401,6 +1410,7 @@ local loc = {
         },
         v_dictionary = {
             jojoker_notorious_badge = "Notorious Activated X#1#",
+            jojoker_purple_haze_badge = "Infected +#1#/+#2#",
         },
         quips = {
             jojoker_lose_quip1 = {"You thought you could beat me?", "Yare yare daze...",},

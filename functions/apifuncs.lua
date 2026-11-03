@@ -39,6 +39,7 @@ jojoker.load_joker = function(item)
         if joker_calculate then
             ret, triggered = joker_calculate(self, card, context)
         end
+        ret = jojoker_add_purple_haze_bonus(card, context, ret)
         return jojoker_add_notorious_xmult(card, context, ret), triggered
     end
 

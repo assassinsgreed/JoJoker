@@ -28,8 +28,8 @@ def test_outputs_exist(site):
 
 
 def test_data_has_every_joker(data):
-    assert len(data["jokers"]) == 152 and data["version"] == "v9.9.9"
-    assert len(data["themes"]) == 49
+    assert len(data["jokers"]) == 153 and data["version"] == "v9.9.9"
+    assert len(data["themes"]) == 50
 
 
 def test_search_text_includes_alt_name_lowercased(data):

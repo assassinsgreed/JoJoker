@@ -680,3 +680,148 @@ Balatest.TestPlay {
     end
 }
 --#endregion
+--#region Purple Haze
+Balatest.TestPlay {
+    name = 'purple_haze_infects_a_joker_when_blind_is_selected',
+    category = { 'jokers', 'golden_wind', 'purple_haze' },
+    jokers = { 'j_jojoker_purple_haze', 'j_jojoker_leaky_eye_luca' },
+    execute = function()
+        Balatest.wait()
+    end,
+    assert = function()
+        local infected = G.jokers.cards[2]
+        Balatest.assert(infected.ability.perishable, "Purple Haze did not make Leaky Eye Luca perishable")
+        Balatest.assert_eq(infected.ability.perish_tally, G.GAME.perishable_rounds, "Purple Haze did not start a full perishable countdown")
+        Balatest.assert_eq(infected.ability.jojoker_purple_haze_chips, 0, "Infected joker gained chips before it scored")
+    end
+}
+
+Balatest.TestPlay {
+    name = 'purple_haze_infects_one_new_joker_each_blind',
+    category = { 'jokers', 'golden_wind', 'purple_haze' },
+    jokers = { 'j_jojoker_purple_haze', 'j_jojoker_leaky_eye_luca', 'j_jojoker_leaky_eye_luca' },
+    execute = function()
+        Balatest.next_round()
+    end,
+    assert = function()
+        Balatest.assert(G.jokers.cards[2].ability.perishable and G.jokers.cards[3].ability.perishable, "Purple Haze did not infect a new joker on the second blind")
+    end
+}
+
+Balatest.TestPlay {
+    name = 'purple_haze_infected_joker_grows_when_it_scores',
+    category = { 'jokers', 'golden_wind', 'purple_haze' },
+    jokers = { 'j_jojoker_purple_haze', 'j_jojoker_leaky_eye_luca' },
+    execute = function()
+        Balatest.play_hand { '2H' }
+    end,
+    assert = function()
+        local extra = G.jokers.cards[1].ability.extra
+        Balatest.assert_eq(G.jokers.cards[2].ability.jojoker_purple_haze_chips, extra.chips_mod, "Infected joker did not gain chips when it scored")
+        Balatest.assert_eq(G.jokers.cards[2].ability.jojoker_purple_haze_mult, extra.mult_mod, "Infected joker did not gain mult when it scored")
+    end
+}
+
+Balatest.TestPlay {
+    name = 'purple_haze_infected_joker_grows_once_per_hand',
+    category = { 'jokers', 'golden_wind', 'purple_haze' },
+    jokers = { 'j_jojoker_purple_haze', 'j_jojoker_leaky_eye_luca' },
+    execute = function()
+        Balatest.play_hand { '2H' }
+        Balatest.play_hand { '3H' }
+    end,
+    assert = function()
+        Balatest.assert_eq(G.jokers.cards[2].ability.jojoker_purple_haze_chips, 2 * G.jokers.cards[1].ability.extra.chips_mod, "Infected joker did not gain chips exactly once per hand")
+    end
+}
+
+Balatest.TestPlay {
+    name = 'purple_haze_infected_joker_keeps_growing_after_purple_haze_is_sold',
+    category = { 'jokers', 'golden_wind', 'purple_haze' },
+    jokers = { 'j_jojoker_purple_haze', 'j_jojoker_leaky_eye_luca' },
+    execute = function()
+        Balatest.sell(function() return G.jokers.cards[1] end)
+        Balatest.play_hand { '2H' }
+    end,
+    assert = function()
+        Balatest.assert_eq(G.jokers.cards[1].ability.jojoker_purple_haze_chips, G.P_CENTERS.j_jojoker_purple_haze.config.extra.chips_mod, "Infected joker stopped growing once Purple Haze was sold")
+    end
+}
+
+Balatest.TestPlay {
+    name = 'purple_haze_does_not_infect_itself_or_incompatible_jokers',
+    category = { 'jokers', 'golden_wind', 'purple_haze' },
+    jokers = { 'j_jojoker_purple_haze', 'j_jojoker_black_sabbath' },
+    execute = function()
+        Balatest.wait()
+    end,
+    assert = function()
+        for _, joker in ipairs(G.jokers.cards) do
+            Balatest.assert(not joker.ability.perishable, joker.ability.name.." was made perishable by Purple Haze")
+            Balatest.assert(not joker.ability.jojoker_purple_haze_chips, joker.ability.name.." was infected by Purple Haze")
+        end
+    end
+}
+
+Balatest.TestPlay {
+    name = 'purple_haze_does_not_infect_eternal_jokers',
+    category = { 'jokers', 'golden_wind', 'purple_haze' },
+    jokers = { 'j_jojoker_purple_haze' },
+    execute = function()
+        Balatest.q(function()
+            local eternal = SMODS.add_card { key = 'j_jojoker_leaky_eye_luca' }
+            eternal.ability.eternal = true
+        end)
+        Balatest.next_round()
+    end,
+    assert = function()
+        Balatest.assert(not G.jokers.cards[2].ability.perishable, "Purple Haze made an eternal joker perishable")
+        Balatest.assert(not G.jokers.cards[2].ability.jojoker_purple_haze_chips, "Purple Haze infected an eternal joker")
+    end
+}
+
+Balatest.TestPlay {
+    name = 'purple_haze_infected_joker_stops_growing_once_it_perishes',
+    category = { 'jokers', 'golden_wind', 'purple_haze' },
+    jokers = { 'j_jojoker_purple_haze', 'j_jojoker_leaky_eye_luca' },
+    execute = function()
+        G.jokers.cards[2].ability.perish_tally = 1
+        Balatest.play_hand { '2H' }
+        Balatest.next_round()
+        Balatest.play_hand { '3H' }
+    end,
+    assert = function()
+        Balatest.assert(G.jokers.cards[2].debuff, "Infected joker did not perish")
+        Balatest.assert_eq(G.jokers.cards[2].ability.jojoker_purple_haze_chips, G.jokers.cards[1].ability.extra.chips_mod, "Perished joker kept growing")
+    end
+}
+
+Balatest.TestPlay {
+    name = 'purple_haze_bonus_scores_with_the_infected_joker',
+    category = { 'jokers', 'golden_wind', 'purple_haze' },
+    jokers = { 'j_jojoker_purple_haze', 'j_jojoker_leaky_eye_luca' },
+    execute = function()
+        Balatest.play_hand { '2H' }
+    end,
+    assert = function()
+        -- High Card: (5 + 2 + 10) chips x (1 + 3) mult; Leaky Eye Luca adds nothing without a Spade
+        Balatest.assert_chips(68, "Purple Haze bonus was not scored by the infected joker")
+    end
+}
+
+Balatest.TestPlay {
+    name = 'purple_haze_infected_joker_keeps_growing_while_white_album_freezes_it',
+    category = { 'jokers', 'golden_wind', 'purple_haze' },
+    jokers = { 'j_jojoker_white_album', 'j_jojoker_purple_haze', 'j_jojoker_leaky_eye_luca' },
+    execute = function()
+        G.jokers.cards[3].ability.perish_tally = 1
+        Balatest.play_hand { '2H' }
+        Balatest.next_round()
+        Balatest.play_hand { '3H' }
+    end,
+    assert = function()
+        Balatest.assert(not G.jokers.cards[3].debuff, "White Album did not keep the infected joker from perishing")
+        Balatest.assert_eq(G.jokers.cards[3].ability.jojoker_purple_haze_chips, 2 * G.jokers.cards[2].ability.extra.chips_mod, "Frozen infected joker did not keep growing")
+    end
+}
+--#endregion

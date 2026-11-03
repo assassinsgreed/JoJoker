@@ -215,3 +215,25 @@ jd_def["j_jojoker_aerosmith"] = {
         card.joker_display_values.xmult = 1 + unscored * card.ability.extra.xmult_mod
     end
 }
+
+-- Shown in the modifiers row of every joker Purple Haze has infected
+JokerDisplay.Edition_Definitions["jojoker_purple_haze"] = {
+    condition_function = function(card)
+        return not card.debuff and card.ability and card.ability.jojoker_purple_haze_chips
+    end,
+    -- Previews the growth the next hand will add before scoring
+    mod_function = function(card)
+        local growth = G.P_CENTERS.j_jojoker_purple_haze.config.extra
+        return { chips = card.ability.jojoker_purple_haze_chips + growth.chips_mod, mult = card.ability.jojoker_purple_haze_mult + growth.mult_mod }
+    end
+}
+
+jd_def["j_jojoker_purple_haze"] = {
+    reminder_text = {
+        { text = "(+", colour = G.C.GREY },
+        { ref_table = "card.ability.extra", ref_value = "chips_mod", colour = G.C.GREY },
+        { text = "/+", colour = G.C.GREY },
+        { ref_table = "card.ability.extra", ref_value = "mult_mod", colour = G.C.GREY },
+        { text = " per hand)", colour = G.C.GREY },
+    },
+}

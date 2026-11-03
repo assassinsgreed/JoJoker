@@ -411,6 +411,7 @@ local black_sabbath = {
     cost = 6,
     jtype = "Stand",
     part = "golden_wind",
+    themes = { support = { jojoker.themes.PERISHABLE_JOKERS } },
     conflicts = { esidisi = "turns_perishable_when_your_score", magician_red = "turns_perishable_when_your_score" },
     blueprint_compat = true,
     eternal_compat = false,
@@ -537,6 +538,7 @@ local white_album = {
     cost = 5,
     jtype = "Stand",
     part = "golden_wind",
+    themes = { core = { jojoker.themes.PERISHABLE_JOKERS } },
     blueprint_compat = false,
     -- Would freeze its own countdown
     perishable_compat = false,
@@ -580,7 +582,46 @@ local aerosmith = {
     end
 }
 
+local purple_haze = {
+    name = "purple_haze",
+    rarity = 2,
+    cost = 7,
+    jtype = "Stand",
+    part = "golden_wind",
+    themes = { support = { jojoker.themes.PERISHABLE_JOKERS } },
+    -- A copy would infect a second joker each blind
+    blueprint_compat = false,
+    perishable_compat = true,
+    eternal_compat = true,
+    config = { extra = { chips_mod = 10, mult_mod = 3 } },
+    loc_vars = function(self, info_queue, center)
+        info_queue[#info_queue + 1] = { key = 'perishable', set = 'Other', vars = { G.GAME.perishable_rounds or 5, G.GAME.perishable_rounds or 5 } }
+        return {
+            vars = {center.ability.extra.chips_mod, center.ability.extra.mult_mod}
+        }
+    end,
+    calculate = function(self, card, context)
+        -- At the start of blinds, infect a new joker (+ chips and mult per activation)
+        if context.setting_blind and not context.blueprint then
+            local targets = {}
+            for _, joker in ipairs(G.jokers.cards) do
+                if joker ~= card and joker.config.center.perishable_compat and not joker.ability.perishable and not joker.ability.eternal then
+                    targets[#targets + 1] = joker
+                end
+            end
+            if #targets > 0 then
+                local infected = pseudorandom_element(targets, pseudoseed('jojoker_purple_haze'))
+                infected:set_perishable(true)
+                infected.ability.jojoker_purple_haze_chips = infected.ability.jojoker_purple_haze_chips or 0
+                infected.ability.jojoker_purple_haze_mult = infected.ability.jojoker_purple_haze_mult or 0
+                sendDebugMessage("Purple Haze: Infected "..infected.ability.name)
+            end
+        end
+    end
+    -- Infected jokers grow as they score, in jojoker_add_purple_haze_bonus
+}
+
 return {
     name = "Golden Wind Stand Jokers",
-    list = { sex_pistols, grateful_dead, spice_girl, sticky_fingers, gold_experience, gold_experience_requiem, king_crimson, moody_blues, baby_face, little_feet, black_sabbath, rolling_stones, notorious_big, white_album, aerosmith },
+    list = { sex_pistols, grateful_dead, spice_girl, sticky_fingers, gold_experience, gold_experience_requiem, king_crimson, moody_blues, baby_face, little_feet, black_sabbath, rolling_stones, notorious_big, white_album, aerosmith, purple_haze },
 }

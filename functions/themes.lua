@@ -36,6 +36,7 @@ jojoker.themes = {
     SCORE_EVERY_CARD = "score_every_card",
     DEBUFFED_CARDS = "debuffed_cards",
     DEBUFFED_JOKERS = "debuffed_jokers",
+    PERISHABLE_JOKERS = "perishable_jokers",
     JOKER_DESTRUCTION = "joker_destruction",
     SELL_VALUE = "sell_value",
     SELLING_JOKERS = "selling_jokers",
