@@ -555,6 +555,13 @@ local loc = {
                     "Creates a random {C:spectral}Spectral{} card at the end of {C:attention}boss blinds{}."
                 }
             },
+            j_jojoker_angelo = {
+                name = "Angelo",
+                text = {
+                    "If scoring hand has a {C:attention}face{} card and a {C:attention}Stone{} card,",
+                    "retrigger all {C:attention}face{} and {C:attention}Stone{} cards {C:attention}#1#{} times."
+                }
+            },
             j_jojoker_atom_heart_father = {
                 name = "Atom Heart Father",
                 alt_name = "Heart Father",
@@ -1471,6 +1478,7 @@ local loc = {
             sound_dojyaaan = "Dojyaaan~",
             sound_kill_da_hoe = "Let's kill da hoe!",
             sound_beeeetch = "Beeeetch!",
+            sound_yo_angelo = "Yo, Angelo.",
 
             -- Common strings
             a_hand = "a hand",

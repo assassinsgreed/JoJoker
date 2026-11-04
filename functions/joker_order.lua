@@ -1,6 +1,7 @@
 -- Ordered alphabetically under Character, Effect, Stand, then Other groups
 jojoker.joker_order = {
     -- Characters
+    "angelo",
     "baron_zeppeli",
     "caesar",
     "coco_jumbo",

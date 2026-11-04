@@ -609,6 +609,15 @@ get_lowest_scored_rank_id = function(scoring_hand)
   return lowest
 end
 
+has_scoring_face_and_stone = function(scoring_hand)
+  local has_face, has_stone = false, false
+  for _, scored_card in ipairs(scoring_hand or {}) do
+    has_face = has_face or scored_card:is_face()
+    has_stone = has_stone or SMODS.has_enhancement(scored_card, 'm_stone')
+  end
+  return has_face and has_stone
+end
+
 jojoker_pull_rank_from_deck = function(rank_id)
   local matches = {}
   for _, deck_card in ipairs(G.deck.cards) do

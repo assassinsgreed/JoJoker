@@ -135,6 +135,11 @@ jd_def["j_jojoker_kiss"] = {
 }
 ```
 
+Localization colour names are not `G.C` keys. `G.C.ATTENTION` does not exist, so it is
+`nil` and renders white with no error, both here and in a `calculate` return's `colour`.
+`{C:attention}` maps to `G.C.FILTER`. Match the colour other displays use for the same
+kind of value (ex. `G.C.GREEN` for a `+N` size bonus like Oh Lonesome Me).
+
 ## 7. Localization
 
 `localization/en-us.lua`, in the part's section, positioned to match the joker list order.

@@ -7,13 +7,13 @@ def find(mod, key):
 
 
 def test_loads_every_joker(mod):
-    assert len(mod.jokers) == 164
+    assert len(mod.jokers) == 165
 
 
 def test_order_is_collection_order(mod):
     types = [j.jtype for j in mod.jokers]
     assert types == sorted(types, key=["Character", "Effect", "Stand"].index)
-    assert mod.jokers[0].key == "baron_zeppeli"
+    assert mod.jokers[0].key == "angelo"
 
 
 def test_aerosmith_fields(mod):

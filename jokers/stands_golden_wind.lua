@@ -115,7 +115,7 @@ local spice_girl = {
     jtype = "Stand",
     part = "golden_wind",
     themes = { core = { jojoker.themes.STONE_STEEL_EATER } },
-    conflicts = { caesar = "strips_the_stone_cards_these", stone_free = "strips_the_stone_cards_these", metallica = "strips_the_metal_cards_metallica" },
+    conflicts = { caesar = "strips_the_stone_cards_these", stone_free = "strips_the_stone_cards_these", angelo = "strips_the_stone_cards_these", metallica = "strips_the_metal_cards_metallica" },
     similar = { jojoker.similar.ENHANCEMENT_STRIPPERS },
     blueprint_compat = true,
     perishable_compat = true,
@@ -361,7 +361,7 @@ local little_feet = {
     jtype = "Stand",
     part = "golden_wind",
     themes = { core = { jojoker.themes.LOW_RANKS }, support = { jojoker.themes.DEBUFFED_CARDS } },
-    conflicts = { santana = "debuffs_face_cards", yellow_temperance = "debuffs_face_cards", suzi_q = "debuffs_face_cards", jumpin_jack_flash = "debuffs_face_cards", paper_moon_king = "debuffs_face_cards", tattoo_you = "debuffs_face_cards", cinderella = "debuffs_face_cards" },
+    conflicts = { santana = "debuffs_face_cards", yellow_temperance = "debuffs_face_cards", suzi_q = "debuffs_face_cards", jumpin_jack_flash = "debuffs_face_cards", paper_moon_king = "debuffs_face_cards", tattoo_you = "debuffs_face_cards", cinderella = "debuffs_face_cards", angelo = "debuffs_face_cards" },
     blueprint_compat = true,
     config = { extra = { Xmult = 1.5 } },
     loc_vars = function(self, info_queue, center)

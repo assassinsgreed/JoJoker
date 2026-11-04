@@ -122,3 +122,87 @@ Balatest.TestPlay {
     end
 }
 --#endregion
+
+--#region Angelo
+Balatest.TestPlay {
+    name = 'angelo_retriggers_face_and_stone_cards_when_both_score',
+    category = { 'jokers', 'diamond_is_unbreakable', 'angelo' },
+    jokers = { 'j_jojoker_angelo' },
+    deck = { cards = {
+        { r = 'K', s = 'S' },
+        { r = '2', s = 'C', e = 'm_stone' },
+        { r = '3', s = 'D' } } },
+    execute = function()
+        Balatest.play_hand { 'KS', '2C' }
+    end,
+    assert = function()
+        local triggers = 1 + G.jokers.cards[1].ability.extra.retriggers
+        Balatest.assert_chips(5 + (10 + 50) * triggers, "Angelo did not retrigger the scoring face and Stone cards")
+    end
+}
+
+Balatest.TestPlay {
+    name = 'angelo_retriggers_every_face_and_stone_card_but_not_other_ranks',
+    category = { 'jokers', 'diamond_is_unbreakable', 'angelo' },
+    jokers = { 'j_jojoker_angelo' },
+    deck = { cards = {
+        { r = 'K', s = 'S' },
+        { r = 'K', s = 'H' },
+        { r = '2', s = 'S' },
+        { r = '2', s = 'H' },
+        { r = '2', s = 'C', e = 'm_stone' },
+        { r = '3', s = 'D' } } },
+    execute = function()
+        Balatest.play_hand { 'KS', 'KH', '2S', '2H', '2C' }
+    end,
+    assert = function()
+        local triggers = 1 + G.jokers.cards[1].ability.extra.retriggers
+        Balatest.assert_chips((20 + (10 + 10 + 50) * triggers + 2 + 2) * 2, "Angelo retriggered the wrong cards in Two Pair")
+    end
+}
+
+Balatest.TestPlay {
+    name = 'angelo_does_not_retrigger_face_card_without_stone_card',
+    category = { 'jokers', 'diamond_is_unbreakable', 'angelo' },
+    jokers = { 'j_jojoker_angelo' },
+    execute = function()
+        Balatest.play_hand { 'KS' }
+    end,
+    assert = function()
+        Balatest.assert_chips(15, "Angelo retriggered a face card with no Stone card scoring")
+    end
+}
+
+Balatest.TestPlay {
+    name = 'angelo_does_not_retrigger_stone_card_without_face_card',
+    category = { 'jokers', 'diamond_is_unbreakable', 'angelo' },
+    jokers = { 'j_jojoker_angelo' },
+    deck = { cards = {
+        { r = '2', s = 'C', e = 'm_stone' },
+        { r = '3', s = 'D' } } },
+    execute = function()
+        Balatest.play_hand { '2C' }
+    end,
+    assert = function()
+        Balatest.assert_chips(55, "Angelo retriggered a Stone card with no face card scoring")
+    end
+}
+
+Balatest.TestPlay {
+    name = 'angelo_ignores_face_card_that_does_not_score',
+    category = { 'jokers', 'diamond_is_unbreakable', 'angelo' },
+    jokers = { 'j_jojoker_angelo' },
+    deck = { cards = {
+        { r = '2', s = 'S' },
+        { r = '2', s = 'H' },
+        { r = 'K', s = 'S' },
+        { r = '2', s = 'C', e = 'm_stone' },
+        { r = '3', s = 'D' } } },
+    execute = function()
+        Balatest.play_hand { '2S', '2H', 'KS', '2C' }
+    end,
+    assert = function()
+        Balatest.assert_chips((10 + 2 + 2 + 50) * 2, "Angelo counted a face card that did not score")
+    end
+}
+--#endregion

@@ -114,7 +114,45 @@ local reimi = {
     end
 }
 
+local angelo = {
+    name = "angelo",
+    rarity = 2,
+    cost = 6,
+    jtype = "Character",
+    part = "diamond_is_unbreakable",
+    themes = { core = { jojoker.themes.FACE_CARDS }, support = { jojoker.themes.STONE_CARDS, jojoker.themes.RETRIGGERS } },
+    similar = { jojoker.similar.RANK_RETRIGGERS },
+    blueprint_compat = true,
+    perishable_compat = true,
+    eternal_compat = true,
+    config = { extra = { retriggers = 2 } },
+    loc_vars = function(self, info_queue, card)
+      info_queue[#info_queue + 1] = G.P_CENTERS.m_stone
+      return {vars = { card.ability.extra.retriggers }}
+    end,
+    -- If scoring hand has a face and stone card, each retriggers twice
+    calculate = function(self, card, context)
+        if context.before and has_scoring_face_and_stone(context.scoring_hand) then
+            return {
+                message = localize("sound_yo_angelo")
+            }
+        end
+
+        if context.repetition and not context.end_of_round and context.cardarea == G.play then
+            local other = context.other_card
+            if (other:is_face() or SMODS.has_enhancement(other, 'm_stone')) and has_scoring_face_and_stone(context.scoring_hand) then
+                sendDebugMessage("Angelo: Retriggering face or stone card")
+                return {
+                    message = localize('k_again_ex'),
+                    repetitions = card.ability.extra.retriggers,
+                    card = card
+                }
+            end
+        end
+    end
+}
+
 return {
     name = "Diamond is Unbreakable Character Jokers",
-    list = { shizuka, yoshikage_kira, reimi },
+    list = { shizuka, yoshikage_kira, reimi, angelo },
 }

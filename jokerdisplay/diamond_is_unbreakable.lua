@@ -126,6 +126,15 @@ jd_def["j_jojoker_reimi"] = {
     },
 }
 
+jd_def["j_jojoker_angelo"] = {
+    text = {
+        { text = "Retrigger face & stone", colour = G.C.GREY },
+    },
+    reminder_text = {
+        { text = "(Needs both scoring)", colour = G.C.GREY },
+    },
+}
+
 jd_def["j_jojoker_atom_heart_father"] = {
     text = {
         {
