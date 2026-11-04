@@ -262,3 +262,24 @@ if G.GAME.jojoker_emperor_backfired then
 end
 '''
 match_indent = true
+
+## Every second card drawn to hand stays face down (Hayato)
+[[patches]]
+[patches.pattern]
+target = "functions/common_events.lua"
+pattern = "if G.GAME.modifiers.flipped_cards and to == G.hand then"
+position = "before"
+payload = '''
+if to == G.hand and type(hayato_flips_draw) == "function" and hayato_flips_draw() then stay_flipped = true end
+'''
+match_indent = true
+
+[[patches]]
+[patches.pattern]
+target = "cardarea.lua"
+pattern = "if (self == G.hand) and G.GAME.modifiers.flipped_cards then"
+position = "before"
+payload = '''
+if self == G.hand and type(hayato_flips_draw) == "function" and hayato_flips_draw() then stay_flipped = true end
+'''
+match_indent = true

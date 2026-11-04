@@ -584,6 +584,14 @@ local loc = {
                     "retrigger all {C:attention}face{} and {C:attention}Stone{} cards {C:attention}#1#{} times."
                 }
             },
+            j_jojoker_hayato = {
+                name = "Hayato",
+                text = {
+                    "Every second card drawn is {C:attention}face down{}.",
+                    "Gives {X:mult,C:white} X#1# {} per played {C:attention}face down{} card, if every one",
+                    "contributes to the played {C:attention}poker hand{} (excluding {C:attention}High Card{}).",
+                }
+            },
             j_jojoker_atom_heart_father = {
                 name = "Atom Heart Father",
                 alt_name = "Heart Father",

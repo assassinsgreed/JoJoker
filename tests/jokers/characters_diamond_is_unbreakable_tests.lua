@@ -206,3 +206,190 @@ Balatest.TestPlay {
     end
 }
 --#endregion
+
+--#region Hayato
+Balatest.TestPlay {
+    name = 'hayato_draws_every_second_card_face_down',
+    category = { 'jokers', 'diamond_is_unbreakable', 'hayato' },
+    jokers = { 'j_jojoker_hayato' },
+    deck = { cards = { { r = '2', s = 'S' }, { r = '2', s = 'S' }, { r = '2', s = 'S' }, { r = '2', s = 'S' } } },
+    hand_size = 4,
+    execute = function()
+        Balatest.wait()
+    end,
+    assert = function()
+        Balatest.assert_eq(count_face_down_cards(G.hand), 2, "Hayato did not draw every second card face down")
+    end
+}
+
+Balatest.TestPlay {
+    name = 'hayato_keeps_alternating_across_redraws',
+    category = { 'jokers', 'diamond_is_unbreakable', 'hayato' },
+    jokers = { 'j_jojoker_hayato' },
+    deck = { cards = { { r = '2', s = 'S' }, { r = '2', s = 'S' }, { r = '2', s = 'S' }, { r = '2', s = 'S' }, { r = '2', s = 'S' }, { r = '2', s = 'S' } } },
+    hand_size = 3,
+    execute = function()
+        Balatest.discard { '2S', '2S', '2S' }
+    end,
+    assert = function()
+        Balatest.assert_eq(G.jokers.cards[1].ability.extra.draws, 6, "Hayato did not count every card drawn")
+        Balatest.assert_eq(count_face_down_cards(G.hand), 2, "Hayato restarted the alternation after the redraw")
+    end
+}
+
+Balatest.TestPlay {
+    name = 'hayato_gives_xmult_per_face_down_card_in_the_poker_hand',
+    category = { 'jokers', 'diamond_is_unbreakable', 'hayato' },
+    jokers = { 'j_jojoker_hayato' },
+    deck = { cards = { { r = 'K', s = 'S' }, { r = 'K', s = 'H' }, { r = '3', s = 'D' } } },
+    hand_size = 3,
+    execute = function()
+        set_hand_facing('back')
+        Balatest.play_hand { 'KS', 'KH' }
+    end,
+    assert = function()
+        local xmult = 1 + G.jokers.cards[1].ability.extra.xmult_mod * 2
+        Balatest.assert_chips((10 + 10 + 10) * 2 * xmult, "Hayato did not give X1 plus X1 per face down card for a face down Pair")
+    end
+}
+
+Balatest.TestPlay {
+    name = 'hayato_gives_xmult_for_every_card_of_a_face_down_full_house',
+    category = { 'jokers', 'diamond_is_unbreakable', 'hayato' },
+    jokers = { 'j_jojoker_hayato' },
+    deck = { cards = { { r = 'K', s = 'S' }, { r = 'K', s = 'H' }, { r = 'K', s = 'D' }, { r = '3', s = 'D' }, { r = '3', s = 'C' }, { r = '4', s = 'C' } } },
+    hand_size = 6,
+    execute = function()
+        set_hand_facing('back')
+        Balatest.play_hand { 'KS', 'KH', 'KD', '3D', '3C' }
+    end,
+    assert = function()
+        local xmult = 1 + G.jokers.cards[1].ability.extra.xmult_mod * 5
+        Balatest.assert_chips((40 + 10 + 10 + 10 + 3 + 3) * 4 * xmult, "Hayato did not give X1 plus X1 per face down card for a face down Full House")
+    end
+}
+
+Balatest.TestPlay {
+    name = 'hayato_only_counts_face_down_cards_when_mixed_with_face_up_ones',
+    category = { 'jokers', 'diamond_is_unbreakable', 'hayato' },
+    jokers = { 'j_jojoker_hayato' },
+    deck = { cards = { { r = 'K', s = 'S' }, { r = 'K', s = 'H' }, { r = '3', s = 'D' } } },
+    hand_size = 3,
+    execute = function()
+        set_hand_facing('back')
+        Balatest.q(function() find_playing_card('King', 'Spades'):flip() end)
+        Balatest.play_hand { 'KS', 'KH' }
+    end,
+    assert = function()
+        local xmult = 1 + G.jokers.cards[1].ability.extra.xmult_mod
+        Balatest.assert_chips((10 + 10 + 10) * 2 * xmult, "Hayato did not give X1 for the one face down card in a mixed Pair")
+    end
+}
+
+Balatest.TestPlay {
+    name = 'hayato_ignores_face_up_cards_outside_the_poker_hand',
+    category = { 'jokers', 'diamond_is_unbreakable', 'hayato' },
+    jokers = { 'j_jojoker_hayato' },
+    deck = { cards = { { r = 'K', s = 'S' }, { r = 'K', s = 'H' }, { r = '3', s = 'D' }, { r = '4', s = 'C' } } },
+    hand_size = 4,
+    execute = function()
+        set_hand_facing('back')
+        Balatest.q(function() find_playing_card('3', 'Diamonds'):flip() end)
+        Balatest.play_hand { 'KS', 'KH', '3D' }
+    end,
+    assert = function()
+        local xmult = 1 + G.jokers.cards[1].ability.extra.xmult_mod * 2
+        Balatest.assert_chips((10 + 10 + 10) * 2 * xmult, "Hayato lost its xmult because of a face up card outside the poker hand")
+    end
+}
+
+Balatest.TestPlay {
+    name = 'hayato_loses_all_xmult_when_a_face_down_card_is_outside_the_poker_hand',
+    category = { 'jokers', 'diamond_is_unbreakable', 'hayato' },
+    jokers = { 'j_jojoker_hayato' },
+    deck = { cards = { { r = 'K', s = 'S' }, { r = 'K', s = 'H' }, { r = 'K', s = 'D' }, { r = '3', s = 'D' }, { r = '4', s = 'C' } } },
+    hand_size = 5,
+    execute = function()
+        set_hand_facing('back')
+        Balatest.play_hand { 'KS', 'KH', 'KD', '3D' }
+    end,
+    assert = function()
+        Balatest.assert_chips((30 + 10 + 10 + 10) * 3, "Hayato gave xmult even though a face down card was outside the poker hand")
+    end
+}
+
+Balatest.TestPlay {
+    name = 'hayato_does_not_give_xmult_without_face_down_cards',
+    category = { 'jokers', 'diamond_is_unbreakable', 'hayato' },
+    jokers = { 'j_jojoker_hayato' },
+    deck = { cards = { { r = 'K', s = 'S' }, { r = 'K', s = 'H' }, { r = '3', s = 'D' } } },
+    hand_size = 3,
+    execute = function()
+        set_hand_facing('front')
+        Balatest.play_hand { 'KS', 'KH' }
+    end,
+    assert = function()
+        Balatest.assert_chips((10 + 10 + 10) * 2, "Hayato gave xmult with no face down cards played")
+    end
+}
+
+Balatest.TestPlay {
+    name = 'hayato_does_not_give_xmult_for_a_single_face_down_high_card',
+    category = { 'jokers', 'diamond_is_unbreakable', 'hayato' },
+    jokers = { 'j_jojoker_hayato' },
+    deck = { cards = { { r = 'K', s = 'S' }, { r = '3', s = 'D' } } },
+    hand_size = 2,
+    execute = function()
+        set_hand_facing('back')
+        Balatest.play_hand { 'KS' }
+    end,
+    assert = function()
+        Balatest.assert_chips(5 + 10, "Hayato gave xmult for a lone face down High Card")
+    end
+}
+
+Balatest.TestPlay {
+    name = 'hayato_does_not_give_xmult_for_a_face_down_high_card_scored_by_survivor',
+    category = { 'jokers', 'diamond_is_unbreakable', 'hayato' },
+    jokers = { 'j_jojoker_hayato', 'j_jojoker_survivor' },
+    deck = { cards = { { r = 'K', s = 'S' }, { r = '9', s = 'D' }, { r = '7', s = 'C' }, { r = '5', s = 'H' }, { r = '3', s = 'S' }, { r = '2', s = 'D' } } },
+    hand_size = 6,
+    execute = function()
+        set_hand_facing('back')
+        Balatest.play_hand { 'KS', '9D', '7C', '5H', '3S' }
+    end,
+    assert = function()
+        Balatest.assert_chips(5 + 10 + 9 + 7 + 5 + 3, "Hayato counted Survivor's extra scored cards as part of a High Card")
+    end
+}
+
+Balatest.TestPlay {
+    name = 'hayato_loses_all_xmult_when_survivor_scores_a_face_down_card_outside_the_poker_hand',
+    category = { 'jokers', 'diamond_is_unbreakable', 'hayato' },
+    jokers = { 'j_jojoker_hayato', 'j_jojoker_survivor' },
+    deck = { cards = { { r = 'K', s = 'S' }, { r = 'K', s = 'H' }, { r = '9', s = 'D' }, { r = '7', s = 'C' }, { r = '3', s = 'S' }, { r = '2', s = 'D' } } },
+    hand_size = 6,
+    execute = function()
+        set_hand_facing('back')
+        Balatest.play_hand { 'KS', 'KH', '9D', '7C', '3S' }
+    end,
+    assert = function()
+        Balatest.assert_chips((10 + 10 + 10 + 9 + 7 + 3) * 2, "Hayato counted Survivor's extra scored cards as part of the Pair")
+    end
+}
+
+Balatest.TestPlay {
+    name = 'hayato_clears_face_down_marks_after_the_hand',
+    category = { 'jokers', 'diamond_is_unbreakable', 'hayato' },
+    jokers = { 'j_jojoker_hayato' },
+    deck = { cards = { { r = 'K', s = 'S' }, { r = 'K', s = 'H' }, { r = '3', s = 'D' } } },
+    hand_size = 3,
+    execute = function()
+        set_hand_facing('back')
+        Balatest.play_hand { 'KS', 'KH' }
+    end,
+    assert = function()
+        Balatest.assert_eq(find_playing_card('King', 'Spades').ability.jojoker_played_face_down, nil, "Hayato left a face down mark on a played card")
+    end
+}
+--#endregion

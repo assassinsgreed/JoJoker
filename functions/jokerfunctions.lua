@@ -618,6 +618,29 @@ has_scoring_face_and_stone = function(scoring_hand)
   return has_face and has_stone
 end
 
+-- Counts every card drawn to hand while Hayato is held; true for every second one
+hayato_flips_draw = function()
+  local hayato = SMODS.find_card('j_jojoker_hayato')[1]
+  if not hayato then return false end
+  hayato.ability.extra.draws = hayato.ability.extra.draws + 1
+  return hayato.ability.extra.draws % 2 == 0
+end
+
+-- Any face down card outside the poker hand voids the bonus, including ones only scored by Splash effects
+get_hayato_xmult = function(card, hand_cards, played_cards)
+  if #hand_cards < 2 then return 1 end
+  local in_hand = {}
+  for _, hand_card in ipairs(hand_cards) do in_hand[hand_card] = true end
+  local face_down = 0
+  for _, played_card in ipairs(played_cards) do
+    if played_card.facing == 'back' or played_card.ability.jojoker_played_face_down then
+      if not in_hand[played_card] then return 1 end
+      face_down = face_down + 1
+    end
+  end
+  return 1 + card.ability.extra.xmult_mod * face_down
+end
+
 jojoker_pull_rank_from_deck = function(rank_id)
   local matches = {}
   for _, deck_card in ipairs(G.deck.cards) do

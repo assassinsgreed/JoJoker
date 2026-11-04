@@ -124,6 +124,24 @@ set_card_bases = function(area, keys)
     end
 end
 
+set_hand_facing = function(facing)
+    Balatest.q(function()
+        for _, c in ipairs(G.hand.cards) do
+            if c.facing ~= facing then c:flip() end
+        end
+    end)
+end
+
+count_face_down_cards = function(area)
+    local count = 0
+    for _, c in ipairs(area.cards) do
+        if c.facing == 'back' then
+            count = count + 1
+        end
+    end
+    return count
+end
+
 count_cards_in_area = function(area, rank_id)
     local count = 0
     for _, c in ipairs(area.cards) do

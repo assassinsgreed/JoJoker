@@ -152,7 +152,47 @@ local angelo = {
     end
 }
 
+local hayato = {
+    name = "hayato",
+    rarity = 2,
+    cost = 7,
+    jtype = "Character",
+    part = "diamond_is_unbreakable",
+    blueprint_compat = true,
+    perishable_compat = true,
+    eternal_compat = true,
+    config = { extra = { xmult_mod = 1, draws = 0 } },
+    loc_vars = function(self, info_queue, card)
+      return {vars = { card.ability.extra.xmult_mod }}
+    end,
+    calculate = function(self, card, context)
+        -- Cards are turned face up on their way to play, so record their facing before they leave the hand
+        if context.press_play and not context.blueprint then
+            for _, played_card in ipairs(G.hand.highlighted) do
+                played_card.ability.jojoker_played_face_down = played_card.facing == 'back' or nil
+            end
+        end
+
+        -- Give xmult per flipped card that contributes to the scored poker hand
+        if context.joker_main then
+            local xmult = get_hayato_xmult(card, context.poker_hands[context.scoring_name][1], context.full_hand)
+            if xmult <= 1 then return end
+            jojoker.debug("Hayato: Every face down card formed the poker hand, giving X"..xmult)
+            return {
+                message = localize{type = 'variable', key = 'a_xmult', vars = {xmult}},
+                Xmult_mod = xmult
+            }
+        end
+
+        if context.after and not context.blueprint then
+            for _, played_card in ipairs(context.full_hand) do
+                played_card.ability.jojoker_played_face_down = nil
+            end
+        end
+    end
+}
+
 return {
     name = "Diamond is Unbreakable Character Jokers",
-    list = { shizuka, yoshikage_kira, reimi, angelo },
+    list = { shizuka, yoshikage_kira, reimi, angelo, hayato },
 }

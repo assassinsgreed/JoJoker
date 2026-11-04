@@ -135,6 +135,25 @@ jd_def["j_jojoker_angelo"] = {
     },
 }
 
+jd_def["j_jojoker_hayato"] = {
+    text = {
+        {
+            border_nodes = {
+                { text = "X" },
+                { ref_table = "card.joker_display_values", ref_value = "xmult", retrigger_type = "exp" }
+            }
+        }
+    },
+    reminder_text = {
+        { text = "(Per face down, none dead)", colour = G.C.GREY },
+    },
+    calc_function = function(card)
+        local text, poker_hands = JokerDisplay.evaluate_hand()
+        local hand_cards = poker_hands[text] and poker_hands[text][1]
+        card.joker_display_values.xmult = hand_cards and get_hayato_xmult(card, hand_cards, JokerDisplay.current_hand) or 1
+    end
+}
+
 jd_def["j_jojoker_atom_heart_father"] = {
     text = {
         {
