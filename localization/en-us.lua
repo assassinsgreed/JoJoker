@@ -699,6 +699,13 @@ local loc = {
                     "{C:red}Debuffed{} until end of round after triggering",
                 }
             },
+            j_jojoker_coco_jumbo = {
+                name = "Coco Jumbo",
+                alt_name = "Coco Large",
+                text = {
+                    "{C:attention}+#1#{} consumable slot",
+                }
+            },
             j_jojoker_gold_experience = {
                 name = "Gold Experience",
                 alt_name = "Golden Wind",

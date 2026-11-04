@@ -156,3 +156,88 @@ Balatest.TestPlay {
     end
 }
 --#endregion
+--#region Coco Jumbo
+Balatest.TestPlay {
+    name = 'coco_jumbo_adds_a_consumable_slot',
+    category = { 'jokers', 'golden_wind', 'coco_jumbo' },
+    jokers = { 'j_jojoker_coco_jumbo' },
+    execute = function()
+        Balatest.wait()
+    end,
+    assert = function()
+        Balatest.assert_eq(G.consumeables.config.card_limit, 2 + G.jokers.cards[1].ability.extra.consumable_slots, "Coco Jumbo did not add a consumable slot")
+    end
+}
+Balatest.TestPlay {
+    name = 'coco_jumbo_removes_its_slot_when_sold',
+    category = { 'jokers', 'golden_wind', 'coco_jumbo' },
+    jokers = { 'j_jojoker_coco_jumbo' },
+    execute = function()
+        Balatest.sell(function() return G.jokers.cards[1] end)
+    end,
+    assert = function()
+        Balatest.assert_eq(G.consumeables.config.card_limit, 2, "Coco Jumbo's slot remained after it was sold")
+    end
+}
+Balatest.TestPlay {
+    name = 'coco_jumbo_keeps_consumables_over_the_limit_when_sold_with_its_slot_filled',
+    category = { 'jokers', 'golden_wind', 'coco_jumbo' },
+    jokers = { 'j_jojoker_coco_jumbo' },
+    consumeables = { 'c_mars', 'c_mars', 'c_mars' },
+    execute = function()
+        Balatest.sell(function() return G.jokers.cards[1] end)
+    end,
+    assert = function()
+        Balatest.assert_eq(#G.consumeables.cards, 3, "A consumable was lost when Coco Jumbo was sold")
+        Balatest.assert_eq(G.consumeables.config.card_limit, 2, "Consumable limit did not return to 2 when Coco Jumbo was sold")
+    end
+}
+Balatest.TestPlay {
+    name = 'coco_jumbo_loses_its_slot_while_debuffed',
+    category = { 'jokers', 'golden_wind', 'coco_jumbo' },
+    jokers = { 'j_jojoker_coco_jumbo' },
+    execute = function()
+        Balatest.q(function()
+            SMODS.debuff_card(G.jokers.cards[1], true, 'balatest')
+            return true
+        end)
+        Balatest.wait()
+    end,
+    assert = function()
+        Balatest.assert_eq(G.jokers.cards[1].debuff, true, "Coco Jumbo was not debuffed during the test")
+        Balatest.assert_eq(G.consumeables.config.card_limit, 2, "Coco Jumbo kept its slot while debuffed")
+    end
+}
+Balatest.TestPlay {
+    name = 'coco_jumbo_restores_its_slot_when_debuff_ends',
+    category = { 'jokers', 'golden_wind', 'coco_jumbo' },
+    jokers = { 'j_jojoker_coco_jumbo' },
+    execute = function()
+        Balatest.q(function()
+            SMODS.debuff_card(G.jokers.cards[1], true, 'balatest')
+            return true
+        end)
+        Balatest.q(function()
+            SMODS.debuff_card(G.jokers.cards[1], false, 'balatest')
+            return true
+        end)
+        Balatest.wait()
+    end,
+    assert = function()
+        Balatest.assert_eq(G.consumeables.config.card_limit, 2 + G.jokers.cards[1].ability.extra.consumable_slots, "Coco Jumbo did not restore its slot after a debuff cycle")
+    end
+}
+Balatest.TestPlay {
+    name = 'coco_jumbo_gives_wamuu_an_extra_empty_slot',
+    category = { 'jokers', 'golden_wind', 'coco_jumbo' },
+    jokers = { 'j_jojoker_coco_jumbo', 'j_jojoker_wamuu' },
+    deck = { cards = { { r = '2', s = 'S' }, { r = '5', s = 'H' } } },
+    execute = function()
+        Balatest.play_hand { '2S' }
+    end,
+    assert = function()
+        local extra = G.jokers.cards[2].ability.extra
+        Balatest.assert_chips((5 + 2 + extra.chips_mod * 3) * (1 + extra.mult_mod * 3), "Wamuu did not count Coco Jumbo's extra empty slot") -- High Card base 5 chips x1 mult
+    end
+}
+--#endregion

@@ -88,8 +88,31 @@ local mista = {
     end
 }
 
+local coco_jumbo = {
+    name = "coco_jumbo",
+    rarity = 2,
+    cost = 6,
+    jtype = "Character",
+    part = "golden_wind",
+    themes = { core = { jojoker.themes.CONSUMABLE_SLOTS, jojoker.themes.CONSUMABLE_ROOM } },
+    blueprint_compat = false,
+    perishable_compat = true,
+    eternal_compat = true,
+    config = { extra = { consumable_slots = 1 } },
+    loc_vars = function(self, info_queue, center)
+      return {vars = {center.ability.extra.consumable_slots}}
+    end,
+    -- Shrinking the limit never removes held consumables, so losing a filled slot leaves the area over its limit
+    add_to_deck = function(self, card, from_debuff)
+        G.consumeables:change_size(card.ability.extra.consumable_slots)
+    end,
+    remove_from_deck = function(self, card, from_debuff)
+        G.consumeables:change_size(-card.ability.extra.consumable_slots)
+    end
+}
+
 
 return {
     name = "Golden Wind Character Jokers",
-    list = { leaky_eye_luca, mista },
+    list = { leaky_eye_luca, mista, coco_jumbo },
 }

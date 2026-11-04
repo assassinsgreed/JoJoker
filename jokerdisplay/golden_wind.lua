@@ -83,6 +83,16 @@ jd_def["j_jojoker_mista"] = {
     end
 }
 
+jd_def["j_jojoker_coco_jumbo"] = {
+    text = {
+        { text = "+", colour = G.C.GREEN },
+        { ref_table = "card.ability.extra", ref_value = "consumable_slots", colour = G.C.GREEN },
+    },
+    reminder_text = {
+        { text = "Consumable Slot", colour = G.C.GREY }
+    }
+}
+
 jd_def["j_jojoker_gold_experience"] = {
     text = {
         { ref_table = "card.ability.extra", ref_value = "numerator", retrigger_type = "numerator",  colour = G.C.GOLD },

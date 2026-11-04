@@ -3,6 +3,7 @@ jojoker.joker_order = {
     -- Characters
     "baron_zeppeli",
     "caesar",
+    "coco_jumbo",
     "danny",
     "danny_sbr",
     "darby_brothers",

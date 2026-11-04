@@ -319,7 +319,7 @@ local space_trucking = {
     cost = 5,
     jtype = "Stand",
     part = "jojolion",
-    themes = { support = { jojoker.themes.LUCK } },
+    themes = { support = { jojoker.themes.LUCK, jojoker.themes.CONSUMABLE_SLOTS } },
     blueprint_compat = false,
     perishable_compat = true,
     eternal_compat = true,

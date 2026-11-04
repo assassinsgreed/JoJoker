@@ -84,6 +84,7 @@ local reimi = {
     cost = 5,
     jtype = "Character",
     part = "diamond_is_unbreakable",
+    themes = { support = { jojoker.themes.CONSUMABLE_ROOM } },
     similar = { jojoker.similar.BOSS_BLIND_REWARDS },
     blueprint_compat = false,
     perishable_compat = true,

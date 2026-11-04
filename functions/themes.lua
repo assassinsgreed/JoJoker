@@ -56,6 +56,8 @@ jojoker.themes = {
     DECK_GROWING = "deck_growing",
     DECK_SHRINKING = "deck_shrinking",
     EMPEROR = "emperor",
+    CONSUMABLE_SLOTS = "consumable_slots",
+    CONSUMABLE_ROOM = "consumable_room",
 }
 
 jojoker.similar = {

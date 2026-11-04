@@ -241,7 +241,7 @@ jd_def["j_jojoker_in_a_silent_way"] = {
 
 jd_def["j_jojoker_d4c"] = {
     text = {
-        { ref_table = "card.joker_display_values", ref_value = "caught", colour = G.C.ATTENTION },
+        { ref_table = "card.joker_display_values", ref_value = "caught", colour = G.C.FILTER },
         { text = " Caught", colour = G.C.GREY },
     },
     calc_function = function(card)

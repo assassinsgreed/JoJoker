@@ -628,7 +628,7 @@ local talking_head = {
     cost = 5,
     jtype = "Stand",
     part = "golden_wind",
-    themes = { support = { jojoker.themes.LUCK, jojoker.themes.DUPLICATION } },
+    themes = { support = { jojoker.themes.LUCK, jojoker.themes.DUPLICATION, jojoker.themes.CONSUMABLE_ROOM } },
     similar = { jojoker.similar.CONSUMABLE_DUPLICATORS },
     blueprint_compat = false,
     perishable_compat = true,

@@ -487,6 +487,7 @@ local wamuu = {
     cost = 8,
     jtype = "Character",
     part = "battle_tendency",
+    themes = { core = { jojoker.themes.CONSUMABLE_SLOTS } },
     blueprint_compat = true,
     perishable_compat = true,
     eternal_compat = true,

@@ -419,7 +419,7 @@ local tomb_of_the_boom = {
                 sendDebugMessage("Tomb of the Boom: Pulled "..pulled.." cards from the deck.")
                 return {
                     message = localize('sound_attracted'),
-                    colour = G.C.ATTENTION,
+                    colour = G.C.FILTER,
                 }
             end
         end
