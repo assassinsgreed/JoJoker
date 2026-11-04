@@ -849,3 +849,57 @@ Balatest.TestPlay {
 }
 
 --#endregion
+--#region Messina and Loggins
+
+Balatest.TestPlay {
+    name = 'messina_and_loggins_gives_xmult_when_a_pair_is_played',
+    category = { 'jokers', 'battle_tendency', 'messina_and_loggins' },
+    jokers = { 'j_jojoker_messina_and_loggins' },
+    execute = function()
+        Balatest.play_hand { '2S', '2C' }
+    end,
+    assert = function()
+        -- Pair: 10 + 2 + 2 chips, 2 mult
+        Balatest.assert_chips(14 * 2 * G.jokers.cards[1].ability.extra.Xmult, "Messina and Loggins did not give Xmult for a Pair")
+    end
+}
+
+Balatest.TestPlay {
+    name = 'messina_and_loggins_gives_xmult_when_a_pair_is_played_with_unscored_cards',
+    category = { 'jokers', 'battle_tendency', 'messina_and_loggins' },
+    jokers = { 'j_jojoker_messina_and_loggins' },
+    execute = function()
+        Balatest.play_hand { '2S', '2C', 'AS', 'QS', 'JS' }
+    end,
+    assert = function()
+        Balatest.assert_chips(14 * 2 * G.jokers.cards[1].ability.extra.Xmult, "Messina and Loggins did not give Xmult for a Pair played with unscored cards")
+    end
+}
+
+Balatest.TestPlay {
+    name = 'messina_and_loggins_gives_nothing_for_two_pair',
+    category = { 'jokers', 'battle_tendency', 'messina_and_loggins' },
+    jokers = { 'j_jojoker_messina_and_loggins' },
+    execute = function()
+        Balatest.play_hand { '2S', '2C', '3S', '3C' }
+    end,
+    assert = function()
+        -- Two Pair: 20 + 2 + 2 + 3 + 3 chips, 2 mult
+        Balatest.assert_chips(30 * 2, "Messina and Loggins gave Xmult for a hand containing a Pair that is not a Pair")
+    end
+}
+
+Balatest.TestPlay {
+    name = 'messina_and_loggins_gives_nothing_for_high_card',
+    category = { 'jokers', 'battle_tendency', 'messina_and_loggins' },
+    jokers = { 'j_jojoker_messina_and_loggins' },
+    execute = function()
+        Balatest.play_hand { '2S' }
+    end,
+    assert = function()
+        -- High Card: 5 + 2 chips, 1 mult
+        Balatest.assert_chips(7, "Messina and Loggins gave Xmult for a High Card")
+    end
+}
+
+--#endregion

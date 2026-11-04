@@ -256,6 +256,14 @@ local loc = {
                     "{C:inactive}Currently: {C:chips}+#3#{C:inactive} and {C:mult}+#4#"
                 }
             },
+            j_jojoker_messina_and_loggins = {
+                name = "Messina and Loggins",
+                alt_name = "Meshina and Loggs",
+                text = {
+                    "Gives {X:mult,C:white} X#1# {} when played",
+                    "hand is a {C:attention}Pair{}.",
+                }
+            },
             j_jojoker_clacker_balls = {
                 name = "Clacker Balls",
                 text = {

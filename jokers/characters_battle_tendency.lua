@@ -513,7 +513,35 @@ local wamuu = {
     end
 }
 
+local messina_and_loggins = {
+    name = "messina_and_loggins",
+    rarity = 2,
+    cost = 6,
+    jtype = "Character",
+    part = "battle_tendency",
+    themes = { core = { jojoker.themes.PAIRS } },
+    similar = { jojoker.similar.HAND_TYPE_MULT },
+    blueprint_compat = true,
+    perishable_compat = true,
+    eternal_compat = true,
+    config = { extra = { Xmult = 2 } },
+    loc_vars = function(self, info_queue, card)
+      return {vars = { card.ability.extra.Xmult }}
+    end,
+    calculate = function(self, card, context)
+        -- If hand is a pair (not contains), give 2x mult
+        if context.joker_main and context.scoring_name == 'Pair' then
+            jojoker.debug("Messina and Loggins: Giving X"..card.ability.extra.Xmult.." mult for playing a Pair")
+            return {
+                message = localize{type = 'variable', key = 'a_xmult', vars = {card.ability.extra.Xmult}},
+                colour = G.C.XMULT,
+                Xmult_mod = card.ability.extra.Xmult
+            }
+        end
+    end
+}
+
 return {
     name = "Battle Tendency Character Jokers",
-    list = { joseph_joestar, esidisi, speedwagon_bt, caesar, kars_ultimate_lifeform, kars_stopped_thinking, suzi_q, nypd, santana, stroheim, stroheim_german_engineering, smokey, tequila_joseph, wamuu },
+    list = { joseph_joestar, esidisi, speedwagon_bt, caesar, kars_ultimate_lifeform, kars_stopped_thinking, suzi_q, nypd, santana, stroheim, stroheim_german_engineering, smokey, tequila_joseph, wamuu, messina_and_loggins },
 }

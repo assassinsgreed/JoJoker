@@ -28,7 +28,7 @@ def test_outputs_exist(site):
 
 
 def test_data_has_every_joker(data):
-    assert len(data["jokers"]) == 167 and data["version"] == "v9.9.9"
+    assert len(data["jokers"]) == 168 and data["version"] == "v9.9.9"
     assert len(data["themes"]) == 57
 
 

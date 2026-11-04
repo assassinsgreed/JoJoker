@@ -169,3 +169,21 @@ jd_def["j_jojoker_clacker_balls"] = {
         { text = "Retrigger", colour = G.C.GREY, },
     }
 }
+
+jd_def["j_jojoker_messina_and_loggins"] = {
+    text = {
+        {
+            border_nodes = {
+                { text = "X" },
+                { ref_table = "card.joker_display_values", ref_value = "xmult", retrigger_type = "exp" }
+            }
+        }
+    },
+    reminder_text = {
+        { text = "(Pair)", colour = G.C.GREY },
+    },
+    calc_function = function(card)
+        local text = JokerDisplay.evaluate_hand()
+        card.joker_display_values.xmult = text == "Pair" and card.ability.extra.Xmult or 1
+    end
+}
