@@ -22,7 +22,7 @@ local epitaph = {
         if not context.end_of_round and context.scoring_hand then
             if context.individual and context.cardarea == G.scan_view and not context.other_card.debuff then
                 local chips = joker_total_chips(context.other_card)
-                sendDebugMessage("Epitaph is giving " .. chips .. " chips based on scanned cards")
+                jojoker.debug("Epitaph is giving " .. chips .. " chips based on scanned cards")
                 return {
                     message = localize{type = 'variable', key = 'a_chips', vars = {chips}},
                     message_card = context.other_card,

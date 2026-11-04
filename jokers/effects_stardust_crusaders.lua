@@ -28,7 +28,7 @@ local joestar_birthmark = {
                 context.other_card.ability.perma_bonus = (context.other_card.ability.perma_bonus or 0) + card.ability.extra.chips
                 context.other_card.ability.perma_mult = (context.other_card.ability.perma_mult or 0) + card.ability.extra.mult
                 context.other_card:juice_up()
-                sendDebugMessage("Joestar Birthmark: Increasing additional chips and mult of scored card to "..tostring(context.other_card.ability.perma_bonus).." and "..tostring(context.other_card.ability.perma_mult))
+                jojoker.debug("Joestar Birthmark: Increasing additional chips and mult of scored card to "..tostring(context.other_card.ability.perma_bonus).." and "..tostring(context.other_card.ability.perma_mult))
 
                 return {
                     message = localize('k_upgrade_ex'),
@@ -56,14 +56,14 @@ local hat_hair = {
         -- Randomly giveds chips or mult when scoring a hand
         if context.joker_main then
             if pseudorandom('hat_hair') < 0.5 then
-                sendDebugMessage("Hat Hair: Giving "..tostring(card.ability.extra.chips).." chips")
+                jojoker.debug("Hat Hair: Giving "..tostring(card.ability.extra.chips).." chips")
                 return {
                     message = localize{type='variable', key='a_chips', vars={card.ability.extra.chips}},
                     colour = G.C.CHIPS,
                     chip_mod = card.ability.extra.chips,
                 }
             else
-                sendDebugMessage("Hat Hair: Giving "..tostring(card.ability.extra.mult).." mult")
+                jojoker.debug("Hat Hair: Giving "..tostring(card.ability.extra.mult).." mult")
                 return {
                     message = localize{type='variable', key='a_mult', vars={card.ability.extra.mult}},
                     colour = G.C.MULT,
@@ -96,7 +96,7 @@ local speedwagon_foundation_submarine = {
                 jojoker_open_shop_after_skip()
             end
             ease_dollars(card.ability.extra.money)
-            sendDebugMessage("Speedwagon Foundation Submarine: Gave $"..card.ability.extra.money.." for skipping a blind.")
+            jojoker.debug("Speedwagon Foundation Submarine: Gave $"..card.ability.extra.money.." for skipping a blind.")
 
             return {
                 message = localize('$')..card.ability.extra.money,

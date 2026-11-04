@@ -84,7 +84,7 @@ local john_rod = {
     end,
     calculate = function(self, card, context)
         if context.joker_main and card.ability.extra.Xmult > 1 then
-            sendDebugMessage("John Rod: Giving XMult of "..card.ability.extra.Xmult)
+            jojoker.debug("John Rod: Giving XMult of "..card.ability.extra.Xmult)
             return {
                 message = localize{type = 'variable', key = 'a_xmult', vars = {card.ability.extra.Xmult}},
                 colour = G.C.XMULT,
@@ -105,7 +105,7 @@ local john_rod = {
                 local is_glass = SMODS.has_enhancement(highest_card, 'm_glass')
                 local gain = is_glass and card.ability.extra.glass_Xmult_mod or card.ability.extra.Xmult_mod
                 card.ability.extra.Xmult = card.ability.extra.Xmult + gain
-                sendDebugMessage("John Rod: Destroying highest ranked card"..(is_glass and " (glass)" or "")..", XMult is now "..card.ability.extra.Xmult)
+                jojoker.debug("John Rod: Destroying highest ranked card"..(is_glass and " (glass)" or "")..", XMult is now "..card.ability.extra.Xmult)
                 return {
                     remove = true,
                     message = localize{type = 'variable', key = 'a_xmult', vars = {card.ability.extra.Xmult}},

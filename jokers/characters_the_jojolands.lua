@@ -24,7 +24,7 @@ local jodio_joestar = {
                 end
             end
             if gold_count > 0 then
-                sendDebugMessage("Jodio Joestar: Giving $" .. (gold_count * card.ability.extra.money_mod) .. " for " .. gold_count .. " gold cards")
+                jojoker.debug("Jodio Joestar: Giving $" .. (gold_count * card.ability.extra.money_mod) .. " for " .. gold_count .. " gold cards")
                 ease_dollars(gold_count * card.ability.extra.money_mod)
                 return {
                     message = localize('$')..(gold_count * card.ability.extra.money_mod),

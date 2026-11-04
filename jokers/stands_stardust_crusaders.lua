@@ -27,8 +27,8 @@ local magician_red = {
             if not G.GAME.chips or not G.GAME.blind.chips then return end
             local start = G.GAME._chips_before_hand or 0 -- fallback if missing
             local hand_score = (G.GAME.chips or 0) - start
-            sendDebugMessage("Magician's Red: Recognized score at hand start as "..start)
-            sendDebugMessage("Magician's Red: Resulting chips are "..hand_score.." and blind chips are "..G.GAME.blind.chips)
+            jojoker.debug("Magician's Red: Recognized score at hand start as "..start)
+            jojoker.debug("Magician's Red: Resulting chips are "..hand_score.." and blind chips are "..G.GAME.blind.chips)
             
             -- Give money on flaming score
             if hand_score > G.GAME.blind.chips then
@@ -90,7 +90,7 @@ local star_platinum = {
         -- Potentially preserve hand when playing a hand (by adding 1 to remaining hands)
         if context.before and context.scoring_hand then
             if SMODS.pseudorandom_probability(card, 'star_platinum', card.ability.extra.numerator, card.ability.extra.denominator, 'star_platinum') then
-                sendDebugMessage("Star Platinum: Preserving hand on played hand")
+                jojoker.debug("Star Platinum: Preserving hand on played hand")
                 G.GAME.current_round.hands_left = G.GAME.current_round.hands_left + 1
 
                 return {
@@ -119,7 +119,7 @@ local wheel_of_fortune = {
         -- Wheel of Fortune cards are guaranteed to trigger
         if context.fix_probability then
             if context.identifier == 'wheel_of_fortune' then
-                sendDebugMessage("Wheel of Fortune is guaranteeing Wheel of Fortune tarot effect (if possible)")
+                jojoker.debug("Wheel of Fortune is guaranteeing Wheel of Fortune tarot effect (if possible)")
                 return {
                     numerator = 1,
                     denominator = 1,
@@ -157,7 +157,7 @@ local the_lovers = {
                 else
                     context.other_card.ability.perma_mult = (context.other_card.ability.perma_mult or 0) + card.ability.extra.mult_mod
                     context.other_card:juice_up()
-                    sendDebugMessage("The Lovers: Increasing multiplier of scored heart to "..tostring(context.other_card.ability.perma_mult))
+                    jojoker.debug("The Lovers: Increasing multiplier of scored heart to "..tostring(context.other_card.ability.perma_mult))
 
                     return {
                         message = localize('k_upgrade_ex'),
@@ -186,7 +186,7 @@ local anubis = {
     calculate = function(self, card, context)
         -- When a Joker is sold, gain 30 chips.
         if context.selling_card and not context.selling_self then
-            sendDebugMessage("Anubis: Gaining "..card.ability.extra.chips_mod.." chips from selling a joker")
+            jojoker.debug("Anubis: Gaining "..card.ability.extra.chips_mod.." chips from selling a joker")
             card.ability.extra.chips = card.ability.extra.chips + card.ability.extra.chips_mod
 
             return {
@@ -241,7 +241,7 @@ local sethan = {
 
                 local gained_xmult = (original_level - 1) * card.ability.extra.Xmult_mod
                 card.ability.extra.Xmult = card.ability.extra.Xmult + gained_xmult
-                sendDebugMessage("Sethan: Reverting hand level from "..original_level.." to 1 and increasing xmult by "..gained_xmult)
+                jojoker.debug("Sethan: Reverting hand level from "..original_level.." to 1 and increasing xmult by "..gained_xmult)
 
                 -- Update the in-game text
                 G.hand_text_area.hand_level:juice_up()
@@ -289,7 +289,7 @@ local the_world = {
         if context.using_consumeable then
             if context.consumeable.ability.set == 'Tarot' and not card.ability.extra.known_consumeables[context.consumeable.ability.name] then
                 card.ability.extra.known_consumeables[context.consumeable.ability.name] = true
-                sendDebugMessage("The World: Recognized use of new tarot card "..context.consumeable.ability.name..", increasing xmult by "..card.ability.extra.Xmult_mod)
+                jojoker.debug("The World: Recognized use of new tarot card "..context.consumeable.ability.name..", increasing xmult by "..card.ability.extra.Xmult_mod)
 
                 return {
                     message = localize('sound_za_warudo'),
@@ -348,7 +348,7 @@ local death_thirteen = {
                 jojoker_joker_destroyed_by_joker(sliced_card, card)
                 sliced_card.getting_sliced = true
                 card.ability.extra.mult = card.ability.extra.mult + sliced_card.sell_cost * card.ability.extra.mult_mod
-                sendDebugMessage("Death Thirteen: Destroying card to the left with sell value "..sliced_card.sell_cost.." and increasing mult to "..card.ability.extra.mult)
+                jojoker.debug("Death Thirteen: Destroying card to the left with sell value "..sliced_card.sell_cost.." and increasing mult to "..card.ability.extra.mult)
 
                 G.GAME.joker_buffer = G.GAME.joker_buffer - 1
                 G.E_MANAGER:add_event(Event({
@@ -394,7 +394,7 @@ local tenore_sax = {
     calculate = function(self, card, context)
         -- After scoring, shuffle all cards back into the deck and draw a new hand
         if context.after then
-            sendDebugMessage("Tenore Sax: Shuffling all unplayed cards back into the deck")
+            jojoker.debug("Tenore Sax: Shuffling all unplayed cards back into the deck")
             -- Iterate backwards; emplacing into the deck removes the card from the hand
             for i = #G.hand.cards, 1, -1 do
                 local hand_card = G.hand.cards[i]
@@ -460,7 +460,7 @@ local hierophant_green = {
                         diff_threshold = 12 -- Cover gap from 2 to A (12)
                     end
 
-                    sendDebugMessage("Hierophant Green: Lowest card rank is "..lowest.." and highest is "..highest.. " with gap tolerance of "..diff_threshold)
+                    jojoker.debug("Hierophant Green: Lowest card rank is "..lowest.." and highest is "..highest.. " with gap tolerance of "..diff_threshold)
                     if highest - lowest <= diff_threshold then
                         return {
                             message = localize{type = 'variable', key = 'a_mult', vars = {card.ability.extra.mult}},
@@ -489,7 +489,7 @@ local the_fool = {
         -- When blind starts, transform into another joker
         if context.setting_blind then
             local joker_key = get_random_joker_key('j_jojoker_the_fool')
-            sendDebugMessage("The Fool: Transforming into "..joker_key)
+            jojoker.debug("The Fool: Transforming into "..joker_key)
             transform_joker(card, joker_key)
             return {
                 message = localize('sound_transforming')
@@ -550,7 +550,7 @@ local the_sun = {
         -- Give chips when the scored hand is a Pair
         if context.cardarea == G.jokers and context.scoring_hand then
             if context.joker_main and context.scoring_name == 'Pair' then
-                sendDebugMessage("Giving 80 chips for scoring a Pair with The Sun")
+                jojoker.debug("Giving 80 chips for scoring a Pair with The Sun")
                 return {
                     message = localize{type='variable', key='a_chips', vars={card.ability.extra.chips}},
                     colour = G.C.CHIPS,
@@ -580,13 +580,13 @@ local hermit_purple = {
         -- When blind starts, choose a new hand
         if context.setting_blind then
             card.ability.extra.chosen_hand_type = pick_random_hand_type().handname
-            sendDebugMessage("Hermit Purple: Chose a new hand type of "..card.ability.extra.chosen_hand_type)
+            jojoker.debug("Hermit Purple: Chose a new hand type of "..card.ability.extra.chosen_hand_type)
         end
 
         if context.cardarea == G.jokers and context.scoring_hand then
             if context.before then
                 if context.scoring_name == card.ability.extra.chosen_hand_type then
-                    sendDebugMessage("Hermit Purple: Leveling up hand "..card.ability.extra.chosen_hand_type)
+                    jojoker.debug("Hermit Purple: Leveling up hand "..card.ability.extra.chosen_hand_type)
                     SMODS.upgrade_poker_hands({hands = {card.ability.extra.chosen_hand_type}, level_up = card.ability.extra.level_change_up, from = card})
                     return {
                         message = localize('k_upgrade_ex'),
@@ -594,14 +594,14 @@ local hermit_purple = {
                     }
                 else
                     if G.GAME.hands[card.ability.extra.chosen_hand_type].level > 1 then
-                        sendDebugMessage("Hermit Purple: Leveling down hand "..card.ability.extra.chosen_hand_type)
+                        jojoker.debug("Hermit Purple: Leveling down hand "..card.ability.extra.chosen_hand_type)
                         SMODS.upgrade_poker_hands({hands = {card.ability.extra.chosen_hand_type}, level_up = -card.ability.extra.level_change_down, from = card})
                         return {
                             message = localize('k_downgrade_ex'),
                             colour = G.C.GOLD
                         }
                     else
-                        sendDebugMessage("Hermit Purple: Cannot level hand below level 1")
+                        jojoker.debug("Hermit Purple: Cannot level hand below level 1")
                     end
                 end
             end
@@ -610,7 +610,7 @@ local hermit_purple = {
     add_to_deck = function(self, card, from_debuff)
         -- When added, choose a random hand type (only "visible" ones are chosen, i.e. ones the player can/has played)
         card.ability.extra.chosen_hand_type = pick_random_hand_type().handname
-        sendDebugMessage("Hermit Purple: Chose a new hand type of "..card.ability.extra.chosen_hand_type)
+        jojoker.debug("Hermit Purple: Chose a new hand type of "..card.ability.extra.chosen_hand_type)
     end
 }
 
@@ -639,7 +639,7 @@ local atum = {
                     card:juice_up()
                     context.other_card:juice_up()
                     context.other_card:set_seal(SMODS.poll_seal({ guaranteed = true, key = 'atum_seal' }), nil, true)
-                    sendDebugMessage("Atum: Scored card being given a seal")
+                    jojoker.debug("Atum: Scored card being given a seal")
 
                     return {
                         message = localize('k_upgrade_ex'),
@@ -687,11 +687,11 @@ local horus = {
                 func = function()
                     if caught_fire then
                         card.ability.extra.chips = card.ability.extra.chips_mod
-                        sendDebugMessage("Horus: Score caught fire, resetting chips to "..card.ability.extra.chips)
+                        jojoker.debug("Horus: Score caught fire, resetting chips to "..card.ability.extra.chips)
                     else
                         -- Earn chips for each hand played that doesn't catch fire
                         card.ability.extra.chips = card.ability.extra.chips + card.ability.extra.chips_mod
-                        sendDebugMessage("Horus: Hand played, increasing chips to "..card.ability.extra.chips)
+                        jojoker.debug("Horus: Hand played, increasing chips to "..card.ability.extra.chips)
                     end
                     return true
                 end
@@ -728,7 +728,7 @@ local emperor = {
             -- Backfires as a lost round rather than an instant game over, so Burning Down the House can still save the run
             if SMODS.pseudorandom_probability(card, 'emperor', card.ability.extra.numerator, card.ability.extra.denominator, 'emperor') then
                 G.GAME.jojoker_emperor_backfired = true
-                sendDebugMessage("Emperor: Backfired, ending the run")
+                jojoker.debug("Emperor: Backfired, ending the run")
                 return {
                     message = localize('k_bang_ex'),
                     colour = G.C.RED
@@ -765,7 +765,7 @@ local cream = {
     calculate = function(self, card, context)
         if context.joker_main then
             local mult_given = get_cream_mult(card)
-            sendDebugMessage("Cream: Giving "..mult_given.." mult from highest hand level and "..(G.GAME.jojoker_black_holes_used or 0).." Black Holes used this run.")
+            jojoker.debug("Cream: Giving "..mult_given.." mult from highest hand level and "..(G.GAME.jojoker_black_holes_used or 0).." Black Holes used this run.")
             return {
                 message = localize{type = 'variable', key = 'a_mult', vars = {mult_given}},
                 colour = G.C.MULT,

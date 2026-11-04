@@ -21,7 +21,7 @@ local sex_pistols = {
         if context.setting_blind then
             local chosenRank = rank_options[math.random(#rank_options)]
             card.ability.extra.chosen_rank = chosenRank
-            sendDebugMessage("Sex Pistols: Chose rank "..chosenRank)
+            jojoker.debug("Sex Pistols: Chose rank "..chosenRank)
         end
 
         -- When a hand is scored, if rank is present in scoring hand then boost joker mult
@@ -32,7 +32,7 @@ local sex_pistols = {
                         local rank = v:get_id()
                         if not v.debuff and (tostring(rank) == card.ability.extra.chosen_rank or (rank == 14 and card.ability.extra.chosen_rank == "Ace")) then
                             if not card.ability.extra.deactivated then
-                                sendDebugMessage("Sex Pistols: Found match rank for "..card.ability.extra.chosen_rank)
+                                jojoker.debug("Sex Pistols: Found match rank for "..card.ability.extra.chosen_rank)
                                 if card.ability.extra.chosen_rank == "Ace" then
                                     card.ability.extra.mult = card.ability.extra.mult + 1
                                 else
@@ -103,7 +103,7 @@ local grateful_dead = {
         -- When blind is ending, decay mult
         if context.end_of_round and not context.individual and not context.repetition and not context.blueprint then
             card.ability.extra.mult = math.max(0, card.ability.extra.mult - card.ability.extra.mult_decay)
-            sendDebugMessage("Grateful Dead: Decayed mult to "..card.ability.extra.mult)
+            jojoker.debug("Grateful Dead: Decayed mult to "..card.ability.extra.mult)
         end
     end
 }
@@ -135,10 +135,10 @@ local spice_girl = {
                     if v.config.center == G.P_CENTERS.m_stone or v.config.center == G.P_CENTERS.m_steel then
                         if v.config.center == G.P_CENTERS.m_stone then
                             card.ability.extra.chips = card.ability.extra.chips + card.ability.extra.chips_mod
-                            sendDebugMessage("Spice Girl removed stone enhancement. Chips are now "..card.ability.extra.chips)
+                            jojoker.debug("Spice Girl removed stone enhancement. Chips are now "..card.ability.extra.chips)
                         else
                             card.ability.extra.Xmult = card.ability.extra.Xmult + card.ability.extra.Xmult_mod
-                            sendDebugMessage("Spice Girl removed steel enhancement. Xmult is now "..card.ability.extra.Xmult)
+                            jojoker.debug("Spice Girl removed steel enhancement. Xmult is now "..card.ability.extra.Xmult)
                         end
                         
                         v:set_ability(G.P_CENTERS.c_base, nil, true)
@@ -212,7 +212,7 @@ local gold_experience = {
                     card:juice_up()
                     context.other_card:juice_up()
                     context.other_card:set_edition("e_polychrome")
-                    sendDebugMessage("Gold Experience: Scored card being set to polychrome")
+                    jojoker.debug("Gold Experience: Scored card being set to polychrome")
 
                     return {
                         message = localize('k_upgrade_ex'),
@@ -266,7 +266,7 @@ local king_crimson = {
         -- Gives 2x mult for each skipped blind
         if context.cardarea == G.jokers and context.scoring_hand then
             if context.joker_main then
-                sendDebugMessage("King Crimson: Giving "..card.ability.extra.Xmult.."x mult for "..G.GAME.skips.." skips")
+                jojoker.debug("King Crimson: Giving "..card.ability.extra.Xmult.."x mult for "..G.GAME.skips.." skips")
                 return {
                     message = localize{type = 'variable', key = 'a_xmult', vars = {card.ability.extra.Xmult}},
                     colour = G.C.XMULT,
@@ -304,7 +304,7 @@ local moody_blues = {
             if SMODS.pseudorandom_probability(card, 'moody_blues', card.ability.extra.numerator, card.ability.extra.denominator, 'moody_blues') then
                 card:juice_up()
                 context.other_card:juice_up()
-                sendDebugMessage("Moody Blues: Retriggering scored card")
+                jojoker.debug("Moody Blues: Retriggering scored card")
                 
                 return {
                     message = localize('k_again_ex'),
@@ -337,7 +337,7 @@ local baby_face = {
         if context.end_of_round and not context.individual and not context.repetition and not context.blueprint then
             if SMODS.pseudorandom_probability(card, 'baby_face', card.ability.extra.numerator, card.ability.extra.denominator, 'baby_face') then
                 card:juice_up()
-                sendDebugMessage("Baby Face: Creating negative common joker")
+                jojoker.debug("Baby Face: Creating negative common joker")
 
                 SMODS.add_card {
                     set = "Joker",
@@ -373,7 +373,7 @@ local little_feet = {
         if context.individual and context.cardarea == G.play and not context.other_card.debuff then
             local id = context.other_card:get_id()
             if id and id >= 2 and id <= 5 then
-                sendDebugMessage("Little Feet: Scored card is rank: "..id..", so giving "..card.ability.extra.Xmult.."x mult")
+                jojoker.debug("Little Feet: Scored card is rank: "..id..", so giving "..card.ability.extra.Xmult.."x mult")
                 return {
                     message = localize{type = 'variable', key = 'a_xmult', vars = {card.ability.extra.Xmult}},
                     colour = G.C.XMULT,
@@ -385,7 +385,7 @@ local little_feet = {
     -- Handle when Little Feet specifically is added/removed from joker pool
     add_to_deck = function(self, card, from_debuff)
         if not from_debuff then
-            sendDebugMessage("Little Feet: Added to deck, debuffing face cards")
+            jojoker.debug("Little Feet: Added to deck, debuffing face cards")
             for k, v in pairs(G.playing_cards) do
                 local rank = rank_string_from_id(v:get_id())
                 if rank == "Jack" or rank == "Queen" or rank == "King" then
@@ -397,7 +397,7 @@ local little_feet = {
     remove_from_deck = function(self, card, from_debuff)
         -- Must mirror the from_debuff check in add_to_deck, or a debuff cycle permanently restores face cards
         if not from_debuff then
-            sendDebugMessage("Little Feet: Removed from deck, restoring face cards")
+            jojoker.debug("Little Feet: Removed from deck, restoring face cards")
             for k, v in pairs(G.playing_cards) do
                 SMODS.debuff_card(v, false, card)
             end
@@ -447,13 +447,13 @@ local black_sabbath = {
             local start = G.GAME._chips_before_hand or 0 -- fallback if missing
             local hand_score = (G.GAME.chips or 0) - start
 
-            sendDebugMessage("Black Sabbath: Hand scored with "..hand_score.." chips, threshold to hit is "..G.GAME.blind.chips)
+            jojoker.debug("Black Sabbath: Hand scored with "..hand_score.." chips, threshold to hit is "..G.GAME.blind.chips)
             if hand_score > G.GAME.blind.chips and not card.ability.perishable then
                 card.ability.extra.curr_chips = card.ability.extra.enhanced_chips
                 card.ability.extra.curr_mult = card.ability.extra.enhanced_mult
                 card.ability.perishable = true
                 card.ability.perish_tally = G.GAME.perishable_rounds
-                sendDebugMessage("Black Sabbath: Score caught fire, increasing chips to "..card.ability.extra.curr_chips.." and mult to "..card.ability.extra.curr_mult)
+                jojoker.debug("Black Sabbath: Score caught fire, increasing chips to "..card.ability.extra.curr_chips.." and mult to "..card.ability.extra.curr_mult)
 
                 return {
                     message = localize('k_upgrade_ex'),
@@ -522,7 +522,7 @@ local notorious_big = {
             local destroyer = context.destroyer
             local notorious_xmult = (destroyer.ability.jojoker_notorious_xmult or 0) + card.ability.extra.Xmult
             destroyer.ability.jojoker_notorious_xmult = notorious_xmult
-            sendDebugMessage("Notorious B.I.G.: Destroyed by "..destroyer.ability.name..", which now has X"..notorious_xmult.." Notorious Mult")
+            jojoker.debug("Notorious B.I.G.: Destroyed by "..destroyer.ability.name..", which now has X"..notorious_xmult.." Notorious Mult")
 
             return {
                 message = localize{type = 'variable', key = 'a_xmult', vars = {notorious_xmult}},
@@ -572,7 +572,7 @@ local aerosmith = {
             local unscored = #context.full_hand - #context.scoring_hand
             if unscored > 0 then
                 local xmult = 1 + unscored * card.ability.extra.xmult_mod
-                sendDebugMessage("Aerosmith: High Card with "..unscored.." unscored cards, giving X"..xmult)
+                jojoker.debug("Aerosmith: High Card with "..unscored.." unscored cards, giving X"..xmult)
                 return {
                     message = localize{type = 'variable', key = 'a_xmult', vars = {xmult}},
                     colour = G.C.XMULT,
@@ -615,7 +615,7 @@ local purple_haze = {
                 infected:set_perishable(true)
                 infected.ability.jojoker_purple_haze_chips = infected.ability.jojoker_purple_haze_chips or 0
                 infected.ability.jojoker_purple_haze_mult = infected.ability.jojoker_purple_haze_mult or 0
-                sendDebugMessage("Purple Haze: Infected "..infected.ability.name)
+                jojoker.debug("Purple Haze: Infected "..infected.ability.name)
             end
         end
     end
@@ -641,7 +641,7 @@ local talking_head = {
         -- Has a 1 in 5 chance to duplicate a consumable when used, if there is room
         if context.using_consumeable and #G.consumeables.cards + G.GAME.consumeable_buffer < G.consumeables.config.card_limit then
             if SMODS.pseudorandom_probability(card, 'talking_head', card.ability.extra.numerator, card.ability.extra.denominator, 'talking_head') then
-                sendDebugMessage("Talking Head: Duplicating used consumable "..context.consumeable.config.center.key)
+                jojoker.debug("Talking Head: Duplicating used consumable "..context.consumeable.config.center.key)
                 G.GAME.consumeable_buffer = G.GAME.consumeable_buffer + 1
                 local set, key = context.consumeable.ability.set, context.consumeable.config.center.key
 
@@ -698,7 +698,7 @@ local metallica = {
             end
             if metal_count > 0 then
                 card.ability.extra.Xmult = card.ability.extra.Xmult + card.ability.extra.Xmult_mod * metal_count
-                sendDebugMessage("Metallica: Scored "..metal_count.." steel/gold cards. Xmult is now "..card.ability.extra.Xmult)
+                jojoker.debug("Metallica: Scored "..metal_count.." steel/gold cards. Xmult is now "..card.ability.extra.Xmult)
                 return {
                     message = localize('k_upgrade_ex'),
                     colour = G.C.MULT

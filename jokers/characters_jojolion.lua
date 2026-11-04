@@ -18,7 +18,7 @@ local josuke_higashikata_jjl = {
     calculate = function(self, card, context)
         if context.cardarea == G.jokers and context.scoring_hand then
             if context.joker_main and next(context.poker_hands['Two Pair']) then
-                sendDebugMessage("Josuke Higashikata (JJL): Giving "..card.ability.extra.chips.." chips for hand containing Two Pair")
+                jojoker.debug("Josuke Higashikata (JJL): Giving "..card.ability.extra.chips.." chips for hand containing Two Pair")
                 return {
                     message = localize{type='variable', key='a_chips', vars={card.ability.extra.chips}},
                     colour=G.C.CHIPS,

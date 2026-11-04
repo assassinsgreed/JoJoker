@@ -26,7 +26,7 @@ local german_engineering = {
                         G.deck:emplace(copy)
 
                         SMODS.smart_level_up_hand(card, "High Card")
-                        sendDebugMessage("German Engineering: Single 9 played. Duplicating and levelling up high card")
+                        jojoker.debug("German Engineering: Single 9 played. Duplicating and levelling up high card")
                         return {
                             message = localize('k_duplicated_ex')
                         }
@@ -55,7 +55,7 @@ local clacker_balls = {
         -- If scored hand is <= 3 cards, retrigger each scored card
         if context.repetition and not context.end_of_round and context.cardarea == G.play then
             if #context.scoring_hand <= card.ability.extra.scored_hand_size then
-                sendDebugMessage("Clacker Balls: Scored hand of " .. #context.scoring_hand .. " cards or fewer. Retriggering each scored card.")
+                jojoker.debug("Clacker Balls: Scored hand of " .. #context.scoring_hand .. " cards or fewer. Retriggering each scored card.")
                 return {
                     message = localize('k_retriggers_ex'),
                     extra = {

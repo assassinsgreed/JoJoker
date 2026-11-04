@@ -1425,6 +1425,13 @@ local loc = {
                     "localized names, whenever possible."
                 }
             },
+            developer_mode_tooltip = {
+                name = "Developer Mode",
+                text = {
+                    "Enables {C:attention}debug messages{} and loads",
+                    "{C:attention}Balatest{} tests {C:inactive}(tests require a restart){}"
+                }
+            },
         }
     },
     misc = {
@@ -1513,6 +1520,7 @@ local loc = {
             -- Misc config options
             jojoker_settings_jojoker_only_collection = "Only JoJoker Jokers in Collection?",
             jojoker_settings_use_localized_names = "Use Localized Joker Names?",
+            jojoker_settings_developer_mode = "Developer Mode?",
         },
         v_dictionary = {
             jojoker_notorious_badge = "Notorious Activated X#1#",

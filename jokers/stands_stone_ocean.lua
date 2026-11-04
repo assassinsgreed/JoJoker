@@ -22,7 +22,7 @@ local goo_goo_dolls = {
         if context.joker_main then
             local mult_given = get_goo_goo_dolls_mult(card)
             if mult_given > 0 then
-                sendDebugMessage("Goo Goo Dolls: Giving "..mult_given.." mult based on current deck size of "..#G.playing_cards..".")
+                jojoker.debug("Goo Goo Dolls: Giving "..mult_given.." mult based on current deck size of "..#G.playing_cards..".")
                 return {
                     message = localize{type = 'variable', key = 'a_mult', vars = {mult_given}},
                     colour = G.C.MULT,
@@ -51,7 +51,7 @@ local stone_free = {
     calculate = function(self, card, context)
         if context.repetition and context.cardarea == G.play then
             if context.other_card.config.center == G.P_CENTERS.m_stone then
-                sendDebugMessage("Stone Free: Retriggering stone card")
+                jojoker.debug("Stone Free: Retriggering stone card")
                 return {
                     message = localize('k_again_ex'),
                     repetitions = card.ability.extra.retriggers,
@@ -86,7 +86,7 @@ local made_in_heaven = {
             local discards_mult = card.ability.extra.Xmult_mod * G.GAME.current_round.discards_left
             -- Floor at X1 so entering a blind with nothing to lose (e.g. The Needle) can't zero out scores
             card.ability.extra.Xmult = math.max(1, hands_mult + discards_mult)
-            sendDebugMessage("Made In Heaven: Setting Xmult to "..card.ability.extra.Xmult)
+            jojoker.debug("Made In Heaven: Setting Xmult to "..card.ability.extra.Xmult)
 
             if G.hand.config.card_limit < #G.deck.cards then
                 G.hand:change_size(#G.deck.cards)
@@ -152,22 +152,22 @@ local dragons_dream = {
                     modValue = add_remove * card.ability.extra.chip_mod
                     card.ability.extra.curr_chips = math.max(0, card.ability.extra.curr_chips + modValue)
                     modText = (add_remove == 1 and "+" or "-")..math.abs(modValue).." "..localize("chips")
-                    sendDebugMessage("Dragon's Dream: Changing chips by "..modValue..", new value: "..card.ability.extra.curr_chips)
+                    jojoker.debug("Dragon's Dream: Changing chips by "..modValue..", new value: "..card.ability.extra.curr_chips)
                 elseif (chosenValue == 1) then
                     modValue = add_remove * card.ability.extra.mult_mod
                     card.ability.extra.curr_mult = math.max(0, card.ability.extra.curr_mult + modValue)
                     modText = (add_remove == 1 and "+" or "-")..math.abs(modValue).." "..localize("k_mult")
-                    sendDebugMessage("Dragon's Dream: Changing mult by "..modValue..", new value: "..card.ability.extra.curr_mult)
+                    jojoker.debug("Dragon's Dream: Changing mult by "..modValue..", new value: "..card.ability.extra.curr_mult)
                 elseif (chosenValue == 2) then
                     modValue = add_remove * card.ability.extra.money_mod
                     card.ability.extra.curr_money = math.max(0, card.ability.extra.curr_money + modValue)
                     modText = (add_remove == 1 and "+" or "-")..localize('$')..math.abs(modValue)
-                    sendDebugMessage("Dragon's Dream: Changing money by "..modValue..", new value: "..card.ability.extra.curr_money)
+                    jojoker.debug("Dragon's Dream: Changing money by "..modValue..", new value: "..card.ability.extra.curr_money)
                 elseif (chosenValue == 3) then
                     modValue = add_remove * card.ability.extra.xmult_mod
                     card.ability.extra.curr_Xmult = math.max(0, card.ability.extra.curr_Xmult + modValue)
                     modText = (add_remove == 1 and "+" or "-")..math.abs(modValue).." "..localize("xmult")
-                    sendDebugMessage("Dragon's Dream: Changing Xmult by "..modValue..", new value: "..card.ability.extra.curr_Xmult)
+                    jojoker.debug("Dragon's Dream: Changing Xmult by "..modValue..", new value: "..card.ability.extra.curr_Xmult)
                 end
 
                 card:juice_up()
@@ -210,7 +210,7 @@ local green_green_grass_of_home = {
        -- When high card is played, double earned chips
        if context.cardarea == G.jokers and context.scoring_hand and context.scoring_name == "High Card" then
             if context.joker_main then
-                sendDebugMessage("Green, Green Grass of Home: Doubling chips for high card")
+                jojoker.debug("Green, Green Grass of Home: Doubling chips for high card")
                 hand_chips = hand_chips * card.ability.extra.Xchips
 
                 return {
@@ -259,7 +259,7 @@ local foo_fighters = {
         -- When high card is played, double earned chips
        if context.cardarea == G.jokers and context.scoring_hand then
             if context.joker_main then
-                sendDebugMessage("Foo Fighters: Giving chips based on unique cards played this ante. Chips to add: "..card.ability.extra.chips)
+                jojoker.debug("Foo Fighters: Giving chips based on unique cards played this ante. Chips to add: "..card.ability.extra.chips)
 
                 return {
                     message = localize{type='variable', key='a_chips', vars={card.ability.extra.chips}},
@@ -305,7 +305,7 @@ local white_snake = {
                     card:juice_up()
                     context.other_card:juice_up()
                     context.other_card:set_ability(G.P_CENTERS.m_wild, nil, true)
-                    sendDebugMessage("White Snake: Scored card being set to wild")
+                    jojoker.debug("White Snake: Scored card being set to wild")
 
                     return {
                         message = localize('k_upgrade_ex'),
@@ -335,7 +335,7 @@ local burning_down_the_house = {
     calculate = function(self, card, context)
         -- If held on loss, is destroyed and skips blind without entering the shop
         if context.end_of_round and context.main_eval and context.game_over then
-            sendDebugMessage("Burning Down The House: Preventing loss, destroying self, and skipping blind. ")
+            jojoker.debug("Burning Down The House: Preventing loss, destroying self, and skipping blind. ")
 
             G.E_MANAGER:add_event(Event({
                 trigger = 'before',
@@ -379,7 +379,7 @@ local limp_bizkit = {
         -- Potentially convert joker to negative on destruction
         if context.joker_type_destroyed then
             if SMODS.pseudorandom_probability(card, 'limp_bizkit', card.ability.extra.numerator, card.ability.extra.denominator, 'limp_bizkit') then
-                sendDebugMessage("Limp Bizkit: Joker being recreated as Negative")
+                jojoker.debug("Limp Bizkit: Joker being recreated as Negative")
                 card:juice_up()
 
                 local reborn_card = SMODS.add_card {
@@ -415,7 +415,7 @@ local marilyn_manson = {
     end,
     calc_dollar_bonus = function(self, card)
         if G.GAME.current_round.discards_left == 0 then
-            sendDebugMessage("Marilyn Manson: Giving $"..card.ability.extra.debt_repay.." because 0 discards remain.")
+            jojoker.debug("Marilyn Manson: Giving $"..card.ability.extra.debt_repay.." because 0 discards remain.")
             return ease_joker_dollars(card, "Marilyn Manson", card.ability.extra.debt_repay, true)
         end
     end,
@@ -442,7 +442,7 @@ local c_moon = {
     end,
     calculate = function(self, card, context)
         if context.final_scoring_step then
-            sendDebugMessage("C-Moon: Equalizing chips and mult")
+            jojoker.debug("C-Moon: Equalizing chips and mult")
             local total = hand_chips + mult
             hand_chips = math.floor(total / 2)
             mult = math.floor(total / 2)
@@ -510,7 +510,7 @@ local planet_waves = {
         if context.using_consumeable then
             if context.consumeable.ability.set == 'Planet' then
                 if SMODS.pseudorandom_probability(card, 'planet_waves', card.ability.extra.numerator, card.ability.extra.denominator, 'planet_waves') then
-                    sendDebugMessage("Planet Waves: Duplicating played planet card")
+                    jojoker.debug("Planet Waves: Duplicating played planet card")
 
                     G.E_MANAGER:add_event(Event({trigger = 'after', delay = 0.4, func = function()
                         local _card = SMODS.create_card({
@@ -553,7 +553,7 @@ local kiss = {
         -- Permanently gain chips each time a card is duplicated
         if context.jojoker_card_duplicated and not context.blueprint then
             card.ability.extra.chips = card.ability.extra.chips + card.ability.extra.chips_mod
-            sendDebugMessage("Kiss: Card duplicated, gaining "..card.ability.extra.chips_mod.." chips. New total: "..card.ability.extra.chips)
+            jojoker.debug("Kiss: Card duplicated, gaining "..card.ability.extra.chips_mod.." chips. New total: "..card.ability.extra.chips)
             card:juice_up()
 
             return {
@@ -592,7 +592,7 @@ local jumpin_jack_flash = {
     calculate = function(self, card, context)
         if context.repetition and not context.end_of_round and context.cardarea == G.play then
             if context.other_card and context.other_card:get_id() == 11 then
-                sendDebugMessage("Jumpin' Jack Flash: Retriggering scored Jack")
+                jojoker.debug("Jumpin' Jack Flash: Retriggering scored Jack")
                 return {
                     message = localize('k_again_ex'),
                     repetitions = card.ability.extra.retriggers,

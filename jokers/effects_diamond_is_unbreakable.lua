@@ -66,7 +66,7 @@ local ghost_girl_alley = {
 
         -- If an ante is reversed, destroy self
         if context.jojoker_ante_reversed and not context.blueprint and not card.getting_sliced then
-            sendDebugMessage("Ghost Girl Alley: Ante reversed by "..context.amount..", destroying self")
+            jojoker.debug("Ghost Girl Alley: Ante reversed by "..context.amount..", destroying self")
             G.E_MANAGER:add_event(Event({
                 func = function()
                     card:start_dissolve({ HEX("57ecab") }, nil, 1.6)
@@ -85,7 +85,7 @@ local ghost_girl_alley = {
     calc_dollar_bonus = function(self, card)
         local payout = (G.GAME.jojoker_bosses_beaten or 0) * card.ability.extra.money_mod
         if payout > 0 then
-            sendDebugMessage("Ghost Girl Alley: Giving $"..payout.." for "..(G.GAME.jojoker_bosses_beaten or 0).." antes cleared this run.")
+            jojoker.debug("Ghost Girl Alley: Giving $"..payout.." for "..(G.GAME.jojoker_bosses_beaten or 0).." antes cleared this run.")
             return ease_joker_dollars(card, "Ghost Girl Alley", payout, true)
         end
     end

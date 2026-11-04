@@ -10,4 +10,5 @@ return {
     ["jojolion"] = true,
     ["the_jojolands"] = true,
     ["use_localized_names"] = false,
+    ["developer_mode"] = false,
 }

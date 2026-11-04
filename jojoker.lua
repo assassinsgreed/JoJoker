@@ -4,12 +4,16 @@ jojoker = {}
 mod_dir = ''..SMODS.current_mod.path
 jojoker_config = SMODS.current_mod.config
 
+function jojoker.debug(message)
+    if jojoker_config.developer_mode then sendDebugMessage(message) end
+end
+
 -- Load the JokerDisplay mod if it is enabled
 if (SMODS.Mods["JokerDisplay"] or {}).can_load then
     local jokerDisplays = NFS.getDirectoryItems(mod_dir.."jokerdisplay")
 
     for _, file in ipairs(jokerDisplays) do
-        sendDebugMessage("Loading JokerDisplay file: "..file)
+        jojoker.debug("Loading JokerDisplay file: "..file)
         local helper, load_error = SMODS.load_file("jokerdisplay/"..file)
         if load_error then
             sendDebugMessage("Error loading JokerDisplay file "..file..": "..load_error)
@@ -62,10 +66,10 @@ local load_directory = function(dirname, map_item, auto_discovery)
   local pfiles = NFS.getDirectoryItems(mod_dir .. dirname)
 
   for _, file in ipairs(pfiles) do
-    sendDebugMessage ("The file is: "..file)
+    jojoker.debug("The file is: "..file)
     local result, load_error = SMODS.load_file(dirname .. "/" ..file)
     if not result then
-      sendDebugMessage ("The error is: "..load_error)
+      sendDebugMessage("The error is: "..load_error)
     else
       local items = result()
       if items.init then items:init() end
@@ -107,8 +111,8 @@ end
 -- Load and configure editions
 load_directory("editions", SMODS.Edition, true)
 
--- Load tests, if Balatest mod is present and active
-if Balatest then
+-- Load tests, if developer mode is on and Balatest mod is present and active
+if jojoker_config.developer_mode and Balatest then
     SMODS.load_file('tests/testfunctions.lua')()
     SMODS.load_file('tests/jokers/characters_phantom_blood_tests.lua')()
     SMODS.load_file('tests/jokers/effects_phantom_blood_tests.lua')()
@@ -138,7 +142,7 @@ end
 -- Load Jokers
 local pfiles = NFS.getDirectoryItems(mod_dir.."jokers")
 for _, file in ipairs(pfiles) do
-    sendDebugMessage("Loading Jojoker file: "..file)
+    jojoker.debug("Loading Jojoker file: "..file)
     local joker, load_error = SMODS.load_file("jokers/"..file)
     if load_error then
         sendDebugMessage("Error loading joker file "..file..": "..load_error)

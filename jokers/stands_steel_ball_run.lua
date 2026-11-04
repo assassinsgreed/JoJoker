@@ -51,7 +51,7 @@ local chocolate_disco = {
             local anteIsOdd = G.GAME.round_resets.blind_ante % 2 == 1
             if anteIsOdd then
                 -- In odd antes, give scored odd cards chips
-                sendDebugMessage("Chocolate Disco: Adding "..card.ability.extra.chips.." chips to odd cards during odd ante.")
+                jojoker.debug("Chocolate Disco: Adding "..card.ability.extra.chips.." chips to odd cards during odd ante.")
                 if card_is_odd(context.other_card) then
                     return {
                         h_chips = card.ability.extra.chips,
@@ -60,7 +60,7 @@ local chocolate_disco = {
                 end
             else
                 -- In even antes, give scored even cards mult
-                sendDebugMessage("Chocolate Disco: Adding "..card.ability.extra.mult.." mult to even cards during even ante.")
+                jojoker.debug("Chocolate Disco: Adding "..card.ability.extra.mult.." mult to even cards during even ante.")
                 if card_is_even(context.other_card) then
                     return {
                         message = localize{type = 'variable', key = 'a_mult', vars = {card.ability.extra.mult}},
@@ -140,7 +140,7 @@ local hey_ya = {
                     card:juice_up()
                     context.other_card:juice_up()
                     context.other_card:set_ability(G.P_CENTERS.m_lucky, nil, true)
-                    sendDebugMessage("Hey Ya: Scored card being set to lucky card")
+                    jojoker.debug("Hey Ya: Scored card being set to lucky card")
 
                     return {
                         message = localize('k_upgrade_ex'),
@@ -179,7 +179,7 @@ local tattoo_you = {
                 end
 
                 if #non_jacks == 0 then
-                    sendDebugMessage("TATTOO YOU!: No non-Jack cards in scored hand, cannot convert to Jack.")
+                    jojoker.debug("TATTOO YOU!: No non-Jack cards in scored hand, cannot convert to Jack.")
                     return
                 end
 
@@ -194,7 +194,7 @@ local tattoo_you = {
                     func = function()
                         chosen_card:set_base(G.P_CARDS[suit_prefix..'_J'])
                         chosen_card:juice_up()
-                        sendDebugMessage("TATTOO YOU!: Converted a non-Jack card to Jack.")
+                        jojoker.debug("TATTOO YOU!: Converted a non-Jack card to Jack.")
                         return true
                     end
                 }))
@@ -227,7 +227,7 @@ local civil_war = {
     calculate = function(self, card, context)
         -- When skipping a booster, gain chips
         if context.skipping_booster then
-            sendDebugMessage("Civil War: Gaining "..card.ability.extra.chips_mod.." chips for skipping booster.")
+            jojoker.debug("Civil War: Gaining "..card.ability.extra.chips_mod.." chips for skipping booster.")
             card.ability.extra.chips = card.ability.extra.chips + card.ability.extra.chips_mod
             return {
                 message = localize('k_upgrade_ex'),
@@ -238,7 +238,7 @@ local civil_war = {
         -- Give chips during scorinng
         if context.cardarea == G.jokers and context.scoring_hand then
             if context.joker_main then
-                sendDebugMessage("Civil War: Adding "..card.ability.extra.chips.." chips to hand during scoring.")
+                jojoker.debug("Civil War: Adding "..card.ability.extra.chips.." chips to hand during scoring.")
                 return {
                     message = localize{type='variable', key='a_chips', vars={card.ability.extra.chips}},
                     colour = G.C.CHIPS,
@@ -274,7 +274,7 @@ local ball_breaker = {
                         card = card,
                     }
                 else
-                    sendDebugMessage("Ball Breaker: Giving mult for scored card rank "..context.other_card:get_id())
+                    jojoker.debug("Ball Breaker: Giving mult for scored card rank "..context.other_card:get_id())
                     return {
                         mult = card.ability.extra.mult,
                         card = card
@@ -327,7 +327,7 @@ local in_a_silent_way = {
     calculate = function(self, card, context)
         -- Gains 3 mult whenever a booster pack is opened
         if context.open_booster then
-            sendDebugMessage("In a Silent Way: Adding "..card.ability.extra.mult_mod.." on opened booster pack.")
+            jojoker.debug("In a Silent Way: Adding "..card.ability.extra.mult_mod.." on opened booster pack.")
             card.ability.extra.current_mult = card.ability.extra.current_mult + card.ability.extra.mult_mod
         end
 
@@ -368,7 +368,7 @@ local d4c = {
         if from_debuff or card.ability.extra.is_copy or G.in_delete_run then return end
         local copy = get_d4c_partner(card)
         if copy then
-            sendDebugMessage("D4C: Removing copy for pair "..card.ability.extra.pair_id)
+            jojoker.debug("D4C: Removing copy for pair "..card.ability.extra.pair_id)
             copy:start_dissolve()
         end
     end,
@@ -416,7 +416,7 @@ local tomb_of_the_boom = {
             local pulled = jojoker_pull_rank_from_deck(card.ability.extra.pull_rank)
             card.ability.extra.pull_rank = nil
             if pulled > 0 then
-                sendDebugMessage("Tomb of the Boom: Pulled "..pulled.." cards from the deck.")
+                jojoker.debug("Tomb of the Boom: Pulled "..pulled.." cards from the deck.")
                 return {
                     message = localize('sound_attracted'),
                     colour = G.C.FILTER,
@@ -465,7 +465,7 @@ local scary_monsters = {
                         SMODS.change_base(target.card, target.suit)
                         target.card:juice_up()
                     end
-                    sendDebugMessage("Scary Monsters: Randomized the suits of "..#targets.." scored cards.")
+                    jojoker.debug("Scary Monsters: Randomized the suits of "..#targets.." scored cards.")
                     return true
                 end
             }))
@@ -497,7 +497,7 @@ local boku_no_rhythm_wo_kiitekure = {
         if context.discard and not context.blueprint and card.ability.extra.target_index
             and context.other_card == context.full_hand[card.ability.extra.target_index] then
             card.ability.extra.target_index = nil
-            sendDebugMessage("Boku no Rhythm wo Kiitekure: Destroying a random discarded card.")
+            jojoker.debug("Boku no Rhythm wo Kiitekure: Destroying a random discarded card.")
             return {
                 remove = true,
                 message = localize('sound_boom'),

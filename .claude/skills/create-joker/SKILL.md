@@ -77,7 +77,7 @@ local kiss = {
 - Permanently scaling values live in `config.extra` as a `<thing>_mod` / `<thing>` pair.
 - Guard state-mutating branches with `not context.blueprint` so a copying joker cannot
   scale the original twice.
-- Use `sendDebugMessage` on branches that fire, matching the surrounding wording.
+- Use `jojoker.debug` on branches that fire, matching the surrounding wording.
 - Never declare helper functions as locals in the joker file. When logic is sizeable or
   complex, put it in `functions/jokerfunctions.lua` as a global (ex.
   `get_harvest_payout(card)`), so the joker, its JokerDisplay `calc_function`, and its

@@ -25,7 +25,7 @@ local red_hot_chili_pepper = {
         -- Gives mult per $ held
         if context.cardarea == G.jokers and context.scoring_hand then
             if context.joker_main then
-                sendDebugMessage("Red Hot Chili Peppers: Giviing "..card.ability.extra.mult.." mult based on current money.")
+                jojoker.debug("Red Hot Chili Peppers: Giviing "..card.ability.extra.mult.." mult based on current money.")
                 return {
                     message = localize{type = 'variable', key = 'a_mult', vars = {card.ability.extra.mult}},
                     colour = G.C.MULT,
@@ -62,7 +62,7 @@ local the_hand = {
             card.ability.extra.buffed_rank_one = low_rank
             card.ability.extra.buffed_rank_two = high_rank
 
-            sendDebugMessage("The Hand: Debuffed rank "..card.ability.extra.debuff_rank..", buffed ranks "..low_rank.." and "..high_rank)
+            jojoker.debug("The Hand: Debuffed rank "..card.ability.extra.debuff_rank..", buffed ranks "..low_rank.." and "..high_rank)
 
             -- Debuff all cards of the debuffed rank
             for k, v in pairs(G.playing_cards) do
@@ -76,7 +76,7 @@ local the_hand = {
         if context.individual and context.cardarea == G.play then
             local scored_rank = rank_string_from_id(context.other_card:get_id())
             if scored_rank == card.ability.extra.buffed_rank_one or scored_rank == card.ability.extra.buffed_rank_two then
-                sendDebugMessage("The Hand: Found buffed rank "..scored_rank.." in scored hand, giving +"..card.ability.extra.mult_mod.." mult.")
+                jojoker.debug("The Hand: Found buffed rank "..scored_rank.." in scored hand, giving +"..card.ability.extra.mult_mod.." mult.")
                 return {
                     message = localize{type = 'variable', key = 'a_mult', vars = {card.ability.extra.mult_mod}},
                     colour = G.C.MULT,
@@ -103,7 +103,7 @@ local the_hand = {
             card.ability.extra.buffed_rank_one = low_rank
             card.ability.extra.buffed_rank_two = high_rank
 
-            sendDebugMessage("The Hand: Debuffed rank "..card.ability.extra.debuff_rank..", buffed ranks "..low_rank.." and "..high_rank)
+            jojoker.debug("The Hand: Debuffed rank "..card.ability.extra.debuff_rank..", buffed ranks "..low_rank.." and "..high_rank)
 
             -- Debuff all cards of the debuffed rank
             for k, v in pairs(G.playing_cards) do
@@ -116,7 +116,7 @@ local the_hand = {
     remove_from_deck = function(self, card, from_debuff)
         -- Must mirror the from_debuff check in add_to_deck, or a debuff cycle permanently restores the chosen rank
         if not from_debuff then
-            sendDebugMessage("The Hand: Removed from deck, restoring face cards")
+            jojoker.debug("The Hand: Removed from deck, restoring face cards")
             for k, v in pairs(G.playing_cards) do
                 SMODS.debuff_card(v, false, card)
             end
@@ -207,7 +207,7 @@ local bad_company = {
         if context.joker_main then
             local mult_given = get_bad_company_mult(card)
             if mult_given > 0 then
-                sendDebugMessage("Bad Company: Giving "..mult_given.." mult based on current deck size of "..#G.playing_cards..".")
+                jojoker.debug("Bad Company: Giving "..mult_given.." mult based on current deck size of "..#G.playing_cards..".")
                 return {
                     message = localize{type = 'variable', key = 'a_mult', vars = {mult_given}},
                     colour = G.C.MULT,
@@ -238,13 +238,13 @@ local cheap_trick = {
         -- When a joker is destroyed, increase XMult
         if context.joker_type_destroyed and context.card ~= card then
             card.ability.extra.Xmult = card.ability.extra.Xmult + card.ability.extra.Xmult_mod
-            sendDebugMessage("Cheap Trick: A joker was destroyed, increasing XMult to "..card.ability.extra.Xmult)
+            jojoker.debug("Cheap Trick: A joker was destroyed, increasing XMult to "..card.ability.extra.Xmult)
         end
 
         -- Give XMult during scoring
         if context.cardarea == G.jokers and context.scoring_hand then
             if context.joker_main then
-                sendDebugMessage("Cheap Trick: Giving XMult of "..card.ability.extra.Xmult)
+                jojoker.debug("Cheap Trick: Giving XMult of "..card.ability.extra.Xmult)
                 return {
                     message = localize{type = 'variable', key = 'a_xmult', vars = {card.ability.extra.Xmult}},
                     colour = G.C.XMULT,
@@ -279,7 +279,7 @@ local cinderella = {
             local first_card_rank = first_card:get_id()
             if not first_card.debuff and first_card_rank ~= 12 and first_card_rank ~= 13 then
                 local new_rank = math.random(12, 13)
-                sendDebugMessage("Cinderella: Changing first card rank from "..rank_string_from_id(first_card_rank).." to "..rank_string_from_id(new_rank))
+                jojoker.debug("Cinderella: Changing first card rank from "..rank_string_from_id(first_card_rank).." to "..rank_string_from_id(new_rank))
 
                 local suit_to_prefix = { Spades = 'S', Hearts = 'H', Clubs = 'C', Diamonds = 'D' }
                 local suit_prefix = suit_to_prefix[first_card.base.suit]
@@ -330,7 +330,7 @@ local atom_heart_father = {
         -- Give XMult during scoring
         if context.cardarea == G.jokers and context.scoring_hand then
             if context.joker_main then
-                sendDebugMessage("Atom Heart Father: Giving XMult of "..card.ability.extra.Xmult)
+                jojoker.debug("Atom Heart Father: Giving XMult of "..card.ability.extra.Xmult)
                 return {
                     message = localize{type = 'variable', key = 'a_xmult', vars = {card.ability.extra.Xmult}},
                     colour = G.C.XMULT,
@@ -397,7 +397,7 @@ local killer_queen = {
         -- When beating a boss, has a chance to rewind the blind
         if context.end_of_round and context.game_over == false and context.main_eval and context.beat_boss and not card.debuff then
             if SMODS.pseudorandom_probability(card, 'killer_queen', card.ability.extra.numerator, card.ability.extra.denominator, 'killer_queen') then
-                sendDebugMessage("Killer Queen: Rewinding blind after beating boss")
+                jojoker.debug("Killer Queen: Rewinding blind after beating boss")
                 card:juice_up(0.1)
                 ease_ante(-1)
 
@@ -423,7 +423,7 @@ local heavens_door = {
     calculate = function(self, card, context)
         -- When beating a boss, gives a random tag
         if context.end_of_round and context.game_over == false and context.main_eval and context.beat_boss and not card.debuff then
-            sendDebugMessage("Heaven's Door: Giving random tag after beating boss")
+            jojoker.debug("Heaven's Door: Giving random tag after beating boss")
             card:juice_up(0.1)
             local tag_pool = get_current_pool('Tag')
             local selected_tag = pseudorandom_element(tag_pool, 'jojoker')
@@ -460,16 +460,16 @@ local the_lock = {
         -- When playing a hand, increase mult if it's the most played hand
         if context.cardarea == G.jokers and context.scoring_hand then
             if context.before then
-                sendDebugMessage("The Lock: Hand played is "..context.scoring_name..", most played hand is "..card.ability.extra.most_played)
+                jojoker.debug("The Lock: Hand played is "..context.scoring_name..", most played hand is "..card.ability.extra.most_played)
                 if get_most_played_hand_info().count == 1 or context.scoring_name == card.ability.extra.most_played then
-                    sendDebugMessage("The Lock: Gaining mult for most played hand")
+                    jojoker.debug("The Lock: Gaining mult for most played hand")
                     card.ability.extra.curr_mult = card.ability.extra.curr_mult + card.ability.extra.mult_gain
                     return {
                         message = localize('k_upgrade_ex'),
                         colour = G.C.GOLD
                     }
                 else
-                    sendDebugMessage("The Lock: Resetting mult for non-most played hand")
+                    jojoker.debug("The Lock: Resetting mult for non-most played hand")
                     card.ability.extra.curr_mult = 0
                     return {
                         message = localize('k_reset'),
@@ -512,7 +512,7 @@ local harvest = {
     calc_dollar_bonus = function(self, card)
         local payout = get_harvest_payout(card)
         if payout > 0 then
-            sendDebugMessage("Harvest: Giving $"..payout.." for $"..G.GAME.jojoker_shop_dollars_spent.." spent in shops this run.")
+            jojoker.debug("Harvest: Giving $"..payout.." for $"..G.GAME.jojoker_shop_dollars_spent.." spent in shops this run.")
             return ease_joker_dollars(card, "Harvest", payout, true)
         end
     end
@@ -547,7 +547,7 @@ local echoes_act_3 = {
             end
             if #queens > 0 then
                 card.ability.extra.Xmult = card.ability.extra.Xmult + #queens * card.ability.extra.Xmult_mod
-                sendDebugMessage("Echoes Act 3: Destroying "..#queens.." Queens held in hand, increasing XMult to "..card.ability.extra.Xmult)
+                jojoker.debug("Echoes Act 3: Destroying "..#queens.." Queens held in hand, increasing XMult to "..card.ability.extra.Xmult)
                 SMODS.destroy_cards(queens)
                 return {
                     message = localize('sound_kill_da_hoe'),
@@ -558,7 +558,7 @@ local echoes_act_3 = {
 
         -- Give XMult for each destroyed queen
         if context.joker_main and card.ability.extra.Xmult ~= 1 then
-            sendDebugMessage("Echoes Act 3: Giving XMult of "..card.ability.extra.Xmult)
+            jojoker.debug("Echoes Act 3: Giving XMult of "..card.ability.extra.Xmult)
             return {
                 message = localize('sound_beeeetch'),
                 colour = G.C.XMULT,
@@ -586,7 +586,7 @@ local aqua_necklace = {
     calculate = function(self, card, context)
         -- Gives chips when a flush is played
         if context.joker_main and next(context.poker_hands["Flush"]) then
-            sendDebugMessage("Aqua Necklace: Giving "..card.ability.extra.chips.." chips for hand containing a Flush")
+            jojoker.debug("Aqua Necklace: Giving "..card.ability.extra.chips.." chips for hand containing a Flush")
             return {
                 message = localize{type='variable', key='a_chips', vars={card.ability.extra.chips}},
                 colour = G.C.CHIPS,
@@ -627,7 +627,7 @@ local highway_star = {
             if chips > 0 or mult > 0 then
                 card.ability.extra.chips = card.ability.extra.chips + chips
                 card.ability.extra.mult = card.ability.extra.mult + mult
-                sendDebugMessage("Highway Star: Absorbing "..chips.." chips and "..mult.." mult from scoring cards, now at "..card.ability.extra.chips.." chips and "..card.ability.extra.mult.." mult")
+                jojoker.debug("Highway Star: Absorbing "..chips.." chips and "..mult.." mult from scoring cards, now at "..card.ability.extra.chips.." chips and "..card.ability.extra.mult.." mult")
                 return {
                     message = localize('k_upgrade_ex'),
                     colour = G.C.CHIPS
@@ -636,7 +636,7 @@ local highway_star = {
         end
 
         if context.joker_main and (card.ability.extra.chips > 0 or card.ability.extra.mult > 0) then
-            sendDebugMessage("Highway Star: Giving "..card.ability.extra.chips.." chips and "..card.ability.extra.mult.." mult")
+            jojoker.debug("Highway Star: Giving "..card.ability.extra.chips.." chips and "..card.ability.extra.mult.." mult")
             return {
                 chips = card.ability.extra.chips,
                 mult = card.ability.extra.mult,

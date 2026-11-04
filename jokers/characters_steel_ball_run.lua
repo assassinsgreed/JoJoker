@@ -37,7 +37,7 @@ local danny_sbr = {
         end
         if #destroyable > 0 then
             local destroyed_joker = destroyable[math.random(#destroyable)]
-            sendDebugMessage("Danny is destroying "..destroyed_joker.ability.name)
+            jojoker.debug("Danny is destroying "..destroyed_joker.ability.name)
             jojoker_joker_destroyed_by_joker(destroyed_joker, card)
             destroyed_joker.getting_sliced = true
             G.E_MANAGER:add_event(Event({
@@ -78,7 +78,7 @@ local slow_dancer = {
                 end
 
                 card.ability.extra.previous_hand = scored_cards
-                sendDebugMessage("Slow Dancer: scored_cards = "..scored_cards..", previous_hand = "..card.ability.extra.previous_hand..", mult_given = "..mult_given)
+                jojoker.debug("Slow Dancer: scored_cards = "..scored_cards..", previous_hand = "..card.ability.extra.previous_hand..", mult_given = "..mult_given)
                 if mult_given > 0 then
                     return {
                         message = localize{type = 'variable', key = 'a_mult', vars = {mult_given}},
@@ -114,11 +114,11 @@ local valkyrie = {
                 local should_trigger = false
 
                 if remaining <= 0 then
-                    sendDebugMessage("Valkyrie: Played enough scoring cards, with spill-over of "..remaining..", will give chips")
+                    jojoker.debug("Valkyrie: Played enough scoring cards, with spill-over of "..remaining..", will give chips")
                     card.ability.extra.scored_cards_remaining = card.ability.extra.card_threshold + remaining -- This is a negative value
                     should_trigger = true
                 else
-                    sendDebugMessage("Valkyrie: Did not play enough scoring cards, remaining until activation is "..remaining)
+                    jojoker.debug("Valkyrie: Did not play enough scoring cards, remaining until activation is "..remaining)
                     card.ability.extra.scored_cards_remaining = remaining
                 end
 
@@ -179,7 +179,7 @@ local sugar_mountain = {
                 -- Spent money
                 card.ability.extra.spend_left = card.ability.extra.spend_left + context.amount
                 if card.ability.extra.spend_left < 0 then
-                    sendDebugMessage("Sugar Mountain: Spent more than the given money, will reset money to 0 and be destroyed.")
+                    jojoker.debug("Sugar Mountain: Spent more than the given money, will reset money to 0 and be destroyed.")
                     card.ability.extra.spend_left = 0
 
                     G.E_MANAGER:add_event(Event({trigger = 'after', delay = 0.4, func = function()
@@ -206,7 +206,7 @@ local sugar_mountain = {
         end
 
         if context.selling_self and card.ability.extra.in_shop then
-            sendDebugMessage("Sugar Mountain: Selling in shop, will reset money to 0.")
+            jojoker.debug("Sugar Mountain: Selling in shop, will reset money to 0.")
             card.ability.extra.spend_left = 0
             
             G.E_MANAGER:add_event(Event({trigger = 'after', delay = 0.4, func = function()
@@ -223,7 +223,7 @@ local sugar_mountain = {
 
         if context.ending_shop then
             if card.ability.extra.spend_left ~= 0 then
-                sendDebugMessage("Sugar Mountain: Didn't spend exactly "..card.ability.extra.money_given.." dollars, will reset money to 0 and be destroyed.")
+                jojoker.debug("Sugar Mountain: Didn't spend exactly "..card.ability.extra.money_given.." dollars, will reset money to 0 and be destroyed.")
 
                 G.E_MANAGER:add_event(Event({trigger = 'after', delay = 0.4, func = function()
                     G.GAME.dollars = 0

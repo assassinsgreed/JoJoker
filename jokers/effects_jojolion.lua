@@ -18,7 +18,7 @@ local higashikata_house = {
     calculate = function(self, card, context)
         if context.cardarea == G.jokers and context.scoring_hand and context.scoring_name == "Full House" then
             if context.joker_main then
-                sendDebugMessage("Higashikata House: Giving "..card.ability.extra.chips.." chips for Full House")
+                jojoker.debug("Higashikata House: Giving "..card.ability.extra.chips.." chips for Full House")
                 return {
                     message = localize{type='variable', key='a_chips', vars={card.ability.extra.chips}},
                     colour=G.C.CHIPS,
@@ -48,11 +48,11 @@ local higashikata_fruit_parlor = {
             if context.joker_main then
                 local money_given = 0
                 if context.scoring_name == "Pair" then
-                    sendDebugMessage("Higashikata Fruit Parlor: Giving "..card.ability.extra.pair_money.." money for Pair")
+                    jojoker.debug("Higashikata Fruit Parlor: Giving "..card.ability.extra.pair_money.." money for Pair")
                     ease_dollars(card.ability.extra.pair_money)
                     money_given = card.ability.extra.pair_money
                 elseif context.scoring_name == "Two Pair" then
-                    sendDebugMessage("Higashikata Fruit Parlor: Giving "..card.ability.extra.two_pair_money.." money for Two Pair")
+                    jojoker.debug("Higashikata Fruit Parlor: Giving "..card.ability.extra.two_pair_money.." money for Two Pair")
                     ease_dollars(card.ability.extra.two_pair_money)
                     money_given = card.ability.extra.two_pair_money
                 end

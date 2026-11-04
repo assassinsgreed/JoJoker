@@ -17,7 +17,7 @@ local savage_garden = {
         -- Gives xmult on the final hand 
         if context.cardarea == G.jokers and context.scoring_hand then
             if context.joker_main and G.GAME.current_round.hands_left == 0 then
-                sendDebugMessage("Savage Garden: Applying Xmult to final hand")
+                jojoker.debug("Savage Garden: Applying Xmult to final hand")
                 return {
                     message = localize{type = 'variable', key = 'a_xmult', vars = {card.ability.extra.Xmult}}, 
                     colour = G.C.XMULT,
@@ -48,7 +48,7 @@ local pucci = {
         local prime_ranks = { [2] = true, [3] = true, [5] = true, [7] = true, [11] = true, [13] = true }
         if context.repetition and not context.end_of_round and context.cardarea == G.play then
             if context.other_card and prime_ranks[context.other_card:get_id()] then
-                sendDebugMessage("Pucci: Retriggering on prime rank "..context.other_card:get_id())
+                jojoker.debug("Pucci: Retriggering on prime rank "..context.other_card:get_id())
                 return {
                     message = localize('k_again_ex'),
                     repetitions = card.ability.extra.retriggers,
@@ -78,7 +78,7 @@ local loccobarocco_and_charlotte = {
         if context.joker_main then
             local chips = get_loccobarocco_chips(card, context.scoring_hand)
             if chips > 0 then
-                sendDebugMessage("Loccobarocco and Charlotte: Giving "..chips.." chips for debuffed scored cards")
+                jojoker.debug("Loccobarocco and Charlotte: Giving "..chips.." chips for debuffed scored cards")
                 return {
                     message = localize{type='variable', key='a_chips', vars={chips}},
                     colour = G.C.CHIPS,

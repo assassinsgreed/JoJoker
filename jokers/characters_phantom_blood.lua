@@ -34,8 +34,8 @@ local danny = {
             if not G.GAME.chips or not G.GAME.blind.chips then return end
             local start = G.GAME._chips_before_hand or 0 -- fallback if missing
             local hand_score = (G.GAME.chips or 0) - start
-            sendDebugMessage("Danny: Recognized score at hand start as "..start)
-            sendDebugMessage("Danny: Resulting chips are "..hand_score.." and blind chips are "..G.GAME.blind.chips..". Will "..(hand_score > G.GAME.blind.chips and "" or " not ").." be destroyed.")
+            jojoker.debug("Danny: Recognized score at hand start as "..start)
+            jojoker.debug("Danny: Resulting chips are "..hand_score.." and blind chips are "..G.GAME.blind.chips..". Will "..(hand_score > G.GAME.blind.chips and "" or " not ").." be destroyed.")
             if hand_score > G.GAME.blind.chips then
                 -- Destroy Danny        
                 G.E_MANAGER:add_event(Event({
@@ -77,7 +77,7 @@ local baron_zeppeli = {
             hand_chips = math.floor(currentChips / 2)
             local addedMult = math.floor(currentChips * 0.2)
             mult = mult + addedMult
-            sendDebugMessage("Baron Zeppeli: Cut chips to "..hand_chips.." and added "..addedMult.." to mult, new mult is "..(mult))
+            jojoker.debug("Baron Zeppeli: Cut chips to "..hand_chips.." and added "..addedMult.." to mult, new mult is "..(mult))
 
             return {
                 message = localize("sound_hey_baby"),
@@ -105,7 +105,7 @@ local speedwagon = {
     calculate = function(self, card, context)
         if context.pre_discard then
             ease_dollars(card.ability.extra.money_mod)
-            sendDebugMessage("Speedwagon: Gave $"..card.ability.extra.money_mod.." for used discard.")
+            jojoker.debug("Speedwagon: Gave $"..card.ability.extra.money_mod.." for used discard.")
 
             return {
                 message = localize('$')..card.ability.extra.money_mod,
@@ -134,7 +134,7 @@ local zombies = {
         -- On scoring, give mult_per mult for each held joker and calculate (in the event of special jokers)
         if context.cardarea == G.jokers and context.scoring_hand then
             if context.joker_main then
-                sendDebugMessage("Zombies: Giving mult of "..card.ability.extra.current_mult.." for count of held zombie jokers.")
+                jojoker.debug("Zombies: Giving mult of "..card.ability.extra.current_mult.." for count of held zombie jokers.")
                 return {
                     message = localize{type = 'variable', key = 'a_mult', vars = {card.ability.extra.current_mult}},
                     colour = G.C.MULT,
@@ -146,9 +146,9 @@ local zombies = {
         -- Potentially duplicate joker at end of small/big blind
         if context.end_of_round and not context.individual and not context.repetition and not context.blueprint then
             if #G.jokers.cards < G.jokers.config.card_limit then
-                sendDebugMessage("Zombies: "..#G.jokers.cards.." jokers in play, below limit of "..G.jokers.config.card_limit..", considering replicating.")
+                jojoker.debug("Zombies: "..#G.jokers.cards.." jokers in play, below limit of "..G.jokers.config.card_limit..", considering replicating.")
                 if SMODS.pseudorandom_probability(card, 'zombies', card.ability.extra.numerator, card.ability.extra.denominator, 'zombies') then
-                    sendDebugMessage("Zombies: Replicated!")
+                    jojoker.debug("Zombies: Replicated!")
                     
                     play_sound('tarot1')
                     local new_card = SMODS.create_card({set = "Joker", area = G.jokers, key = "j_jojoker_zombies", no_edition = true})
@@ -195,7 +195,7 @@ local straizo = {
             if context.joker_main then
                 local chips = hand_chips_map[context.scoring_name]
                 if chips then
-                    sendDebugMessage("Straizo: Giving "..chips.." chips for "..context.scoring_name)
+                    jojoker.debug("Straizo: Giving "..chips.." chips for "..context.scoring_name)
                     return {
                         message = localize{type='variable', key='a_chips', vars={chips}},
                         colour=G.C.CHIPS,
@@ -223,7 +223,7 @@ local george_joestar = {
     end,
     calc_dollar_bonus = function(self, card)
         local moneyGiven = #G.jokers.cards * card.ability.extra.money_mod
-        sendDebugMessage("George Joestar: Giving $"..moneyGiven.." based on count of held jokers.")
+        jojoker.debug("George Joestar: Giving $"..moneyGiven.." based on count of held jokers.")
         return ease_joker_dollars(card, "George Joestar", moneyGiven, true)
 	end
 }
@@ -263,7 +263,7 @@ local dario_brando = {
         -- On blind end, multiply sell value and potentially destroy self
         if context.end_of_round and not context.individual and not context.repetition and not context.blueprint then
              if SMODS.pseudorandom_probability(card, 'dario_brando', card.ability.extra.numerator, card.ability.extra.denominator, 'dario_brando') then
-                sendDebugMessage("Dario Brando: Destroyed by pseudorandom chance at end of blind.")
+                jojoker.debug("Dario Brando: Destroyed by pseudorandom chance at end of blind.")
 
                 G.E_MANAGER:add_event(Event({
                   func = function()
@@ -281,7 +281,7 @@ local dario_brando = {
             else
                 card.ability.extra_value = math.floor(card.ability.extra_value * card.ability.extra.sell_value_mult)
                 card:set_cost()
-                sendDebugMessage("Dario Brando: Multiplied sell value to "..card.ability.extra_value.." at end of round.")
+                jojoker.debug("Dario Brando: Multiplied sell value to "..card.ability.extra_value.." at end of round.")
                 G.E_MANAGER:add_event(Event(
                 {
                     func = function() card_eval_status_text(card, 'extra', nil, nil, nil, {message = localize('k_val_up')}); return true
@@ -311,7 +311,7 @@ local erina = {
             if not context.blueprint and context.joker_main then
                 local character_count = get_joker_count_by_type("Character")
                 local multGiven = character_count * card.ability.extra.mult_mod
-                sendDebugMessage("Erina: Giving "..multGiven.." mult for "..character_count.." Character class jokers.")
+                jojoker.debug("Erina: Giving "..multGiven.." mult for "..character_count.." Character class jokers.")
 
                 return {
                     message = localize{type = 'variable', key = 'a_mult', vars = {multGiven}},
@@ -345,7 +345,7 @@ local jonathan_joestar = {
                 local suit_count = 0
 
                 for i = 1, #context.scoring_hand do
-                    sendDebugMessage("Jonathan Joestar: Card suit is "..context.scoring_hand[i].base.suit)
+                    jojoker.debug("Jonathan Joestar: Card suit is "..context.scoring_hand[i].base.suit)
                     if SMODS.has_no_suit(context.scoring_hand[i]) then
                         suit_count = suit_count + 1
                     elseif not unique_suits[context.scoring_hand[i].base.suit] then
@@ -355,7 +355,7 @@ local jonathan_joestar = {
                 end
                 local unique_suit_count = math.min(suit_count, 4) -- Cap at 4, if multiple wild cards present
                 local chips_given = unique_suit_count * card.ability.extra.chips
-                sendDebugMessage("Jonathan Joestar: Giving "..chips_given.." chips for "..suit_count.." unique suits (including wild cards, capped at 4).")
+                jojoker.debug("Jonathan Joestar: Giving "..chips_given.." chips for "..suit_count.." unique suits (including wild cards, capped at 4).")
 
                 return {
                     message = localize{type = 'variable', key = 'a_chips', vars = {chips_given}},
@@ -388,14 +388,14 @@ local dio_brando = {
             for i = 1, #context.scoring_hand do
                 if not context.scoring_hand[i].ability.nominal_drain then
                     -- Card has not been drained yet
-                    sendDebugMessage("Dio Brando: Draining card with "..(context.scoring_hand[i].base.nominal or 0).." chips.")
+                    jojoker.debug("Dio Brando: Draining card with "..(context.scoring_hand[i].base.nominal or 0).." chips.")
                     total_drained = total_drained + (context.scoring_hand[i].base.nominal - 1 or 0) -- Cards are left with 1 chip after draining 
                     context.scoring_hand[i].ability.nominal_drain = context.scoring_hand[i].base.nominal or 0 -- Mark drained
                 end
             end
             local xmult_to_add = (total_drained * card.ability.extra.drain_rate / 100)
             card.ability.extra.Xmult = card.ability.extra.Xmult + xmult_to_add
-            sendDebugMessage("Dio Brando: Drained a total of "..total_drained.." chips from scored cards, increasing Xmult by "..xmult_to_add..".")
+            jojoker.debug("Dio Brando: Drained a total of "..total_drained.." chips from scored cards, increasing Xmult by "..xmult_to_add..".")
 
             return {
                 message = localize("sound_wry")
@@ -434,7 +434,7 @@ local poco = {
             if context.joker_main then
                 local hand_score = SMODS.calculate_round_score()
                 local score_ratio = hand_score / G.GAME.blind.chips
-                sendDebugMessage("Poco: Resulting chips are "..hand_score.." and blind chips are "..G.GAME.blind.chips.." (ratio of "..score_ratio.." vs "..card.ability.extra.score_threshold..")")
+                jojoker.debug("Poco: Resulting chips are "..hand_score.." and blind chips are "..G.GAME.blind.chips.." (ratio of "..score_ratio.." vs "..card.ability.extra.score_threshold..")")
 
                 -- Give money if equal to or below threshold
                 if score_ratio <= card.ability.extra.score_threshold then
@@ -487,7 +487,7 @@ local tarkus = {
         if context.ending_shop then
             if not card.ability.extra.has_bought then
                 card.ability.extra.Xmult = card.ability.extra.Xmult + card.ability.extra.Xmult_mod
-                sendDebugMessage("Tarkus: Increased Xmult to "..card.ability.extra.Xmult.." at end of shop phase without any purchases.")
+                jojoker.debug("Tarkus: Increased Xmult to "..card.ability.extra.Xmult.." at end of shop phase without any purchases.")
                 G.E_MANAGER:add_event(Event(
                 {
                     func = function() card_eval_status_text(card, 'extra', nil, nil, nil, {message = localize('k_val_up')}); return true

@@ -40,7 +40,7 @@ local turbo_eyes = {
         if not context.end_of_round and context.scoring_hand then
             if context.individual and context.cardarea == G.scan_view and not context.other_card.debuff then
                 local chips = joker_total_chips(context.other_card)
-                sendDebugMessage("Turbo Eyes is giving " .. chips .. " chips based on scanned cards")
+                jojoker.debug("Turbo Eyes is giving " .. chips .. " chips based on scanned cards")
                 return {
                     message = localize{type = 'variable', key = 'a_chips', vars = {chips}},
                     message_card = context.other_card,
@@ -79,7 +79,7 @@ local the_true_mans_world = {
         -- If playing a hand, increase XMult by 0.25
         if context.before and context.scoring_hand then
             card.ability.extra.Xmult = card.ability.extra.Xmult + card.ability.extra.Xmult_mod
-            sendDebugMessage("The True Man's World: Increasing Xmult by " .. card.ability.extra.Xmult_mod .. " to " .. card.ability.extra.Xmult.." before playing hand")
+            jojoker.debug("The True Man's World: Increasing Xmult by " .. card.ability.extra.Xmult_mod .. " to " .. card.ability.extra.Xmult.." before playing hand")
             return {
                 message = localize('k_upgrade_ex'),
                 colour = G.C.GOLD
@@ -89,7 +89,7 @@ local the_true_mans_world = {
         -- Reset XMult on discard
         if context.pre_discard then
             card.ability.extra.Xmult = 1
-            sendDebugMessage("The True Man's World: Resetting Xmult to 1 on discard")
+            jojoker.debug("The True Man's World: Resetting Xmult to 1 on discard")
             return {
                 message = localize('k_reset'),
                 colour = G.C.RED
@@ -133,7 +133,7 @@ local the_first_napkin = {
                 end
             end
 
-            sendDebugMessage("The First Napkin: Giving all played cards +"..highest_rank.." chips before playing hand")
+            jojoker.debug("The First Napkin: Giving all played cards +"..highest_rank.." chips before playing hand")
             for _, c in ipairs(context.full_hand) do
                 c.ability.perma_bonus = (c.ability.perma_bonus or 0) + highest_rank
             end
@@ -155,7 +155,7 @@ local the_first_napkin = {
                 end
             end
 
-            sendDebugMessage("The First Napkin: Giving all played cards +"..lowest_rank.." mult before playing hand")
+            jojoker.debug("The First Napkin: Giving all played cards +"..lowest_rank.." mult before playing hand")
             for _, c in ipairs(context.full_hand) do
                 c.ability.perma_mult = (c.ability.perma_mult or 0) + lowest_rank
             end
@@ -202,7 +202,7 @@ local wavering_heart = {
         if context.reroll_shop then
             card.ability.extra.curr_chips = card.ability.extra.curr_chips + card.ability.extra.chip_mod
             card.ability.extra.curr_mult = card.ability.extra.curr_mult + card.ability.extra.mult_mod
-            sendDebugMessage("Wavering Heart: Increasing chip_mod to " .. card.ability.extra.curr_chips .. " and mult_mod to " .. card.ability.extra.curr_mult .. " on shop reroll")
+            jojoker.debug("Wavering Heart: Increasing chip_mod to " .. card.ability.extra.curr_chips .. " and mult_mod to " .. card.ability.extra.curr_mult .. " on shop reroll")
             return {
                 message = localize('k_upgrade_ex'),
                 colour = G.C.GOLD
@@ -241,14 +241,14 @@ local dark_determination = {
 
         -- When rerolling the shop, mark joker as not upgradable
         if context.reroll_shop then
-            sendDebugMessage("Dark Determination: Rerolled in shop, preventing Xmult increase")
+            jojoker.debug("Dark Determination: Rerolled in shop, preventing Xmult increase")
             card.ability.extra.has_rerolled = true
         end
 
         if context.ending_shop then
             if not card.ability.extra.has_rerolled then
                 card.ability.extra.Xmult = card.ability.extra.Xmult + card.ability.extra.Xmult_mod
-                sendDebugMessage("Dark Determination: Increasing Xmult to " .. card.ability.extra.Xmult .. " on shop ending without reroll")
+                jojoker.debug("Dark Determination: Increasing Xmult to " .. card.ability.extra.Xmult .. " on shop ending without reroll")
                 return {
                     message = localize('k_upgrade_ex'),
                     colour = G.C.GOLD

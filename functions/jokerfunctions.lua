@@ -82,7 +82,7 @@ jojoker_add_purple_haze_bonus = function(card, context, ret)
     local growth = G.P_CENTERS.j_jojoker_purple_haze.config.extra
     card.ability.jojoker_purple_haze_chips = card.ability.jojoker_purple_haze_chips + growth.chips_mod
     card.ability.jojoker_purple_haze_mult = card.ability.jojoker_purple_haze_mult + growth.mult_mod
-    sendDebugMessage("Purple Haze: "..card.ability.name.." grew to +"..card.ability.jojoker_purple_haze_chips.." chips and +"..card.ability.jojoker_purple_haze_mult.." mult")
+    jojoker.debug("Purple Haze: "..card.ability.name.." grew to +"..card.ability.jojoker_purple_haze_chips.." chips and +"..card.ability.jojoker_purple_haze_mult.." mult")
   end
   return jojoker_append_joker_main_bonus(context, ret, {
     chips = card.ability.jojoker_purple_haze_chips,
@@ -183,7 +183,7 @@ jojoker_track_shop_spending = function(context)
   local cost = context.card and context.card.cost or 0
   if cost <= 0 then return end
   G.GAME.jojoker_shop_dollars_spent = (G.GAME.jojoker_shop_dollars_spent or 0) + cost
-  sendDebugMessage("Shop spending: $"..cost.." spent, $"..G.GAME.jojoker_shop_dollars_spent.." total this run")
+  jojoker.debug("Shop spending: $"..cost.." spent, $"..G.GAME.jojoker_shop_dollars_spent.." total this run")
 end
 
 get_harvest_payout = function(card)
@@ -195,7 +195,7 @@ end
 jojoker_track_black_holes_used = function(context)
   if not (context.using_consumeable and context.consumeable and context.consumeable.config.center.key == 'c_black_hole') then return end
   G.GAME.jojoker_black_holes_used = (G.GAME.jojoker_black_holes_used or 0) + 1
-  sendDebugMessage("Black Hole used: "..G.GAME.jojoker_black_holes_used.." total this run")
+  jojoker.debug("Black Hole used: "..G.GAME.jojoker_black_holes_used.." total this run")
 end
 
 get_cream_mult = function(card)
@@ -220,13 +220,13 @@ jojoker_track_bosses_beaten = function(context)
   if not (context.end_of_round and context.game_over == false and context.main_eval and context.beat_boss) then return end
   if context.individual or context.repetition then return end
   G.GAME.jojoker_bosses_beaten = (G.GAME.jojoker_bosses_beaten or 0) + 1
-  sendDebugMessage("Boss beaten: "..G.GAME.jojoker_bosses_beaten.." total this run")
+  jojoker.debug("Boss beaten: "..G.GAME.jojoker_bosses_beaten.." total this run")
 end
 
 -- Hieroglyph, Petroglyph, and Killer Queen all send the ante backward through ease_ante
 jojoker_ante_reversed = function(mod)
   if G.STAGE ~= G.STAGES.RUN or not mod or mod >= 0 then return end
-  sendDebugMessage("Ante reversed by "..-mod)
+  jojoker.debug("Ante reversed by "..-mod)
   SMODS.calculate_context({ jojoker_ante_reversed = true, amount = -mod })
 end
 
@@ -347,13 +347,13 @@ handle_left_side_ataxia_disabling = function(left_side_ataxia_card)
         -- Disable / restore joker based on Left-Side-Ataxia's position in the joker lineup,
         -- (restoring ONLY if disabled by Left-Side-Ataxia, to avoid restoring jokers disabled by other effects)
         if i < my_pos then
-          -- sendDebugMessage("Disabling joker at position "..i.." because it is before Left-Side Ataxia")
+          -- jojoker.debug("Disabling joker at position "..i.." because it is before Left-Side Ataxia")
           set_lsa_disabled(other_joker, true)
           disabled = disabled + 1
           SMODS.debuff_card(other_joker, true, left_side_ataxia_card)
         else
           if get_lsa_disabled(other_joker) then
-            -- sendDebugMessage("Restoring joker at position "..i.." because it is after Left-Side Ataxia")
+            -- jojoker.debug("Restoring joker at position "..i.." because it is after Left-Side Ataxia")
             -- Manually handle restore, because SMODS can't restore the card if the game is reloaded...
             set_lsa_disabled(other_joker, false)
             other_joker.ability.debuff_sources[tostring(left_side_ataxia_card)] = false
@@ -362,7 +362,7 @@ handle_left_side_ataxia_disabling = function(left_side_ataxia_card)
         end
       else
           if other_joker == left_side_ataxia_card then
-            -- sendDebugMessage("Found Left-Side Ataxia at position "..i)
+            -- jojoker.debug("Found Left-Side Ataxia at position "..i)
             my_pos = i
           end
       end
@@ -466,7 +466,7 @@ end
 -- Jokers that duplicate by creating a card from a key never reach copy_card, so they call this directly
 jojoker_card_duplicated = function(card)
   if G.STAGE ~= G.STAGES.RUN then return end
-  sendDebugMessage("Card duplicated: "..tostring(card and card.config.center.key))
+  jojoker.debug("Card duplicated: "..tostring(card and card.config.center.key))
   SMODS.calculate_context({ jojoker_card_duplicated = true, card = card })
 end
 
@@ -485,7 +485,7 @@ jojoker_force_pack_card = function(booster_card, i, spawned)
   local tarot = get_most_used_tarot_info()
   if not tarot.key then return nil end
 
-  sendDebugMessage("Enya: Forcing "..tarot.name.." into the opened Arcana Pack")
+  jojoker.debug("Enya: Forcing "..tarot.name.." into the opened Arcana Pack")
   return { set = 'Tarot', area = G.pack_cards, skip_materialize = true, soulable = true, key = tarot.key, key_append = 'ar1' }
 end
 
@@ -519,7 +519,7 @@ thoth_preroll_booster = function(booster)
 
   G.pack_cards:remove()
   G.pack_cards, SMODS.OPENED_BOOSTER = prev_pack_cards, prev_opened_booster
-  sendDebugMessage("Thoth: Prerolled "..size.." cards for "..booster.config.center.key)
+  jojoker.debug("Thoth: Prerolled "..size.." cards for "..booster.config.center.key)
 end
 
 thoth_preroll_shop_boosters = function()
@@ -539,7 +539,7 @@ end
 thoth_take_prerolled_card = function(booster, i)
   local contents = booster and booster.ability and booster.ability.thoth_contents
   if not contents or not contents[i] then return nil end
-  sendDebugMessage("Thoth: Using prerolled card "..i.." for "..booster.config.center.key)
+  jojoker.debug("Thoth: Using prerolled card "..i.." for "..booster.config.center.key)
   return thoth_load_card(contents[i])
 end
 
@@ -578,7 +578,7 @@ end
 -- Must fire before the destroyed joker is marked getting_sliced, which excludes it from calculation
 jojoker_joker_destroyed_by_joker = function(destroyed, destroyer)
   if G.STAGE ~= G.STAGES.RUN or not destroyed or not destroyer or destroyed == destroyer then return end
-  sendDebugMessage("Joker destroyed: "..destroyed.config.center.key.." by "..destroyer.config.center.key)
+  jojoker.debug("Joker destroyed: "..destroyed.config.center.key.." by "..destroyer.config.center.key)
   SMODS.calculate_context({ jojoker_joker_destroyed_by_joker = true, card = destroyed, destroyer = destroyer })
 end
 
@@ -698,7 +698,7 @@ jojoker_spawn_d4c_copy = function(card)
   copy:add_sticker('eternal', true)
   copy:add_to_deck()
   G.jokers:emplace(copy)
-  sendDebugMessage("D4C: Spawned eternal negative copy for pair "..card.ability.extra.pair_id)
+  jojoker.debug("D4C: Spawned eternal negative copy for pair "..card.ability.extra.pair_id)
   return copy
 end
 
@@ -727,7 +727,7 @@ jojoker_replace_joker_same_rarity = function(old)
   G.jokers:emplace(new)
   table.remove(G.jokers.cards, find_joker_pos(new))
   table.insert(G.jokers.cards, find_joker_pos(old), new)
-  sendDebugMessage("D4C: Replaced "..old.config.center.key.." with "..new.config.center.key)
+  jojoker.debug("D4C: Replaced "..old.config.center.key.." with "..new.config.center.key)
   old:start_dissolve()
   return new
 end
@@ -746,7 +746,7 @@ jojoker_open_shop_after_skip = function()
         if locked and lock ~= 'skip_blind' then return false end
       end
 
-      sendDebugMessage("Speedwagon Foundation Submarine: Opening the shop after skipping a blind.")
+      jojoker.debug("Speedwagon Foundation Submarine: Opening the shop after skipping a blind.")
       G.jojoker_skip_shop_game = nil
       G.blind_select:remove()
       G.blind_prompt_box:remove()
@@ -797,7 +797,7 @@ jojoker_lock_speed_king_targets = function(context)
       and not right.getting_sliced and not jojoker_is_heated_by_speed_king(right) then
       speed_king.ability.extra.target_id = right.sort_id
       speed_king.ability.extra.heat = 0
-      sendDebugMessage("Speed King: Locking onto "..right.ability.name)
+      jojoker.debug("Speed King: Locking onto "..right.ability.name)
     end
   end
 end
@@ -810,7 +810,7 @@ jojoker_update_speed_king = function(speed_king)
   if not jojoker_speed_king_target(speed_king) then
     if extra.target_id then
       extra.unlocked = true
-      sendDebugMessage("Speed King: Locked joker is gone, debuffed until the next blind")
+      jojoker.debug("Speed King: Locked joker is gone, debuffed until the next blind")
     end
     extra.target_id = nil
     extra.heat = 0
@@ -858,7 +858,7 @@ jojoker_recover_mista = function(context)
   if not (context.end_of_round and context.main_eval) or context.individual or context.repetition then return end
   for _, mista in ipairs(SMODS.find_card('j_jojoker_mista', true)) do
     if mista.ability.debuff_sources and mista.ability.debuff_sources.jojoker_mista then
-      sendDebugMessage("Mista: Round over, no longer debuffed")
+      jojoker.debug("Mista: Round over, no longer debuffed")
       SMODS.debuff_card(mista, false, 'jojoker_mista')
     end
   end

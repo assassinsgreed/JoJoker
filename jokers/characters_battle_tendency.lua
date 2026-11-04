@@ -33,7 +33,7 @@ local joseph_joestar = {
                 local hand = hand_options[math.random(#hand_options)]
                 card.ability.extra.chosen_hand_type_name = hand.handname
                 card.ability.extra.jokerdisplay_hand_name = hand.handname
-                sendDebugMessage("Joseph Joestar: Chose hand "..hand.handname.." out of options "..table.concat(hand_names, ", "))
+                jojoker.debug("Joseph Joestar: Chose hand "..hand.handname.." out of options "..table.concat(hand_names, ", "))
                 
                 return {
                     message = localize("sound_prediction")
@@ -45,7 +45,7 @@ local joseph_joestar = {
         if context.cardarea == G.jokers and context.scoring_hand then
             if not context.blueprint then
                 if context.before and context.scoring_name == card.ability.extra.chosen_hand_type_name then
-                    sendDebugMessage("Joseph Joestar: Leveling up hand "..card.ability.extra.chosen_hand_type_name)
+                    jojoker.debug("Joseph Joestar: Leveling up hand "..card.ability.extra.chosen_hand_type_name)
                     SMODS.smart_level_up_hand(card, card.ability.extra.chosen_hand_type_name)
                     return {
                         message = localize('sound_nice')
@@ -82,7 +82,7 @@ local esidisi = {
             if context.joker_main then
                 if SMODS.calculate_round_score() > G.GAME.blind.chips then
                     card.ability.extra.Xmult = card.ability.extra.Xmult + 1
-                    sendDebugMessage("Esidisi: Score caught fire, increasing Xmult to "..card.ability.extra.Xmult)
+                    jojoker.debug("Esidisi: Score caught fire, increasing Xmult to "..card.ability.extra.Xmult)
                 end
                 return {
                     message = localize{type = 'variable', key = 'a_xmult', vars = {card.ability.extra.Xmult}},
@@ -112,7 +112,7 @@ local speedwagon_bt = {
     calculate = function(self, card, context)
         if context.before and context.scoring_hand then
             ease_dollars(card.ability.extra.money_mod)
-            sendDebugMessage("Speedwagon: Gave $"..card.ability.extra.money_mod.." for played hand.")
+            jojoker.debug("Speedwagon: Gave $"..card.ability.extra.money_mod.." for played hand.")
 
             return {
                 message = localize('$')..card.ability.extra.money_mod,
@@ -142,7 +142,7 @@ local caesar = {
         -- For each scored stone card, give it Xmult then destroy it
         if context.individual and not context.end_of_round and context.cardarea == G.play then
             if context.other_card.config.center == G.P_CENTERS.m_stone then
-                sendDebugMessage("Caesar: Triggering 3x mult on stone card and destroying it")
+                jojoker.debug("Caesar: Triggering 3x mult on stone card and destroying it")
                 remove_playing_card(context.other_card, card)
 
                 return {
@@ -186,10 +186,10 @@ local kars_ultimate_lifeform = {
         if context.end_of_round and not context.individual and not context.repetition and not context.blueprint then
             if card.ability.extra.current_rounds_left > 0 then
                 card.ability.extra.current_rounds_left = card.ability.extra.current_rounds_left - 1
-                sendDebugMessage("Kars (Ultimate Lifeform): Rounds remaining set to "..card.ability.extra.current_rounds_left)
+                jojoker.debug("Kars (Ultimate Lifeform): Rounds remaining set to "..card.ability.extra.current_rounds_left)
 
                 if card.ability.extra.current_rounds_left == 0 then
-                    sendDebugMessage("Kars (Ultimate Lifeform): transforming into Kars (Stopped Thinking)")
+                    jojoker.debug("Kars (Ultimate Lifeform): transforming into Kars (Stopped Thinking)")
                     transform_joker(card, "j_jojoker_kars_stopped_thinking")
 
                     return {
@@ -249,11 +249,11 @@ local suzi_q = {
         if context.individual and not context.end_of_round and context.cardarea == G.play then
             if context.other_card:get_id() == 12 then
                 if context.other_card.seal == nil then
-                    sendDebugMessage("Suzie Q: Giving gold seal to scored queen")
+                    jojoker.debug("Suzie Q: Giving gold seal to scored queen")
                     context.other_card:set_seal("Gold")
                     card:juice_up()
                 else
-                    sendDebugMessage("Suzie Q: Scored queen already has a seal, skipping")
+                    jojoker.debug("Suzie Q: Scored queen already has a seal, skipping")
                 end
             end
         end
@@ -324,7 +324,7 @@ local santana = {
                 else
                     context.other_card.ability.perma_bonus = (context.other_card.ability.perma_bonus or 0) + card.ability.extra.chips_mod
                     context.other_card:juice_up()
-                    sendDebugMessage("Santana: Increasing additional chips of scored face card to "..tostring(context.other_card.ability.perma_bonus))
+                    jojoker.debug("Santana: Increasing additional chips of scored face card to "..tostring(context.other_card.ability.perma_bonus))
 
                     return {
                         message = localize('k_upgrade_ex'),
@@ -360,10 +360,10 @@ local stroheim = {
                 delay = 0,
                 func = function()
                     card.ability.extra.chips_remaining = math.max(0, card.ability.extra.chips_remaining - card.ability.extra.chips_loss)
-                    sendDebugMessage("Stroheim: Chips remaining decreased to "..card.ability.extra.chips_remaining)
+                    jojoker.debug("Stroheim: Chips remaining decreased to "..card.ability.extra.chips_remaining)
 
                     if card.ability.extra.chips_remaining == 0 then
-                        sendDebugMessage("Stroheim: Chips depleted, transforming into German Engineering")
+                        jojoker.debug("Stroheim: Chips depleted, transforming into German Engineering")
                         card_eval_status_text(card, 'extra', nil, nil, nil, {message = localize('sound_german_engineering')})
                         transform_joker(card, "j_jojoker_stroheim_german_engineering")
                     end
@@ -421,7 +421,7 @@ local stroheim_german_engineering = {
         -- On blind end, increase mult gain
         if context.end_of_round and not context.individual and not context.repetition and not context.blueprint then
             card.ability.extra.current_mult = card.ability.extra.current_mult + card.ability.extra.mult_gain
-            sendDebugMessage("Stroheim (German Engineering): Increasing mult to "..card.ability.extra.current_mult)
+            jojoker.debug("Stroheim (German Engineering): Increasing mult to "..card.ability.extra.current_mult)
 
             return {
                 message = localize('k_upgrade_ex'),
@@ -453,7 +453,7 @@ local smokey = {
         if context.starting_shop and G.GAME.round_resets.blind == G.P_BLINDS.bl_small then
             local item = jojoker_free_random_shop_item('smokey')
             if item then
-                sendDebugMessage("Smokey: Set "..item.config.center.key.." to $0")
+                jojoker.debug("Smokey: Set "..item.config.center.key.." to $0")
                 item:juice_up()
                 return {
                     message = localize('k_free_ex'),
@@ -503,7 +503,7 @@ local wamuu = {
             if empty_slots > 0 then
                 local chips = card.ability.extra.chips_mod * empty_slots
                 local mult = card.ability.extra.mult_mod * empty_slots
-                sendDebugMessage("Wamuu: Giving +"..chips.." chips and +"..mult.." mult for "..empty_slots.." empty consumable slot(s)")
+                jojoker.debug("Wamuu: Giving +"..chips.." chips and +"..mult.." mult for "..empty_slots.." empty consumable slot(s)")
                 return {
                     chips = chips,
                     mult = mult

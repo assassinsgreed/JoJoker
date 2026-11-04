@@ -205,12 +205,12 @@ joker_load_sprites = function(item)
 
         if position then item.pos = new_pos end
         if soul_position then item.soul_pos = soul_position end
-        sendDebugMessage("loading sprite for "..item.name..": ("..new_pos.x..","..new_pos.y..")")
+        jojoker.debug("loading sprite for "..item.name..": ("..new_pos.x..","..new_pos.y..")")
     end
 end
 
 joker_get_atlas_string = function(atlas_prefix, part_atlas, other_atlas)
-    sendDebugMessage("Getting atlas string for prefix "..atlas_prefix..", part_atlas "..tostring(part_atlas)..", other_atlas "..tostring(other_atlas))
+    jojoker.debug("Getting atlas string for prefix "..atlas_prefix..", part_atlas "..tostring(part_atlas)..", other_atlas "..tostring(other_atlas))
     if part_atlas then
         return atlas_prefix.."_"..part_atlas -- AtlasJokers_jojolion
     elseif other_atlas then
@@ -223,7 +223,7 @@ joker_load_atlas = function(item)
         local sprite_info = JokerSprites[item.name]
         local atlas_prefix = "AtlasJokers" -- We only support a single sprite source currently
         item.atlas = joker_get_atlas_string(atlas_prefix, sprite_info.part_atlas, sprite_info.other_atlas)
-        sendDebugMessage("loading atlas for "..item.name..": "..item.atlas)
+        jojoker.debug("loading atlas for "..item.name..": "..item.atlas)
         if sprite_info.lookup_part_atlas then
             item.jojoker_lookup_atlas = joker_get_atlas_string(atlas_prefix, sprite_info.lookup_part_atlas)
         end

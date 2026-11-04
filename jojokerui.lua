@@ -17,6 +17,10 @@ local misc_no_restart_toggles = {
     { ref_value = "use_localized_names", label = "jojoker_settings_use_localized_names", tooltip = { set = 'Other', key = 'use_localized_names_tooltip' } },
 }
 
+local developer_toggles = {
+    { ref_value = "developer_mode", label = "jojoker_settings_developer_mode", tooltip = { set = 'Other', key = 'developer_mode_tooltip' } },
+}
+
 local create_menu_toggles = function(parent, toggles)
     for k,v in ipairs(toggles) do
         parent.nodes[#parent.nodes + 1] = create_toggle({
@@ -70,6 +74,12 @@ local jojokerconfig = function()
               button = "jojoker_misc_no_restart",
               label = {"Misc No Restart Options"}
           }),
+          UIBox_button({
+              minw = 3.85,
+              colour = HEX("3A7D44"),
+              button = "jojoker_developer",
+              label = {"Developer Options"}
+          }),
         }
     }
 end
@@ -92,6 +102,17 @@ function G.FUNCS.jojoker_misc_no_restart(e)
     local t = create_UIBox_generic_options({
         back_func = G.ACTIVE_MOD_UI and "openModUI_"..G.ACTIVE_MOD_UI.id or 'your_collection',
         contents = {misc_no_restart_settings}
+    })
+    G.FUNCS.overlay_menu { definition = t }
+end
+
+function G.FUNCS.jojoker_developer(e)
+    local developer_settings = {n = G.UIT.R, config = {align = "tm", padding = 0.05, scale = 0.75, colour = G.C.CLEAR}, nodes = {}}
+    create_menu_toggles(developer_settings, developer_toggles)
+
+    local t = create_UIBox_generic_options({
+        back_func = G.ACTIVE_MOD_UI and "openModUI_"..G.ACTIVE_MOD_UI.id or 'your_collection',
+        contents = {developer_settings}
     })
     G.FUNCS.overlay_menu { definition = t }
 end

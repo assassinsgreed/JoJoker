@@ -54,7 +54,7 @@ local soft_and_wet = {
             if #enhanced > 0 and m_count > 0 then
                 card.ability.extra.mult = card.ability.extra.mult + card.ability.extra.mult_mod * m_count
             end
-            sendDebugMessage("Soft & Wet removed " .. #enhanced .. " enhancements. Mult is now " .. card.ability.extra.mult)
+            jojoker.debug("Soft & Wet removed " .. #enhanced .. " enhancements. Mult is now " .. card.ability.extra.mult)
 
             if popped then
                 popped = false
@@ -107,7 +107,7 @@ local milagro_man = {
     eternal_compat = true,
     calc_dollar_bonus = function(self, card)
         local doubled_up = G.GAME.interest_amount*math.min(math.floor(G.GAME.dollars/5), G.GAME.interest_cap/5)
-        sendDebugMessage("Milagro Man: Doubling interest to $"..doubled_up)
+        jojoker.debug("Milagro Man: Doubling interest to $"..doubled_up)
         return ease_joker_dollars(card, "Milagro Man", doubled_up, true)
 	end
 }
@@ -130,7 +130,7 @@ local i_am_a_rock = {
             for _, unscored_card in pairs(context.full_hand) do
                 if not SMODS.in_scoring(unscored_card, context.scoring_hand) then
                     if unscored_card.config.center == G.P_CENTERS.c_base and not unscored_card.debuff and not unscored_card.vampired then
-                        sendDebugMessage("I Am A Rock: Unscored card being set to stone")
+                        jojoker.debug("I Am A Rock: Unscored card being set to stone")
                         unscored_card:set_ability(G.P_CENTERS.m_stone, nil, true)
                         G.E_MANAGER:add_event(Event({
                             func = function()
@@ -172,7 +172,7 @@ local california_king_bed = {
                 if context.before and card.ability.extra.tracked_hands[context.scoring_name] == nil then
                     card.ability.extra.tracked_hands[context.scoring_name] = true
                     card.ability.extra.Xmult = card.ability.extra.Xmult + card.ability.extra.Xmult_mod
-                    sendDebugMessage("California King Bed: Adding scoring hand '"..context.scoring_name.."' to tracked hands and increasing XMult")
+                    jojoker.debug("California King Bed: Adding scoring hand '"..context.scoring_name.."' to tracked hands and increasing XMult")
                     return {
                         message = localize('k_upgrade_ex')
                     }
@@ -193,7 +193,7 @@ local california_king_bed = {
         if context.end_of_round and not context.individual and not context.repetition and not context.blueprint then
             card.ability.extra.Xmult = 1
             card.ability.extra.tracked_hands = {}
-            sendDebugMessage("California King Bed: Resetting joker at the end of the round.")
+            jojoker.debug("California King Bed: Resetting joker at the end of the round.")
         end
     end
 }
@@ -251,7 +251,7 @@ local wonder_of_u = {
         -- At end of round, decrease rounds left. If 0, reset counter, destroy all jokers, and increase XMult
         if context.end_of_round and not context.individual and not context.repetition and not context.blueprint then
             card.ability.extra.rounds_left = card.ability.extra.rounds_left - 1
-            sendDebugMessage("Wonder of U: Decreasing rounds left to " .. card.ability.extra.rounds_left)
+            jojoker.debug("Wonder of U: Decreasing rounds left to " .. card.ability.extra.rounds_left)
 
             if card.ability.extra.rounds_left <= 0 then
                 card.ability.extra.rounds_left = card.ability.extra.fresh_rounds
@@ -262,7 +262,7 @@ local wonder_of_u = {
                     end
                 end
 
-                sendDebugMessage("Wonder of U: Destroying " .. #jokers_to_destroy .. " jokers and increasing XMult by " .. card.ability.extra.Xmult_mod * #jokers_to_destroy)
+                jojoker.debug("Wonder of U: Destroying " .. #jokers_to_destroy .. " jokers and increasing XMult by " .. card.ability.extra.Xmult_mod * #jokers_to_destroy)
                 for _, joker in ipairs(jokers_to_destroy) do
                     joker.ability.eternal = false
                     jojoker_joker_destroyed_by_joker(joker, card)
@@ -338,7 +338,7 @@ local space_trucking = {
             end
             if #candidates > 0 and SMODS.pseudorandom_probability(card, 'space_trucking', card.ability.extra.numerator, card.ability.extra.denominator, 'space_trucking') then
                 local consumeable = pseudorandom_element(candidates, pseudoseed('space_trucking'))
-                sendDebugMessage("Space Trucking: Making held consumeable negative")
+                jojoker.debug("Space Trucking: Making held consumeable negative")
                 consumeable:juice_up()
                 consumeable:set_edition('e_negative')
                 play_sound('negative', 1.5, 0.4)
@@ -375,7 +375,7 @@ local fun_fun_fun = {
             local target = pseudorandom_element(held_cards, 'jojoker_fun_fun_fun')
             target.fun_fun_fun_discarding = true
             target.ability.perma_mult = (target.ability.perma_mult or 0) + card.ability.extra.mult_mod
-            sendDebugMessage("Fun Fun Fun: Discarding held card and increasing its multiplier to "..tostring(target.ability.perma_mult))
+            jojoker.debug("Fun Fun Fun: Discarding held card and increasing its multiplier to "..tostring(target.ability.perma_mult))
 
             card_eval_status_text(target, 'extra', nil, nil, nil, { message = localize('k_upgrade_ex'), colour = G.C.MULT })
             draw_card(G.hand, G.discard, 90, 'down', false, target)
@@ -440,7 +440,7 @@ local blue_hawaii = {
                     return true
                 end
             }))
-            sendDebugMessage("Blue Hawaii: Spreading "..enhancement.key.." from the first enhanced scored card")
+            jojoker.debug("Blue Hawaii: Spreading "..enhancement.key.." from the first enhanced scored card")
 
             return {
                 message = localize('k_copied_ex'),
@@ -482,11 +482,11 @@ local speed_king = {
         if context.end_of_round and not context.individual and not context.repetition and not context.blueprint and not context.retrigger_joker then
             card.ability.extra.heat = card.ability.extra.heat + 1
             if card.ability.extra.heat < card.ability.extra.burnout_rounds then
-                sendDebugMessage("Speed King: Heated "..target.ability.name.." to "..card.ability.extra.heat)
+                jojoker.debug("Speed King: Heated "..target.ability.name.." to "..card.ability.extra.heat)
                 return { message = localize('k_upgrade_ex'), colour = G.C.RED }
             end
 
-            sendDebugMessage("Speed King: "..target.ability.name.." burnt out")
+            jojoker.debug("Speed King: "..target.ability.name.." burnt out")
             card.ability.extra.heat = 0
             card.ability.extra.target_id = nil
             card.ability.extra.unlocked = true

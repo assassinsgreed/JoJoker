@@ -8,8 +8,7 @@ TYPE_ORDER = ["Character", "Effect", "Stand"]
 
 STUBS = """
 SMODS = { Atlas = function() end, Joker = function() end, current_mod = { config = {} } }
-sendDebugMessage = function() end
-jojoker = {}
+jojoker = { debug = function() end }
 G = {
     GAME = { probabilities = { normal = 1 }, starting_deck_size = 52, hands = {} },
     C = setmetatable({}, { __index = function() return {} end }),

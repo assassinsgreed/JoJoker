@@ -1,6 +1,6 @@
 # JoJoker (In Beta!)
 
-A balatro mod that provides JoJo's Bizarre Adventure themed jokers, consumables, and more!
+A balatro mod that provides JoJo's Bizarre Adventure themed jokers, consumables, and more! Intended to fully replace vanilla content, but can be freely played alongside it and other mods.
 
 This mod emphasizes fun and creativity first and foremost, with balance coming afterward.
 
@@ -62,7 +62,3 @@ Claude has been used to help me mechanically build and test jokers. This process
 
 - Better localization for jokers with initial text strings (joseph pt 2, sex pistols, etc)
 - Add new title screen art
-- Add config for developer mode (off by default, includes tests when on)
-- Change which joker appears in the postgame jimbo quip (maybe rolling stones, due to it's relevance to fate)
-   - https://github.com/Steamodded/smods/wiki/SMODS.JimboQuip
-- Add more jokers

@@ -43,7 +43,7 @@ local thunder_cross_split_attack = {
     calculate = function(self, card, context)
         if context.individual and context.cardarea == G.play and not context.other_card.debuff then
             if G.GAME.dollars >= card.ability.extra.money_loss then
-                sendDebugMessage("Thunder Cross Split Attack: Removing money and giving Xmult")
+                jojoker.debug("Thunder Cross Split Attack: Removing money and giving Xmult")
                 G.GAME.dollars = G.GAME.dollars - card.ability.extra.money_loss
                 card.ability.extra.Xmult = card.ability.extra.Xmult + card.ability.extra.Xmult_gain
             end
@@ -85,7 +85,7 @@ local vampiric_touch = {
             for _, joker in ipairs(G.jokers.cards) do
                 local total_stolen = 0
                 if joker ~= card and joker.sell_cost > 0 then
-                    sendDebugMessage("Vampiric Touch: Stealing money from another joker")
+                    jojoker.debug("Vampiric Touch: Stealing money from another joker")
 
                     joker.ability.extra_value = joker.ability.extra_value or 0
                     if joker.sell_cost <= card.ability.extra.money_mod then
@@ -129,7 +129,7 @@ local roundabout = {
         if context.repetition and not context.end_of_round and context.cardarea == G.play then
             local unscored = #context.full_hand - #context.scoring_hand
             if unscored > 0 then
-                sendDebugMessage("Roundabout: Retriggering scored card for " .. unscored .. " unscored cards")
+                jojoker.debug("Roundabout: Retriggering scored card for " .. unscored .. " unscored cards")
                 return {
                     message = localize('k_again_ex'),
                     repetitions = unscored * card.ability.extra.retriggers_per,

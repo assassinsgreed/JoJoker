@@ -26,7 +26,7 @@ local shizuka = {
                 end
 
                 if context.scoring_name == card.ability.extra.chosen_hand_type_name then
-                    sendDebugMessage("Shizuka: Leveling up hand "..card.ability.extra.chosen_hand_type_name.." and choosing a new one.")
+                    jojoker.debug("Shizuka: Leveling up hand "..card.ability.extra.chosen_hand_type_name.." and choosing a new one.")
                     SMODS.upgrade_poker_hands({hands = {card.ability.extra.chosen_hand_type_name}, level_up = card.ability.extra.levels, from = card})
                     card.ability.extra.chosen_hand_type_name = pick_random_hand_type().handname
                     card.ability.extra.tried_hands = ""
@@ -41,8 +41,8 @@ local shizuka = {
     add_to_deck = function(self, card, from_debuff)
         -- When added, choose a random hand type (only "visible" ones are chosen, i.e. ones the player can/has played)
         card.ability.extra.chosen_hand_type_name = pick_random_hand_type().handname
-        sendDebugMessage("Shizuka: Chose a new hand type")
-        -- sendDebugMessage("Shizuka: Chose a new hand type of "..card.ability.extra.chosen_hand_type_name)
+        jojoker.debug("Shizuka: Chose a new hand type")
+        -- jojoker.debug("Shizuka: Chose a new hand type of "..card.ability.extra.chosen_hand_type_name)
     end,
 }
 
@@ -63,7 +63,7 @@ local yoshikage_kira = {
     -- Handle when Yoshikage Kira specifically is added/removed from joker pool
     add_to_deck = function(self, card, from_debuff)
         if not from_debuff then
-            sendDebugMessage("Yoshikage Kira: Added to deck, increasing hands by "..card.ability.extra.hands)
+            jojoker.debug("Yoshikage Kira: Added to deck, increasing hands by "..card.ability.extra.hands)
             G.GAME.round_resets.hands = G.GAME.round_resets.hands + card.ability.extra.hands
             ease_hands_played(card.ability.extra.hands)
         end
@@ -71,7 +71,7 @@ local yoshikage_kira = {
     remove_from_deck = function(self, card, from_debuff)
         -- Must mirror the from_debuff check in add_to_deck, or each debuff cycle permanently drains a hand
         if not from_debuff then
-            sendDebugMessage("Yoshikage Kira: Removing from deck, decreasing hands by "..card.ability.extra.hands)
+            jojoker.debug("Yoshikage Kira: Removing from deck, decreasing hands by "..card.ability.extra.hands)
             G.GAME.round_resets.hands = G.GAME.round_resets.hands - card.ability.extra.hands
             ease_hands_played(-card.ability.extra.hands)
         end
@@ -98,7 +98,7 @@ local reimi = {
 
                 -- Only create a card if there is at least 1 Spectral card type that can be created
                 local conname = card.ability.extra.spectrals[math.random(1, #card.ability.extra.spectrals)]
-                sendDebugMessage("Reimi: Creating a "..conname.." Spectral card at the end of boss blind.")
+                jojoker.debug("Reimi: Creating a "..conname.." Spectral card at the end of boss blind.")
 
                 local _card = create_card("Spectral", G.consumeables, nil, nil, nil, nil, conname)
                 _card:add_to_deck()
@@ -141,7 +141,7 @@ local angelo = {
         if context.repetition and not context.end_of_round and context.cardarea == G.play then
             local other = context.other_card
             if (other:is_face() or SMODS.has_enhancement(other, 'm_stone')) and has_scoring_face_and_stone(context.scoring_hand) then
-                sendDebugMessage("Angelo: Retriggering face or stone card")
+                jojoker.debug("Angelo: Retriggering face or stone card")
                 return {
                     message = localize('k_again_ex'),
                     repetitions = card.ability.extra.retriggers,

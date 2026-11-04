@@ -77,7 +77,7 @@ local mista = {
                 if v:get_id() == 4 and not v.debuff then triggered = true end
             end
             if triggered then
-                sendDebugMessage("Mista: Unlucky 4, debuffed until end of round")
+                jojoker.debug("Mista: Unlucky 4, debuffed until end of round")
                 SMODS.debuff_card(card, true, 'jojoker_mista')
                 return {
                     message = localize("k_debuffed"),

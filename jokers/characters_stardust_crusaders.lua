@@ -38,7 +38,7 @@ local old_joseph_joestar = {
         -- On discard, have a chance to quip and increase XMult
         if context.pre_discard then
             if SMODS.pseudorandom_probability(card, 'old_joseph_joestar', card.ability.extra.numerator, card.ability.extra.denominator, 'old_joseph_joestar') then
-                sendDebugMessage("Old Joesph Joestar: Quipping and increasing Xmult")
+                jojoker.debug("Old Joesph Joestar: Quipping and increasing Xmult")
                 card.ability.extra.Xmult = card.ability.extra.Xmult + card.ability.extra.Xmult_mod
 
                 local quips = {
@@ -139,7 +139,7 @@ local enya = {
         if G.STAGE == G.STAGES.RUN then
             local tarot = get_most_used_tarot_info()
             if tarot.key ~= card.ability.extra.most_used_tarot_key then
-                sendDebugMessage("Enya: Most used tarot is now "..tarot.name)
+                jojoker.debug("Enya: Most used tarot is now "..tarot.name)
                 card.ability.extra.most_used_tarot_key = tarot.key
                 card.ability.extra.most_used_tarot_name = tarot.name
             end
