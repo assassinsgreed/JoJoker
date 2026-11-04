@@ -187,3 +187,9 @@ jd_def["j_jojoker_messina_and_loggins"] = {
         card.joker_display_values.xmult = text == "Pair" and card.ability.extra.Xmult or 1
     end
 }
+
+jd_def["j_jojoker_lisa_lisa"] = {
+    text = {
+        { text = "Enhanced card after blind", colour = G.C.GREY },
+    },
+}

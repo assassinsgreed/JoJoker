@@ -36,6 +36,7 @@ JokerSprites = {
         {name = "tequila_joseph", base = {pos = {x = 4, y = 2}}, part_atlas = "battle_tendency" },
         {name = "wamuu", base = {pos = {x = 0, y = 3}}, part_atlas = "battle_tendency" },
         {name = "messina_and_loggins", base = {pos = {x = 1, y = 3}}, part_atlas = "battle_tendency" },
+        {name = "lisa_lisa", base = {pos = {x = 2, y = 3}}, part_atlas = "battle_tendency" },
         -- Part 3: Stardust Crusaders
         {name = "magician_red", base = {pos = {x = 0, y = 0}}, part_atlas = "stardust_crusaders" },
         {name = "yellow_temperance", base = {pos = {x = 1, y = 0}}, part_atlas = "stardust_crusaders" },

@@ -903,3 +903,47 @@ Balatest.TestPlay {
 }
 
 --#endregion
+--#region Lisa Lisa
+
+Balatest.TestPlay {
+    name = 'lisa_lisa_adds_an_enhanced_card_to_the_deck_at_the_end_of_a_blind',
+    category = { 'jokers', 'battle_tendency', 'lisa_lisa' },
+    jokers = { 'j_jojoker_lisa_lisa' },
+    execute = function()
+        Balatest.end_round()
+    end,
+    assert = function()
+        Balatest.assert_eq(#G.playing_cards, 53, "Lisa Lisa did not add a card to the deck at the end of the blind")
+        Balatest.assert_eq(count_enhanced_playing_cards(), 1, "Lisa Lisa's added card was not enhanced")
+    end
+}
+
+Balatest.TestPlay {
+    name = 'lisa_lisa_adds_a_card_at_the_end_of_every_blind',
+    category = { 'jokers', 'battle_tendency', 'lisa_lisa' },
+    jokers = { 'j_jojoker_lisa_lisa' },
+    execute = function()
+        Balatest.next_round()
+        Balatest.end_round()
+    end,
+    assert = function()
+        Balatest.assert_eq(#G.playing_cards, 54, "Lisa Lisa did not add a card at the end of each of two blinds")
+        Balatest.assert_eq(count_enhanced_playing_cards(), 2, "Lisa Lisa did not add an enhanced card at the end of each of two blinds")
+    end
+}
+
+Balatest.TestPlay {
+    name = 'lisa_lisa_does_not_add_a_card_when_a_hand_is_played_mid_blind',
+    category = { 'jokers', 'battle_tendency', 'lisa_lisa' },
+    jokers = { 'j_jojoker_lisa_lisa' },
+    execute = function()
+        keep_blind_unbeaten()
+        Balatest.play_hand { '2S' }
+    end,
+    assert = function()
+        Balatest.assert_eq(#G.playing_cards, 52, "Lisa Lisa added a card before the blind ended")
+        Balatest.assert_eq(count_enhanced_playing_cards(), 0, "Lisa Lisa added an enhanced card before the blind ended")
+    end
+}
+
+--#endregion

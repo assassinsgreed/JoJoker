@@ -541,7 +541,31 @@ local messina_and_loggins = {
     end
 }
 
+local lisa_lisa = {
+    name = "lisa_lisa",
+    rarity = 3,
+    cost = 8,
+    jtype = "Character",
+    part = "battle_tendency",
+    themes = { support = { jojoker.themes.ENHANCEMENT_EATERS, jojoker.themes.DECK_GROWING } },
+    similar = { jojoker.similar.CARD_ADDED_EACH_BLIND },
+    blueprint_compat = true,
+    perishable_compat = true,
+    eternal_compat = true,
+    calculate = function(self, card, context)
+        -- Gives a random enhanced card at the end of blinds
+        if context.end_of_round and context.main_eval then
+            local added = SMODS.add_card{ area = G.deck, set = "Enhanced", key_append = "lisa_lisa" }
+            jojoker.debug("Lisa Lisa: Added "..added.config.center.key.." card to the deck")
+
+            return {
+                message = localize("card_added")
+            }
+        end
+    end
+}
+
 return {
     name = "Battle Tendency Character Jokers",
-    list = { joseph_joestar, esidisi, speedwagon_bt, caesar, kars_ultimate_lifeform, kars_stopped_thinking, suzi_q, nypd, santana, stroheim, stroheim_german_engineering, smokey, tequila_joseph, wamuu, messina_and_loggins },
+    list = { joseph_joestar, esidisi, speedwagon_bt, caesar, kars_ultimate_lifeform, kars_stopped_thinking, suzi_q, nypd, santana, stroheim, stroheim_german_engineering, smokey, tequila_joseph, wamuu, messina_and_loggins, lisa_lisa },
 }

@@ -31,7 +31,7 @@ end
 count_enhanced_playing_cards = function(center_key)
     local count = 0
     for _, c in ipairs(G.playing_cards) do
-        if c.config.center == G.P_CENTERS[center_key] then
+        if (center_key and c.config.center == G.P_CENTERS[center_key]) or (not center_key and c.ability.set == 'Enhanced') then
             count = count + 1
         end
     end

@@ -205,7 +205,7 @@ local doctor_wu = {
     jtype = "Stand",
     part = "jojolion",
     themes = { core = { jojoker.themes.STONE_CARDS }, support = { jojoker.themes.ENHANCEMENT_EATERS, jojoker.themes.STONE_STEEL_EATER, jojoker.themes.DECK_GROWING } },
-    similar = { jojoker.similar.STONE_CARD_MAKERS },
+    similar = { jojoker.similar.STONE_CARD_MAKERS, jojoker.similar.CARD_ADDED_EACH_BLIND },
     blueprint_compat = true,
     perishable_compat = true,
     eternal_compat = true,

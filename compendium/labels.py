@@ -62,7 +62,7 @@ LABELS = Labels(
         'booster_packs': ('Booster packs', 'Get more out of Booster Packs: more of them, previews, and free ones, with In a Silent Way growing from each one opened.'),
         'frugal_shopping': ('Frugal shopping', 'Rewarded for leaving the shop without spending.'),
         'skipping_blinds': ('Skipping blinds', 'Rewarded for skipping blinds.'),
-        'deck_growing': ('Deck growing', 'Pay out for a bigger deck; Doctor Wu and German Engineering add cards.'),
+        'deck_growing': ('Deck growing', 'Pay out for a bigger deck; Doctor Wu, Lisa Lisa and German Engineering add cards.'),
         'deck_shrinking': ('Deck shrinking', 'Goo Goo Dolls pays out for a thinner deck; these destroy cards.'),
         'emperor': ('Emperor', "Emperor's huge XMult comes with a chance to end the run; Rolling Stones sets that chance to 0 and Burning Down the House survives it."),
         'consumable_slots': ('Consumable slots', 'Wamuu pays for every empty consumable slot; Coco Jumbo adds a slot and Space Trucking makes held consumables Negative.'),
@@ -70,6 +70,7 @@ LABELS = Labels(
     },
     similar={
         'card_preview': 'Card preview',
+        'card_added_each_blind': 'Card added each blind',
         'copy_a_joker': 'Copy a joker',
         'speedwagon_s_payouts': "Speedwagon's payouts",
         'suit_mult': 'Suit mult',

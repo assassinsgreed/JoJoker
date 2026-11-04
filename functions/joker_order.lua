@@ -24,6 +24,7 @@ jojoker.joker_order = {
     "kars_stopped_thinking",
     "kars_ultimate_lifeform",
     "leaky_eye_luca",
+    "lisa_lisa",
     "loccobarocco_and_charlotte",
     "messina_and_loggins",
     "mista",

@@ -264,6 +264,13 @@ local loc = {
                     "hand is a {C:attention}Pair{}.",
                 }
             },
+            j_jojoker_lisa_lisa = {
+                name = "Lisa Lisa",
+                text = {
+                    "Adds a random {C:attention}Enhanced{} card",
+                    "to the deck at the end of blinds.",
+                }
+            },
             j_jojoker_clacker_balls = {
                 name = "Clacker Balls",
                 text = {
@@ -1572,6 +1579,7 @@ local loc = {
             chips = "chips",
             xmult = "Xmult",
             stone_added = "Stone Added",
+            card_added = "Card Added",
             k_downgrade_ex = "Downgrade!",
             k_free_ex = "Free!",
             k_bang_ex = "Bang!",

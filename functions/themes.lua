@@ -62,6 +62,7 @@ jojoker.themes = {
 
 jojoker.similar = {
     CARD_PREVIEW = "card_preview",
+    CARD_ADDED_EACH_BLIND = "card_added_each_blind",
     COPY_A_JOKER = "copy_a_joker",
     SPEEDWAGON_S_PAYOUTS = "speedwagon_s_payouts",
     SUIT_MULT = "suit_mult",

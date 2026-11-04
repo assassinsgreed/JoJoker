@@ -57,4 +57,4 @@ def test_counts_match_themes_doc(mod):
     themes = {t for j in mod.jokers for t in j.themes_core + j.themes_support}
     assert len(themes) == 57
     assert sum(len(j.conflicts) for j in mod.jokers) == 79
-    assert len({g for j in mod.jokers for g in j.similar}) == 26
+    assert len({g for j in mod.jokers for g in j.similar}) == 27
