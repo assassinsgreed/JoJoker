@@ -87,6 +87,7 @@ skip_blind_for_tag = function(tag)
     end)
 end
 
+-- Only reaches the shop when Speedwagon Foundation Submarine is held; otherwise use end_round and cash_out
 skip_blind_into_shop = function()
     skip_blind_for_tag('tag_double')
     Balatest.wait_for_input(G.STATES.SHOP)
@@ -158,4 +159,9 @@ drag_joker = function(card, x)
     G.jokers:align_cards()
     card.states.drag.is = false
     G.jokers:align_cards()
+end
+
+description_key = function(card)
+    local key = card.config.center:loc_vars({}, card).key or card.config.center.key
+    return (key:gsub('_alt$', ''))
 end

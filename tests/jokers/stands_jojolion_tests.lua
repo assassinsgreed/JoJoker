@@ -17,7 +17,8 @@ Balatest.TestPlay {
     deck = { cards = {
         { r = '2', s = 'S', e = 'm_stone' },
         { r = '2', s = 'C', e = 'm_lucky' },
-        { r = '2', s = 'H', e = 'm_glass' } } },
+        { r = '2', s = 'H', e = 'm_glass' },
+        { r = '3', s = 'H' } } },
     execute = function()
         Balatest.play_hand { '2S', '2C', '2H' }
     end,

@@ -78,6 +78,10 @@ local kiss = {
 - Guard state-mutating branches with `not context.blueprint` so a copying joker cannot
   scale the original twice.
 - Use `jojoker.debug` on branches that fire, matching the surrounding wording.
+- `loc_vars` never picks a description key itself. `jojoker.load_joker` switches to the
+  `_in_play` variant (section 7) for owned jokers and to `_alt` for localized names.
+  Footer vars only render on an owned joker, so they must read truthfully mid-run (ex.
+  `localize('none_used')` before anything has been tracked, never a stale default).
 - Never declare helper functions as locals in the joker file. When logic is sizeable or
   complex, put it in `functions/jokerfunctions.lua` as a global (ex.
   `get_harvest_payout(card)`), so the joker, its JokerDisplay `calc_function`, and its
@@ -146,7 +150,7 @@ kind of value (ex. `G.C.GREEN` for a `+N` size bonus like Oh Lonesome Me).
 
 **Every joker with a real-world name has a localized (copyright-safe) alt name.** Give the
 entry an `alt_name`; `jojoker.load_joker` swaps to it automatically when
-`use_localized_names` is on, so `loc_vars` never returns a `key`. If you do not know the correct
+`use_localized_names` is on. If you do not know the correct
 alt name for that stand or character, ask — do not invent one.
 
 ```lua
@@ -155,15 +159,25 @@ j_jojoker_kiss = {
     alt_name = "Smack",
     text = {
         "Gains {C:chips}+#1#{} whenever a {C:attention}card{} is {C:attention}duplicated{}.",
-        "{br:2}line break",
+    },
+    in_play_text = {
         "{C:inactive}Currently: {C:chips}+#2#{}"
     }
 },
 ```
 
 Never write a `_alt` entry by hand: the loop at the bottom of `en-us.lua` generates
-`j_jojoker_kiss_alt` from `alt_name`, sharing the base entry's `text`. Scaling jokers end
-with the `{br:2}line break` / `{C:inactive}Currently:` footer.
+`j_jojoker_kiss_alt` from `alt_name`, sharing the base entry's `text`.
+
+**Everything below the line break goes in `in_play_text`, never in `text`.** That means
+every `Currently:`, `Remaining:`, `Chosen rank:`, `rounds left` or other status line, and
+`text` itself never contains `{br:2}line break`. The base `text` is what the collection,
+the shop and the compendium show, so it describes the effect alone. A loop at the bottom
+of `en-us.lua` generates `j_jojoker_<name>_in_play` from `text`, a `{br:2}line break`,
+then `in_play_text`. `jojoker.load_joker` uses that variant only while the card is in
+`G.jokers`, then applies `_alt` on top. Never write an `_in_play` entry by hand.
+Placeholder numbers are shared between `text` and `in_play_text`, so the `loc_vars` vars
+list stays as it is.
 
 **Keep descriptions short and sweet without losing clarity.** Use one strong verb instead
 of a step-by-step account, and drop anything the `Currently:` footer or the colour codes
@@ -216,7 +230,9 @@ Balatest.TestPlay {
 
 Assert against `ability.extra` fields rather than hardcoded numbers where possible, so
 rebalancing does not break tests. `Balatest.assert_chips` needs a literal, so compute it
-from the hand: base hand chips + card nominals + joker contribution, times mult.
+from the hand: base hand chips + card nominals + joker contribution, times mult. Wrap it
+in `math.floor` whenever the multiplier can be fractional, since the game floors the score
+(ex. Caesar's X1.5 twice on 107 chips scores 240, not 240.75).
 
 Useful Balatest settings: `jokers`, `consumeables`, `deck = { cards = {...} }`,
 `hand_size`, `hands`, `discards`, `dollars`, `vouchers`, `seed`, `stake`. Useful actions:

@@ -189,7 +189,7 @@ Balatest.TestPlay {
         Balatest.play_hand { '2S' }
     end,
     assert = function()
-        Balatest.assert_chips(7 * G.jokers.cards[1].ability.extra.Xmult, "Cheap Trick did not give correct xmult when a joker was destroyed")
+        Balatest.assert_chips(math.floor(7 * G.jokers.cards[1].ability.extra.Xmult), "Cheap Trick did not give correct xmult when a joker was destroyed")
     end
 }
 --#endregion

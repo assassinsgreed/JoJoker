@@ -50,7 +50,7 @@ Balatest.TestPlay {
 Balatest.TestPlay {
     name = 'danny_sbr_does_not_destroy_eternal_jokers',
     category = { 'jokers', 'steel_ball_run', 'danny_sbr' },
-    jokers = { { id = 'j_jojoker_oh_lonesome_me', eternal = true } },
+    jokers = { { id = 'j_jojoker_tattoo_you', eternal = true } }, -- Must be eternal_compat, or the sticker is silently dropped
     consumeables = { 'c_judgement' },
     execute = function()
         Balatest.hook(_G, 'create_card', function(orig, t, a, l, r, k, s, forced_key, ...)
@@ -59,6 +59,7 @@ Balatest.TestPlay {
         Balatest.use(G.consumeables.cards[1]) -- Trigger Danny to be added via registered hook
     end,
     assert = function()
+        Balatest.assert(G.jokers.cards[1].ability.eternal, "Tattoo You did not start eternal, so this test proves nothing")
         Balatest.assert_eq(#G.jokers.cards, 2, "Danny SBR destroyed an eternal joker")
     end
 }

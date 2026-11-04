@@ -31,7 +31,8 @@ local loc = {
                     "Gives {C:mult}#1#^[number of zombies]{} for each {C:attention}Zombie{} joker held.",
                     "Has a {C:attention}#3# in #4#{} chance to create another {C:attention}Zombie{}",
                     "at the end of small and big blinds, if there is room.",
-                    "{br:2}line break",
+                },
+                in_play_text = {
                     "{C:inactive}Currently: {C:mult}+#2#"
                 }
             },
@@ -82,7 +83,8 @@ local loc = {
                 name = "Dio Brando",
                 text = {
                     "Drains base chips before scoring cards, adding {C:attention}#1#%{} to {C:mult}Xmult{}.",
-                    "{br:2}line break",
+                },
+                in_play_text = {
                     "{C:inactive}Currently: {X:mult,C:white} X#2#{} "
                 }
             },
@@ -91,7 +93,8 @@ local loc = {
                 text = {
                     "Removes {C:money}$#1#{} per {C:attention}scored card{}, then",
                     "gains {X:mult,C:white} X#2# {} for each.",
-                    "{br:2}line break",
+                },
+                in_play_text = {
                     "{C:inactive}Currently: {X:mult,C:white} X#3# {}"
                 }
             },
@@ -114,7 +117,8 @@ local loc = {
                 alt_name = "Tarukus",
                 text = {
                     "When exiting a shop without buying anything, gains {X:mult,C:white} X#2# {}.",
-                    "{br:2}line break",
+                },
+                in_play_text = {
                     "{C:inactive}Currently: {C:attention}#1#"
                 }
             },
@@ -132,7 +136,8 @@ local loc = {
                     "When {C:attention}Blind{} is selected, picks",
                     "a random {C:attention}poker hand{}.",
                     "Levels up that hand if played.",
-                    "{br:2}line break",
+                },
+                in_play_text = {
                     "{C:inactive}Currently: {C:attention}#1#"
                 }
             },
@@ -141,7 +146,8 @@ local loc = {
                 text = {
                     "Gains {X:mult,C:white} X#2# {} whenever",
                     "score catches fire before Esidisi triggers.",
-                    "{br:2}line break",
+                },
+                in_play_text = {
                     "{C:inactive}Currently: {X:mult,C:white} X#1# {}"
                 }
             },
@@ -172,7 +178,8 @@ local loc = {
                     "Gains {X:mult,C:white} X#1# {} for each unique",
                     "{C:planet}planet card{} played this game.",
                     "Stops thinking after {C:attention}#2#{} rounds.",
-                    "{br:2}line break",
+                },
+                in_play_text = {
                     "{C:inactive}Currently: {X:mult,C:white} X#3#",
                     "{C:attention}#4# round(s) left",
                 }
@@ -210,7 +217,8 @@ local loc = {
                 text = {
                     "Gives {C:chips}+#1#{}, but loses {C:chips}#2#{} per played hand.",
                     "{C:inactive}Something may happen once they run out..?{}",
-                    "{br:2}line break",
+                },
+                in_play_text = {
                     "{C:inactive}Remaining: {C:chips}+#3#"
                 }
             },
@@ -218,7 +226,8 @@ local loc = {
                 name = "Rudol Von Stroheim (German Engineering)",
                 text = {
                     "Gives {C:mult}+#1#{}, and gains {C:mult}+#2#{} per cleared blind.",
-                    "{br:2}line break",
+                },
+                in_play_text = {
                     "{C:inactive}Currently: {C:mult}+#3#"
                 }
             },
@@ -242,7 +251,8 @@ local loc = {
                 text = {
                     "Gives {C:chips}+#1#{} and {C:mult}+#2#{} for each",
                     "empty {C:attention}consumable{} slot.",
-                    "{br:2}line break",
+                },
+                in_play_text = {
                     "{C:inactive}Currently: {C:chips}+#3#{C:inactive} and {C:mult}+#4#"
                 }
             },
@@ -299,7 +309,8 @@ local loc = {
                 text = {
                     "Has a {C:attention}#1# in #2#{} chance to quip on discard.",
                     "Gives {X:mult,C:white} X#3# {} per quip.",
-                    "{br:2}line break",
+                },
+                in_play_text = {
                     "{C:inactive}Currently: {X:mult,C:white} X#4#"
                 }
             },
@@ -307,7 +318,8 @@ local loc = {
                 name = "Anubis",
                 text = {
                     "Gains {C:chips}#1#{} whenever a joker is sold.",
-                    "{br:2}line break",
+                },
+                in_play_text = {
                     "{C:inactive}Currently: {C:chips}#2#"
                 }
             },
@@ -317,7 +329,8 @@ local loc = {
                 text = {
                     "Reverts level of played hand to {C:attention}Level 1{},",
                     "then gains {X:mult,C:white} X#1# {} per level lost.",
-                    "{br:2}line break",
+                },
+                in_play_text = {
                     "{C:inactive}Currently: {X:mult,C:white} X#2#"
                 }
             },
@@ -326,7 +339,8 @@ local loc = {
                 text = {
                     "Gains {X:mult,C:white} X#1# {} for each unique",
                     "{C:tarot}tarot card{} played this game.",
-                    "{br:2}line break",
+                },
+                in_play_text = {
                     "{C:inactive}Currently: {X:mult,C:white} X#2#",
                 }
             },
@@ -335,7 +349,8 @@ local loc = {
                 text = {
                     "At the start of blinds, {S:1.1,C:red,E:2}destroys{} the joker to the",
                     "left and gains {C:attention}#1#x{} it's {C:attention}sell value{} as {C:mult}mult{}.",
-                    "{br:2}line break",
+                },
+                in_play_text = {
                     "{C:inactive}Currently: {C:mult}#2#",
                 }
             },
@@ -406,7 +421,8 @@ local loc = {
                 text = {
                     "{C:attention}Arcana Packs{} always contain the",
                     "{C:tarot}Tarot{} card used most this run.",
-                    "{br:2}line break",
+                },
+                in_play_text = {
                     "{C:inactive}Most used: #1#"
                 }
             },
@@ -429,7 +445,8 @@ local loc = {
                     "Picks a random hand type at the start of blinds.",
                     "When played, hand {C:attention}gains #1# levels.",
                     "When not, hand {C:attention}loses #2# level{} if above 1.",
-                    "{br:2}line break",
+                },
+                in_play_text = {
                     "{C:inactive}Chosen Hand: #3#"
                 }
             },
@@ -446,7 +463,8 @@ local loc = {
                 text = {
                     "Gains {C:chips}+#1#{} per hand played.",
                     "Resets to {C:chips}+#1#{} if score catches fire.",
-                    "{br:2}line break",
+                },
+                in_play_text = {
                     "{C:inactive}Currently: {C:chips}+#2#{}"
                 }
             },
@@ -463,7 +481,8 @@ local loc = {
                     "{C:mult}+#1#{} per level of your",
                     "highest-level {C:attention}poker hand{}.",
                     "{C:mult}+#2#{} per {C:spectral}Black Hole{} used this run.",
-                    "{br:2}line break",
+                },
+                in_play_text = {
                     "{C:inactive}Currently: {C:mult}+#3#{}"
                 }
             },
@@ -481,7 +500,8 @@ local loc = {
                     "Picks a random {C:attention}poker hand{}.",
                     "Levels up that hand {C:attention}#1# times{} if played,",
                     "then picks a new one.",
-                    "{br:2}line break",
+                },
+                in_play_text = {
                     "{C:inactive}Tried: [#2#]"
                 }
             },
@@ -498,7 +518,8 @@ local loc = {
                     "Picks a random {C:attention}rank{} to debuff.",
                     "The rank on either side gives {C:mult}+#1#{}.",
                     "Chosen rank changes each round.",
-                    "{br:2}line break",
+                },
+                in_play_text = {
                     "{C:inactive}Chosen rank: {C:attention}#2#",
                     "{C:inactive}Buffed ranks: {C:attention}#3#{} and {C:attention}#4#{}"
                 }
@@ -531,7 +552,8 @@ local loc = {
                 alt_name = "Cheap Trap",
                 text = {
                     "Gains {X:mult,C:white} X#1# {} whenever a joker is {S:1.1,C:red,E:2}destroyed{}.",
-                    "{br:2}line break",
+                },
+                in_play_text = {
                     "{C:inactive}Currently: {X:mult,C:white} X#2# {}"
                 }
             },
@@ -567,7 +589,8 @@ local loc = {
                 alt_name = "Heart Father",
                 text = {
                     "Gains {X:mult,C:white} X#1# {} for each card with a {C:attention}seal{} in the deck.",
-                    "{br:2}line break",
+                },
+                in_play_text = {
                     "{C:inactive}Currently: {X:mult,C:white} X#2#"
                 }
             },
@@ -596,7 +619,8 @@ local loc = {
                 text = {
                     "Gains {C:mult}+#1#{} each time your most played hand is played.",
                     "When not played, resets.",
-                    "{br:2}line break",
+                },
+                in_play_text = {
                     "{C:inactive}Most Played: {C:attention}#3#",
                     "{C:inactive}Currently: {C:mult}+#2#",
                 }
@@ -606,7 +630,8 @@ local loc = {
                 text = {
                     "Earn {C:money}$#1#{} at end of round for every",
                     "{C:money}$#2#{} spent on purchases in the {C:attention}shop{} this run.",
-                    "{br:2}line break",
+                },
+                in_play_text = {
                     "{C:inactive}Currently: {C:money}$#3#{}"
                 }
             },
@@ -616,7 +641,8 @@ local loc = {
                 text = {
                     "Destroys every {C:attention}Queen{} held in hand before scoring.",
                     "Gains {X:mult,C:white} X#1# {} for each {C:attention}Queen{} destroyed.",
-                    "{br:2}line break",
+                },
+                in_play_text = {
                     "{C:inactive}Currently: {X:mult,C:white} X#2#"
                 }
             },
@@ -633,7 +659,8 @@ local loc = {
                 text = {
                     "Before scoring, drains all bonus {C:chips}chips{}",
                     "and {C:mult}mult{} from scoring cards.",
-                    "{br:2}line break",
+                },
+                in_play_text = {
                     "{C:inactive}Currently: {C:chips}+#1#{} {C:mult}+#2#{}"
                 }
             },
@@ -643,7 +670,8 @@ local loc = {
                     "{C:chips}+#1#{}, {C:mult}+#2#{}, and {C:money}$#3#{} at end of round",
                     "for each {C:attention}Ante{} cleared this run.",
                     "Destroyed if the {C:attention}Ante{} is reversed.",
-                    "{br:2}line break",
+                },
+                in_play_text = {
                     "{C:inactive}Currently: {C:chips}+#4#{C:inactive}, {C:mult}+#5#{C:inactive}, {C:money}$#6#{}"
                 }
             },
@@ -655,7 +683,8 @@ local loc = {
                     "When {C:attention}Blind{} is selected, randomly picks from",
                     "{C:attention}[Ace, 2, 3, 5, 6, 7]{}.",
                     "Increases mult by rank the first time it is scored per blind.",
-                    "{br:2}line break",
+                },
+                in_play_text = {
                     "{C:inactive}Currently: {C:mult}+#1#",
                     "{C:inactive}Chosen rank: {C:attention}#2#",
                 }
@@ -666,7 +695,8 @@ local loc = {
                 text = {
                     "Starts with {C:mult}+#1#{}.",
                     "{C:mult}-#2#{} at the end of each blind.",
-                    "{br:2}line break",
+                },
+                in_play_text = {
                     "{C:inactive}Remaining: {C:mult}+#3#",
                 }
             },
@@ -678,7 +708,8 @@ local loc = {
                     "enhancement and gains {C:chips}+#1#{}.",
                     "Removes scored {C:attention}steel card{}",
                     "enhancement and gains {X:mult,C:white} X#2# {}.",
-                    "{br:2}line break",
+                },
+                in_play_text = {
                     "{C:inactive}Current chips: {C:chips}+#3#{}",
                     "{C:inactive}Current mult: {X:mult,C:white} X#4# {}",
                 }
@@ -734,7 +765,8 @@ local loc = {
                 alt_name = "Emperor Crimson",
                 text = {
                     "Gains {X:mult,C:white} X#1# {} for each skipped blind.",
-                    "{br:2}line break",
+                },
+                in_play_text = {
                     "{C:inactive}Currently: {X:mult,C:white} X#2#",
                 }
             },
@@ -837,7 +869,8 @@ local loc = {
                 text = {
                     "Gains {X:mult,C:white} X#1# {} for each scored",
                     "{C:attention}Steel{} or {C:attention}Gold{} card.",
-                    "{br:2}line break",
+                },
+                in_play_text = {
                     "{C:inactive}Currently: {X:mult,C:white} X#2# {}"
                 }
             },
@@ -854,7 +887,8 @@ local loc = {
                 text = {
                     "{C:mult}+#1#{} for each card",
                     "below {C:attention}#2#{} in your {C:attention}full deck{}.",
-                    "{br:2}line break",
+                },
+                in_play_text = {
                     "{C:inactive}Currently: {C:mult}+#3#{}"
                 }
             },
@@ -873,7 +907,8 @@ local loc = {
                     "Reduces hands to {C:attention}#1#{} and discards to {C:attention}#2#{},",
                     "increases hand size to the {C:attention}size of your deck{}.",
                     "Gains {X:mult,C:white} X#4# {} for each lost hand and discard.",
-                    "{br:2}line break",
+                },
+                in_play_text = {
                     "{C:inactive}Currently: {X:mult,C:white} X#3#"
                 }
             },
@@ -884,7 +919,8 @@ local loc = {
                     "Randomly gains or loses {C:chips}+/- #1#{}, {C:mult}+/- #2#{},",
                     "{C:money} +/- $#3#{}, or {X:mult,C:white} X#4# {} mult per played hand.",
                     "All values cannot drop below 0.",
-                    "{br:2}line break",
+                },
+                in_play_text = {
                     "{C:inactive}Currently: {C:chips}+#5#{}, {C:mult}+#6#{}, {C:money}$#7#{}, {X:mult,C:white} X#8# {}",
                 }
             },
@@ -906,7 +942,8 @@ local loc = {
                 alt_name = "F.F.",
                 text = {
                     "Gives {C:chips}+#1#{} for each {C:attention}unique card played{} this ante.",
-                    "{br:2}line break",
+                },
+                in_play_text = {
                     "{C:inactive}Currently: {C:chips}#2#{}"
                 }
             },
@@ -976,7 +1013,8 @@ local loc = {
                 alt_name = "Smack",
                 text = {
                     "Gains {C:chips}+#1#{} whenever a {C:attention}card{} is {C:attention}duplicated{}.",
-                    "{br:2}line break",
+                },
+                in_play_text = {
                     "{C:inactive}Currently: {C:chips}+#2#{}"
                 }
             },
@@ -1001,7 +1039,8 @@ local loc = {
                 text = {
                     "Retrigger the first {C:attention}#2#{}",
                     "cards scored each round.",
-                    "{br:2}line break",
+                },
+                in_play_text = {
                     "{C:inactive}Remaining: {C:attention}#3# {C:inactive}times{}"
                 }
             },
@@ -1063,7 +1102,8 @@ local loc = {
                 text = {
                     "Gains {X:mult,C:white} X#1# {} for each",
                     "hand played, but resets on discard.",
-                    "{br:2}line break",
+                },
+                in_play_text = {
                     "{C:inactive}Currently: {X:mult,C:white} X#2# {}"
                 }
             },
@@ -1071,7 +1111,8 @@ local loc = {
                 name = "Civil War",
                 text = {
                     "Gains {C:chips}+#1#{} for each {C:attention}skipped Booster Pack{}.",
-                    "{br:2}line break",
+                },
+                in_play_text = {
                     "{C:inactive}Currently: {C:chips}#2#{}"
                 }
             },
@@ -1089,7 +1130,8 @@ local loc = {
                 text = {
                     "If scored cards in hand is greater than previous hand",
                     "(excluding 0), give {C:mult}+#1#{} for each additional card.",
-                    "{br:2}line break",
+                },
+                in_play_text = {
                     "{C:inactive}Previous hand: {C:attention}#2#{C:inactive} cards"
                 }
             },
@@ -1098,7 +1140,8 @@ local loc = {
                 text = {
                     "After every {C:attention}#1#{} scored cards, gives {C:chips}+#2#{}",
                     "for each card remaining in the deck.",
-                    "{br:2}line break",
+                },
+                in_play_text = {
                     "{C:inactive}Scored cards remaining: {C:attention}#3#{C:inactive}",
                     "{C:inactive}Chips paid out: {C:chips}#4#{C:inactive}"
                 }
@@ -1107,7 +1150,8 @@ local loc = {
                 name = "Wavering Heart",
                 text = {
                     "Gains {C:chips}+#1#{} and {C:mult}+#2#{} every time the shop is {C:attention}rerolled{}.",
-                    "{br:2}line break",
+                },
+                in_play_text = {
                     "{C:inactive}Currently: {C:chips}+#3#{C:inactive} and {C:mult}+#4#{}",
                 }
             },
@@ -1115,7 +1159,8 @@ local loc = {
                 name = "Dark Determination",
                 text = {
                     "Gains {X:mult,C:white} X#2# {} for every shop left without {C:attention}rerolling{}.",
-                    "{br:2}line break",
+                },
+                in_play_text = {
                     "{C:inactive}Currently: {X:mult,C:white} X#1# {}",
                 }
             },
@@ -1129,7 +1174,8 @@ local loc = {
                 name = "Left Side Ataxia",
                 text = {
                     "Debuffs each joker to it's left, giving {C:chips}+#1#{} for each.",
-                    "{br:2}line break",
+                },
+                in_play_text = {
                     "{C:inactive}Currently: {C:chips}+#2#{}"
                 }
             },
@@ -1144,7 +1190,8 @@ local loc = {
                 alt_name = "Silent Ways",
                 text = {
                     "Gains {C:mult}+#1#{} for each opened {C:attention}Booster Pack{}.",
-                    "{br:2}line break",
+                },
+                in_play_text = {
                     "{C:inactive}Currently: {C:mult}+#2#{}"
                 }
             },
@@ -1198,7 +1245,8 @@ local loc = {
                 text = {
                     "Removes scoring card enhancements.",
                     "Gain {C:mult}+#2#{} for each.",
-                    "{br:2}line break",
+                },
+                in_play_text = {
                     "{C:inactive}Currently {C:mult}+#1#"
                 }
             },
@@ -1248,7 +1296,8 @@ local loc = {
                 text = {
                     "Before scoring, gains {X:mult,C:white} X#1# {} for each {C:attention}unique hand type{}",
                     "played this round. Resets at the end of the round.",
-                    "{br:2}line break",
+                },
+                in_play_text = {
                     "{C:inactive}Currently: {X:mult,C:white} X#2#"
                 }
             },
@@ -1263,7 +1312,8 @@ local loc = {
                 text = {
                     "After {C:attention}#1#{} blinds, {S:1.1,C:red,E:2}destroys{} all other jokers",
                     "(including eternal) then gains {X:mult,C:white} X#2# {} for each joker.",
-                    "{br:2}line break",
+                },
+                in_play_text = {
                     "{C:attention}#3#{}{C:inactive} rounds remaining",
                     "{C:inactive}Currently: {X:mult,C:white} X#4# {}"
                 }
@@ -1304,7 +1354,8 @@ local loc = {
                     "Locks Joker to the right on blind start.",
                     "{C:attention}Retriggers{} it every hand and",
                     "{C:red}destroys{} it after {C:attention}#1#{} rounds.",
-                    "{br:2}line break",
+                },
+                in_play_text = {
                     "{C:inactive}Currently: {C:attention}#2#{C:inactive}/#1# rounds"
                 }
             },
@@ -1328,7 +1379,8 @@ local loc = {
                     "After scoring, {C:attention}destroys{} the highest ranked",
                     "scored card and gains {X:mult,C:white} X#1# {} Mult",
                     "({X:mult,C:white} X#2# {} if it was a {C:attention}Glass{} card).",
-                    "{br:2}line break",
+                },
+                in_play_text = {
                     "{C:inactive}Currently: {X:mult,C:white} X#3# {}"
                 }
             },
@@ -1551,6 +1603,22 @@ local loc = {
     }
 }
 
+-- When in play, show a line break and the data relevant to the current game state (current scaling on jokers, highest hand played, etc.).
+local in_play = {}
+for key, entry in pairs(loc.descriptions.Joker) do
+    if entry.in_play_text then
+        local text = {}
+        for _, line in ipairs(entry.text) do text[#text + 1] = line end
+        text[#text + 1] = "{br:2}line break"
+        for _, line in ipairs(entry.in_play_text) do text[#text + 1] = line end
+        in_play[key..'_in_play'] = {name = entry.name, alt_name = entry.alt_name, text = text}
+    end
+end
+for key, entry in pairs(in_play) do
+    loc.descriptions.Joker[key] = entry
+end
+
+-- When localized names are on, show the alternate names instead, when they are present
 local alts = {}
 for key, entry in pairs(loc.descriptions.Joker) do
     if entry.alt_name then

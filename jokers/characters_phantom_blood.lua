@@ -145,16 +145,24 @@ local zombies = {
 
         -- Potentially duplicate joker at end of small/big blind
         if context.end_of_round and not context.individual and not context.repetition and not context.blueprint then
-            if #G.jokers.cards < G.jokers.config.card_limit then
+            if #G.jokers.cards + G.GAME.joker_buffer < G.jokers.config.card_limit then
                 jojoker.debug("Zombies: "..#G.jokers.cards.." jokers in play, below limit of "..G.jokers.config.card_limit..", considering replicating.")
                 if SMODS.pseudorandom_probability(card, 'zombies', card.ability.extra.numerator, card.ability.extra.denominator, 'zombies') then
                     jojoker.debug("Zombies: Replicated!")
-                    
-                    play_sound('tarot1')
-                    local new_card = SMODS.create_card({set = "Joker", area = G.jokers, key = "j_jojoker_zombies", no_edition = true})
-                    new_card:add_to_deck()
-                    G.jokers:emplace(new_card)
-                    jojoker_card_duplicated(new_card)
+
+                    -- Deferred so the new zombie misses this end_of_round pass instead of replicating in a chain
+                    G.GAME.joker_buffer = G.GAME.joker_buffer + 1
+                    G.E_MANAGER:add_event(Event({
+                        func = function()
+                            play_sound('tarot1')
+                            local new_card = SMODS.create_card({set = "Joker", area = G.jokers, key = "j_jojoker_zombies", no_edition = true})
+                            new_card:add_to_deck()
+                            G.jokers:emplace(new_card)
+                            G.GAME.joker_buffer = 0
+                            jojoker_card_duplicated(new_card)
+                            return true
+                        end
+                    }))
 
                     return {
                         message = localize("sound_grr")

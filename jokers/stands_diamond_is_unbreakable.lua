@@ -452,15 +452,16 @@ local the_lock = {
     blueprint_compat = true,
     perishable_compat = true,
     eternal_compat = true,
-    config = { extra = { mult_gain = 5, curr_mult = 0, most_played = "High Card" } },
+    config = { extra = { mult_gain = 5, curr_mult = 0, most_played = nil } },
     loc_vars = function(self, info_queue, card)
-        return { vars = {card.ability.extra.mult_gain, card.ability.extra.curr_mult, card.ability.extra.most_played } }
+        local hand = card.ability.extra.most_played
+        return { vars = {card.ability.extra.mult_gain, card.ability.extra.curr_mult, hand and localize(hand, 'poker_hands') or localize('none_used') } }
     end,
     calculate = function(self, card, context)
         -- When playing a hand, increase mult if it's the most played hand
         if context.cardarea == G.jokers and context.scoring_hand then
             if context.before then
-                jojoker.debug("The Lock: Hand played is "..context.scoring_name..", most played hand is "..card.ability.extra.most_played)
+                jojoker.debug("The Lock: Hand played is "..context.scoring_name..", most played hand is "..tostring(card.ability.extra.most_played))
                 if get_most_played_hand_info().count == 1 or context.scoring_name == card.ability.extra.most_played then
                     jojoker.debug("The Lock: Gaining mult for most played hand")
                     card.ability.extra.curr_mult = card.ability.extra.curr_mult + card.ability.extra.mult_gain
@@ -489,7 +490,8 @@ local the_lock = {
     end,
     update = function(self, card, dt)
         if G.STAGE == G.STAGES.RUN then
-            card.ability.extra.most_played = get_most_played_hand_info().name
+            local most_played = get_most_played_hand_info()
+            card.ability.extra.most_played = most_played.count > 0 and most_played.name or nil
         end
     end
 }

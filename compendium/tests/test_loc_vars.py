@@ -28,3 +28,8 @@ def test_live_state_jokers_do_not_crash(mod):
     for key in ["old_joseph_joestar", "wamuu", "ghost_girl_alley", "goo_goo_dolls", "harvest", "white_album"]:
         v = vars_of(mod, key)
         assert v is None or all(isinstance(x, str) and x for x in v), key
+
+
+def test_in_play_footers_stay_out_of_the_compendium(mod):
+    for joker in mod.jokers:
+        assert not any(line.startswith("{br:") for line in joker.text), joker.key

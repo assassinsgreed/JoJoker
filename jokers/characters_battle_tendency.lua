@@ -142,7 +142,7 @@ local caesar = {
         -- For each scored stone card, give it Xmult then destroy it
         if context.individual and not context.end_of_round and context.cardarea == G.play then
             if context.other_card.config.center == G.P_CENTERS.m_stone then
-                jojoker.debug("Caesar: Triggering 3x mult on stone card and destroying it")
+                jojoker.debug("Caesar: Triggering X"..card.ability.extra.Xmult_mod.." mult on stone card and destroying it")
                 remove_playing_card(context.other_card, card)
 
                 return {

@@ -41,7 +41,7 @@ def test_joker_record_shape(data):
     world = next(j for j in data["jokers"] if j["key"] == "the_world")
     assert (world["type"], world["part"], world["rarity"]) == ("Stand", "stardust_crusaders", 4)
     assert world["sprite"] == [4, 1, "stardust_crusaders"]
-    assert '<hr class="div">' in world["html"]
+    assert '<hr class="div">' not in world["html"]
     assert {c["key"] for c in world["conflicts"]} == {"enya"}
 
 

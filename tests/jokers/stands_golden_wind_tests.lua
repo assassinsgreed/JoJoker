@@ -609,7 +609,8 @@ Balatest.TestPlay {
     category = { 'jokers', 'golden_wind', 'white_album' },
     jokers = { 'j_jojoker_white_album' },
     execute = function()
-        skip_blind_into_shop()
+        Balatest.end_round()
+        Balatest.cash_out()
         Balatest.q(function() white_album_perishable_rolls = count_perishable_shop_rolls(30) end)
     end,
     assert = function()
@@ -623,7 +624,8 @@ Balatest.TestPlay {
     category = { 'jokers', 'golden_wind', 'white_album' },
     jokers = { 'j_jojoker_leaky_eye_luca' },
     execute = function()
-        skip_blind_into_shop()
+        Balatest.end_round()
+        Balatest.cash_out()
         Balatest.q(function() unprotected_perishable_rolls = count_perishable_shop_rolls(30) end)
     end,
     assert = function()

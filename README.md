@@ -60,5 +60,4 @@ Claude has been used to help me mechanically build and test jokers. This process
 
 # v0.1.0 TODOs Shortlist
 
-- Better localization for jokers with initial text strings (joseph pt 2, sex pistols, etc)
 - Add new title screen art

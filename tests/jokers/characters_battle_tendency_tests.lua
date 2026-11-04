@@ -149,14 +149,15 @@ Balatest.TestPlay {
     deck = { cards = {
         { r = '2', s = 'S', e = 'm_stone' },
         { r = '2', s = 'C', e = 'm_stone' },
-        { r = '2', s = 'H' } } },
+        { r = '2', s = 'H' },
+        { r = '3', s = 'H' } } },
     execute = function()
         Balatest.play_hand { '2S', '2C', '2H' }
     end,
     assert = function()
-        local expectdMult = G.jokers.cards[1].ability.extra.Xmult_mod ^ 2
-        Balatest.assert_chips(expectdMult * 107, "Caesar didn't give xmult for each stone card") -- (7 from hand + 50 per stone card) * xmult from 2 stone cards
-        Balatest.assert_eq(#G.deck.cards, 1, "Caesar didn't destroy stone cards after scoring")
+        local expectedMult = G.jokers.cards[1].ability.extra.Xmult_mod ^ 2
+        Balatest.assert_chips(math.floor(expectedMult * 107), "Caesar didn't give xmult for each stone card") -- (7 from hand + 50 per stone card) * xmult from 2 stone cards
+        Balatest.assert_eq(count_enhanced_playing_cards('m_stone'), 0, "Caesar didn't destroy stone cards after scoring")
     end
 }
 --#endregion
