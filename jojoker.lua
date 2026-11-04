@@ -101,6 +101,7 @@ SMODS.current_mod.calculate = function(self, context)
     jojoker_track_bosses_beaten(context)
     jojoker_lock_speed_king_targets(context)
     jojoker_recover_mista(context)
+    jojoker_track_black_holes_used(context)
 end
 
 -- Load and configure editions

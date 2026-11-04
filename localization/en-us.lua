@@ -457,6 +457,16 @@ local loc = {
                     "Has a {C:green}#2# in #3#{} chance to {C:red}end the run immediately{}."
                 }
             },
+            j_jojoker_cream = {
+                name = "Cream",
+                text = {
+                    "{C:mult}+#1#{} per level of your",
+                    "highest-level {C:attention}poker hand{}.",
+                    "{C:mult}+#2#{} per {C:spectral}Black Hole{} used this run.",
+                    "{br:2}line break",
+                    "{C:inactive}Currently: {C:mult}+#3#{}"
+                }
+            },
             -- Part 4: Diamond is Unbreakable
             j_jojoker_voice_of_love = {
                 name = "Voice of Love",

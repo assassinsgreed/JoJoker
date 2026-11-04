@@ -6,7 +6,7 @@ local shizuka = {
     cost = 4,
     jtype = "Character",
     part = "diamond_is_unbreakable",
-    themes = { support = { jojoker.themes.HAND_LEVELS } },
+    themes = { support = { jojoker.themes.HAND_LEVELS, jojoker.themes.HIGHEST_HAND_LEVEL } },
     similar = { jojoker.similar.RANDOM_HAND_LEVEL_UPS },
     blueprint_compat = false,
     perishable_compat = true,

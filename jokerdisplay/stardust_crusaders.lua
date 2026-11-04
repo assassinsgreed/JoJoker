@@ -260,3 +260,13 @@ jd_def["j_jojoker_emperor"] = {
         card.joker_display_values.odds = localize { type = 'variable', key = "jdis_odds", vars = { card.ability.extra.numerator, card.ability.extra.denominator } }
     end,
 }
+
+jd_def["j_jojoker_cream"] = {
+    text = {
+        { text = "+", colour = G.C.MULT },
+        { ref_table = "card.joker_display_values", ref_value = "mult", retrigger_type = "mult", colour = G.C.MULT },
+    },
+    calc_function = function(card)
+        card.joker_display_values.mult = get_cream_mult(card)
+    end,
+}

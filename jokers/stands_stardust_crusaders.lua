@@ -215,6 +215,7 @@ local sethan = {
     jtype = "Stand",
     part = "stardust_crusaders",
     themes = { core = { jojoker.themes.HAND_LEVELS } },
+    conflicts = { cream = "resets_played_hands_to_level_1" },
     blueprint_compat = true,
     perishable_compat = true,
     eternal_compat = true,
@@ -566,7 +567,7 @@ local hermit_purple = {
     cost = 7,
     jtype = "Stand",
     part = "stardust_crusaders",
-    themes = { support = { jojoker.themes.HAND_LEVELS } },
+    themes = { support = { jojoker.themes.HAND_LEVELS, jojoker.themes.HIGHEST_HAND_LEVEL } },
     similar = { jojoker.similar.RANDOM_HAND_LEVEL_UPS },
     blueprint_compat = false,
     perishable_compat = true,
@@ -743,7 +744,38 @@ local emperor = {
     end
 }
 
+local cream = {
+    name = "cream",
+    rarity = 2,
+    cost = 6,
+    jtype = "Stand",
+    part = "stardust_crusaders",
+    themes = { core = { jojoker.themes.HIGHEST_HAND_LEVEL } },
+    blueprint_compat = true,
+    perishable_compat = true,
+    eternal_compat = true,
+    config = { extra = { mult_per_level = 5, mult_per_black_hole = 20 } },
+    loc_vars = function(self, info_queue, center)
+        info_queue[#info_queue+1] = G.P_CENTERS.c_black_hole
+        return {
+            vars = { center.ability.extra.mult_per_level, center.ability.extra.mult_per_black_hole, get_cream_mult(center) }
+        }
+    end,
+    -- Gives mult based on highest hand level and black holes used this run.
+    calculate = function(self, card, context)
+        if context.joker_main then
+            local mult_given = get_cream_mult(card)
+            sendDebugMessage("Cream: Giving "..mult_given.." mult from highest hand level and "..(G.GAME.jojoker_black_holes_used or 0).." Black Holes used this run.")
+            return {
+                message = localize{type = 'variable', key = 'a_mult', vars = {mult_given}},
+                colour = G.C.MULT,
+                mult_mod = mult_given
+            }
+        end
+    end
+}
+
 return {
     name = "Stardust Crusaders Stand Jokers",
-    list = { magician_red, yellow_temperance, star_platinum, wheel_of_fortune, the_lovers, anubis, sethan, the_world, death_thirteen, tenore_sax, khnum, hierophant_green, the_fool, thoth, the_sun, hermit_purple, atum, horus, emperor },
+    list = { magician_red, yellow_temperance, star_platinum, wheel_of_fortune, the_lovers, anubis, sethan, the_world, death_thirteen, tenore_sax, khnum, hierophant_green, the_fool, thoth, the_sun, hermit_purple, atum, horus, emperor, cream },
 }

@@ -6,7 +6,7 @@ local german_engineering = {
     cost = 3,
     jtype = "Effect",
     part = "battle_tendency",
-    themes = { core = { jojoker.themes.HIGH_CARD }, support = { jojoker.themes.HAND_LEVELS, jojoker.themes.DUPLICATION, jojoker.themes.DECK_GROWING } },
+    themes = { core = { jojoker.themes.HIGH_CARD }, support = { jojoker.themes.HAND_LEVELS, jojoker.themes.HIGHEST_HAND_LEVEL, jojoker.themes.DUPLICATION, jojoker.themes.DECK_GROWING } },
     blueprint_compat = true,
     perishable_compat = true,
     eternal_compat = true,

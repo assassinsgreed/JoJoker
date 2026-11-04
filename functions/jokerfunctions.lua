@@ -191,6 +191,21 @@ get_harvest_payout = function(card)
   return math.floor(spent / card.ability.extra.spend_per_payout) * card.ability.extra.money_mod
 end
 
+-- Tracks Black Holes used across the entire run (for Cream's effect)
+jojoker_track_black_holes_used = function(context)
+  if not (context.using_consumeable and context.consumeable and context.consumeable.config.center.key == 'c_black_hole') then return end
+  G.GAME.jojoker_black_holes_used = (G.GAME.jojoker_black_holes_used or 0) + 1
+  sendDebugMessage("Black Hole used: "..G.GAME.jojoker_black_holes_used.." total this run")
+end
+
+get_cream_mult = function(card)
+  local highest_level = 1
+  for _, hand in pairs(G.GAME.hands) do
+    if hand.level > highest_level then highest_level = hand.level end
+  end
+  return highest_level * card.ability.extra.mult_per_level + (G.GAME.jojoker_black_holes_used or 0) * card.ability.extra.mult_per_black_hole
+end
+
 get_goo_goo_dolls_mult = function(card)
   local missing = G.playing_cards and (G.GAME.starting_deck_size - #G.playing_cards) or 0
   return math.max(0, missing) * card.ability.extra.mult

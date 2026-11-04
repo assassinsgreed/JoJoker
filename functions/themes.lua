@@ -28,6 +28,7 @@ jojoker.themes = {
     FLUSHES = "flushes",
     HIGH_CARD = "high_card",
     HAND_LEVELS = "hand_levels",
+    HIGHEST_HAND_LEVEL = "highest_hand_level",
     STONE_CARDS = "stone_cards",
     ENHANCEMENT_EATERS = "enhancement_eaters",
     STONE_STEEL_EATER = "stone_steel_eater",

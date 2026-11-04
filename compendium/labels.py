@@ -37,6 +37,7 @@ LABELS = Labels(
         'flushes': ('Flushes', 'Reward Flushes; Smeared, Four Fingers and Wild cards make them easier to hit.'),
         'high_card': ('High Card', 'Reward High Card; German Engineering levels it up, and Roundabout retriggers its lone scoring card for every card played alongside it.'),
         'hand_levels': ('Hand levels', 'Sethan cashes in hand levels; these jokers keep handing them out.'),
+        'highest_hand_level': ('Highest hand level', 'Cream pays out for your highest-level hand; these keep levelling hands up.'),
         'stone_cards': ('Stone cards', 'I Am a Rock and Doctor Wu fill your deck with Stone cards for these to use.'),
         'enhancement_eaters': ('Enhancement eaters', 'Soft & Wet strips any scoring enhancement for chips; these hand out enhancements to eat.'),
         'stone_steel_eater': ('Stone & Steel eater', 'Spice Girl strips Stone and Steel for permanent gains; I Am a Rock and Doctor Wu supply the Stone.'),
@@ -122,5 +123,6 @@ LABELS = Labels(
         'makes_every_played_card_score': 'makes every played card score',
         'turns_unscored_cards_into_stone': 'turns unscored cards into Stone cards, which always score',
         'randomizes_the_suits_these': 'randomizes the suits these rely on',
+        'resets_played_hands_to_level_1': 'resets played hands to level 1',
     },
 )

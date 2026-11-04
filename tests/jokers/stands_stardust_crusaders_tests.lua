@@ -928,3 +928,76 @@ Balatest.TestPlay {
     end
 }
 --#endregion
+
+--#region Cream
+Balatest.TestPlay {
+    name = 'cream_gives_mult_per_level_of_the_highest_hand',
+    category = { 'jokers', 'stardust_crusaders', 'cream' },
+    jokers = { 'j_jojoker_cream' },
+    execute = function()
+        Balatest.q(function() G.GAME.hands['Flush'].level = 4 end)
+        Balatest.play_hand { '2S' }
+    end,
+    assert = function()
+        Balatest.assert_chips(7 * (1 + 4 * G.jokers.cards[1].ability.extra.mult_per_level), "Cream did not give mult for the highest hand level") -- 5 from High Card + 2 from card
+    end
+}
+
+Balatest.TestPlay {
+    name = 'cream_gives_mult_for_level_1_with_no_levelled_hands',
+    category = { 'jokers', 'stardust_crusaders', 'cream' },
+    jokers = { 'j_jojoker_cream' },
+    execute = function()
+        Balatest.play_hand { '2S' }
+    end,
+    assert = function()
+        Balatest.assert_chips(7 * (1 + G.jokers.cards[1].ability.extra.mult_per_level), "Cream did not give mult for level 1")
+    end
+}
+
+Balatest.TestPlay {
+    name = 'cream_gains_mult_per_black_hole_used',
+    category = { 'jokers', 'stardust_crusaders', 'cream' },
+    jokers = { 'j_jojoker_cream' },
+    consumeables = { 'c_black_hole', 'c_black_hole' },
+    execute = function()
+        Balatest.use(G.consumeables.cards[1])
+        Balatest.use(G.consumeables.cards[1])
+        Balatest.play_hand { '2S' }
+    end,
+    assert = function()
+        local extra = G.jokers.cards[1].ability.extra
+        Balatest.assert_eq(G.GAME.jojoker_black_holes_used, 2, "Cream did not count each Black Hole used")
+        -- High Card at level 3: 5 + 2 * 10 chips + 2 from card, 1 + 2 * 1 mult
+        Balatest.assert_chips(27 * (3 + 3 * extra.mult_per_level + 2 * extra.mult_per_black_hole), "Cream did not add mult for Black Holes on top of the highest level")
+    end
+}
+
+Balatest.TestPlay {
+    name = 'cream_counts_black_holes_used_before_it_was_owned',
+    category = { 'jokers', 'stardust_crusaders', 'cream' },
+    consumeables = { 'c_black_hole' },
+    execute = function()
+        Balatest.use(G.consumeables.cards[1])
+        Balatest.q(function() SMODS.add_card { key = 'j_jojoker_cream' } end)
+    end,
+    assert = function()
+        local extra = G.jokers.cards[1].ability.extra
+        Balatest.assert_eq(get_cream_mult(G.jokers.cards[1]), 2 * extra.mult_per_level + extra.mult_per_black_hole, "Cream did not count a Black Hole used before it was owned")
+    end
+}
+
+Balatest.TestPlay {
+    name = 'cream_does_not_count_other_planets_as_black_holes',
+    category = { 'jokers', 'stardust_crusaders', 'cream' },
+    jokers = { 'j_jojoker_cream' },
+    consumeables = { 'c_pluto' },
+    execute = function()
+        Balatest.use(G.consumeables.cards[1])
+    end,
+    assert = function()
+        Balatest.assert_eq(G.GAME.jojoker_black_holes_used, nil, "Cream counted a Pluto as a Black Hole")
+        Balatest.assert_eq(get_cream_mult(G.jokers.cards[1]), 2 * G.jokers.cards[1].ability.extra.mult_per_level, "Cream did not use Pluto's level for the highest hand")
+    end
+}
+--#endregion
