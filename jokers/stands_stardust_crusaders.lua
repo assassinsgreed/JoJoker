@@ -704,7 +704,46 @@ local horus = {
     end
 }
 
+local emperor = {
+    name = "emperor",
+    rarity = 3,
+    cost = 8,
+    jtype = "Stand",
+    part = "stardust_crusaders",
+    themes = { core = { jojoker.themes.EMPEROR } },
+    conflicts = { darby_brothers = "has_a_run_ending_chance_that" },
+    blueprint_compat = false,
+    perishable_compat = true,
+    eternal_compat = true,
+    config = { extra = { Xmult = 5, numerator = 1, denominator = 6 } },
+    loc_vars = function(self, info_queue, center)
+        return {
+            vars = { center.ability.extra.Xmult, center.ability.extra.numerator, center.ability.extra.denominator }
+        }
+    end,
+    calculate = function(self, card, context)
+        -- Gives massive xmult but can end the run instantly
+        if context.joker_main and not context.blueprint then
+            -- Backfires as a lost round rather than an instant game over, so Burning Down the House can still save the run
+            if SMODS.pseudorandom_probability(card, 'emperor', card.ability.extra.numerator, card.ability.extra.denominator, 'emperor') then
+                G.GAME.jojoker_emperor_backfired = true
+                sendDebugMessage("Emperor: Backfired, ending the run")
+                return {
+                    message = localize('k_bang_ex'),
+                    colour = G.C.RED
+                }
+            end
+
+            return {
+                message = localize{type = 'variable', key = 'a_xmult', vars = {card.ability.extra.Xmult}},
+                colour = G.C.XMULT,
+                Xmult_mod = card.ability.extra.Xmult
+            }
+        end
+    end
+}
+
 return {
     name = "Stardust Crusaders Stand Jokers",
-    list = { magician_red, yellow_temperance, star_platinum, wheel_of_fortune, the_lovers, anubis, sethan, the_world, death_thirteen, tenore_sax, khnum, hierophant_green, the_fool, thoth, the_sun, hermit_purple, atum, horus },
+    list = { magician_red, yellow_temperance, star_platinum, wheel_of_fortune, the_lovers, anubis, sethan, the_world, death_thirteen, tenore_sax, khnum, hierophant_green, the_fool, thoth, the_sun, hermit_purple, atum, horus, emperor },
 }

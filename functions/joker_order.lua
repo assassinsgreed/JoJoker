@@ -96,6 +96,7 @@ jojoker.joker_order = {
     "doctor_wu",
     "dragons_dream",
     "echoes_act_3",
+    "emperor",
     "foo_fighters",
     "fun_fun_fun",
     "gold_experience",

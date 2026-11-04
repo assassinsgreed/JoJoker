@@ -842,3 +842,89 @@ Balatest.TestPlay {
     end
 }
 --#endregion
+
+--#region Emperor
+Balatest.TestPlay {
+    name = 'emperor_gives_xmult_when_it_does_not_backfire',
+    category = { 'jokers', 'stardust_crusaders', 'emperor' },
+    jokers = { 'j_jojoker_emperor' },
+    execute = function()
+        G.jokers.cards[1].ability.extra.numerator = 0
+        Balatest.play_hand { '2S' }
+    end,
+    assert = function()
+        Balatest.assert_chips(7 * G.jokers.cards[1].ability.extra.Xmult, "Emperor did not give its Xmult") -- 5 from High Card + 2 from card
+    end
+}
+
+Balatest.TestPlay {
+    name = 'emperor_ends_the_run_when_it_backfires',
+    category = { 'jokers', 'stardust_crusaders', 'emperor' },
+    jokers = { 'j_jojoker_emperor' },
+    execute = function()
+        G.jokers.cards[1].ability.extra.numerator = G.jokers.cards[1].ability.extra.denominator
+        Balatest.play_hand({ '2S' }, true)
+    end,
+    assert = function()
+        Balatest.assert_eq(G.STATE, G.STATES.GAME_OVER, "Emperor did not end the run when it backfired")
+    end
+}
+
+Balatest.TestPlay {
+    name = 'emperor_ends_the_run_even_when_the_hand_beats_the_blind',
+    category = { 'jokers', 'stardust_crusaders', 'emperor' },
+    jokers = { 'j_jojoker_emperor' },
+    execute = function()
+        G.jokers.cards[1].ability.extra.numerator = G.jokers.cards[1].ability.extra.denominator
+        Balatest.q(function() G.GAME.blind.chips = 1 end)
+        Balatest.play_hand({ '2S' }, true)
+    end,
+    assert = function()
+        Balatest.assert_eq(G.STATE, G.STATES.GAME_OVER, "Emperor did not end the run when the backfiring hand beat the blind")
+    end
+}
+
+Balatest.TestPlay {
+    name = 'emperor_rolls_again_on_every_hand',
+    category = { 'jokers', 'stardust_crusaders', 'emperor' },
+    jokers = { 'j_jojoker_emperor' },
+    execute = function()
+        G.jokers.cards[1].ability.extra.numerator = 0
+        Balatest.play_hand { '2S' }
+        Balatest.q(function() G.jokers.cards[1].ability.extra.numerator = G.jokers.cards[1].ability.extra.denominator end)
+        Balatest.play_hand({ '3S' }, true)
+    end,
+    assert = function()
+        Balatest.assert_eq(G.STATE, G.STATES.GAME_OVER, "Emperor did not roll again on a later hand")
+    end
+}
+
+Balatest.TestPlay {
+    name = 'emperor_backfire_is_survived_with_burning_down_the_house',
+    category = { 'jokers', 'stardust_crusaders', 'emperor' },
+    jokers = { 'j_jojoker_emperor', 'j_jojoker_burning_down_the_house' },
+    execute = function()
+        G.jokers.cards[1].ability.extra.numerator = G.jokers.cards[1].ability.extra.denominator
+        Balatest.play_hand { '2S' }
+    end,
+    assert = function()
+        -- If the run was not saved, this assertion could not run
+        Balatest.assert_eq(#G.jokers.cards, 1, "Burning Down the House was not destroyed saving the run from Emperor")
+        Balatest.assert_eq(G.jokers.cards[1].config.center.key, "j_jojoker_emperor", "Emperor did not survive its backfire")
+        Balatest.assert_eq(G.GAME.jojoker_emperor_backfired, nil, "Emperor's backfire carried over past the saved round")
+    end
+}
+
+Balatest.TestPlay {
+    name = 'emperor_never_backfires_with_rolling_stones',
+    category = { 'jokers', 'stardust_crusaders', 'emperor' },
+    jokers = { 'j_jojoker_emperor', 'j_jojoker_rolling_stones' },
+    execute = function()
+        G.jokers.cards[1].ability.extra.numerator = G.jokers.cards[1].ability.extra.denominator
+        Balatest.play_hand { '2S' }
+    end,
+    assert = function()
+        Balatest.assert_chips(7 * G.jokers.cards[1].ability.extra.Xmult * G.jokers.cards[2].ability.extra.XMult, "Emperor backfired despite Rolling Stones")
+    end
+}
+--#endregion

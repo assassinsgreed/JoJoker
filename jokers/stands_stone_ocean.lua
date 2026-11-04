@@ -323,6 +323,7 @@ local burning_down_the_house = {
     cost = 8,
     jtype = "Stand",
     part = "stone_ocean",
+    themes = { support = { jojoker.themes.EMPEROR } },
     blueprint_compat = false,
     perishable_compat = true,
     eternal_compat = false,

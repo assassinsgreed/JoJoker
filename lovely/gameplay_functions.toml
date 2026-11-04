@@ -236,3 +236,29 @@ payload = '''
 if type(jojoker_keep_speed_king_targets_adjacent) == "function" then jojoker_keep_speed_king_targets_adjacent(self) end
 '''
 match_indent = true
+
+## A backfired hand ends the round (Emperor)
+[[patches]]
+[patches.pattern]
+target = "game.lua"
+pattern = "if G.GAME.chips - G.GAME.blind.chips >= 0 or G.GAME.current_round.hands_left < 1 then"
+position = "at"
+payload = '''
+if G.GAME.chips - G.GAME.blind.chips >= 0 or G.GAME.current_round.hands_left < 1 or G.GAME.jojoker_emperor_backfired then
+'''
+match_indent = true
+overwrite = true
+
+## A backfired hand loses the round, before end_of_round so Burning Down the House can save it (Emperor)
+[[patches]]
+[patches.pattern]
+target = "functions/state_events.lua"
+pattern = "SMODS.saved = false"
+position = "before"
+payload = '''
+if G.GAME.jojoker_emperor_backfired then
+    game_over = true
+    G.GAME.jojoker_emperor_backfired = nil
+end
+'''
+match_indent = true

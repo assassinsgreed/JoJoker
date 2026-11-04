@@ -238,3 +238,25 @@ jd_def["j_jojoker_horus"] = {
         { ref_table = "card.ability.extra", ref_value = "chips", retrigger_type = "chips", colour = G.C.CHIPS },
     },
 }
+
+jd_def["j_jojoker_emperor"] = {
+    text = {
+        {
+            border_nodes = {
+                { text = "X" },
+                { ref_table = "card.ability.extra", ref_value = "Xmult", retrigger_type = "exp" },
+            },
+        },
+    },
+    extra = {
+        {
+            { text = "(" },
+            { ref_table = "card.joker_display_values", ref_value = "odds" },
+            { text = ")" },
+        },
+    },
+    extra_config = { colour = G.C.GREEN, scale = 0.3 },
+    calc_function = function(card)
+        card.joker_display_values.odds = localize { type = 'variable', key = "jdis_odds", vars = { card.ability.extra.numerator, card.ability.extra.denominator } }
+    end,
+}

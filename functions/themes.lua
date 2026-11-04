@@ -54,6 +54,7 @@ jojoker.themes = {
     SKIPPING_BLINDS = "skipping_blinds",
     DECK_GROWING = "deck_growing",
     DECK_SHRINKING = "deck_shrinking",
+    EMPEROR = "emperor",
 }
 
 jojoker.similar = {

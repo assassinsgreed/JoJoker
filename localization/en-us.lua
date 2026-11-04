@@ -450,6 +450,13 @@ local loc = {
                     "{C:inactive}Currently: {C:chips}+#2#{}"
                 }
             },
+            j_jojoker_emperor = {
+                name = "Emperor",
+                text = {
+                    "Gives {X:mult,C:white} X#1# {}.",
+                    "Has a {C:green}#2# in #3#{} chance to {C:red}end the run immediately{}."
+                }
+            },
             -- Part 4: Diamond is Unbreakable
             j_jojoker_voice_of_love = {
                 name = "Voice of Love",
@@ -1458,6 +1465,7 @@ local loc = {
             stone_added = "Stone Added",
             k_downgrade_ex = "Downgrade!",
             k_free_ex = "Free!",
+            k_bang_ex = "Bang!",
 
             -- Joker badges
             joker_type_stand_badge = "Stand",

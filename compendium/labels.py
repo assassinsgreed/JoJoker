@@ -63,6 +63,7 @@ LABELS = Labels(
         'skipping_blinds': ('Skipping blinds', 'Rewarded for skipping blinds.'),
         'deck_growing': ('Deck growing', 'Pay out for a bigger deck; Doctor Wu and German Engineering add cards.'),
         'deck_shrinking': ('Deck shrinking', 'Goo Goo Dolls pays out for a thinner deck; these destroy cards.'),
+        'emperor': ('Emperor', "Emperor's huge XMult comes with a chance to end the run; Rolling Stones sets that chance to 0 and Burning Down the House survives it."),
     },
     similar={
         'card_preview': 'Card preview',
@@ -95,6 +96,7 @@ LABELS = Labels(
     conflicts={
         'sets_every_chance_to_0': 'sets every chance to 0',
         'has_a_destroy_chance_that': 'has a destroy chance that Darby Brothers doubles',
+        'has_a_run_ending_chance_that': 'has a run-ending chance that Darby Brothers doubles',
         'strips_the_lucky_enhancement_sword': 'strips the Lucky enhancement Sword of Luck and Pluck relies on',
         'strips_the_stone_cards_these': 'strips the Stone cards these rely on',
         'strips_the_enhancements_spice_girl': 'strips the enhancements Spice Girl wants to eat',

@@ -470,6 +470,7 @@ local rolling_stones = {
     cost = 6,
     jtype = "Stand",
     part = "golden_wind",
+    themes = { support = { jojoker.themes.EMPEROR } },
     conflicts = { darby_brothers = "sets_every_chance_to_0", sword_of_luck_and_pluck = "sets_every_chance_to_0", zombies = "sets_every_chance_to_0", star_platinum = "sets_every_chance_to_0", old_joseph_joestar = "sets_every_chance_to_0", atum = "sets_every_chance_to_0", killer_queen = "sets_every_chance_to_0", gold_experience = "sets_every_chance_to_0", moody_blues = "sets_every_chance_to_0", baby_face = "sets_every_chance_to_0", white_snake = "sets_every_chance_to_0", limp_bizkit = "sets_every_chance_to_0", planet_waves = "sets_every_chance_to_0", talking_head = "sets_every_chance_to_0", hey_ya = "sets_every_chance_to_0", space_trucking = "sets_every_chance_to_0" },
     blueprint_compat = false,
     perishable_compat = true,
