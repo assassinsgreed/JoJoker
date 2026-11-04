@@ -1,8 +1,11 @@
 --#region Sword of Luck and Pluck
+
 -- We cannot reliably test the chance of lucky cards occurring
+
 --#endregion
 
 --#region Thunder Cross Split Attack
+
 Balatest.TestPlay {
     name = 'thunder_cross_split_attack_removes_money_and_increases_xmult_when_playing_a_card',
     category = { 'jokers', 'phantom_blood', 'thunder_cross_split_attack' },
@@ -48,6 +51,7 @@ Balatest.TestPlay {
 --#endregion
 
 --#region Roundabout
+
 Balatest.TestPlay {
     name = 'roundabout_retriggers_scored_card_once_per_unscored_card',
     category = { 'jokers', 'phantom_blood', 'roundabout' },
@@ -99,9 +103,11 @@ Balatest.TestPlay {
         Balatest.assert_chips(10, "Roundabout retriggered when Survivor made every played card score")
     end
 }
+
 --#endregion
 
 --#region Vampiric Touch
+
 Balatest.TestPlay {
     name = 'vampiric_touch_drains_money_from_each_joker_at_end_of_blinds',
     category = { 'jokers', 'phantom_blood', 'vampiric_touch' },
@@ -127,4 +133,5 @@ Balatest.TestPlay {
         Balatest.assert_eq(2, G.jokers.cards[2].sell_cost, "Vampiric Touch' sell value increased when it did not drain") -- has $2 sell value initially
     end
 }
+
 --#endregion

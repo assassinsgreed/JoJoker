@@ -1,4 +1,5 @@
 --#region Epitaph
+
 Balatest.TestPlay {
     name = 'epitaph_adds_top_four_cards_chips_to_score',
     category = { 'jokers', 'golden_wind', 'epitaph' },
@@ -58,9 +59,11 @@ Balatest.TestPlay {
         Balatest.assert_chips(9 + 4 * 0, "Epitaph did not give correct chips based on 0 cards remaining in deck")
     end
 }
+
 --#endregion
 
 --#region Seven Page Muda
+
 Balatest.TestPlay {
     name = 'seven_page_muda_does_not_retrigger_non_seven_card',
     category = { 'jokers', 'golden_wind', 'seven_page_muda' },
@@ -97,4 +100,5 @@ Balatest.TestPlay {
         Balatest.assert_chips(12, "Seven Page Muda did not give correct chips for repeated seven card")
     end
 }
+
 --#endregion

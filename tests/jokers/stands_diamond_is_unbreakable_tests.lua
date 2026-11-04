@@ -1,4 +1,5 @@
 --#region Red Hot Chili Pepper
+
 Balatest.TestPlay {
     name = 'red_hot_chili_pepper_gives_zero_mult_when_no_money',
     category = { 'jokers', 'diamond_is_unbreakable', 'red_hot_chili_pepper' },
@@ -11,6 +12,7 @@ Balatest.TestPlay {
         Balatest.assert_chips(7, "Red Hot Chili Pepper gave mult when no money held")
     end
 }
+
 Balatest.TestPlay {
     name = 'red_hot_chili_pepper_gives_mult_based_on_money',
     category = { 'jokers', 'diamond_is_unbreakable', 'red_hot_chili_pepper' },
@@ -24,6 +26,7 @@ Balatest.TestPlay {
         Balatest.assert_chips(expected_chips, "Red Hot Chili Pepper didn't give mult based on money")
     end
 }
+
 Balatest.TestPlay {
     name = 'red_hot_chili_pepper_mult_does_not_go_stale_when_money_is_lost',
     category = { 'jokers', 'diamond_is_unbreakable', 'red_hot_chili_pepper' },
@@ -41,8 +44,10 @@ Balatest.TestPlay {
         Balatest.assert_chips(49, "Red Hot Chili Pepper gave stale mult after money was lost")
     end
 }
+
 --#endregion
 --#region The Hand
+
 Balatest.TestPlay {
     name = 'the_hand_debuffs_a_rank_on_blind_start',
     category = { 'jokers', 'diamond_is_unbreakable', 'the_hand' },
@@ -61,6 +66,7 @@ Balatest.TestPlay {
         Balatest.assert_chips(5, "The Hand didn't debuff the played card")
     end
 }
+
 -- Fix
 Balatest.TestPlay {
     name = 'the_hand_buffs_rank_on_either_side_of_debuffed_rank',
@@ -85,8 +91,10 @@ Balatest.TestPlay {
         Balatest.assert(G.GAME.chips > 1000, "The Hand didn't buff the ranks on either side of debuffed rank") -- Arbitrary assertion that scored chips exceed a threshold
     end
 }
+
 --#endregion
 --#region Superfly
+
 Balatest.TestPlay {
     name = 'superfly_disables_boss_blind_on_sell',
     category = { 'jokers', 'diamond_is_unbreakable', 'superfly' },
@@ -101,8 +109,10 @@ Balatest.TestPlay {
         Balatest.assert_eq(G.GAME.blind.disabled, true, "Superfly didn't disable boss blind on sell")
     end
 }
+
 --#endregion
 --#region Crazy Diamond
+
 Balatest.TestPlay {
     name = 'crazy_diamond_gives_no_mult_for_non_diamonds_cards',
     category = { 'jokers', 'diamond_is_unbreakable', 'crazy_diamond' },
@@ -114,6 +124,7 @@ Balatest.TestPlay {
         Balatest.assert_chips(7, "Crazy Diamond incorrectly gave mult for non-diamonds card")
     end
 }
+
 Balatest.TestPlay {
     name = 'crazy_diamond_gives_mult_for_single_diamonds_card',
     category = { 'jokers', 'diamond_is_unbreakable', 'crazy_diamond' },
@@ -125,6 +136,7 @@ Balatest.TestPlay {
         Balatest.assert_chips(7 * (G.jokers.cards[1].ability.extra.mult + 1), "Crazy Diamond incorrectly gave mult for single diamonds card")
     end
 }
+
 Balatest.TestPlay {
     name = 'crazy_diamond_gives_mult_for_each_scored_diamonds_card',
     category = { 'jokers', 'diamond_is_unbreakable', 'crazy_diamond' },
@@ -136,8 +148,10 @@ Balatest.TestPlay {
         Balatest.assert_chips(60 * (G.jokers.cards[1].ability.extra.mult * 5 + 4), "Crazy Diamond incorrectly gave mult for multiple scored diamonds cards")
     end
 }
+
 --#endregion
 --#region Bad Company
+
 Balatest.TestPlay {
     name = 'bad_company_gives_no_mult_if_deck_size_is_same_as_starting_deck_size',
     category = { 'jokers', 'diamond_is_unbreakable', 'bad_company' },
@@ -149,6 +163,7 @@ Balatest.TestPlay {
         Balatest.assert_chips(7, "Bad Company incorrectly gave mult for deck size same as starting deck size")
     end
 }
+
 Balatest.TestPlay {
     name = 'bad_company_gives_mult_if_deck_size_exceeds_starting_deck_size',
     category = { 'jokers', 'diamond_is_unbreakable', 'bad_company' },
@@ -167,8 +182,10 @@ Balatest.TestPlay {
         Balatest.assert_chips(7 * (G.jokers.cards[1].ability.extra.mult * 2 + 1), "Bad Company did not give mult when deck size exceeded starting deck size")
     end
 }
+
 --#endregion
 --#region Cheap Trick
+
 Balatest.TestPlay {
     name = 'cheap_trick_gives_default_xmult_when_no_jokers_destroyed',
     category = { 'jokers', 'diamond_is_unbreakable', 'cheap_trick' },
@@ -180,6 +197,7 @@ Balatest.TestPlay {
         Balatest.assert_chips(7, "Cheap Trick did not give correct xmult when no jokers were destroyed")
     end
 }
+
 Balatest.TestPlay {
     name = 'cheap_trick_gives_xmult_for_each_joker_destroyed',
     category = { 'jokers', 'diamond_is_unbreakable', 'cheap_trick' },
@@ -192,8 +210,10 @@ Balatest.TestPlay {
         Balatest.assert_chips(math.floor(7 * G.jokers.cards[1].ability.extra.Xmult), "Cheap Trick did not give correct xmult when a joker was destroyed")
     end
 }
+
 --#endregion
 --#region Cinderella
+
 Balatest.TestPlay {
     name = 'cinderella_converts_first_scored_card_into_queen_or_king',
     category = { 'jokers', 'diamond_is_unbreakable', 'cinderella' },
@@ -262,9 +282,11 @@ Balatest.TestPlay {
         Balatest.assert_eq(queen_or_king_count, 1, "Cinderella converted cards after first hand was played")
     end
 }
+
 --#endregion
 
 --#region Atom Heart Father
+
 Balatest.TestPlay {
     name = 'atom_heart_father_gives_xmult_for_each_seal_in_deck',
     category = { 'jokers', 'diamond_is_unbreakable', 'atom_heart_father' },
@@ -278,9 +300,11 @@ Balatest.TestPlay {
         Balatest.assert_eq(xmult, 1 + G.jokers.cards[1].ability.extra.Xmult_mod, "Atom Heart Father did not give correct XMult for each seal in deck")
     end
 }
+
 --#endregion
 
 --#region Surface
+
 Balatest.TestPlay {
     name = 'surface_copies_leftmost_compatible_joker',
     category = { 'jokers', 'diamond_is_unbreakable', 'surface', 'voice_of_love' },
@@ -320,8 +344,10 @@ Balatest.TestPlay {
         Balatest.assert_chips(7 * total_joker_mult, "Surface copied something when it was leftmost joker")
     end
 }
+
 --#endregion
 --#region Killer Queen
+
 Balatest.TestPlay {
     name = 'killer_queen_does_not_rewind_blind_that_is_not_a_boss',
     category = { 'jokers', 'diamond_is_unbreakable', 'killer_queen' },
@@ -337,13 +363,17 @@ Balatest.TestPlay {
     end
 }
 -- The way Balatest invokes blinds prevents boss blinds from being seen as bosses, so no test for rewinding...
+
 --#endregion
 
 --#region Heaven's Door
+
 -- The way Balatest invokes blinds prevents boss blinds from being seen as bosses, so no test for tag generation...
+
 --#endregion
 
 --#region The Lock
+
 Balatest.TestPlay {
     name = 'the_lock_increases_mult_for_any_first_hand',
     category = { 'jokers', 'diamond_is_unbreakable', 'the_lock' },
@@ -385,9 +415,11 @@ Balatest.TestPlay {
         Balatest.assert_eq(G.jokers.cards[1].ability.extra.curr_mult, 0, "The Lock did not reset mult when not playing the most played hand")
     end
 }
+
 --#endregion
 
 --#region Harvest
+
 Balatest.TestPlay {
     name = 'harvest_gives_money_for_each_spending_threshold_reached',
     category = { 'jokers', 'diamond_is_unbreakable', 'harvest' },
@@ -401,6 +433,7 @@ Balatest.TestPlay {
         Balatest.assert_dollars(2 * G.jokers.cards[1].ability.extra.money_mod, "Harvest did not give money for each spending threshold reached")
     end
 }
+
 Balatest.TestPlay {
     name = 'harvest_gives_nothing_below_the_spending_threshold',
     category = { 'jokers', 'diamond_is_unbreakable', 'harvest' },
@@ -415,6 +448,7 @@ Balatest.TestPlay {
     end
 }
 local harvest_bought_card
+
 Balatest.TestPlay {
     name = 'harvest_tracks_money_spent_buying_cards',
     category = { 'jokers', 'diamond_is_unbreakable', 'harvest' },
@@ -432,6 +466,7 @@ Balatest.TestPlay {
         Balatest.assert_eq(G.GAME.jojoker_shop_dollars_spent, harvest_bought_card.cost, "Harvest did not track money spent buying a card")
     end
 }
+
 Balatest.TestPlay {
     name = 'harvest_tracks_money_spent_redeeming_vouchers',
     category = { 'jokers', 'diamond_is_unbreakable', 'harvest' },
@@ -446,6 +481,7 @@ Balatest.TestPlay {
         Balatest.assert_eq(G.GAME.jojoker_shop_dollars_spent, 10 - G.GAME.dollars, "Harvest did not track money spent redeeming a voucher")
     end
 }
+
 Balatest.TestPlay {
     name = 'harvest_tracks_money_spent_opening_boosters',
     category = { 'jokers', 'diamond_is_unbreakable', 'harvest' },
@@ -460,6 +496,7 @@ Balatest.TestPlay {
         Balatest.assert_eq(G.GAME.jojoker_shop_dollars_spent, 10 - G.GAME.dollars, "Harvest did not track money spent opening a booster")
     end
 }
+
 Balatest.TestPlay {
     name = 'harvest_does_not_track_money_spent_rerolling',
     category = { 'jokers', 'diamond_is_unbreakable', 'harvest' },
@@ -476,6 +513,7 @@ Balatest.TestPlay {
         Balatest.assert_eq(G.GAME.jojoker_shop_dollars_spent or 0, 0, "Harvest tracked money spent rerolling")
     end
 }
+
 Balatest.TestPlay {
     name = 'harvest_pays_for_spending_before_it_was_owned',
     category = { 'jokers', 'diamond_is_unbreakable', 'harvest' },
@@ -503,8 +541,10 @@ Balatest.TestPlay {
         Balatest.assert_dollars(G.jokers.cards[1].ability.extra.money_mod, "Harvest did not pay for spending from before it was owned")
     end
 }
+
 --#endregion
 --#region Echoes Act 3
+
 Balatest.TestPlay {
     name = 'echoes_act_3_destroys_queens_held_in_hand_and_gains_xmult',
     category = { 'jokers', 'diamond_is_unbreakable', 'echoes_act_3' },
@@ -526,6 +566,7 @@ Balatest.TestPlay {
         Balatest.assert_chips(7 * echoes.ability.extra.Xmult, "Echoes Act 3 did not apply the gained Xmult to the hand that destroyed the Queens") -- High Card (5) + 2
     end
 }
+
 Balatest.TestPlay {
     name = 'echoes_act_3_does_not_destroy_played_queens',
     category = { 'jokers', 'diamond_is_unbreakable', 'echoes_act_3' },
@@ -543,6 +584,7 @@ Balatest.TestPlay {
         Balatest.assert_chips(15, "Echoes Act 3 changed the score without destroying a Queen") -- High Card (5) + Queen (10)
     end
 }
+
 Balatest.TestPlay {
     name = 'echoes_act_3_copied_by_surface_only_scales_once',
     category = { 'jokers', 'diamond_is_unbreakable', 'echoes_act_3' },
@@ -561,8 +603,10 @@ Balatest.TestPlay {
         Balatest.assert_chips(7 * echoes.ability.extra.Xmult ^ 2, "Surface did not copy Echoes Act 3's Xmult")
     end
 }
+
 --#endregion
 --#region Aqua Necklace
+
 Balatest.TestPlay {
     name = 'aqua_necklace_does_not_give_chips_without_flush',
     category = { 'jokers', 'diamond_is_unbreakable', 'aqua_necklace' },
@@ -574,6 +618,7 @@ Balatest.TestPlay {
         Balatest.assert_chips(12, "Aqua Necklace gave chips for a hand without a Flush")
     end
 }
+
 Balatest.TestPlay {
     name = 'aqua_necklace_gives_chips_for_flush',
     category = { 'jokers', 'diamond_is_unbreakable', 'aqua_necklace' },
@@ -585,6 +630,7 @@ Balatest.TestPlay {
         Balatest.assert_chips(544, "Aqua Necklace did not give chips for a Flush")
     end
 }
+
 Balatest.TestPlay {
     name = 'aqua_necklace_gives_chips_for_straight_flush',
     category = { 'jokers', 'diamond_is_unbreakable', 'aqua_necklace' },
@@ -596,8 +642,10 @@ Balatest.TestPlay {
         Balatest.assert_chips(1600, "Aqua Necklace did not give chips for a hand containing a Flush")
     end
 }
+
 --#endregion
 --#region Highway Star
+
 Balatest.TestPlay {
     name = 'highway_star_absorbs_extra_chips_and_mult_from_scoring_card',
     category = { 'jokers', 'diamond_is_unbreakable', 'highway_star' },
@@ -620,6 +668,7 @@ Balatest.TestPlay {
         Balatest.assert_eq(king.ability.perma_mult, 0, "Highway Star did not remove the scoring card's extra mult")
     end
 }
+
 Balatest.TestPlay {
     name = 'highway_star_scores_absorbed_bonuses_instead_of_the_card',
     category = { 'jokers', 'diamond_is_unbreakable', 'highway_star' },
@@ -639,6 +688,7 @@ Balatest.TestPlay {
         Balatest.assert_chips(140, "Highway Star did not score the absorbed chips and mult exactly once")
     end
 }
+
 Balatest.TestPlay {
     name = 'highway_star_absorbs_from_every_scoring_card',
     category = { 'jokers', 'diamond_is_unbreakable', 'highway_star' },
@@ -657,6 +707,7 @@ Balatest.TestPlay {
         Balatest.assert_eq(G.jokers.cards[1].ability.extra.mult, 2, "Highway Star did not absorb extra mult from the second scoring card")
     end
 }
+
 Balatest.TestPlay {
     name = 'highway_star_does_not_absorb_from_unscored_card',
     category = { 'jokers', 'diamond_is_unbreakable', 'highway_star' },
@@ -674,6 +725,7 @@ Balatest.TestPlay {
         Balatest.assert_eq(find_playing_card('5', 'Hearts').ability.perma_bonus, 20, "Highway Star removed extra chips from an unscored card")
     end
 }
+
 Balatest.TestPlay {
     name = 'highway_star_absorbs_chips_the_first_napkin_adds_before_scoring',
     category = { 'jokers', 'diamond_is_unbreakable', 'highway_star' },
@@ -689,4 +741,5 @@ Balatest.TestPlay {
         Balatest.assert_eq(G.jokers.cards[2].ability.extra.chips, 13, "Highway Star did not absorb the chips The First Napkin gave the King")
     end
 }
+
 --#endregion

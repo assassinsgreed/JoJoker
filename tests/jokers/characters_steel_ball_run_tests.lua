@@ -1,4 +1,5 @@
 --#region Danny (SBR)
+
 Balatest.TestPlay {
     name = 'danny_sbr_does_not_destroy_a_joker_if_it_is_the_only_one',
     category = { 'jokers', 'steel_ball_run', 'danny_sbr' },
@@ -63,9 +64,11 @@ Balatest.TestPlay {
         Balatest.assert_eq(#G.jokers.cards, 2, "Danny SBR destroyed an eternal joker")
     end
 }
+
 --#endregion
 
 --#region Slow Dancer
+
 Balatest.TestPlay {
     name = 'slow_dancer_gives_mult_for_each_scored_card_greater_than_previous_hand',
     category = { 'jokers', 'steel_ball_run', 'slow_dancer' },
@@ -80,6 +83,7 @@ Balatest.TestPlay {
         Balatest.assert_chips(48 * (2 + G.jokers.cards[1].ability.extra.mult * 3), "Slow Dancer did not give the correct multiplier for scored cards greater than previous hand")
     end
 }
+
 Balatest.TestPlay {
     name = 'slow_dancer_does_not_give_mult_for_same_number_of_scored_cards_as_previous_hand',
     category = { 'jokers', 'steel_ball_run', 'slow_dancer' },
@@ -94,6 +98,7 @@ Balatest.TestPlay {
         Balatest.assert_chips(7, "Slow Dancer did not give the correct multiplier for scored cards greater than previous hand")
     end
 }
+
 Balatest.TestPlay {
     name = 'slow_dancer_does_not_give_mult_for_fewer_scored_cards_than_previous_hand',
     category = { 'jokers', 'steel_ball_run', 'slow_dancer' },
@@ -108,8 +113,10 @@ Balatest.TestPlay {
         Balatest.assert_chips(7, "Slow Dancer did not give the correct multiplier for scored cards greater than previous hand")
     end
 }
+
 --#endregion
 --#region Valkyrie
+
 Balatest.TestPlay {
     name = 'Valkyrie_counts_down_only_scored_cards',
     category = { 'jokers', 'steel_ball_run', 'valkyrie' },
@@ -163,9 +170,11 @@ Balatest.TestPlay {
         Balatest.assert_chips(7 + G.jokers.cards[1].ability.extra.chip_payout, "Valkyrie did not give chips for remaining cards in the deck")
     end
 }
+
 --#endregion
 
 --#region Sugar Mountain
+
 Balatest.TestPlay {
     name = 'sugar_mountain_gives_money_on_shop_entry',
     category = { 'jokers', 'steel_ball_run', 'sugar_mountain' },
@@ -258,4 +267,5 @@ Balatest.TestPlay {
         Balatest.assert_eq(count_sugar_mountains(), 1, "Sugar Mountain was destroyed even though the threshold was hit")
     end
 }
+
 --#endregion

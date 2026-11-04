@@ -1,4 +1,5 @@
 --#region German Engineering
+
 Balatest.TestPlay {
     name = 'german_engineering_levels_up_high_card_when_single_nine_played',
     category = { 'jokers', 'battle_tendency', 'german_engineering' },
@@ -11,6 +12,7 @@ Balatest.TestPlay {
         Balatest.assert_eq(high_card_hand_level, 2, "High Card hand wasn't levelled up to level 2")
     end
 }
+
 Balatest.TestPlay {
     name = 'german_engineering_does_not_level_up_high_card_when_not_single_nine_played',
     category = { 'jokers', 'battle_tendency', 'german_engineering' },
@@ -23,6 +25,7 @@ Balatest.TestPlay {
         Balatest.assert_eq(high_card_hand_level, 1, "High Card hand was levelled up when it shouldn't have")
     end
 }
+
 Balatest.TestPlay {
     name = 'german_engineering_duplicates_played_single_9',
     category = { 'jokers', 'battle_tendency', 'german_engineering' },
@@ -42,6 +45,7 @@ Balatest.TestPlay {
         Balatest.assert_eq(nine_of_spades_count, 2, "German Engineering did not duplicate single 9 played")
     end
 }
+
 Balatest.TestPlay {
     name = 'german_engineering_does_not_duplicate_cards_when_not_single_nine_played',
     category = { 'jokers', 'battle_tendency', 'german_engineering' },
@@ -61,9 +65,11 @@ Balatest.TestPlay {
         Balatest.assert_eq(nine_count, 4, "German Engineering duplicated 9 card after multiple played")
     end
 }
+
 --#endregion
 
 --#region Clacker Balls
+
 Balatest.TestPlay {
     name = 'clacker_balls_do_not_retrigger_when_scored_hand_greater_than_3',
     category = { 'jokers', 'battle_tendency', 'clacker_balls' },
@@ -75,6 +81,7 @@ Balatest.TestPlay {
         Balatest.assert_chips(208, "Clacker Balls retriggered when scored hand is greater than 3")
     end
 }
+
 Balatest.TestPlay {
     name = 'clacker_balls_retrigger_when_scored_hand_equal_to_3',
     category = { 'jokers', 'battle_tendency', 'clacker_balls' },
@@ -86,6 +93,7 @@ Balatest.TestPlay {
         Balatest.assert_chips(126, "Clacker Balls retriggered when scored hand is equal to 3")
     end
 }
+
 Balatest.TestPlay {
     name = 'clacker_balls_do_not_retrigger_when_scored_hand_less_than_3',
     category = { 'jokers', 'battle_tendency', 'clacker_balls' },
@@ -97,6 +105,7 @@ Balatest.TestPlay {
         Balatest.assert_chips(36, "Clacker Balls retriggered when scored hand is less than 3")
     end
 }
+
 Balatest.TestPlay {
     name = 'clacker_balls_retriggers_apply_through_blueprint',
     category = { 'jokers', 'battle_tendency', 'clacker_balls' },
@@ -109,4 +118,5 @@ Balatest.TestPlay {
         Balatest.assert_chips(44, "Clacker Balls retriggers were not copied by Blueprint")
     end
 }
+
 --#endregion

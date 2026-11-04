@@ -1,4 +1,5 @@
 --#region Soft & Wet
+
 Balatest.TestPlay {
     name = 'soft_and_wet_gains_no_mult_when_no_enhancements_scored',
     category = { 'jokers', 'jojolion', 'soft_and_wet' },
@@ -10,6 +11,7 @@ Balatest.TestPlay {
         Balatest.assert_eq(G.jokers.cards[1].ability.extra.mult, 0, "Soft & Wet incorrectly gained mult when scoring non-enhanced cards")
     end
 }
+
 Balatest.TestPlay {
     name = 'soft_and_wet_gains_mult_for_each_enhanced_card_scored',
     category = { 'jokers', 'jojolion', 'soft_and_wet' },
@@ -26,6 +28,7 @@ Balatest.TestPlay {
         Balatest.assert_eq(G.jokers.cards[1].ability.extra.mult, G.jokers.cards[1].ability.extra.mult_mod * 3, "Soft & Wet did not gain expected mult when removing enhancements from 3 cards")
     end
 }
+
 Balatest.TestPlay {
     name = 'soft_and_wet_removes_enhancements_from_scored_cards',
     category = { 'jokers', 'jojolion', 'soft_and_wet' },
@@ -44,8 +47,10 @@ Balatest.TestPlay {
         Balatest.assert(not anyEnhanced, "Cards in deck should not have enhancements")
     end
 }
+
 --#endregion
 --#region Paper Moon King
+
 Balatest.TestPlay {
     name = 'paper_moon_king_enables_pareidolia',
     category = { 'jokers', 'jojolion', 'paper_moon_king' },
@@ -57,8 +62,10 @@ Balatest.TestPlay {
         Balatest.assert_chips(9, "Paper Moon King did not see played 2 as a face card")
     end
 }
+
 --#endregion
 --#region Milagro Man
+
 Balatest.TestPlay {
     name = 'milagro_man_doubles_earned_interest',
     category = { 'jokers', 'jojolion', 'milagro_man' },
@@ -72,8 +79,10 @@ Balatest.TestPlay {
         Balatest.assert_dollars(12, "Milagro Man did not double earned interest") -- 10 / 5 + starting money
     end
 }
+
 --#endregion
 --#region I Am A Rock
+
 Balatest.TestPlay {
     name = 'i_am_a_rock_adds_stone_enhancement_to_unenhanced_and_unscored_cards',
     category = { 'jokers', 'jojolion', 'i_am_a_rock' },
@@ -95,6 +104,7 @@ Balatest.TestPlay {
         Balatest.assert(isTwoStone and isThreeStone and not isFourStone and not isFiveStone, "I Am A Rock did not convert unscored 2 and 3 to stone cards")
     end
 }
+
 Balatest.TestPlay {
     name = 'i_am_a_rock_does_not_enhance_unscored_cards_with_enhancements',
     category = { 'jokers', 'jojolion', 'i_am_a_rock' },
@@ -112,8 +122,10 @@ Balatest.TestPlay {
         Balatest.assert(not isTwoStone, "I Am A Rock converted unscored 2 with an existing enhancement")
     end
 }
+
 --#endregion
 --#region California King Bed
+
 Balatest.TestPlay {
     name = 'california_king_bed_adds_xmult_before_scoring',
     category = { 'jokers', 'jojolion', 'california_king_bed' },
@@ -125,6 +137,7 @@ Balatest.TestPlay {
         Balatest.assert_chips(162, "California King Bed did not add mult before scoring")
     end
 }
+
 Balatest.TestPlay {
     name = 'california_king_bed_adds_xmult_for_each_unique_hand',
     category = { 'jokers', 'jojolion', 'california_king_bed' },
@@ -138,6 +151,7 @@ Balatest.TestPlay {
         Balatest.assert_eq(G.jokers.cards[1].ability.extra.Xmult, 1 + 2 * G.jokers.cards[1].ability.extra.Xmult_mod, "California King Bed did not earn XMult for two unique hand types")
     end
 }
+
 Balatest.TestPlay {
     name = 'california_king_bed_resets_xmult_at_end_of_round',
     category = { 'jokers', 'jojolion', 'california_king_bed' },
@@ -150,8 +164,10 @@ Balatest.TestPlay {
         Balatest.assert_eq(G.jokers.cards[1].ability.extra.Xmult, 1, "California King Bed did not reset XMult at end of round")
     end
 }
+
 --#endregion
 --#region Doctor Wu
+
 Balatest.TestPlay {
     name = 'doctor_wu_adds_stone_card_to_deck_at_start_of_blinds',
     category = { 'jokers', 'jojolion', 'doctor_wu' },
@@ -167,8 +183,10 @@ Balatest.TestPlay {
         Balatest.assert(hasStoneCard, "Doctor Wu did not add a stone card to the deck at the start of blinds")
     end
 }
+
 --#endregion
 --#region Wonder of U
+
 Balatest.TestPlay {
     name = 'wonder_of_u_destroys_all_other_jokers_including_eternal_and_gains_xmult_for_each',
     category = { 'jokers', 'jojolion', 'wonder_of_u' },
@@ -183,8 +201,10 @@ Balatest.TestPlay {
         Balatest.assert_eq(G.jokers.cards[1].ability.extra.Xmult, 1 + 2 * G.jokers.cards[1].ability.extra.Xmult_mod, "Wonder of U did not gain XMult for each destroyed joker")
     end
 }
+
 --#endregion
 --#region Paisley Park
+
 Balatest.TestPlay {
     name = 'paisley_park_increases_booster_pack_count_in_shop',
     category = { 'jokers', 'jojolion', 'paisley_park' },
@@ -198,8 +218,10 @@ Balatest.TestPlay {
     end
 }
 -- No test for increased booster pack contents; the options presented are random
+
 --#endregion
 --#region Space Trucking
+
 Balatest.TestPlay {
     name = 'space_trucking_makes_held_consumeables_negative',
     category = { 'jokers', 'jojolion', 'space_trucking' },
@@ -250,8 +272,10 @@ Balatest.TestPlay {
     end
 }
 -- No test for increased booster pack contents; the options presented are random
+
 --#endregion
 --#region Fun Fun Fun
+
 Balatest.TestPlay {
     name = 'fun_fun_fun_discards_held_card_and_gives_it_permanent_mult',
     category = { 'jokers', 'jojolion', 'fun_fun_fun' },
@@ -326,8 +350,10 @@ Balatest.TestPlay {
         Balatest.assert_chips((60 + 4 * 4) * (7 + 3), "Fun Fun Fun's discarded card did not score its permanent mult")
     end
 }
+
 --#endregion
 --#region Blue Hawaii
+
 Balatest.TestPlay {
     name = 'blue_hawaii_transfers_enhancement_to_unenhanced_scored_cards',
     category = { 'jokers', 'jojolion', 'blue_hawaii' },
@@ -346,6 +372,7 @@ Balatest.TestPlay {
         Balatest.assert(find_playing_card('2', 'Spades').config.center == G.P_CENTERS.c_base, "Blue Hawaii did not remove the enhancement from the source card")
     end
 }
+
 Balatest.TestPlay {
     name = 'blue_hawaii_copies_to_at_most_max_targets_cards',
     category = { 'jokers', 'jojolion', 'blue_hawaii' },
@@ -364,6 +391,7 @@ Balatest.TestPlay {
         Balatest.assert(find_playing_card('2', 'Spades').config.center == G.P_CENTERS.c_base, "Blue Hawaii did not remove the enhancement from the source card")
     end
 }
+
 Balatest.TestPlay {
     name = 'blue_hawaii_only_transfers_from_the_first_enhanced_card',
     category = { 'jokers', 'jojolion', 'blue_hawaii' },
@@ -381,6 +409,7 @@ Balatest.TestPlay {
         Balatest.assert(find_playing_card('2', 'Hearts').config.center ~= G.P_CENTERS.c_base, "Blue Hawaii did not enhance the unenhanced scored card")
     end
 }
+
 Balatest.TestPlay {
     name = 'blue_hawaii_does_not_enhance_unscored_cards',
     category = { 'jokers', 'jojolion', 'blue_hawaii' },
@@ -398,6 +427,7 @@ Balatest.TestPlay {
         Balatest.assert(find_playing_card('5', 'Hearts').config.center == G.P_CENTERS.c_base, "Blue Hawaii enhanced an unscored card")
     end
 }
+
 Balatest.TestPlay {
     name = 'blue_hawaii_keeps_enhancement_without_unenhanced_targets',
     category = { 'jokers', 'jojolion', 'blue_hawaii' },
@@ -413,6 +443,7 @@ Balatest.TestPlay {
         Balatest.assert_eq(count_enhanced_playing_cards('c_base'), 1, "Blue Hawaii stripped an enhancement with nothing to copy it to")
     end
 }
+
 Balatest.TestPlay {
     name = 'blue_hawaii_copied_enhancements_score_this_hand',
     category = { 'jokers', 'jojolion', 'blue_hawaii' },
@@ -430,8 +461,10 @@ Balatest.TestPlay {
         Balatest.assert_chips((30 + 3 * 2 + 2 * 30) * 3, "Blue Hawaii's copied enhancements did not score")
     end
 }
+
 --#endregion
 --#region Speed King
+
 Balatest.TestPlay {
     name = 'speed_king_retriggers_the_joker_to_its_right',
     category = { 'jokers', 'jojolion', 'speed_king' },
@@ -444,6 +477,7 @@ Balatest.TestPlay {
         Balatest.assert_chips((5 + 2) * (1 + 15 + 15), "Speed King did not retrigger the joker to its right")
     end
 }
+
 Balatest.TestPlay {
     name = 'speed_king_does_not_retrigger_the_joker_to_its_left',
     category = { 'jokers', 'jojolion', 'speed_king' },
@@ -455,6 +489,7 @@ Balatest.TestPlay {
         Balatest.assert_chips((5 + 2) * (1 + 15), "Speed King retriggered the joker to its left")
     end
 }
+
 Balatest.TestPlay {
     name = 'speed_king_heats_the_joker_each_round',
     category = { 'jokers', 'jojolion', 'speed_king' },
@@ -467,6 +502,7 @@ Balatest.TestPlay {
         Balatest.assert_eq(#G.jokers.cards, 2, "Speed King burnt out the joker too early")
     end
 }
+
 Balatest.TestPlay {
     name = 'speed_king_burns_out_the_joker_and_heats_the_next_one',
     category = { 'jokers', 'jojolion', 'speed_king' },
@@ -484,6 +520,7 @@ Balatest.TestPlay {
         Balatest.assert(not G.jokers.cards[1].debuff, "Speed King stayed debuffed after the next blind started")
     end
 }
+
 Balatest.TestPlay {
     name = 'speed_king_heated_joker_snaps_back_when_dragged',
     category = { 'jokers', 'jojolion', 'speed_king' },
@@ -497,6 +534,7 @@ Balatest.TestPlay {
         Balatest.assert_eq(G.jokers.cards[2].config.center.key, 'j_jojoker_space_trucking', "The heated joker left Speed King's right side")
     end
 }
+
 Balatest.TestPlay {
     name = 'speed_king_pulls_the_heated_joker_along_when_moved',
     category = { 'jokers', 'jojolion', 'speed_king' },
@@ -511,6 +549,7 @@ Balatest.TestPlay {
         Balatest.assert_eq(G.jokers.cards[2].config.center.key, 'j_jojoker_space_trucking', "The heated joker did not follow Speed King")
     end
 }
+
 Balatest.TestPlay {
     name = 'speed_king_locks_the_next_joker_on_blind_start_after_a_sale',
     category = { 'jokers', 'jojolion', 'speed_king' },
@@ -525,6 +564,7 @@ Balatest.TestPlay {
         Balatest.assert(not G.jokers.cards[1].debuff, "Speed King stayed debuffed after the next blind started")
     end
 }
+
 Balatest.TestPlay {
     name = 'speed_king_waits_for_blind_start_after_the_heated_joker_is_sold',
     category = { 'jokers', 'jojolion', 'speed_king' },
@@ -540,6 +580,7 @@ Balatest.TestPlay {
         Balatest.assert(G.jokers.cards[1].debuff, "Speed King was not debuffed after its locked joker was sold")
     end
 }
+
 Balatest.TestPlay {
     name = 'speed_king_is_debuffed_after_burning_out_its_joker',
     category = { 'jokers', 'jojolion', 'speed_king' },
@@ -554,6 +595,7 @@ Balatest.TestPlay {
         Balatest.assert(G.jokers.cards[1].debuff, "Speed King was not debuffed after burning out its joker")
     end
 }
+
 Balatest.TestPlay {
     name = 'speed_king_does_not_retrigger_while_debuffed',
     category = { 'jokers', 'jojolion', 'speed_king' },
@@ -568,6 +610,7 @@ Balatest.TestPlay {
         Balatest.assert_chips((5 + 2) * (1 + 15), "Speed King retriggered while debuffed")
     end
 }
+
 Balatest.TestPlay {
     name = 'speed_king_does_not_heat_while_debuffed',
     category = { 'jokers', 'jojolion', 'speed_king' },
@@ -583,6 +626,7 @@ Balatest.TestPlay {
         Balatest.assert_eq(G.jokers.cards[1].ability.extra.target_id, G.jokers.cards[2].sort_id, "Speed King lost its lock while debuffed")
     end
 }
+
 Balatest.TestPlay {
     name = 'speed_king_is_disabled_by_an_eternal_joker',
     category = { 'jokers', 'jojolion', 'speed_king' },
@@ -596,6 +640,7 @@ Balatest.TestPlay {
         Balatest.assert_eq(#G.jokers.cards, 2, "Speed King destroyed an Eternal joker")
     end
 }
+
 Balatest.TestPlay {
     name = 'speed_king_recovers_when_the_eternal_joker_is_gone',
     category = { 'jokers', 'jojolion', 'speed_king' },
@@ -612,4 +657,5 @@ Balatest.TestPlay {
         Balatest.assert_eq(G.jokers.cards[1].ability.extra.target_id, G.jokers.cards[2].sort_id, "Speed King did not heat the joker once it was no longer Eternal")
     end
 }
+
 --#endregion

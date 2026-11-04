@@ -1,4 +1,5 @@
 --#region Shizuka
+
 Balatest.TestPlay {
     name = 'shizuka_does_not_level_up_hand_when_wrong_hand_played',
     category = { 'jokers', 'diamond_is_unbreakable', 'shizuka' },
@@ -12,6 +13,7 @@ Balatest.TestPlay {
         Balatest.assert_eq(pair_hand_level, 1, "Pair hand wasn't level 1")
     end
 }
+
 Balatest.TestPlay {
     name = 'shizuka_levels_up_hand_3_times_when_correct_hand_played',
     category = { 'jokers', 'diamond_is_unbreakable', 'shizuka' },
@@ -25,8 +27,10 @@ Balatest.TestPlay {
         Balatest.assert_eq(two_pair_hand_level, 4, "Shizuka didn't level up 2 pair hand after it was played")
     end
 }
+
 --#endregion
 --#region Yoshikage Kira
+
 Balatest.TestPlay {
     name = 'yoshikage_kira_increases_hands_by_1_when_added',
     category = { 'jokers', 'diamond_is_unbreakable', 'yoshikage_kira' },
@@ -40,6 +44,7 @@ Balatest.TestPlay {
         Balatest.assert_eq(hands, 2, "Yoshikage Kira didn't increase hands by 1 when added")
     end
 }
+
 Balatest.TestPlay {
     name = 'yoshikage_kira_decreases_hands_by_1_when_removed',
     category = { 'jokers', 'diamond_is_unbreakable', 'yoshikage_kira' },
@@ -53,6 +58,7 @@ Balatest.TestPlay {
         Balatest.assert_eq(hands, 1, "Yoshikage Kira didn't decrease hands by 1 when removed")
     end
 }
+
 Balatest.TestPlay {
     name = 'yoshikage_kira_does_not_drain_hands_after_debuff_cycle',
     category = { 'jokers', 'diamond_is_unbreakable', 'yoshikage_kira' },
@@ -74,9 +80,11 @@ Balatest.TestPlay {
         Balatest.assert_eq(G.GAME.round_resets.hands, 2, "Yoshikage Kira permanently reduced round reset hands after a debuff cycle")
     end
 }
+
 --#endregion
 
 --#region Reimi
+
 Balatest.TestPlay {
     name = 'reimi_creates_random_spectral_card_at_end_of_boss_blind',
     category = { 'jokers', 'diamond_is_unbreakable', 'reimi' },
@@ -121,9 +129,11 @@ Balatest.TestPlay {
         Balatest.assert_eq(spectrals[2].config.center.set, "Planet", "Reimi replaced an existing consumeable")
     end
 }
+
 --#endregion
 
 --#region Angelo
+
 Balatest.TestPlay {
     name = 'angelo_retriggers_face_and_stone_cards_when_both_score',
     category = { 'jokers', 'diamond_is_unbreakable', 'angelo' },
@@ -205,9 +215,11 @@ Balatest.TestPlay {
         Balatest.assert_chips((10 + 2 + 2 + 50) * 2, "Angelo counted a face card that did not score")
     end
 }
+
 --#endregion
 
 --#region Hayato
+
 Balatest.TestPlay {
     name = 'hayato_draws_every_second_card_face_down',
     category = { 'jokers', 'diamond_is_unbreakable', 'hayato' },
@@ -392,4 +404,5 @@ Balatest.TestPlay {
         Balatest.assert_eq(find_playing_card('King', 'Spades').ability.jojoker_played_face_down, nil, "Hayato left a face down mark on a played card")
     end
 }
+
 --#endregion

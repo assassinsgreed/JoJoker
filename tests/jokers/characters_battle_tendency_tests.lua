@@ -1,4 +1,5 @@
 --#region Joseph Joestar
+
 Balatest.TestPlay {
     name = 'joseph_does_not_level_up_hand_when_wrong_hand_played',
     category = { 'jokers', 'battle_tendency', 'joseph_joestar' },
@@ -13,6 +14,7 @@ Balatest.TestPlay {
         Balatest.assert_eq(two_pair_hand_level, 1, "Two Pair hand wasn't level 1")
     end
 }
+
 Balatest.TestPlay {
     name = 'joseph_levels_up_hand_when_correct_hand_played',
     category = { 'jokers', 'battle_tendency', 'joseph_joestar' },
@@ -27,6 +29,7 @@ Balatest.TestPlay {
         Balatest.assert_eq(two_pair_hand_level, 2, "Joseph didn't level up 2 pair hand after it was played")
     end
 }
+
 Balatest.TestPlay {
     name = 'joseph_levels_up_hand_multiple_times_per_blind',
     category = { 'jokers', 'battle_tendency', 'joseph_joestar' },
@@ -42,6 +45,7 @@ Balatest.TestPlay {
         Balatest.assert_eq(two_pair_hand_level, 3, "Joseph didn't level up two pair hand to level 3, after it was played twice")
     end
 }
+
 Balatest.TestPlay {
     name = 'joseph_does_not_level_up_two_pair_contained_in_full_house',
     category = { 'jokers', 'battle_tendency', 'joseph_joestar' },
@@ -56,8 +60,10 @@ Balatest.TestPlay {
         Balatest.assert_eq(two_pair_hand_level, 1, "Joseph levelled up Two Pair hand when Full House was played, but should not have")
     end
 }
+
 --#endregion
 --#region Esidisi
+
 Balatest.TestPlay {
     name = 'esidisi_xmult_does_not_increase_when_score_on_fire',
     category = { 'jokers', 'battle_tendency', 'esidisi' },
@@ -69,6 +75,7 @@ Balatest.TestPlay {
         Balatest.assert_eq(G.jokers.cards[1].ability.extra.Xmult, 1, "Esidisi Xmult was changed when score did not catch fire")
     end
 }
+
 Balatest.TestPlay {
     name = 'esidisi_xmult_increases_when_score_on_fire',
     category = { 'jokers', 'battle_tendency', 'esidisi' },
@@ -80,6 +87,7 @@ Balatest.TestPlay {
         Balatest.assert_eq(G.jokers.cards[1].ability.extra.Xmult, 2, "Esidisi didn't increase Xmult when score caught fire")
     end
 }
+
 Balatest.TestPlay {
     name = 'esidisi_xmult_increases_when_score_on_fire_in_subsequent_rounds',
     category = { 'jokers', 'battle_tendency', 'esidisi' },
@@ -93,6 +101,7 @@ Balatest.TestPlay {
         Balatest.assert_eq(G.jokers.cards[1].ability.extra.Xmult, 3, "Esidisi didn't increase Xmult when score caught fire")
     end
 }
+
 Balatest.TestPlay {
     name = 'esidisi_gives_enhanced_xmult_when_score_does_not_catch_fire',
     category = { 'jokers', 'battle_tendency', 'esidisi' },
@@ -105,8 +114,10 @@ Balatest.TestPlay {
         Balatest.assert_chips(14, "Esidisi didn't apply increased Xmult when score was not on fire")
     end
 }
+
 --#endregion
 --#region Speedwagon
+
 Balatest.TestPlay {
     name = 'speedwagon_gives_no_money_when_discarding',
     category = { 'jokers', 'battle_tendency', 'speedwagon_bt' },
@@ -118,6 +129,7 @@ Balatest.TestPlay {
         Balatest.assert_dollars(0, "Speedwagon gave money when not playing a hand")
     end
 }
+
 Balatest.TestPlay {
     name = 'speedwagon_gives_money_when_hand_played',
     category = { 'jokers', 'battle_tendency', 'speedwagon_bt' },
@@ -129,6 +141,7 @@ Balatest.TestPlay {
         Balatest.assert_dollars(G.jokers.cards[1].ability.extra.money_mod, "Speedwagon did not give money when playing a hand")
     end
 }
+
 Balatest.TestPlay {
     name = 'speedwagon_gives_money_regardless_of_number_of_scored_cards',
     category = { 'jokers', 'battle_tendency', 'speedwagon_bt' },
@@ -140,8 +153,10 @@ Balatest.TestPlay {
         Balatest.assert_dollars(G.jokers.cards[1].ability.extra.money_mod, "Speedwagon gave too much money when playing a hand")
     end
 }
+
 --#endregion
 --#region Caesar
+
 Balatest.TestPlay {
     name = 'caesar_gives_stone_cards_xmult_and_destroys_them',
     category = { 'jokers', 'battle_tendency', 'caesar' },
@@ -160,8 +175,10 @@ Balatest.TestPlay {
         Balatest.assert_eq(count_enhanced_playing_cards('m_stone'), 0, "Caesar didn't destroy stone cards after scoring")
     end
 }
+
 --#endregion
 --#region Kars (Ultimate Lifeform)
+
 Balatest.TestPlay {
     name = 'kars_gives_1x_mult_by_default',
     category = { 'jokers', 'battle_tendency', 'kars_ultimate_lifeform' },
@@ -173,6 +190,7 @@ Balatest.TestPlay {
         Balatest.assert_eq(G.jokers.cards[1].ability.extra.Xmult, 1, "Kars (Ultimate Lifeform) does not start with 1x mult")
     end
 }
+
 Balatest.TestPlay {
     name = 'kars_gives_xmult_boost_once_with_duplicate_planets_played',
     category = { 'jokers', 'battle_tendency', 'kars_ultimate_lifeform' },
@@ -187,6 +205,7 @@ Balatest.TestPlay {
         Balatest.assert_eq(G.jokers.cards[1].ability.extra.Xmult, expectedXmult, "Kars (Ultimate Lifeform) did not give expected xmult for duplicate planet cards")
     end
 }
+
 Balatest.TestPlay {
     name = 'kars_gives_xmult_boost_for_each_unique_played_planet',
     category = { 'jokers', 'battle_tendency', 'kars_ultimate_lifeform' },
@@ -201,6 +220,7 @@ Balatest.TestPlay {
         Balatest.assert_eq(G.jokers.cards[1].ability.extra.Xmult, expectedXmult, "Kars (Ultimate Lifeform) did not give expected xmult for unique planet cards")
     end
 }
+
 Balatest.TestPlay {
     name = 'kars_transforms_to_stop_thinking_when_expired',
     category = { 'jokers', 'battle_tendency', 'kars_ultimate_lifeform' },
@@ -213,8 +233,10 @@ Balatest.TestPlay {
         Balatest.assert_eq(G.jokers.cards[1].config.center, G.P_CENTERS['j_jojoker_kars_stopped_thinking'], "Kars (Ultimate Lifeform) did not transform to Kars (Stopped Thinking) once expired")
     end
 }
+
 --#endregion
 --#region Suzie Q
+
 Balatest.TestPlay {
     name = 'suzi_q_gives_gold_seal_to_scored_queen_with_no_other_seals',
     category = { 'jokers', 'battle_tendency', 'suzi_q' },
@@ -289,9 +311,11 @@ Balatest.TestPlay {
         Balatest.assert_eq(fiveSeal, nil, "Suzie Q incorrectly gave gold seal to scored non-queen")
     end
 }
+
 --#endregion
 
 --#region NYPD
+
 Balatest.TestPlay {
     name = 'nypd_gives_no_mult_for_non_clubs_cards',
     category = { 'jokers', 'battle_tendency', 'nypd' },
@@ -303,6 +327,7 @@ Balatest.TestPlay {
         Balatest.assert_chips(7, "NYPD incorrectly gave mult for non-clubs card")
     end
 }
+
 Balatest.TestPlay {
     name = 'nypd_gives_mult_for_single_clubs_card',
     category = { 'jokers', 'battle_tendency', 'nypd' },
@@ -314,6 +339,7 @@ Balatest.TestPlay {
         Balatest.assert_chips(7 * (G.jokers.cards[1].ability.extra.mult + 1), "NYPD incorrectly gave mult for single clubs card")
     end
 }
+
 Balatest.TestPlay {
     name = 'nypd_gives_mult_for_each_scored_clubs_card',
     category = { 'jokers', 'battle_tendency', 'nypd' },
@@ -325,9 +351,11 @@ Balatest.TestPlay {
         Balatest.assert_chips(60 * (G.jokers.cards[1].ability.extra.mult * 5 + 4), "NYPD incorrectly gave mult for multiple scored clubs cards")
     end
 }
+
 --#endregion
 
 --#region Santana
+
 Balatest.TestPlay {
     name = 'santana_increases_chips_of_scored_face_cards',
     category = { 'jokers', 'battle_tendency', 'santana' },
@@ -389,9 +417,11 @@ Balatest.TestPlay {
         Balatest.assert_eq(fivePermaChips, 0, "Santana incorrectly increased chips of non-face card.")
     end
 }
+
 --#endregion
 
 --#region Stroheim
+
 Balatest.TestPlay {
     name = 'stroheim_gives_chips_on_played_hand',
     category = { 'jokers', 'battle_tendency', 'stroheim' },
@@ -429,9 +459,11 @@ Balatest.TestPlay {
         Balatest.assert_eq(G.jokers.cards[1].config.center, G.P_CENTERS['j_jojoker_stroheim_german_engineering'], "Stroheim did not evolve when chips hit zero.")
     end
 }
+
 --#endregion
 
 --#region Stroheim (German Engineering)
+
 Balatest.TestPlay {
     name = 'stroheim_german_engineering_gives_mult_on_played_hand',
     category = { 'jokers', 'battle_tendency', 'stroheim_german_engineering' },
@@ -493,8 +525,10 @@ Balatest.TestPlay {
         Balatest.assert_eq(G.P_CENTERS['j_jojoker_stroheim']:in_pool(), true, "Stroheim was missing from the pool when his evolved form was absent")
     end
 }
+
 --#endregion
 --#region Smokey
+
 Balatest.TestPlay {
     name = 'smokey_frees_one_shop_item_after_small_blind',
     category = { 'jokers', 'battle_tendency', 'smokey' },
@@ -570,6 +604,7 @@ Balatest.TestPlay {
 }
 
 local bought
+
 Balatest.TestPlay {
     name = 'smokey_free_shop_card_costs_nothing_to_buy',
     category = { 'jokers', 'battle_tendency', 'smokey' },
@@ -594,8 +629,10 @@ Balatest.TestPlay {
         Balatest.assert_neq(bought.area, G.shop_jokers, "Smokey's free shop card was not bought")
     end
 }
+
 --#endregion
 --#region Tequila Joseph
+
 Balatest.TestPlay {
     name = 'tequila_joseph_turns_kings_and_jacks_into_queens_for_four_of_a_kind',
     category = { 'jokers', 'battle_tendency', 'tequila_joseph' },
@@ -607,6 +644,7 @@ Balatest.TestPlay {
         Balatest.assert_eq(G.GAME.last_hand_played, 'Four of a Kind', "Tequila Joseph did not count Kings and Jacks as Queens for hand detection")
     end
 }
+
 Balatest.TestPlay {
     name = 'tequila_joseph_breaks_straight_made_of_face_cards',
     category = { 'jokers', 'battle_tendency', 'tequila_joseph' },
@@ -618,6 +656,7 @@ Balatest.TestPlay {
         Balatest.assert_eq(G.GAME.last_hand_played, 'Three of a Kind', "Tequila Joseph did not turn J-Q-K of a straight into three Queens")
     end
 }
+
 Balatest.TestPlay {
     name = 'tequila_joseph_does_not_change_number_cards',
     category = { 'jokers', 'battle_tendency', 'tequila_joseph' },
@@ -629,6 +668,7 @@ Balatest.TestPlay {
         Balatest.assert_eq(G.GAME.last_hand_played, 'Two Pair', "Tequila Joseph changed the rank of number cards")
     end
 }
+
 Balatest.TestPlay {
     name = 'face_cards_keep_their_rank_without_tequila_joseph',
     category = { 'jokers', 'battle_tendency', 'tequila_joseph' },
@@ -639,6 +679,7 @@ Balatest.TestPlay {
         Balatest.assert_eq(G.GAME.last_hand_played, 'Two Pair', "Face cards counted as Queens without Tequila Joseph held")
     end
 }
+
 Balatest.TestPlay {
     name = 'debuffed_tequila_joseph_does_not_change_face_cards',
     category = { 'jokers', 'battle_tendency', 'tequila_joseph' },
@@ -651,6 +692,7 @@ Balatest.TestPlay {
         Balatest.assert_eq(G.GAME.last_hand_played, 'Two Pair', "Debuffed Tequila Joseph still counted face cards as Queens")
     end
 }
+
 Balatest.TestPlay {
     name = 'tequila_joseph_does_not_permanently_turn_face_cards_into_queens',
     category = { 'jokers', 'battle_tendency', 'tequila_joseph' },
@@ -677,6 +719,7 @@ Balatest.TestPlay {
         Balatest.assert_eq(count_playing_cards('Queen'), 0, "A face card was permanently converted into a Queen")
     end
 }
+
 Balatest.TestPlay {
     name = 'tequila_joseph_lets_suzi_q_seal_scored_king',
     category = { 'jokers', 'battle_tendency', 'tequila_joseph' },
@@ -697,6 +740,7 @@ Balatest.TestPlay {
         Balatest.assert_eq(king.seal, 'Gold', "Suzi Q did not treat a King as a Queen while Tequila Joseph was held")
     end
 }
+
 Balatest.TestPlay {
     name = 'tequila_joseph_scores_king_and_jack_as_pair',
     category = { 'jokers', 'battle_tendency', 'tequila_joseph' },
@@ -708,8 +752,10 @@ Balatest.TestPlay {
         Balatest.assert_chips((10 + 10 + 10) * 2, "Tequila Joseph did not score a King and Jack as a Pair") -- Pair base 10 chips x2 mult, plus 10 per face card
     end
 }
+
 --#endregion
 --#region Wamuu
+
 Balatest.TestPlay {
     name = 'wamuu_gives_chips_and_mult_per_empty_consumable_slot',
     category = { 'jokers', 'battle_tendency', 'wamuu' },
@@ -723,6 +769,7 @@ Balatest.TestPlay {
         Balatest.assert_chips((5 + 2 + extra.chips_mod * 2) * (1 + extra.mult_mod * 2), "Wamuu did not give a bonus for both empty consumable slots") -- High Card base 5 chips x1 mult
     end
 }
+
 Balatest.TestPlay {
     name = 'wamuu_does_not_count_occupied_consumable_slots',
     category = { 'jokers', 'battle_tendency', 'wamuu' },
@@ -737,6 +784,7 @@ Balatest.TestPlay {
         Balatest.assert_chips((5 + 2 + extra.chips_mod) * (1 + extra.mult_mod), "Wamuu counted an occupied consumable slot as empty")
     end
 }
+
 Balatest.TestPlay {
     name = 'wamuu_gives_nothing_when_consumable_slots_are_full',
     category = { 'jokers', 'battle_tendency', 'wamuu' },
@@ -750,6 +798,7 @@ Balatest.TestPlay {
         Balatest.assert_chips(5 + 2, "Wamuu gave a bonus with every consumable slot full")
     end
 }
+
 Balatest.TestPlay {
     name = 'wamuu_treats_negative_consumable_slot_as_empty',
     category = { 'jokers', 'battle_tendency', 'wamuu' },
@@ -765,6 +814,7 @@ Balatest.TestPlay {
         Balatest.assert_chips((5 + 2 + extra.chips_mod) * (1 + extra.mult_mod), "Wamuu counted a Negative consumable as occupying a slot")
     end
 }
+
 Balatest.TestPlay {
     name = 'wamuu_treats_all_negative_consumables_as_empty_slots',
     category = { 'jokers', 'battle_tendency', 'wamuu' },
@@ -781,6 +831,7 @@ Balatest.TestPlay {
         Balatest.assert_chips((5 + 2 + extra.chips_mod * 2) * (1 + extra.mult_mod * 2), "Wamuu counted Negative consumables as occupying slots")
     end
 }
+
 Balatest.TestPlay {
     name = 'wamuu_counts_slot_freed_by_using_a_consumable',
     category = { 'jokers', 'battle_tendency', 'wamuu' },
@@ -796,4 +847,5 @@ Balatest.TestPlay {
         Balatest.assert_chips((5 + 2 + extra.chips_mod) * (1 + extra.mult_mod), "Wamuu did not count the slot freed by using a consumable")
     end
 }
+
 --#endregion

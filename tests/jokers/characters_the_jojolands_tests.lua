@@ -1,4 +1,5 @@
 --#region Jodio Joestar
+
 Balatest.TestPlay {
     name = 'jodio_joestar_gives_money_for_scored_gold_cards',
     category = { 'jokers', 'jodio_joestar' },
@@ -15,4 +16,5 @@ Balatest.TestPlay {
         Balatest.assert_dollars(G.jokers.cards[1].ability.extra.money_mod * 2, "Jodio Joestar did not give the correct amount of money for scored gold cards")
     end
 }
+
 --#endregion

@@ -1,4 +1,5 @@
 --#region Mandom
+
 Balatest.TestPlay {
     name = 'mandom_retriggers_only_first_6_scored_cards',
     category = { 'jokers', 'steel_ball_run', 'mandom' },
@@ -13,8 +14,10 @@ Balatest.TestPlay {
         Balatest.assert_eq(G.jokers.cards[1].ability.extra.cards, 0, "Mandom had retriggers remaining")
     end
 }
+
 --#endregion
 --#region Chocolate Disco
+
 Balatest.TestPlay {
     name = 'chocolate_disco_does_not_trigger_mult_for_even_card_on_odd_ante',
     category = { 'jokers', 'steel_ball_run', 'chocolate_disco' },
@@ -143,8 +146,10 @@ Balatest.TestPlay {
         Balatest.assert_chips(15, "Chocolate Disco gave mult for a Queen on an even ante")
     end
 }
+
 --#endregion
 --#region Oh Lonesome Me
+
 Balatest.TestPlay {
     name = 'oh_lonesome_me_increases_hand_size',
     category = { 'jokers', 'steel_ball_run', 'oh_lonesome_me' },
@@ -189,8 +194,10 @@ Balatest.TestPlay {
         Balatest.assert_eq(G.hand.config.card_limit, 8 + G.jokers.cards[1].ability.extra.hand_size, "Oh Lonesome Me decreased hand size when debuffed, but should not have")
     end
 }
+
 --#endregion
 --#region Hey Ya!
+
 Balatest.TestPlay {
     name = 'hey_ya_converts_scored_cards_to_lucky',
     category = { 'jokers', 'steel_ball_run', 'hey_ya' },
@@ -264,9 +271,11 @@ Balatest.TestPlay {
         Balatest.assert_chips(315, "Hey Ya! did not trigger mult bonus from lucky card")
     end
 }
+
 --#endregion
 
 --#region TATTOO YOU!
+
 Balatest.TestPlay {
     name = 'tattoo_you_converts_exactly_one_scored_non_jack_to_jack',
     category = { 'jokers', 'steel_ball_run', 'tattoo_you' },
@@ -312,9 +321,11 @@ Balatest.TestPlay {
         Balatest.assert_eq(jack_count, 2, "TATTOO YOU! converted cards when only Jacks were scored")
     end
 }
+
 --#endregion
 
 --#region Civil War
+
 -- Can't skip boosters with Civil War so we just validate chip gain in match
 Balatest.TestPlay {
     name = 'civil_war_gives_extra_chips_after_skipping_booster_pack',
@@ -328,9 +339,11 @@ Balatest.TestPlay {
         Balatest.assert_chips(27, "Civil War did not give extra chips after skipping booster pack")
     end
 }
+
 --#endregion
 
 --#region Ball Breaker
+
 Balatest.TestPlay {
     name = 'ball_breaker_gives_mult_for_fibonnaci_numbers',
     category = { 'jokers', 'steel_ball_run', 'ball_breaker' },
@@ -354,9 +367,11 @@ Balatest.TestPlay {
         Balatest.assert_chips(9, "Ball Breaker gave mult for non-Fibonacci number")
     end
 }
+
 --#endregion
 
 --#region Love Train
+
 Balatest.TestPlay {
     name = 'love_train_prevents_glass_cards_from_shattering',
     category = { 'jokers', 'steel_ball_run', 'love_train' },
@@ -374,9 +389,11 @@ Balatest.TestPlay {
         Balatest.assert_eq(#G.deck.cards, 5, "Love Train did not prevent glass card from shattering")
     end
 }
+
 --#endregion
 
 --#region In a Silent Way
+
 Balatest.TestPlay {
     name = 'in_a_silent_way_gains_mult_when_booster_opened',
     category = { 'jokers', 'steel_ball_run', 'in_a_silent_way' },
@@ -391,9 +408,11 @@ Balatest.TestPlay {
         Balatest.assert_eq(G.jokers.cards[1].ability.extra.current_mult, G.jokers.cards[1].ability.extra.mult_mod, "In a Silent Way did not gain mult for opened booster pack")
     end
 }
+
 --#endregion
 
 --#region D4C
+
 Balatest.TestPlay {
     name = 'd4c_spawns_an_eternal_negative_copy',
     category = { 'jokers', 'steel_ball_run', 'd4c' },
@@ -591,8 +610,10 @@ Balatest.TestPlay {
         Balatest.assert(not G.jokers.cards[3].ability.perishable, "D4C's replacement kept perishable despite not being perishable compatible")
     end
 }
+
 --#endregion
 --#region Tomb of the Boom
+
 Balatest.TestPlay {
     name = 'tomb_of_the_boom_pulls_every_remaining_copy_over_hand_size',
     category = { 'jokers', 'steel_ball_run', 'tomb_of_the_boom' },
@@ -680,8 +701,10 @@ Balatest.TestPlay {
         Balatest.assert_eq(count_cards_in_area(G.deck, 3), 1, "Tomb of the Boom pulled cards on a hand after the first")
     end
 }
+
 --#endregion
 --#region Scary Monsters
+
 Balatest.TestPlay {
     name = 'scary_monsters_randomizes_the_suit_of_every_scored_card',
     category = { 'jokers', 'steel_ball_run', 'scary_monsters' },
@@ -755,8 +778,10 @@ Balatest.TestPlay {
         Balatest.assert_eq(count_playing_cards('2', 'Hearts'), 0, "Scary Monsters changed the suit of a played card that did not score")
     end
 }
+
 --#endregion
 --#region Boku no Rhythm wo Kiitekure
+
 Balatest.TestPlay {
     name = 'boku_no_rhythm_wo_kiitekure_gives_an_extra_discard',
     category = { 'jokers', 'steel_ball_run', 'boku_no_rhythm_wo_kiitekure' },
@@ -832,4 +857,5 @@ Balatest.TestPlay {
         Balatest.assert_chips((10 + 2 + 2) * 2, "Boku no Rhythm wo Kiitekure changed the score of a played hand")
     end
 }
+
 --#endregion

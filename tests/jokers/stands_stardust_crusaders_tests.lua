@@ -1,4 +1,5 @@
 --#region Magician's Red
+
 Balatest.TestPlay {
     name = 'magician_red_gives_no_money_when_score_does_not_catch_fire',
     category = { 'jokers', 'stardust_crusaders', 'magician_red' },
@@ -10,6 +11,7 @@ Balatest.TestPlay {
         Balatest.assert_dollars(0, "Magician's Red incorrectly gave money when score did not catch fire")
     end
 }
+
 Balatest.TestPlay {
     name = 'magician_red_gives_correct_money_when_score_catches_fire',
     category = { 'jokers', 'stardust_crusaders', 'magician_red' },
@@ -21,8 +23,10 @@ Balatest.TestPlay {
         Balatest.assert_dollars(5, "Magician's Red did not give expected money when score caught fire")
     end
 }
+
 --#endregion
 --#region Yellow Temperance
+
 Balatest.TestPlay {
     name = 'yellow_temperance_retriggers_scored_face_cards',
     category = { 'jokers', 'stardust_crusaders', 'yellow_temperance' },
@@ -34,6 +38,7 @@ Balatest.TestPlay {
         Balatest.assert_chips(100, "Yellow Temperance did not retrigger scored face cards")
     end
 }
+
 Balatest.TestPlay {
     name = 'yellow_temperance_does_not_retrigger_unscored_face_cards',
     category = { 'jokers', 'stardust_crusaders', 'yellow_temperance' },
@@ -45,6 +50,7 @@ Balatest.TestPlay {
         Balatest.assert_chips(16, "Yellow Temperance retrigger unscored face cards")
     end
 }
+
 Balatest.TestPlay {
     name = 'yellow_temperance_does_not_retrigger_non_face_cards',
     category = { 'jokers', 'stardust_crusaders', 'yellow_temperance' },
@@ -56,8 +62,10 @@ Balatest.TestPlay {
         Balatest.assert_chips(7, "Yellow Temperance retriggered scored non-face cards")
     end
 }
+
 --#endregion
 --#region Star Platinum
+
 Balatest.TestPlay {
     name = 'star_platinum_gives_one_extra_hand_when_triggered',
     category = { 'jokers', 'stardust_crusaders', 'star_platinum' },
@@ -71,8 +79,10 @@ Balatest.TestPlay {
         Balatest.assert_eq(G.GAME.current_round.hands_left, 3, "Star Platinum did not give a hand when triggering")
     end
 }
+
 --#endregion
 --#region Wheel of Fortune
+
 Balatest.TestPlay {
     name = 'wheel_of_fortune_guarantees_tarot_effect',
     category = { 'jokers', 'stardust_crusaders', 'wheel_of_fortune' },
@@ -86,8 +96,10 @@ Balatest.TestPlay {
         Balatest.assert(has_edition, "Wheel of Fortune did not guarantee tarot effect")
     end
 }
+
 --#endregion
 --#region The Lovers
+
 Balatest.TestPlay {
     name = 'the_lovers_increases_multiplier_of_scored_heart_cards',
     category = { 'jokers', 'stardust_crusaders', 'the_lovers' },
@@ -159,8 +171,10 @@ Balatest.TestPlay {
         Balatest.assert_eq(fivePermaMult, 0, "The Lovers incorrectly increased mult of third non-heart card.")
     end
 }
+
 --#endregion
 --#region Anubis
+
 Balatest.TestPlay {
     name = 'anubis_does_not_give_chips_when_no_jokers_sold',
     category = { 'jokers', 'stardust_crusaders', 'anubis' },
@@ -172,6 +186,7 @@ Balatest.TestPlay {
         Balatest.assert_chips(7, "Anubis incorrectly gave extra chips when no jokers were sold")
     end
 }
+
 Balatest.TestPlay {
     name = 'anubis_gives_additional_chips_when_a_joker_is_sold',
     category = { 'jokers', 'stardust_crusaders', 'anubis' },
@@ -186,8 +201,10 @@ Balatest.TestPlay {
         Balatest.assert_neq(7, "Anubis did not give extra chips when a joker was sold")
     end
 }
+
 --#endregion
 --#region Sethan
+
 Balatest.TestPlay {
     name = 'sethan_reduces_level_of_played_hand_to_1_and_gains_xmult_for_each_level_drained',
     category = { 'jokers', 'stardust_crusaders', 'sethan' },
@@ -205,8 +222,10 @@ Balatest.TestPlay {
         Balatest.assert_eq(G.jokers.cards[1].ability.extra.Xmult, expectedXmult, "Sethan did not gain expected xmult for each level drained")
     end
 }
+
 --#endregion
 --#region The World
+
 Balatest.TestPlay {
     name = 'the_world_gives_1x_mult_by_default',
     category = { 'jokers', 'stardust_crusaders', 'the_world' },
@@ -218,6 +237,7 @@ Balatest.TestPlay {
         Balatest.assert_eq(G.jokers.cards[1].ability.extra.Xmult, 1, "The World does not start with 1x mult")
     end
 }
+
 Balatest.TestPlay {
     name = 'the_world_gives_xmult_boost_once_with_duplicate_tarots_played',
     category = { 'jokers', 'stardust_crusaders', 'the_world' },
@@ -232,6 +252,7 @@ Balatest.TestPlay {
         Balatest.assert_eq(G.jokers.cards[1].ability.extra.Xmult, expectedXmult, "The World did not give expected xmult for duplicate tarot cards")
     end
 }
+
 Balatest.TestPlay {
     name = 'the_world_gives_xmult_boost_for_each_unique_played_tarot',
     category = { 'jokers', 'stardust_crusaders', 'the_world' },
@@ -246,8 +267,10 @@ Balatest.TestPlay {
         Balatest.assert_eq(G.jokers.cards[1].ability.extra.Xmult, expectedXmult, "The World did not give expected xmult for unique tarot cards")
     end
 }
+
 --#endregion
 --#region Death Thirteen
+
 Balatest.TestPlay {
     name = 'death_thirteen_mult_does_not_increase_when_in_slot_1',
     category = { 'jokers', 'stardust_crusaders', 'death_thirteen' },
@@ -259,6 +282,7 @@ Balatest.TestPlay {
         Balatest.assert_eq(G.jokers.cards[1].ability.extra.mult, 1, "Death Thirteen mult increased when in slot 1")
     end
 }
+
 Balatest.TestPlay {
     name = 'death_thirteen_mult_increases_by_2x_sell_value_of_left_joker',
     category = { 'jokers', 'stardust_crusaders', 'death_thirteen' },
@@ -272,10 +296,13 @@ Balatest.TestPlay {
         Balatest.assert_eq(#G.jokers.cards, 1, "Death Thirteen did not destroy the left joker")
     end
 }
+
 --#endregion
 
 --#region Tenore Sax
+
 local tenore_sax_original_hand = {}
+
 Balatest.TestPlay {
     name = 'tenore_sax_shuffles_unplayed_cards_back_into_deck',
     category = { 'jokers', 'stardust_crusaders', 'tenore_sax' },
@@ -301,9 +328,11 @@ Balatest.TestPlay {
         Balatest.assert_eq(are_hands_the_same, false, "Tenore Sax did not shuffle unplayed cards back into the deck")
     end
 }
+
 --#endregion
 
 --#region Khnum
+
 Balatest.TestPlay {
     name = 'khnum_copies_rightmost_compatible_joker',
     category = { 'jokers', 'stardust_crusaders', 'khnum', 'voice_of_love' },
@@ -343,8 +372,10 @@ Balatest.TestPlay {
         Balatest.assert_chips(7 * total_joker_mult, "khnum copied something when it was rightmost joker")
     end
 }
+
 --#endregion
 --#region Hierophant Green
+
 Balatest.TestPlay {
     name = 'hierophant_green_does_not_give_mult_when_exceeding_rank_diff',
     category = { 'jokers', 'stardust_crusaders', 'hierophant_green' },
@@ -404,9 +435,11 @@ Balatest.TestPlay {
         Balatest.assert_chips(782, "Hierophant Green did not give mult for cards within threshold with ace gap")
     end
 }
+
 --#endregion
 
 --#region The Fool
+
 Balatest.TestPlay {
     name = 'the_fool_transforms_on_blind_start',
     category = { 'jokers', 'stardust_crusaders', 'the_fool' },
@@ -455,8 +488,10 @@ Balatest.TestPlay {
         end
     end
 }
+
 --#endregion
 --#region Thoth
+
 Balatest.TestPlay {
     name = 'thoth_prerolls_contents_of_shop_booster_packs',
     category = { 'jokers', 'stardust_crusaders', 'thoth' },
@@ -472,6 +507,7 @@ Balatest.TestPlay {
         end
     end
 }
+
 Balatest.TestPlay {
     name = 'thoth_does_not_preroll_booster_packs_when_not_owned',
     category = { 'jokers', 'stardust_crusaders', 'thoth' },
@@ -485,6 +521,7 @@ Balatest.TestPlay {
         end
     end
 }
+
 Balatest.TestPlay {
     name = 'thoth_prerolls_booster_packs_when_bought_mid_shop',
     category = { 'jokers', 'stardust_crusaders', 'thoth' },
@@ -500,6 +537,7 @@ Balatest.TestPlay {
     end
 }
 local thoth_previewed_keys = {}
+
 Balatest.TestPlay {
     name = 'thoth_opened_booster_pack_matches_preview',
     category = { 'jokers', 'stardust_crusaders', 'thoth' },
@@ -524,6 +562,7 @@ Balatest.TestPlay {
         end
     end
 }
+
 Balatest.TestPlay {
     name = 'thoth_prerolled_contents_survive_reload',
     category = { 'jokers', 'stardust_crusaders', 'thoth' },
@@ -547,6 +586,7 @@ Balatest.TestPlay {
         end
     end
 }
+
 Balatest.TestPlay {
     name = 'thoth_preview_hides_when_hover_stops',
     category = { 'jokers', 'stardust_crusaders', 'thoth' },
@@ -563,9 +603,11 @@ Balatest.TestPlay {
         Balatest.assert_eq(G.thoth_booster_preview, nil, "Thoth preview stayed visible after hover stopped")
     end
 }
+
 --#endregion
 
 --#region The Sun
+
 Balatest.TestPlay {
     name = 'the_sun_gives_chips_for_pair',
     category = { 'jokers', 'stardust_crusaders', 'the_sun' },
@@ -589,9 +631,11 @@ Balatest.TestPlay {
         Balatest.assert_chips(108, "The Sun gave chips for hand containing Pair")
     end
 }
+
 --#endregion
 
 --#region Hermit Purple
+
 Balatest.TestPlay {
     name = 'hermit_purple_does_not_level_down_hand_below_one',
     category = { 'jokers', 'stardust_crusaders', 'hermit_purple' },
@@ -605,6 +649,7 @@ Balatest.TestPlay {
         Balatest.assert_eq(two_pair_hand_level, 1, "Two Pair hand wasn't level 1")
     end
 }
+
 Balatest.TestPlay {
     name = 'hermit_purple_levels_up_hand_when_correct_hand_played',
     category = { 'jokers', 'stardust_crusaders', 'hermit_purple' },
@@ -618,6 +663,7 @@ Balatest.TestPlay {
         Balatest.assert_eq(two_pair_hand_level, 1 + G.jokers.cards[1].ability.extra.level_change_up, "Hermit Purple didn't level up 2 pair hand after it was played")
     end
 }
+
 Balatest.TestPlay {
     name = 'hermit_purple_levels_up_hand_multiple_times_per_blind',
     category = { 'jokers', 'stardust_crusaders', 'hermit_purple' },
@@ -632,6 +678,7 @@ Balatest.TestPlay {
         Balatest.assert_eq(two_pair_hand_level, 1 + 2 * G.jokers.cards[1].ability.extra.level_change_up, "Hermit Purple didn't level up two pair hand to level 3, after it was played twice")
     end
 }
+
 Balatest.TestPlay {
     name = 'hermit_purple_does_not_level_up_two_pair_contained_in_full_house',
     category = { 'jokers', 'stardust_crusaders', 'hermit_purple' },
@@ -646,6 +693,7 @@ Balatest.TestPlay {
         Balatest.assert_eq(two_pair_hand_level, 1, "Hermit Purple leveled up Two Pair hand when Full House was played, but should not have")
     end
 }
+
 Balatest.TestPlay {
     name = 'hermit_purple_levels_down_chosen_hand_if_different_hand_played',
     category = { 'jokers', 'stardust_crusaders', 'hermit_purple' },
@@ -660,7 +708,9 @@ Balatest.TestPlay {
         Balatest.assert_eq(two_pair_hand_level, 5 - G.jokers.cards[1].ability.extra.level_change_down, "Hermit Purple did not level down Two Pair hand when different hand was played")
     end
 }
+
 --#endregion--#region Atum
+
 Balatest.TestPlay {
     name = 'atum_gives_seal_to_scored_card_without_seal',
     category = { 'jokers', 'stardust_crusaders', 'atum' },
@@ -760,8 +810,10 @@ Balatest.TestPlay {
         Balatest.assert_eq(G.deck.cards[1].seal, nil, "Atum gave a seal even though the chance was 0")
     end
 }
+
 --#endregion
 --#region Horus
+
 Balatest.TestPlay {
     name = 'horus_gives_starting_chips',
     category = { 'jokers', 'stardust_crusaders', 'horus' },
@@ -841,9 +893,11 @@ Balatest.TestPlay {
         Balatest.assert_chips(97, "Horus did not give its scaled chips") -- 5 from High Card + 2 from card + 90 from Horus
     end
 }
+
 --#endregion
 
 --#region Emperor
+
 Balatest.TestPlay {
     name = 'emperor_gives_xmult_when_it_does_not_backfire',
     category = { 'jokers', 'stardust_crusaders', 'emperor' },
@@ -927,9 +981,11 @@ Balatest.TestPlay {
         Balatest.assert_chips(7 * G.jokers.cards[1].ability.extra.Xmult * G.jokers.cards[2].ability.extra.XMult, "Emperor backfired despite Rolling Stones")
     end
 }
+
 --#endregion
 
 --#region Cream
+
 Balatest.TestPlay {
     name = 'cream_gives_mult_per_level_of_the_highest_hand',
     category = { 'jokers', 'stardust_crusaders', 'cream' },
@@ -1000,4 +1056,5 @@ Balatest.TestPlay {
         Balatest.assert_eq(get_cream_mult(G.jokers.cards[1]), 2 * G.jokers.cards[1].ability.extra.mult_per_level, "Cream did not use Pluto's level for the highest hand")
     end
 }
+
 --#endregion

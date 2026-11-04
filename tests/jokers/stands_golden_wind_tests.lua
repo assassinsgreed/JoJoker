@@ -1,4 +1,5 @@
 --#region Sex Pistols
+
 Balatest.TestPlay {
     name = 'sex_pistols_no_mult_when_invalid_rank',
     category = { 'jokers', 'golden_wind', 'sex_pistols' },
@@ -11,6 +12,7 @@ Balatest.TestPlay {
         Balatest.assert_eq(G.jokers.cards[1].ability.extra.mult, 0, "Sex Pistols mult wasn't 0 when no valid rank present")
     end
 }
+
 Balatest.TestPlay {
     name = 'sex_pistols_mult_increases_correctly_based_on_rank',
     category = { 'jokers', 'golden_wind', 'sex_pistols' },
@@ -24,6 +26,7 @@ Balatest.TestPlay {
         Balatest.assert_eq(G.jokers.cards[1].ability.extra.mult, 7, "Sex Pistols mult wasn't 7 after playing a 7")
     end
 }
+
 Balatest.TestPlay {
     name = 'sex_pistols_mult_increases_only_for_first_valid_rank',
     category = { 'jokers', 'golden_wind', 'sex_pistols' },
@@ -37,6 +40,7 @@ Balatest.TestPlay {
         Balatest.assert_eq(G.jokers.cards[1].ability.extra.mult, 7, "Sex Pistols mult wasn't 7 after playing a 7 and a 2")
     end
 }
+
 Balatest.TestPlay {
     name = 'sex_pistols_mult_increases_only_for_first_instance_of_valid_rank',
     category = { 'jokers', 'golden_wind', 'sex_pistols' },
@@ -49,6 +53,7 @@ Balatest.TestPlay {
         Balatest.assert_eq(G.jokers.cards[1].ability.extra.mult, 7, "Sex Pistols mult wasn't 7 after playing two 7s")
     end
 }
+
 Balatest.TestPlay {
     name = 'sex_pistols_does_not_gain_mult_from_debuffed_matching_ace',
     category = { 'jokers', 'golden_wind', 'sex_pistols' },
@@ -70,9 +75,11 @@ Balatest.TestPlay {
         Balatest.assert_eq(G.jokers.cards[1].ability.extra.mult, 0, "Sex Pistols gained mult from a debuffed Ace")
     end
 }
+
 --#endregion
 
 --#region Grateful Dead
+
 Balatest.TestPlay {
     name = 'grateful_dead_starts_with_correct_mult',
     category = { 'jokers', 'golden_wind', 'grateful_dead' },
@@ -84,6 +91,7 @@ Balatest.TestPlay {
         Balatest.assert_chips(7 * (G.jokers.cards[1].ability.extra.starting_mult + 1), "Grateful Dead mult started decayed.")
     end
 }
+
 Balatest.TestPlay {
     name = 'grateful_dead_mult_decays_on_round_end',
     category = { 'jokers', 'golden_wind', 'grateful_dead' },
@@ -96,6 +104,7 @@ Balatest.TestPlay {
         Balatest.assert_eq(new_mult, G.jokers.cards[1].ability.extra.starting_mult - G.jokers.cards[1].ability.extra.mult_decay, "Grateful Dead mult didn't decay at the end of the round.")
     end
 }
+
 Balatest.TestPlay {
     name = 'grateful_dead_mult_cannot_decay_below_zero',
     category = { 'jokers', 'golden_wind', 'grateful_dead' },
@@ -108,9 +117,11 @@ Balatest.TestPlay {
         Balatest.assert_eq(0, G.jokers.cards[1].ability.extra.mult, "Grateful Dead mult decayed below zero.")
     end
 }
+
 --#endregion
 
 --#region Spice Girl
+
 Balatest.TestPlay {
     name = 'spice_girl_increases_chips_for_each_scored_stone_cards',
     category = { 'jokers', 'golden_wind', 'spice_girl' },
@@ -127,6 +138,7 @@ Balatest.TestPlay {
         Balatest.assert_eq(G.jokers.cards[1].ability.extra.chips, expected_chips, "Spice Girl chips wasn't "..expected_chips.." after playing two stone cards")
     end
 }
+
 Balatest.TestPlay {
     name = 'spice_girl_increases_xmult_for_single_scored_steel_card',
     category = { 'jokers', 'golden_wind', 'spice_girl' },
@@ -143,6 +155,7 @@ Balatest.TestPlay {
         Balatest.assert_eq(G.jokers.cards[1].ability.extra.Xmult, expected_xmult, "Spice Girl xmult wasn't "..expected_xmult.." after scoring one steel card")
     end
 }
+
 Balatest.TestPlay {
     name = 'spice_girl_increases_xmult_for_each_scored_steel_cards',
     category = { 'jokers', 'golden_wind', 'spice_girl' },
@@ -159,6 +172,7 @@ Balatest.TestPlay {
         Balatest.assert_eq(G.jokers.cards[1].ability.extra.Xmult, expected_xmult, "Spice Girl xmult wasn't "..expected_xmult.." after scoring one steel card")
     end
 }
+
 Balatest.TestPlay {
     name = 'spice_girl_applies_xmult_when_scoring',
     category = { 'jokers', 'golden_wind', 'spice_girl' },
@@ -175,8 +189,10 @@ Balatest.TestPlay {
         Balatest.assert_chips(35, "Spice Girl did not apply its Xmult during scoring")
     end
 }
+
 --#endregion
 --#region Sticky Fingers
+
 Balatest.TestPlay {
     name = 'sticky_fingers_applies_four_fingers',
     category = { 'jokers', 'golden_wind', 'sticky_fingers' },
@@ -189,8 +205,10 @@ Balatest.TestPlay {
         Balatest.assert_eq(straights_played, 1, "Sticky Fingers did not apply four fingers and score a straight")
     end
 }
+
 --#endregion
 --#region Gold Experience
+
 Balatest.TestPlay {
     name = 'gold_experience_gives_polychrome_edition_to_scored_card_without_edition',
     category = { 'jokers', 'golden_wind', 'gold_experience' },
@@ -253,8 +271,10 @@ Balatest.TestPlay {
         Balatest.assert_eq(queenEdition1, 'e_foil', "Gold Experience incorrectly gave polychrome edition to card with existing edition")
     end
 }
+
 --#endregion
 --#region Gold Experience Requiem
+
 Balatest.TestPlay {
     name = 'gold_experience_requiem_disables_boss_blinds',
     category = { 'jokers', 'golden_wind', 'gold_experience_requiem' },
@@ -268,8 +288,10 @@ Balatest.TestPlay {
         Balatest.assert_eq(G.GAME.blind.disabled, true, "Gold Experience Requiem didn't disable boss blind automatically")
     end
 }
+
 --#endregion
 --#region King Crimson
+
 Balatest.TestPlay {
     name = 'king_crimson_gives_xmult_for_each_skipped_blind',
     category = { 'jokers', 'golden_wind', 'king_crimson' },
@@ -283,8 +305,10 @@ Balatest.TestPlay {
         Balatest.assert_eq(king_crimson_xmult, 1 + G.jokers.cards[1].ability.extra.Xmult_mod * 2, "King Crimson doesn't have expected xmult for 2 skipped blinds")
     end
 }
+
 --#endregion
 --#region Moody Blues
+
 Balatest.TestPlay {
     name = 'moody_blues_retriggers_scored_cards',
     category = { 'jokers', 'golden_wind', 'moody_blues' },
@@ -298,8 +322,10 @@ Balatest.TestPlay {
         Balatest.assert_chips(5 + 2 * 2, "Moody Blues did not retrigger scored cards correctly")
     end
 }
+
 --#endregion
 --#region Baby Face
+
 Balatest.TestPlay {
     name = 'baby_face_creates_negative_common_joker',
     category = { 'jokers', 'golden_wind', 'baby_face' },
@@ -315,8 +341,10 @@ Balatest.TestPlay {
         Balatest.assert_eq(G.jokers.cards[2].config.center.rarity, 1, "Baby Face did not create common joker")
     end
 }
+
 --#endregion
 --#region Little Feet
+
 Balatest.TestPlay {
     name = 'little_feet_debuffs_face_cards_in_deck',
     category = { 'jokers', 'golden_wind', 'little_feet' },
@@ -329,6 +357,7 @@ Balatest.TestPlay {
         Balatest.assert_chips(5, "Little Feet did not debuff face cards in deck correctly")
     end
 }
+
 Balatest.TestPlay {
     name = 'little_feet_restores_face_cards_when_sold',
     category = { 'jokers', 'golden_wind', 'little_feet' },
@@ -342,6 +371,7 @@ Balatest.TestPlay {
         Balatest.assert_chips(15, "Little Feet did not restore face cards correctly when sold")
     end
 }
+
 Balatest.TestPlay {
     name = 'little_feet_gives_xmult_for_each_low_card',
     category = { 'jokers', 'golden_wind', 'little_feet' },
@@ -354,8 +384,10 @@ Balatest.TestPlay {
         Balatest.assert_chips(14 * (2 * (G.jokers.cards[1].ability.extra.Xmult ^ 2)), "Little Feet did not give xmult for each low card correctly")
     end
 }
+
 --#endregion
 --#region Black Sabbath
+
 Balatest.TestPlay {
     name = 'black_sabbath_gives_chips_and_mult_when_hand_scores',
     category = { 'jokers', 'golden_wind', 'black_sabbath' },
@@ -406,8 +438,10 @@ Balatest.TestPlay {
         Balatest.assert_eq(perishTally, 2, "Black Sabbath did not preserve perish tally when hand scores above blind threshold")
     end
 }
+
 --#endregion
 --#region Rolling Stones
+
 Balatest.TestPlay {
     name = 'rolling_stones_gives_xmult',
     category = { 'jokers', 'golden_wind', 'rolling_stones' },
@@ -419,6 +453,7 @@ Balatest.TestPlay {
         Balatest.assert_chips(7 * G.jokers.cards[1].ability.extra.XMult, "Rolling Stones did not give Xmult correctly")
     end
 }
+
 Balatest.TestPlay {
     name = 'rolling_stones_zeroes_out_probabilities',
     category = { 'jokers', 'golden_wind', 'rolling_stones' },
@@ -436,8 +471,10 @@ Balatest.TestPlay {
         Balatest.assert_eq(#G.deck.cards, 5, "Love Train did not prevent glass card from shattering")
     end
 }
+
 --#endregion
 --#region Notorious B.I.G.
+
 Balatest.TestPlay {
     name = 'notorious_big_gives_xmult_to_death_thirteen_when_destroyed_by_it',
     category = { 'jokers', 'golden_wind', 'notorious_big' },
@@ -526,8 +563,10 @@ Balatest.TestPlay {
         Balatest.assert_chips(315, "Notorious Xmult was not applied after Death Thirteen's +Mult")
     end
 }
+
 --#endregion
 --#region White Album
+
 Balatest.TestPlay {
     name = 'white_album_freezes_perishable_countdown',
     category = { 'jokers', 'golden_wind', 'white_album' },
@@ -604,6 +643,7 @@ Balatest.TestPlay {
 }
 
 local white_album_perishable_rolls
+
 Balatest.TestPlay {
     name = 'white_album_prevents_shop_jokers_from_rolling_perishable',
     category = { 'jokers', 'golden_wind', 'white_album' },
@@ -619,6 +659,7 @@ Balatest.TestPlay {
 }
 
 local unprotected_perishable_rolls
+
 Balatest.TestPlay {
     name = 'shop_jokers_roll_perishable_without_white_album',
     category = { 'jokers', 'golden_wind', 'white_album' },
@@ -632,8 +673,10 @@ Balatest.TestPlay {
         Balatest.assert(unprotected_perishable_rolls > 0, "No shop joker rolled perishable without White Album, so the White Album shop test proves nothing")
     end
 }
+
 --#endregion
 --#region Aerosmith
+
 Balatest.TestPlay {
     name = 'aerosmith_gives_xmult_per_unscored_card_in_high_card',
     category = { 'jokers', 'golden_wind', 'aerosmith' },
@@ -681,8 +724,10 @@ Balatest.TestPlay {
         Balatest.assert_chips(60, "Aerosmith gave Xmult for a non High Card hand")
     end
 }
+
 --#endregion
 --#region Purple Haze
+
 Balatest.TestPlay {
     name = 'purple_haze_infects_a_joker_when_blind_is_selected',
     category = { 'jokers', 'golden_wind', 'purple_haze' },
@@ -826,8 +871,10 @@ Balatest.TestPlay {
         Balatest.assert_eq(G.jokers.cards[3].ability.jojoker_purple_haze_chips, 2 * G.jokers.cards[2].ability.extra.chips_mod, "Frozen infected joker did not keep growing")
     end
 }
+
 --#endregion
 --#region Talking Head
+
 Balatest.TestPlay {
     name = 'talking_head_duplicates_used_tarot_card',
     category = { 'jokers', 'golden_wind', 'talking_head' },
@@ -913,8 +960,10 @@ Balatest.TestPlay {
         Balatest.assert_eq(G.jokers.cards[2].ability.extra.chips, G.jokers.cards[2].ability.extra.chips_mod, "Kiss did not gain chips when Talking Head duplicated a consumable")
     end
 }
+
 --#endregion
 --#region Metallica
+
 Balatest.TestPlay {
     name = 'metallica_gains_xmult_for_each_scored_steel_card',
     category = { 'jokers', 'golden_wind', 'metallica' },
@@ -1021,4 +1070,5 @@ Balatest.TestPlay {
         Balatest.assert_chips(56, "Metallica did not apply its Xmult during scoring")
     end
 }
+
 --#endregion

@@ -1,4 +1,5 @@
 --#region Josuke Higashikata
+
 Balatest.TestPlay {
     name = 'joskuke_higashikata_jjl_gives_chips_for_two_pair',
     category = { 'jokers', 'jojolion', 'josuke_higashikata_jjl' },
@@ -22,4 +23,5 @@ Balatest.TestPlay {
         Balatest.assert_chips(532, "Josuke Higashikata did not give chips for scored Full House (containing two pair)")
     end
 }
+
 --#endregion

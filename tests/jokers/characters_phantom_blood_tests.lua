@@ -1,4 +1,5 @@
 --#region Danny
+
 Balatest.TestPlay {
     name = 'danny_gives_mult_when_played',
     category = { 'jokers', 'phantom_blood', 'danny' },
@@ -10,6 +11,7 @@ Balatest.TestPlay {
         Balatest.assert_chips(7 * (G.jokers.cards[1].ability.extra.mult + 1), "Danny didn't give expected mult for hand")
     end
 }
+
 Balatest.TestPlay {
     name = 'danny_not_destroyed_when_score_not_on_fire',
     category = { 'jokers', 'phantom_blood', 'danny' },
@@ -21,6 +23,7 @@ Balatest.TestPlay {
         Balatest.assert_eq(#G.jokers.cards, 1)
     end
 }
+
 Balatest.TestPlay {
     name = 'danny_destroyed_when_score_on_fire',
     category = { 'jokers', 'phantom_blood', 'danny' },
@@ -32,8 +35,10 @@ Balatest.TestPlay {
         Balatest.assert_eq(#G.jokers.cards, 0)
     end
 }
+
 --#endregion
 --#region Baron Zeppeli
+
 Balatest.TestPlay {
     name = 'baron_zeppeli_cuts_chips_by_50_percent_and_increases_mult_by_20_percent_of_original_chips',
     category = { 'jokers', 'phantom_blood', 'baron_zeppeli' },
@@ -45,8 +50,10 @@ Balatest.TestPlay {
         Balatest.assert_chips(1920, "Baron Zeppeli didn't cut chips in half")
     end
 }
+
 --#endregion
 --#region Speedwagon
+
 Balatest.TestPlay {
     name = 'speedwagon_gives_no_money_when_no_discards_used',
     category = { 'jokers', 'phantom_blood', 'speedwagon' },
@@ -58,6 +65,7 @@ Balatest.TestPlay {
         Balatest.assert_dollars(0, "Speedwagon gave money when discards were not used")
     end
 }
+
 Balatest.TestPlay {
     name = 'speedwagon_gives_money_when_discard_is_used',
     category = { 'jokers', 'phantom_blood', 'speedwagon' },
@@ -69,6 +77,7 @@ Balatest.TestPlay {
         Balatest.assert_dollars(G.jokers.cards[1].ability.extra.money_mod, "Speedwagon did not give money when discard was used")
     end
 }
+
 Balatest.TestPlay {
     name = 'speedwagon_gives_money_regardless_of_number_of_discarded_cards',
     category = { 'jokers', 'phantom_blood', 'speedwagon' },
@@ -80,8 +89,10 @@ Balatest.TestPlay {
         Balatest.assert_dollars(G.jokers.cards[1].ability.extra.money_mod, "Speedwagon did not give money when discard was used")
     end
 }
+
 --#endregion
 --#region Zombies
+
 Balatest.TestPlay {
     name = 'zombies_gives_mult_for_each_held_zombies_joker',
     category = { 'jokers', 'phantom_blood', 'zombies' },
@@ -108,8 +119,10 @@ Balatest.TestPlay {
         Balatest.assert_eq(#G.jokers.cards, 2, "Zombies did not replicate at the end of the round")
     end
 }
+
 --#endregion
 --#region Straizo
+
 Balatest.TestPlay {
     name = 'straizo_gives_chips_for_straights',
     category = { 'jokers', 'phantom_blood', 'straizo' },
@@ -148,8 +161,10 @@ Balatest.TestPlay {
         Balatest.assert_chips(expected_chips, "Straizo did not give correct chips for royal flushes")
     end
 }
+
 --#endregion
 --#region George Joestar
+
 Balatest.TestPlay {
     name = 'george_joestar_gives_money_for_each_held_joker_at_end_of_round',
     category = { 'jokers', 'phantom_blood', 'george_joestar' },
@@ -162,8 +177,10 @@ Balatest.TestPlay {
         Balatest.assert_dollars(#G.jokers.cards * G.jokers.cards[1].ability.extra.money_mod, "George Joestar did not give correct money for each held joker")
     end
 }
+
 --#endregion
 --#region Dario Brando
+
 Balatest.TestPlay {
     name = 'dario_brando_steals_money_for_each_hand_played',
     category = { 'jokers', 'phantom_blood', 'dario_brando' },
@@ -205,8 +222,10 @@ Balatest.TestPlay {
         Balatest.assert_eq(#G.jokers.cards, 0, "Dario Brando did not destroy himself at the end of the round")
     end
 }
+
 --#endregion
 --#region Erina
+
 Balatest.TestPlay {
     name = 'erina_gives_mult_for_herself',
     category = { 'jokers', 'phantom_blood', 'erina' },
@@ -218,6 +237,7 @@ Balatest.TestPlay {
         Balatest.assert_chips(7 * (1 + G.jokers.cards[1].ability.extra.mult_mod * 1), "Erina did not give mult for herself.")
     end
 }
+
 Balatest.TestPlay {
     name = 'erina_gives_mult_for_each_character_joker',
     category = { 'jokers', 'phantom_blood', 'erina' },
@@ -229,8 +249,10 @@ Balatest.TestPlay {
         Balatest.assert_chips(7 * (1 + G.jokers.cards[1].ability.extra.mult_mod * 3), "Erina did not give mult for each character joker.")
     end
 }
+
 --#endregion
 --#region Jonathan Joestar
+
 Balatest.TestPlay {
     name = 'jonathan_joestar_gives_chips_for_each_unique_suit_in_scored_hand',
     category = { 'jokers', 'phantom_blood', 'jonathan_joestar' },
@@ -287,8 +309,10 @@ Balatest.TestPlay {
         Balatest.assert_chips(3960, "Jonathan Joestar did not cap chips based on 5 unique suits (given wild cards)")
     end
 }
+
 --#endregion
 --#region Dio Brando
+
 Balatest.TestPlay {
     name = 'dio_brando_increases_xmult_when_draining_chips',
     category = { 'jokers', 'phantom_blood', 'dio_brando' },
@@ -307,8 +331,10 @@ Balatest.TestPlay {
         Balatest.assert_eq(G.jokers.cards[1].ability.extra.Xmult, expected_xmult, "Dio Brando did not increase Xmult correctly when draining chips")
     end
 }
+
 --#endregion
 --#region Poco
+
 Balatest.TestPlay {
     name = 'poco_gives_money_when_scored_hand_below_blind_threshold',
     category = { 'jokers', 'phantom_blood', 'poco' },
@@ -321,6 +347,7 @@ Balatest.TestPlay {
         Balatest.assert_dollars(G.jokers.cards[1].ability.extra.money_mod, "Poco did not give money when scoring below threshold")
     end
 }
+
 Balatest.TestPlay {
     name = 'poco_does_not_give_money_when_scored_hand_above_blind_threshold',
     category = { 'jokers', 'phantom_blood', 'poco' },
@@ -333,8 +360,10 @@ Balatest.TestPlay {
         Balatest.assert_dollars(0, "Poco gave money when scoring above threshold")
     end
 }
+
 --#endregion
 --#region Tarkus
+
 Balatest.TestPlay {
     name = 'tarkus_gives_xmult_during_scoring',
     category = { 'jokers', 'phantom_blood', 'tarkus' },
@@ -379,4 +408,5 @@ Balatest.TestPlay {
         Balatest.assert_eq(G.jokers.cards[1].ability.extra.Xmult, 1, "Tarkus gained Xmult when purchasing in shop")
     end
 }
+
 --#endregion

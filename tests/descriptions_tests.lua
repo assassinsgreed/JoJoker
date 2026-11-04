@@ -6,6 +6,7 @@ Balatest.TestPlay {
         Balatest.assert_eq(description_key(G.jokers.cards[1]), 'j_jojoker_joseph_joestar_in_play', "An owned joker did not show its in-play footer")
     end
 }
+
 Balatest.TestPlay {
     name = 'unowned_joker_hides_its_in_play_footer',
     category = { 'descriptions' },
@@ -16,6 +17,7 @@ Balatest.TestPlay {
         Balatest.assert_eq(key, 'j_jojoker_joseph_joestar', "A joker outside the joker area showed its in-play footer")
     end
 }
+
 Balatest.TestPlay {
     name = 'owned_joker_without_a_footer_keeps_its_description',
     category = { 'descriptions' },

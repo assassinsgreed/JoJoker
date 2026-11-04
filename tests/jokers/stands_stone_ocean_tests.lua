@@ -1,4 +1,5 @@
 --#region Goo Goo Dolls
+
 Balatest.TestPlay {
     name = 'goo_goo_dolls_gives_no_mult_at_starting_deck_size',
     category = { 'jokers', 'stone_ocean', 'goo_goo_dolls' },
@@ -10,6 +11,7 @@ Balatest.TestPlay {
         Balatest.assert_chips(7, "Goo Goo Dolls gave mult with a full starting deck")
     end
 }
+
 Balatest.TestPlay {
     name = 'goo_goo_dolls_gives_mult_for_each_destroyed_card',
     category = { 'jokers', 'stone_ocean', 'goo_goo_dolls' },
@@ -31,6 +33,7 @@ Balatest.TestPlay {
         Balatest.assert_chips(7 * (G.jokers.cards[1].ability.extra.mult * 2 + 1), "Goo Goo Dolls did not give mult for each card below starting deck size")
     end
 }
+
 Balatest.TestPlay {
     name = 'goo_goo_dolls_gives_no_mult_when_deck_exceeds_starting_size',
     category = { 'jokers', 'stone_ocean', 'goo_goo_dolls' },
@@ -47,9 +50,11 @@ Balatest.TestPlay {
         Balatest.assert_chips(7, "Goo Goo Dolls gave mult when deck was larger than starting size")
     end
 }
+
 --#endregion
 
 --#region Stone Free
+
 Balatest.TestPlay {
     name = 'stone_free_retriggers_each_stone_card_when_played',
     category = { 'jokers', 'stone_ocean', 'stone_free' },
@@ -65,8 +70,10 @@ Balatest.TestPlay {
         Balatest.assert_chips(205, "Stone Free did not retrigger each stone card when played")
     end
 }
+
 --#endregion
 --#region Made in Heaven
+
 Balatest.TestPlay {
     name = 'made_in_heaven_reduces_hands_and_discards',
     category = { 'jokers', 'stone_ocean', 'made_in_heaven' },
@@ -81,6 +88,7 @@ Balatest.TestPlay {
         Balatest.assert_eq(G.GAME.current_round.discards_left, G.jokers.cards[1].ability.extra.discards, "Made in Heaven did not reduce discards")
     end
 }
+
 Balatest.TestPlay {
     name = 'made_in_heaven_sets_xmult_to_total_lost_hands_and_discards',
     category = { 'jokers', 'stone_ocean', 'made_in_heaven' },
@@ -94,6 +102,7 @@ Balatest.TestPlay {
         Balatest.assert_eq(G.jokers.cards[1].ability.extra.Xmult, 6, "Made in Heaven did not gain XMult for each lost hand and discard")
     end
 }
+
 Balatest.TestPlay {
     name = 'made_in_heaven_sets_hand_size_to_deck_size',
     category = { 'jokers', 'stone_ocean', 'made_in_heaven' },
@@ -107,6 +116,7 @@ Balatest.TestPlay {
         Balatest.assert_eq(#G.hand.cards, 52, "Made in Heaven did not set hand size to deck size")
     end
 }
+
 Balatest.TestPlay {
     name = 'made_in_heaven_xmult_floors_at_one_when_nothing_is_lost',
     category = { 'jokers', 'stone_ocean', 'made_in_heaven' },
@@ -120,8 +130,10 @@ Balatest.TestPlay {
         Balatest.assert_eq(G.jokers.cards[1].ability.extra.Xmult, 1, "Made in Heaven Xmult dropped below X1 when no hands or discards were lost")
     end
 }
+
 --#endregion
 --#region Dragon's Dream
+
 Balatest.TestPlay {
     name = 'dragons_dream_randomly_gains_or_loses_values_on_hand_played',
     category = { 'jokers', 'stone_ocean', 'dragons_dream' },
@@ -143,8 +155,10 @@ Balatest.TestPlay {
         Balatest.assert_eq(valuesChanged, true, "Dragon's Dream did not change any values on hand played")
     end
 }
+
 --#endregion
 --#region Green Green Grass of Home
+
 Balatest.TestPlay {
     name = 'green_green_grass_of_home_doubles_high_card_chips',
     category = { 'jokers', 'stone_ocean', 'green_green_grass_of_home' },
@@ -156,6 +170,7 @@ Balatest.TestPlay {
         Balatest.assert_chips(18, "Green, Green Grass of Home didn't double chips on scored High Card hand.")
     end
 }
+
 Balatest.TestPlay {
     name = 'green_green_grass_of_home_does_not_double_chips_on_non_high_card_hand',
     category = { 'jokers', 'stone_ocean', 'green_green_grass_of_home' },
@@ -167,8 +182,10 @@ Balatest.TestPlay {
         Balatest.assert_chips(56, "Green, Green Grass of Home doubled chips on non-High Card hand.")
     end
 }
+
 --#endregion
 --#region Survivor
+
 Balatest.TestPlay {
     name = 'survivor_causes_all_played_cards_to_be_scored',
     category = { 'jokers', 'stone_ocean', 'survivor' },
@@ -180,8 +197,10 @@ Balatest.TestPlay {
         Balatest.assert_chips(10, "Survivor did not cause all played cards to be scored.")
     end
 }
+
 --#endregion
 --#region Foo Fighters
+
 Balatest.TestPlay {
     name = 'foo_fighters_gives_chips_for_each_unique_played_card_this_blind',
     category = { 'jokers', 'stone_ocean', 'foo_fighters' },
@@ -194,6 +213,7 @@ Balatest.TestPlay {
         Balatest.assert_eq(ff_chips, G.jokers.cards[1].ability.extra.chips_mod * 2, "Foo Fighters did not give chips for each unique played card this blind.")
     end
 }
+
 Balatest.TestPlay {
     name = 'foo_fighters_does_not_give_extra_chips_for_duplicate_played_card_this_ante',
     category = { 'jokers', 'stone_ocean', 'foo_fighters' },
@@ -209,8 +229,10 @@ Balatest.TestPlay {
     end
 }
 -- Can't mainuplate antes through Balatest
+
 --#endregion
 --#region White Snake
+
 Balatest.TestPlay {
     name = 'white_snake_gives_polychrome_enhancement_to_scored_card_without_enhancement',
     category = { 'jokers', 'stone_ocean', 'white_snake' },
@@ -273,8 +295,10 @@ Balatest.TestPlay {
         Balatest.assert_eq(queenenhancement1, G.P_CENTERS.m_mult, "White Snake incorrectly gave wild enhancement to card with existing enhancement")
     end
 }
+
 --#endregion
 --#region Burning Down the House
+
 Balatest.TestPlay {
     name = 'burning_down_the_house_saves_failed_run_and_is_destroyed',
     category = { 'jokers', 'stone_ocean', 'burning_down_the_house' },
@@ -288,8 +312,10 @@ Balatest.TestPlay {
         -- If the run was not saved, this assertion could not run
     end
 }
+
 --#endregion
 --#region Limp Bizkit
+
 Balatest.TestPlay {
     name = 'limp_bizkit_creates_negative_joker_when_triggered',
     category = { 'jokers', 'stone_ocean', 'limp_bizkit' },
@@ -306,8 +332,10 @@ Balatest.TestPlay {
         Balatest.assert_eq(G.jokers.cards[3].config.center.key, "j_jojoker_josuke_higashikata_jjl", "Limp Bizkit did not recreate the expected joker")
     end
 }
+
 --#endregion
 --#region Marilyn Manson
+
 Balatest.TestPlay {
     name = 'marilyn_manson_gives_money_when_no_discards_remain',
     category = { 'jokers', 'stone_ocean', 'marilyn_manson' },
@@ -340,8 +368,10 @@ Balatest.TestPlay {
         Balatest.assert_eq(G.GAME.bankrupt_at, -G.jokers.cards[1].ability.extra.debt, "Marilyn Manson did not set the correct bankruptcy threshold when allowing the player to go into debt")
     end
 }
+
 --#endregion
 --#region C-Moon
+
 Balatest.TestPlay {
     name = 'c_moon_equalizes_chips_and_mult',
     category = { 'jokers', 'stone_ocean', 'c_moon' },
@@ -353,8 +383,10 @@ Balatest.TestPlay {
         Balatest.assert_chips(289, "C-Moon did not equalize chips and mult")
     end
 }
+
 --#endregion
 --#region Planet Waves
+
 Balatest.TestPlay {
     name = 'planet_waves_duplicates_planet_card',
     category = { 'jokers', 'stone_ocean', 'planet_waves' },
@@ -369,8 +401,10 @@ Balatest.TestPlay {
         Balatest.assert_eq(G.consumeables.cards[1].config.center.key, "c_mars", "Planet Waves did not duplicate the correct planet card")
     end
 }
+
 --#endregion
 --#region Kiss
+
 Balatest.TestPlay {
     name = 'kiss_gains_chips_when_a_playing_card_is_duplicated',
     category = { 'jokers', 'stone_ocean', 'kiss' },
@@ -445,8 +479,10 @@ Balatest.TestPlay {
         Balatest.assert_chips(37, "Kiss did not give its accumulated chips when a hand was scored")
     end
 }
+
 --#endregion
 --#region Jumpin' Jack Flash
+
 Balatest.TestPlay {
     name = 'jumpin_jack_flash_retriggers_scoring_jack',
     category = { 'jokers', 'stone_ocean', 'jumpin_jack_flash' },
@@ -494,4 +530,5 @@ Balatest.TestPlay {
         Balatest.assert_chips(15, "Jumpin' Jack Flash retriggered a Jack that did not score")
     end
 }
+
 --#endregion

@@ -1,4 +1,5 @@
 --#region The Fifth Lesson
+
 Balatest.TestPlay {
     name = 'the_fifth_lesson_shortcut_applies',
     category = { 'jokers', 'steel_ball_run', 'the_fifth_lesson' },
@@ -10,8 +11,10 @@ Balatest.TestPlay {
         Balatest.assert_chips(320, "The Fifth Lesson didn't play a straight")
     end
 }
+
 --#endregion
 --#region Turbo Eyes
+
 Balatest.TestPlay {
     name = 'turbo_eyes_adds_top_two_cards_chips_to_score',
     category = { 'jokers', 'steel_ball_run', 'turbo_eyes' },
@@ -94,8 +97,10 @@ Balatest.TestPlay {
         Balatest.assert_chips(9 + 4 * 6 * 2, "Turbo Eyes and Epitaph combined did not give correct chips based on top 6 cards of deck")
     end
 }
+
 --#endregion
 --#region The True Man's World
+
 Balatest.TestPlay {
     name = 'the_true_mans_world_increases_xmult_before_playing_hand',
     category = { 'jokers', 'steel_ball_run', 'the_true_mans_world' },
@@ -122,9 +127,11 @@ Balatest.TestPlay {
         Balatest.assert_eq(1, joker_xmult, "The True Man's World did not reset Xmult to 1 on discard")
     end
 }
+
 --#endregion
 
 --#region The First Napkin
+
 Balatest.TestPlay {
     name = 'the_first_napkin_adds_chips_based_on_highest_rank',
     category = { 'jokers', 'steel_ball_run', 'the_first_napkin' },
@@ -261,13 +268,17 @@ Balatest.TestPlay {
         Balatest.assert_eq(queen_extra_mult, 24, "The First Napkin did not give bonus mult to discarded Queen after reactivating")
     end
 }
+
 --#endregion
 
 --#region Wavering Heart
+
 -- Balatest does not have native support for testing shop rerolls
+
 --#endregion
 
 --#region Dark Determination
+
 Balatest.TestPlay {
     name = 'dark_determination_increases_xmult_when_ending_shop_without_rerolling',
     category = { 'jokers', 'steel_ball_run', 'dark_determination' },
@@ -296,9 +307,11 @@ Balatest.TestPlay {
         Balatest.assert_eq(G.jokers.cards[1].ability.extra.Xmult, 1, "Dark Determination incorrectly increased Xmult after ending shop with rerolling")
     end
 }
+
 --#endregion
 
 --#region Left-Side Ataxia
+
 Balatest.TestPlay {
     name = 'left_side_ataxia_gives_no_chips_when_no_jokers_left',
     category = { 'jokers', 'steel_ball_run', 'left_side_ataxia' },
@@ -418,4 +431,5 @@ Balatest.TestPlay {
         Balatest.assert_eq(G.jokers.cards[2].ability.extra.current_chips, G.jokers.cards[2].ability.extra.chips_per_joker, "Left Side Ataxia did not give chips for the disabled vanilla joker")
     end
 }
+
 --#endregion

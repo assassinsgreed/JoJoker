@@ -107,6 +107,7 @@ Balatest.TestPlay {
         Balatest.assert_chips(0, "Hat Hair gave a bonus without a hand being played")
     end
 }
+
 -- #endregion
 -- #region Speedwagon Foundation Submarine
 Balatest.TestPlay {

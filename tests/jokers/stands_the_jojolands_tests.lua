@@ -1,4 +1,5 @@
 --#region Smooth Operator
+
 -- (The pre-scoring shuffle cannot be tested with Balatest, but a single-card
 -- hand skips the shuffle entirely, letting us test the chip payout)
 Balatest.TestPlay {
@@ -13,9 +14,11 @@ Balatest.TestPlay {
         Balatest.assert_chips(27, "Smooth Operators did not add chips for scored cards")
     end
 }
+
 --#endregion
 
 --#region John Rod
+
 Balatest.TestPlay {
     name = 'john_rod_destroys_highest_ranked_scored_card_and_gains_xmult',
     category = { 'jokers', 'the_jojolands', 'john_rod' },
@@ -30,6 +33,7 @@ Balatest.TestPlay {
         Balatest.assert_eq(G.jokers.cards[1].ability.extra.Xmult, 1 + G.jokers.cards[1].ability.extra.Xmult_mod, "John Rod did not gain Xmult after destroying a card")
     end
 }
+
 Balatest.TestPlay {
     name = 'john_rod_ignores_unscored_cards',
     category = { 'jokers', 'the_jojolands', 'john_rod' },
@@ -42,6 +46,7 @@ Balatest.TestPlay {
         Balatest.assert_eq(count_playing_cards('3'), 3, "John Rod did not destroy the highest ranked scored card")
     end
 }
+
 Balatest.TestPlay {
     name = 'john_rod_gains_more_xmult_for_glass_cards',
     category = { 'jokers', 'the_jojolands', 'john_rod' },
@@ -64,6 +69,7 @@ Balatest.TestPlay {
         Balatest.assert_eq(G.jokers.cards[1].ability.extra.Xmult, 1 + G.jokers.cards[1].ability.extra.glass_Xmult_mod, "John Rod did not gain the glass Xmult")
     end
 }
+
 Balatest.TestPlay {
     name = 'john_rod_gains_xmult_for_each_hand_played',
     category = { 'jokers', 'the_jojolands', 'john_rod' },
@@ -77,6 +83,7 @@ Balatest.TestPlay {
         Balatest.assert_eq(G.jokers.cards[1].ability.extra.Xmult, 1 + 2 * G.jokers.cards[1].ability.extra.Xmult_mod, "John Rod did not gain Xmult for each hand")
     end
 }
+
 Balatest.TestPlay {
     name = 'john_rod_does_not_destroy_rankless_cards',
     category = { 'jokers', 'the_jojolands', 'john_rod' },
@@ -99,6 +106,7 @@ Balatest.TestPlay {
         Balatest.assert_eq(G.jokers.cards[1].ability.extra.Xmult, 1, "John Rod gained Xmult without destroying a card")
     end
 }
+
 Balatest.TestPlay {
     name = 'john_rod_gives_its_current_xmult',
     category = { 'jokers', 'the_jojolands', 'john_rod' },
@@ -112,4 +120,5 @@ Balatest.TestPlay {
         Balatest.assert_chips(14, "John Rod did not apply its Xmult")
     end
 }
+
 --#endregion
