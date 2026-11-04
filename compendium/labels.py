@@ -57,7 +57,7 @@ LABELS = Labels(
         'extra_jokers': ('Extra jokers', 'George Joestar pays per joker held; these add jokers without using slots.'),
         'duplication': ('Duplication', 'Kiss grows whenever a card is duplicated.'),
         'planet_cards': ('Planet cards', 'Kars counts every different Planet card you use; more and previewable packs help you find new ones.'),
-        'tarot_cards': ('Tarot cards', 'The World counts every different Tarot card you use; more and previewable packs help you find new ones.'),
+        'tarot_cards': ('Tarot cards', 'The World counts every different Tarot card you use; Avdol hands out random ones, and more and previewable packs help you find new ones.'),
         'wheel_of_fortune': ('Wheel of Fortune', 'Make Wheel of Fortune your most-used tarot: Enya keeps it in Arcana Packs and it always triggers.'),
         'booster_packs': ('Booster packs', 'Get more out of Booster Packs: more of them, previews, and free ones, with In a Silent Way growing from each one opened.'),
         'frugal_shopping': ('Frugal shopping', 'Rewarded for leaving the shop without spending.'),
@@ -66,7 +66,7 @@ LABELS = Labels(
         'deck_shrinking': ('Deck shrinking', 'Goo Goo Dolls pays out for a thinner deck; these destroy cards.'),
         'emperor': ('Emperor', "Emperor's huge XMult comes with a chance to end the run; Rolling Stones sets that chance to 0 and Burning Down the House survives it."),
         'consumable_slots': ('Consumable slots', 'Wamuu pays for every empty consumable slot; Coco Jumbo adds a slot and Space Trucking makes held consumables Negative.'),
-        'consumable_room': ('Consumable room', 'Talking Head and Reimi only create consumables when a slot is free; Coco Jumbo adds one.'),
+        'consumable_room': ('Consumable room', 'Talking Head, Reimi and Avdol only create consumables when a slot is free; Coco Jumbo adds one.'),
     },
     similar={
         'card_preview': 'Card preview',

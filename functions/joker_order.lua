@@ -2,6 +2,7 @@
 jojoker.joker_order = {
     -- Characters
     "angelo",
+    "avdol",
     "baron_zeppeli",
     "caesar",
     "coco_jumbo",

@@ -147,7 +147,36 @@ local enya = {
     end
 }
 
+local avdol = {
+    name = "avdol",
+    rarity = 2,
+    cost = 6,
+    jtype = "Character",
+    part = "stardust_crusaders",
+    themes = { support = { jojoker.themes.TAROT_CARDS, jojoker.themes.CONSUMABLE_ROOM } },
+    blueprint_compat = true,
+    perishable_compat = true,
+    eternal_compat = true,
+    -- Gives a tarot card when added to player's jokers
+    add_to_deck = function(self, card, from_debuff)
+        if not from_debuff and avdol_create_tarot() then
+            jojoker.debug("Avdol: Creating a Tarot card on being obtained")
+            card_eval_status_text(card, 'extra', nil, nil, nil, {message = localize('sound_yes_i_am'), colour = G.C.PURPLE})
+        end
+    end,
+    -- Also gives a tarot card on blind start
+    calculate = function(self, card, context)
+        if context.setting_blind and not (context.blueprint_card or card).getting_sliced and avdol_create_tarot() then
+            jojoker.debug("Avdol: Creating a Tarot card on blind select")
+            return {
+                message = localize('sound_yes_i_am'),
+                colour = G.C.PURPLE
+            }
+        end
+    end
+}
+
 return {
     name = "Stardust Crusaders Character Jokers",
-    list = { ndoul, old_joseph_joestar, hol_horse, darby_brothers, enya },
+    list = { ndoul, old_joseph_joestar, hol_horse, darby_brothers, enya, avdol },
 }

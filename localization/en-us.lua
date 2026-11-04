@@ -486,6 +486,14 @@ local loc = {
                     "{C:inactive}Currently: {C:mult}+#3#{}"
                 }
             },
+            j_jojoker_avdol = {
+                name = "Muhammad Avdol",
+                text = {
+                    "Creates a random {C:tarot}Tarot{} card when",
+                    "added and when {C:attention}blind{} is selected.",
+                    "{C:inactive}(Must have room){}",
+                }
+            },
             -- Part 4: Diamond is Unbreakable
             j_jojoker_voice_of_love = {
                 name = "Voice of Love",
@@ -1519,6 +1527,7 @@ local loc = {
             sound_joseph_quip_oh_no = "Oh nooooo!",
             sound_joseph_quip_holy_shit = "Holy shiiiittt!",
             sound_joseph_quip_son_of_a_bitch = "Sonuva biiittch!",
+            sound_yes_i_am = "Yes! I Am!",
             sound_saved_by_bdth = "This room belongs in the past...",
             sound_baby_face_spawn = "Simple is best!",
             sound_calamity_approaches = "Calamity approaches...",

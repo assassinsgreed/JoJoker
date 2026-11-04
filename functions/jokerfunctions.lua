@@ -886,3 +886,16 @@ jojoker_recover_mista = function(context)
     end
   end
 end
+
+avdol_create_tarot = function()
+  if #G.consumeables.cards + G.GAME.consumeable_buffer >= G.consumeables.config.card_limit then return false end
+  G.GAME.consumeable_buffer = G.GAME.consumeable_buffer + 1
+  G.E_MANAGER:add_event(Event({
+    func = function()
+      SMODS.add_card({ set = 'Tarot', key_append = 'avdol' })
+      G.GAME.consumeable_buffer = G.GAME.consumeable_buffer - 1
+      return true
+    end
+  }))
+  return true
+end

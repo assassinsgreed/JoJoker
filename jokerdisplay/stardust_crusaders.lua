@@ -270,3 +270,12 @@ jd_def["j_jojoker_cream"] = {
         card.joker_display_values.mult = get_cream_mult(card)
     end,
 }
+
+jd_def["j_jojoker_avdol"] = {
+    text = {
+        { text = "Random Tarot", colour = G.C.PURPLE }
+    },
+    reminder_text = {
+        { text = "On blind select", colour = G.C.GREY, }
+    },
+}

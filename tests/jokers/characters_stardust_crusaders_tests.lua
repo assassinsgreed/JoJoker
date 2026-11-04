@@ -169,3 +169,88 @@ Balatest.TestPlay {
     end
 }
 --#endregion
+--#region Avdol
+
+Balatest.TestPlay {
+    name = 'avdol_creates_a_tarot_when_obtained',
+    category = { 'jokers', 'stardust_crusaders', 'avdol' },
+    execute = function()
+        Balatest.q(function()
+            SMODS.add_card({ key = 'j_jojoker_avdol' })
+            return true
+        end)
+        Balatest.wait()
+    end,
+    assert = function()
+        Balatest.assert_eq(#G.consumeables.cards, 1, "Avdol did not create a tarot when obtained")
+        Balatest.assert_eq(G.consumeables.cards[1].ability.set, 'Tarot', "Avdol created a non-tarot consumable")
+    end
+}
+
+Balatest.TestPlay {
+    name = 'avdol_creates_a_tarot_on_each_blind_select',
+    category = { 'jokers', 'stardust_crusaders', 'avdol' },
+    jokers = { 'j_jojoker_avdol', 'j_jojoker_coco_jumbo' },
+    execute = function()
+        Balatest.next_round()
+    end,
+    assert = function()
+        -- One when obtained, one per blind selected
+        Balatest.assert_eq(#G.consumeables.cards, 3, "Avdol did not create a tarot on each blind select")
+        for _, consumable in ipairs(G.consumeables.cards) do
+            Balatest.assert_eq(consumable.ability.set, 'Tarot', "Avdol created a non-tarot consumable")
+        end
+    end
+}
+
+Balatest.TestPlay {
+    name = 'avdol_creates_nothing_when_consumable_slots_are_full_and_added_to_roster',
+    category = { 'jokers', 'stardust_crusaders', 'avdol' },
+    consumeables = { 'c_mars', 'c_mars' },
+    execute = function()
+        -- Challenge jokers are added before challenge consumables, so obtain Avdol once the slots are full
+        Balatest.q(function()
+            SMODS.add_card({ key = 'j_jojoker_avdol' })
+            return true
+        end)
+        Balatest.next_round()
+    end,
+    assert = function()
+        Balatest.assert_eq(#G.consumeables.cards, 2, "Avdol created a tarot without a free consumable slot")
+        for _, consumable in ipairs(G.consumeables.cards) do
+            Balatest.assert_eq(consumable.config.center.key, 'c_mars', "Avdol replaced a held consumable")
+        end
+    end
+}
+
+Balatest.TestPlay {
+    name = 'avdol_creates_nothing_when_his_debuff_ends',
+    category = { 'jokers', 'stardust_crusaders', 'avdol' },
+    jokers = { 'j_jojoker_avdol', 'j_jojoker_coco_jumbo' },
+    execute = function()
+        Balatest.q(function()
+            SMODS.debuff_card(G.jokers.cards[1], true, 'balatest')
+            SMODS.debuff_card(G.jokers.cards[1], false, 'balatest')
+            return true
+        end)
+        Balatest.wait()
+    end,
+    assert = function()
+        Balatest.assert_eq(#G.consumeables.cards, 2, "Avdol created a tarot when his debuff ended")
+    end
+}
+
+Balatest.TestPlay {
+    name = 'avdol_blind_tarot_is_copied_by_khnum',
+    category = { 'jokers', 'stardust_crusaders', 'avdol' },
+    jokers = { 'j_jojoker_khnum', 'j_jojoker_coco_jumbo', 'j_jojoker_avdol' },
+    execute = function()
+        Balatest.wait()
+    end,
+    assert = function()
+        -- One when obtained, one each from Avdol and Khnum on blind select
+        Balatest.assert_eq(#G.consumeables.cards, 3, "Khnum did not copy Avdol's blind select tarot")
+    end
+}
+
+--#endregion

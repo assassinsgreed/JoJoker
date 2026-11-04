@@ -201,6 +201,22 @@ verification commands. A joker with no real partners gets no fields; don't inven
 `tests/jokers/<same file name>_tests.lua`, in a `--#region <Joker Name>` block placed to
 match the joker list order.
 
+Leave a blank line between the region comments and each `Balatest.TestPlay` body:
+
+```lua
+--#region Kiss
+
+Balatest.TestPlay {
+    ...
+}
+
+Balatest.TestPlay {
+    ...
+}
+
+--#endregion
+```
+
 Never declare helper functions as locals in a test file. Put them in
 `tests/testfunctions.lua` as globals (ex. `free_shop_items(area)`) so other tests can reuse
 them; check that file for an existing helper before writing a new one.
