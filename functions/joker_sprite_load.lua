@@ -18,6 +18,7 @@ JokerSprites = {
         {name = "vampiric_touch", base = {pos = {x = 3, y = 2}}, part_atlas = "phantom_blood" },
         {name = "tarkus", base = {pos = {x = 4, y = 2}}, part_atlas = "phantom_blood" },
         {name = "roundabout", base = {pos = {x = 0, y = 3}}, part_atlas = "phantom_blood" },
+        {name = "wang_chan", base = {pos = {x = 1, y = 3}}, part_atlas = "phantom_blood" },
         -- Part 2: Battle Tendency
         {name = "joseph_joestar", base = {pos = {x = 0, y = 0}}, part_atlas = "battle_tendency" },
         {name = "esidisi", base = {pos = {x = 1, y = 0}}, part_atlas = "battle_tendency" },

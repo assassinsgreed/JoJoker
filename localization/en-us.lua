@@ -129,6 +129,14 @@ local loc = {
                     "for each {C:attention}unscored card{} in played hand."
                 }
             },
+            j_jojoker_wang_chan = {
+                name = "Wang Chan",
+                text = {
+                    "Creates the {C:planet}Planet{} card for the",
+                    "{C:attention}poker hand{} that beats the {C:attention}blind{}.",
+                    "{C:inactive}(Must have room){}",
+                }
+            },
             -- Part 2: Battle Tendency
             j_jojoker_joseph_joestar = {
                 name = "Joseph Joestar",

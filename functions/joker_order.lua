@@ -50,6 +50,7 @@ jojoker.joker_order = {
     "tequila_joseph",
     "valkyrie",
     "wamuu",
+    "wang_chan",
     "yoshikage_kira",
     "zombies",
     

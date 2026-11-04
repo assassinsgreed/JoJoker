@@ -182,3 +182,12 @@ jd_def["j_jojoker_roundabout"] = {
         return joker_card.joker_display_values and joker_card.joker_display_values.retriggers or 0
     end,
 }
+
+jd_def["j_jojoker_wang_chan"] = {
+    text = {
+        { text = "+1 Planet", colour = G.C.SECONDARY_SET.Planet }
+    },
+    reminder_text = {
+        { text = "Of winning hand", colour = G.C.GREY }
+    },
+}

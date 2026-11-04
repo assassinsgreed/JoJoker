@@ -410,3 +410,81 @@ Balatest.TestPlay {
 }
 
 --#endregion
+
+--#region Wang Chan
+
+Balatest.TestPlay {
+    name = 'wang_chan_creates_the_planet_for_the_hand_that_beats_the_blind',
+    category = { 'jokers', 'phantom_blood', 'wang_chan' },
+    jokers = { 'j_jojoker_wang_chan' },
+    execute = function()
+        Balatest.play_hand { 'AS', 'AH', 'AC', 'AD' }
+    end,
+    assert = function()
+        Balatest.assert_eq(#G.consumeables.cards, 1, "Wang Chan did not create a planet on blind completion")
+        Balatest.assert_eq(G.consumeables.cards[1].config.center.key, 'c_mars', "Wang Chan did not create the planet for Four of a Kind")
+    end
+}
+
+Balatest.TestPlay {
+    name = 'wang_chan_ignores_hands_played_before_the_winning_hand',
+    category = { 'jokers', 'phantom_blood', 'wang_chan' },
+    jokers = { 'j_jojoker_wang_chan' },
+    execute = function()
+        Balatest.play_hand { '2D' }
+        Balatest.play_hand { 'AS', 'AH', 'AC', 'KS', 'KH' }
+    end,
+    assert = function()
+        Balatest.assert_eq(#G.consumeables.cards, 1, "Wang Chan did not create exactly one planet on blind completion")
+        Balatest.assert_eq(G.consumeables.cards[1].config.center.key, 'c_earth', "Wang Chan did not create the planet for the winning Full House")
+    end
+}
+
+Balatest.TestPlay {
+    name = 'wang_chan_creates_a_planet_for_each_blind_completed',
+    category = { 'jokers', 'phantom_blood', 'wang_chan' },
+    jokers = { 'j_jojoker_wang_chan' },
+    execute = function()
+        Balatest.play_hand { 'AS', 'AH', 'AC', 'AD' }
+        Balatest.cash_out()
+        Balatest.exit_shop()
+        Balatest.start_round()
+        Balatest.play_hand { 'AS', 'AH', 'AC', 'AD' }
+    end,
+    assert = function()
+        Balatest.assert_eq(#G.consumeables.cards, 2, "Wang Chan did not create a planet for each blind completed")
+        for _, consumable in ipairs(G.consumeables.cards) do
+            Balatest.assert_eq(consumable.config.center.key, 'c_mars', "Wang Chan created the wrong planet")
+        end
+    end
+}
+
+Balatest.TestPlay {
+    name = 'wang_chan_creates_nothing_when_consumable_slots_are_full',
+    category = { 'jokers', 'phantom_blood', 'wang_chan' },
+    jokers = { 'j_jojoker_wang_chan' },
+    consumeables = { 'c_pluto', 'c_pluto' },
+    execute = function()
+        Balatest.play_hand { 'AS', 'AH', 'AC', 'AD' }
+    end,
+    assert = function()
+        Balatest.assert_eq(#G.consumeables.cards, 2, "Wang Chan created a planet without a free consumable slot")
+        for _, consumable in ipairs(G.consumeables.cards) do
+            Balatest.assert_eq(consumable.config.center.key, 'c_pluto', "Wang Chan replaced a held consumable")
+        end
+    end
+}
+
+Balatest.TestPlay {
+    name = 'wang_chan_creates_nothing_when_no_hand_was_played',
+    category = { 'jokers', 'phantom_blood', 'wang_chan' },
+    jokers = { 'j_jojoker_wang_chan' },
+    execute = function()
+        Balatest.end_round()
+    end,
+    assert = function()
+        Balatest.assert_eq(#G.consumeables.cards, 0, "Wang Chan created a planet without a winning hand")
+    end
+}
+
+--#endregion

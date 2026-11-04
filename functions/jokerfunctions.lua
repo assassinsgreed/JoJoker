@@ -899,3 +899,24 @@ avdol_create_tarot = function()
   }))
   return true
 end
+
+get_planet_for_hand = function(hand_name)
+  for _, planet in pairs(G.P_CENTER_POOLS.Planet) do
+    if planet.config.hand_type == hand_name then return planet.key end
+  end
+end
+
+wang_chan_create_planet = function()
+  local planet_key = G.GAME.last_hand_played and get_planet_for_hand(G.GAME.last_hand_played)
+  if not planet_key then return false end
+  if #G.consumeables.cards + G.GAME.consumeable_buffer >= G.consumeables.config.card_limit then return false end
+  G.GAME.consumeable_buffer = G.GAME.consumeable_buffer + 1
+  G.E_MANAGER:add_event(Event({
+    func = function()
+      SMODS.add_card({ key = planet_key, key_append = 'wang_chan' })
+      G.GAME.consumeable_buffer = G.GAME.consumeable_buffer - 1
+      return true
+    end
+  }))
+  return true
+end

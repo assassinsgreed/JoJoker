@@ -507,7 +507,29 @@ local tarkus = {
     end
 }
 
+local wang_chan = {
+    name = "wang_chan",
+    rarity = 1,
+    cost = 5,
+    jtype = "Character",
+    part = "phantom_blood",
+    themes = { support = { jojoker.themes.HAND_LEVELS, jojoker.themes.HIGHEST_HAND_LEVEL, jojoker.themes.CONSUMABLE_ROOM } },
+    blueprint_compat = true,
+    perishable_compat = true,
+    eternal_compat = true,
+    calculate = function(self, card, context)
+        -- At the end of blinds, gives a planet card for the winning hand
+        if context.end_of_round and context.main_eval and not context.game_over and wang_chan_create_planet() then
+            jojoker.debug("Wang Chan: Creating the Planet card for "..G.GAME.last_hand_played.." on blind completion")
+            return {
+                message = localize('k_plus_planet'),
+                colour = G.C.SECONDARY_SET.Planet
+            }
+        end
+    end
+}
+
 return {
     name = "Phantom Blood Character Jokers",
-    list = { danny, baron_zeppeli, speedwagon, zombies, straizo, george_joestar, dario_brando, erina, jonathan_joestar, dio_brando, poco, tarkus },
+    list = { danny, baron_zeppeli, speedwagon, zombies, straizo, george_joestar, dario_brando, erina, jonathan_joestar, dio_brando, poco, tarkus, wang_chan },
 }
