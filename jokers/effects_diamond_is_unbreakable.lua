@@ -91,7 +91,19 @@ local ghost_girl_alley = {
     end
 }
 
+-- Allowing duplicates is handled by the SMODS.find_card hook in jojoker.lua
+local earth_wind_and_fire = {
+    name = "earth_wind_and_fire",
+    rarity = 1,
+    cost = 5,
+    jtype = "Effect",
+    part = "diamond_is_unbreakable",
+    blueprint_compat = false,
+    perishable_compat = true,
+    eternal_compat = true,
+}
+
 return {
     name = "Diamond is Unbreakable Effect Jokers",
-    list = { voice_of_love, ghost_girl_alley },
+    list = { voice_of_love, ghost_girl_alley, earth_wind_and_fire },
 }

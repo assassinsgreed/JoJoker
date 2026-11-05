@@ -278,3 +278,9 @@ jd_def["j_jojoker_ghost_girl_alley"] = {
         card.joker_display_values.payout = antes * card.ability.extra.money_mod
     end
 }
+
+jd_def["j_jojoker_earth_wind_and_fire"] = {
+    text = {
+        { text = "Duplicates allowed", colour = G.C.GREY },
+    },
+}

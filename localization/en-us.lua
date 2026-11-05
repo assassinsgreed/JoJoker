@@ -714,6 +714,15 @@ local loc = {
                     "{C:inactive}Currently: {C:chips}+#4#{C:inactive}, {C:mult}+#5#{C:inactive}, {C:money}$#6#{}"
                 }
             },
+            j_jojoker_earth_wind_and_fire = {
+                name = "Earth, Wind, and Fire",
+                alt_name = "Terra Ventus",
+                text = {
+                    "{C:attention}Joker{}, {C:tarot}Tarot{}, {C:planet}Planet{},",
+                    "and {C:spectral}Spectral{} cards may appear",
+                    "multiple times.",
+                },
+            },
             -- Part 5: Golden Wind
             j_jojoker_sex_pistols = {
                 name = "Sex Pistols",

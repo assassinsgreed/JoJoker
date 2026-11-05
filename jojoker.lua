@@ -211,6 +211,9 @@ function SMODS.find_card(key, count_debuffed)
     elseif key == "j_splash" then
         local ret = find_joker("Splash")
         if #ret > 0 then return ret end
+    elseif key == "j_ring_master" then
+        local ret = find_card_with_joker("j_jojoker_earth_wind_and_fire", count_debuffed)
+        if #ret > 0 then return ret end
     end
 	return find_card_with_joker(key, count_debuffed)
 end

@@ -164,3 +164,52 @@ Balatest.TestPlay {
 }
 
 --#endregion
+--#region Earth, Wind, and Fire
+
+Balatest.TestPlay {
+    name = 'earth_wind_and_fire_lets_owned_jokers_appear_again',
+    category = { 'jokers', 'diamond_is_unbreakable', 'earth_wind_and_fire' },
+    jokers = { 'j_jojoker_earth_wind_and_fire', 'j_jojoker_voice_of_love' },
+    assert = function()
+        Balatest.assert(pool_offers('Joker', 'j_jojoker_voice_of_love', 'Common'), "Earth, Wind, and Fire did not let an owned joker appear in the pool again")
+    end
+}
+
+Balatest.TestPlay {
+    name = 'earth_wind_and_fire_lets_used_consumables_appear_again',
+    category = { 'jokers', 'diamond_is_unbreakable', 'earth_wind_and_fire' },
+    jokers = { 'j_jojoker_earth_wind_and_fire' },
+    execute = function()
+        G.GAME.used_jokers['c_fool'] = true
+        G.GAME.used_jokers['c_mars'] = true
+        G.GAME.used_jokers['c_familiar'] = true
+    end,
+    assert = function()
+        Balatest.assert(pool_offers('Tarot', 'c_fool'), "Earth, Wind, and Fire did not let a used tarot appear again")
+        Balatest.assert(pool_offers('Planet', 'c_mars'), "Earth, Wind, and Fire did not let a used planet appear again")
+        Balatest.assert(pool_offers('Spectral', 'c_familiar'), "Earth, Wind, and Fire did not let a used spectral appear again")
+    end
+}
+
+Balatest.TestPlay {
+    name = 'owned_jokers_do_not_appear_again_without_earth_wind_and_fire',
+    category = { 'jokers', 'diamond_is_unbreakable', 'earth_wind_and_fire' },
+    jokers = { 'j_jojoker_voice_of_love' },
+    assert = function()
+        Balatest.assert(not pool_offers('Joker', 'j_jojoker_voice_of_love', 'Common'), "An owned joker appeared in the pool again without Earth, Wind, and Fire")
+    end
+}
+
+Balatest.TestPlay {
+    name = 'earth_wind_and_fire_does_not_allow_duplicates_while_debuffed',
+    category = { 'jokers', 'diamond_is_unbreakable', 'earth_wind_and_fire' },
+    jokers = { 'j_jojoker_earth_wind_and_fire', 'j_jojoker_voice_of_love' },
+    execute = function()
+        G.jokers.cards[1]:set_debuff(true)
+    end,
+    assert = function()
+        Balatest.assert(not pool_offers('Joker', 'j_jojoker_voice_of_love', 'Common'), "A debuffed Earth, Wind, and Fire still let an owned joker appear again")
+    end
+}
+
+--#endregion

@@ -183,3 +183,10 @@ description_key = function(card)
     local key = card.config.center:loc_vars({}, card).key or card.config.center.key
     return (key:gsub('_alt$', ''))
 end
+
+pool_offers = function(pool_type, key, rarity)
+    for _, v in ipairs(get_current_pool(pool_type, rarity)) do
+        if v == key then return true end
+    end
+    return false
+end
