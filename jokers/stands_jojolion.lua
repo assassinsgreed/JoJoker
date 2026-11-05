@@ -7,7 +7,7 @@ local soft_and_wet = {
     jtype = "Stand",
     part = "jojolion",
     themes = { core = { jojoker.themes.ENHANCEMENT_EATERS } },
-    conflicts = { sword_of_luck_and_pluck = "strips_the_lucky_enhancement_sword", caesar = "strips_the_stone_cards_these", stone_free = "strips_the_stone_cards_these", angelo = "strips_the_stone_cards_these", spice_girl = "strips_the_enhancements_spice_girl", metallica = "strips_the_metal_cards_metallica" },
+    conflicts = { sword_of_luck_and_pluck = "strips_the_lucky_enhancement_sword", caesar = "strips_the_stone_cards_these", stone_free = "strips_the_stone_cards_these", angelo = "strips_the_stone_cards_these", wall_eyes = "strips_the_stone_cards_these", spice_girl = "strips_the_enhancements_spice_girl", metallica = "strips_the_metal_cards_metallica" },
     similar = { jojoker.similar.ENHANCEMENT_STRIPPERS },
     blueprint_compat = false,
     config = { extra = { mult = 0, mult_mod = 10 } },

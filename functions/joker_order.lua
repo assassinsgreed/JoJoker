@@ -76,6 +76,7 @@ jojoker.joker_order = {
     "turbo_eyes",
     "vampiric_touch",
     "voice_of_love",
+    "wall_eyes",
     "wavering_heart",
     
     -- Stands

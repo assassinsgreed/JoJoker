@@ -211,6 +211,18 @@ get_goo_goo_dolls_mult = function(card)
   return math.max(0, missing) * card.ability.extra.mult
 end
 
+count_stone_cards = function()
+  local count = 0
+  for _, playing_card in ipairs(G.playing_cards or {}) do
+    if SMODS.has_enhancement(playing_card, 'm_stone') then count = count + 1 end
+  end
+  return count
+end
+
+get_wall_eyes_chips = function(card)
+  return count_stone_cards() * card.ability.extra.chips
+end
+
 get_bad_company_mult = function(card)
   local extra = G.playing_cards and (#G.playing_cards - G.GAME.starting_deck_size) or 0
   return math.max(0, extra) * card.ability.extra.mult

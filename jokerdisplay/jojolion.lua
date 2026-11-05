@@ -51,6 +51,19 @@ jd_def["j_jojoker_higashikata_fruit_parlor"] = {
     }
 }
 
+jd_def["j_jojoker_wall_eyes"] = {
+    text = {
+        { text = "+", colour = G.C.CHIPS },
+        { ref_table = "card.joker_display_values", ref_value = "chips", retrigger_type = "chips", colour = G.C.CHIPS },
+    },
+    reminder_text = {
+        { text = "Stone cards", colour = G.C.GREY },
+    },
+    calc_function = function(card)
+        card.joker_display_values.chips = get_wall_eyes_chips(card)
+    end
+}
+
 jd_def["j_jojoker_i_am_a_rock"] = {
     text = {
         { text = "Unscored to Stone", colour = G.C.GREY }

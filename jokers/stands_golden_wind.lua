@@ -115,7 +115,7 @@ local spice_girl = {
     jtype = "Stand",
     part = "golden_wind",
     themes = { core = { jojoker.themes.STONE_STEEL_EATER } },
-    conflicts = { caesar = "strips_the_stone_cards_these", stone_free = "strips_the_stone_cards_these", angelo = "strips_the_stone_cards_these", metallica = "strips_the_metal_cards_metallica" },
+    conflicts = { caesar = "strips_the_stone_cards_these", stone_free = "strips_the_stone_cards_these", angelo = "strips_the_stone_cards_these", wall_eyes = "strips_the_stone_cards_these", metallica = "strips_the_metal_cards_metallica" },
     similar = { jojoker.similar.ENHANCEMENT_STRIPPERS },
     blueprint_compat = true,
     perishable_compat = true,

@@ -1322,6 +1322,16 @@ local loc = {
                     "Gives {C:money}$#2#{} for each played {C:attention}Two Pair{}.",
                 }
             },
+            j_jojoker_wall_eyes = {
+                name = "Wall Eyes",
+                text = {
+                    "{C:chips}+#1#{} for each {C:attention}Stone{} card in the full deck.",
+                    "{C:attention}Stone{} cards held in hand give {C:money}$#2#{} at end of round.",
+                },
+                in_play_text = {
+                    "{C:inactive}Currently: {C:chips}+#3#{}"
+                }
+            },
             j_jojoker_i_am_a_rock = {
                 name = "I Am a Rock",
                 alt_name = "I, Rock",
