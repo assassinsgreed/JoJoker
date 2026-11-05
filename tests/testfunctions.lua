@@ -46,13 +46,17 @@ debuff_playing_cards = function(rank, suit)
     end
 end
 
-force_hat_hair_roll = function(roll)
+force_pseudorandom_roll = function(forced_seed, roll)
     local original_pseudorandom = pseudorandom
     pseudorandom = function(seed, ...)
-        if seed == 'hat_hair' then return roll end
+        if seed == forced_seed then return roll end
         return original_pseudorandom(seed, ...)
     end
     return function() pseudorandom = original_pseudorandom end
+end
+
+force_hat_hair_roll = function(roll)
+    return force_pseudorandom_roll('hat_hair', roll)
 end
 
 notorious_big_xmult = function()

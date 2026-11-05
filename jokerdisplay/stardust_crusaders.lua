@@ -271,6 +271,20 @@ jd_def["j_jojoker_cream"] = {
     end,
 }
 
+jd_def["j_jojoker_judgement"] = {
+    text = {
+        { text = "+", colour = G.C.CHIPS },
+        { ref_table = "card.ability.extra", ref_value = "chips_mod", colour = G.C.CHIPS },
+        { text = "/", colour = G.C.GREY },
+        { text = "+", colour = G.C.MULT },
+        { ref_table = "card.ability.extra", ref_value = "mult_mod", colour = G.C.MULT },
+        { text = "/Reset", colour = G.C.GREY },
+    },
+    reminder_text = {
+        { text = "Per scored card", colour = G.C.GREY },
+    }
+}
+
 jd_def["j_jojoker_avdol"] = {
     text = {
         { text = "Random Tarot", colour = G.C.PURPLE }

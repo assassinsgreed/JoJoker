@@ -775,7 +775,59 @@ local cream = {
     end
 }
 
+local judgement = {
+    name = "judgement",
+    rarity = 2,
+    cost = 6,
+    jtype = "Stand",
+    part = "stardust_crusaders",
+    themes = { support = { jojoker.themes.PERMANENT_BUFF_EATER } },
+    conflicts = { the_lovers = "can_wipe_permanent_card_buffs", santana = "can_wipe_permanent_card_buffs", joestar_birthmark = "can_wipe_permanent_card_buffs", the_first_napkin = "can_wipe_permanent_card_buffs", fun_fun_fun = "can_wipe_permanent_card_buffs" },
+    similar = { jojoker.similar.PERMANENT_CARD_BUFFS },
+    blueprint_compat = true,
+    perishable_compat = true,
+    eternal_compat = true,
+    config = { extra = { chips_mod = 5, mult_mod = 2, numerator = 1, denominator = 3 } },
+    loc_vars = function(self, info_queue, center)
+        return {
+            vars = { center.ability.extra.numerator, center.ability.extra.denominator, center.ability.extra.chips_mod, center.ability.extra.mult_mod }
+        }
+    end,
+    calculate = function(self, card, context)
+        -- Before scoring each scored card, has a 1 in 3 chance to either increase chips, increase mult, or reset both to 0.
+        if context.before and context.scoring_hand then
+            if SMODS.get_probability_vars(card, card.ability.extra.numerator, card.ability.extra.denominator, 'judgement') <= 0 then return end
+
+            local judged_any = false
+            for _, scored_card in ipairs(context.scoring_hand) do
+                if not scored_card.debuff then
+                    judged_any = true
+                    local roll = pseudorandom('judgement')
+                    if roll < 1 / 3 then
+                        scored_card.ability.perma_bonus = (scored_card.ability.perma_bonus or 0) + card.ability.extra.chips_mod
+                        jojoker.debug("Judgement: Increasing chips of scored card to "..scored_card.ability.perma_bonus)
+                        card_eval_status_text(scored_card, 'extra', nil, nil, nil, {message = localize('k_plus_chips'), colour = G.C.CHIPS})
+                    elseif roll < 2 / 3 then
+                        scored_card.ability.perma_mult = (scored_card.ability.perma_mult or 0) + card.ability.extra.mult_mod
+                        jojoker.debug("Judgement: Increasing mult of scored card to "..scored_card.ability.perma_mult)
+                        card_eval_status_text(scored_card, 'extra', nil, nil, nil, {message = localize('k_plus_mult'), colour = G.C.MULT})
+                    else
+                        scored_card.ability.perma_bonus = 0
+                        scored_card.ability.perma_mult = 0
+                        jojoker.debug("Judgement: Resetting chips and mult of scored card")
+                        card_eval_status_text(scored_card, 'extra', nil, nil, nil, {message = localize('k_reset'), colour = G.C.RED})
+                    end
+                end
+            end
+
+            if judged_any then
+                return { message = localize('sound_hail_2_u'), colour = G.C.GOLD }
+            end
+        end
+    end
+}
+
 return {
     name = "Stardust Crusaders Stand Jokers",
-    list = { magician_red, yellow_temperance, star_platinum, wheel_of_fortune, the_lovers, anubis, sethan, the_world, death_thirteen, tenore_sax, khnum, hierophant_green, the_fool, thoth, the_sun, hermit_purple, atum, horus, emperor, cream },
+    list = { magician_red, yellow_temperance, star_platinum, wheel_of_fortune, the_lovers, anubis, sethan, the_world, death_thirteen, tenore_sax, khnum, hierophant_green, the_fool, thoth, the_sun, hermit_purple, atum, horus, emperor, cream, judgement },
 }

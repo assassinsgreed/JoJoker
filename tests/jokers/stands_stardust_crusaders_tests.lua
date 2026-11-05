@@ -1058,3 +1058,214 @@ Balatest.TestPlay {
 }
 
 --#endregion
+
+--#region Judgement
+
+Balatest.TestPlay {
+    name = 'judgement_gives_scored_card_permanent_chips_on_low_roll',
+    category = { 'jokers', 'stardust_crusaders', 'judgement' },
+    jokers = { 'j_jojoker_judgement' },
+    deck = { cards = {
+        { r = 'K', s = 'S' },
+        { r = '5', s = 'H' },
+        { r = '2', s = 'C' } } },
+    execute = function()
+        restore_pseudorandom = force_pseudorandom_roll('judgement', 0.1)
+        Balatest.play_hand { 'KS' }
+    end,
+    assert = function()
+        restore_pseudorandom()
+        local king = find_playing_card('King', 'Spades')
+        Balatest.assert_eq(king.ability.perma_bonus, G.jokers.cards[1].ability.extra.chips_mod, "Judgement did not permanently give the scored card chips")
+        Balatest.assert_eq(king.ability.perma_mult or 0, 0, "Judgement gave the scored card mult alongside chips")
+    end
+}
+
+Balatest.TestPlay {
+    name = 'judgement_gives_scored_card_permanent_mult_on_middle_roll',
+    category = { 'jokers', 'stardust_crusaders', 'judgement' },
+    jokers = { 'j_jojoker_judgement' },
+    deck = { cards = {
+        { r = 'K', s = 'S' },
+        { r = '5', s = 'H' },
+        { r = '2', s = 'C' } } },
+    execute = function()
+        restore_pseudorandom = force_pseudorandom_roll('judgement', 0.5)
+        Balatest.play_hand { 'KS' }
+    end,
+    assert = function()
+        restore_pseudorandom()
+        local king = find_playing_card('King', 'Spades')
+        Balatest.assert_eq(king.ability.perma_mult, G.jokers.cards[1].ability.extra.mult_mod, "Judgement did not permanently give the scored card mult")
+        Balatest.assert_eq(king.ability.perma_bonus or 0, 0, "Judgement gave the scored card chips alongside mult")
+    end
+}
+
+Balatest.TestPlay {
+    name = 'judgement_resets_scored_card_bonuses_on_high_roll',
+    category = { 'jokers', 'stardust_crusaders', 'judgement' },
+    jokers = { 'j_jojoker_judgement' },
+    deck = { cards = {
+        { r = 'K', s = 'S' },
+        { r = '5', s = 'H' },
+        { r = '2', s = 'C' } } },
+    execute = function()
+        local king = find_playing_card('King', 'Spades')
+        king.ability.perma_bonus = 20
+        king.ability.perma_mult = 3
+        restore_pseudorandom = force_pseudorandom_roll('judgement', 0.9)
+        Balatest.play_hand { 'KS' }
+    end,
+    assert = function()
+        restore_pseudorandom()
+        local king = find_playing_card('King', 'Spades')
+        Balatest.assert_eq(king.ability.perma_bonus, 0, "Judgement did not reset the scored card's bonus chips")
+        Balatest.assert_eq(king.ability.perma_mult, 0, "Judgement did not reset the scored card's bonus mult")
+    end
+}
+
+Balatest.TestPlay {
+    name = 'judgement_rolls_for_every_scored_card_but_not_unscored_ones',
+    category = { 'jokers', 'stardust_crusaders', 'judgement' },
+    jokers = { 'j_jojoker_judgement' },
+    deck = { cards = {
+        { r = 'K', s = 'S' },
+        { r = 'K', s = 'C' },
+        { r = '5', s = 'H' },
+        { r = '2', s = 'C' } } },
+    execute = function()
+        restore_pseudorandom = force_pseudorandom_roll('judgement', 0.1)
+        Balatest.play_hand { 'KS', 'KC', '5H' }
+    end,
+    assert = function()
+        restore_pseudorandom()
+        local chips_mod = G.jokers.cards[1].ability.extra.chips_mod
+        Balatest.assert_eq(find_playing_card('King', 'Spades').ability.perma_bonus, chips_mod, "Judgement did not roll for the first scored card")
+        Balatest.assert_eq(find_playing_card('King', 'Clubs').ability.perma_bonus, chips_mod, "Judgement did not roll for the second scored card")
+        Balatest.assert_eq(find_playing_card('5', 'Hearts').ability.perma_bonus or 0, 0, "Judgement rolled for an unscored card")
+    end
+}
+
+Balatest.TestPlay {
+    name = 'judgement_does_not_roll_for_debuffed_cards',
+    category = { 'jokers', 'stardust_crusaders', 'judgement' },
+    jokers = { 'j_jojoker_judgement' },
+    deck = { cards = {
+        { r = 'K', s = 'S' },
+        { r = '5', s = 'H' },
+        { r = '2', s = 'C' } } },
+    execute = function()
+        debuff_playing_cards('King', 'Spades')
+        restore_pseudorandom = force_pseudorandom_roll('judgement', 0.1)
+        Balatest.play_hand { 'KS' }
+    end,
+    assert = function()
+        restore_pseudorandom()
+        Balatest.assert_eq(find_playing_card('King', 'Spades').ability.perma_bonus or 0, 0, "Judgement gave a debuffed card chips")
+    end
+}
+
+Balatest.TestPlay {
+    name = 'judgement_outcome_is_not_skewed_by_darby_brothers',
+    category = { 'jokers', 'stardust_crusaders', 'judgement', 'darby_brothers' },
+    jokers = { 'j_jojoker_judgement', 'j_jojoker_darby_brothers' },
+    deck = { cards = {
+        { r = 'K', s = 'S' },
+        { r = '5', s = 'H' },
+        { r = '2', s = 'C' } } },
+    execute = function()
+        restore_pseudorandom = force_pseudorandom_roll('judgement', 0.5)
+        Balatest.play_hand { 'KS' }
+    end,
+    assert = function()
+        restore_pseudorandom()
+        local king = find_playing_card('King', 'Spades')
+        Balatest.assert_eq(king.ability.perma_mult, G.jokers.cards[1].ability.extra.mult_mod, "Darby Brothers changed which outcome Judgement picked")
+        Balatest.assert_eq(king.ability.perma_bonus or 0, 0, "Darby Brothers let Judgement give more than one outcome")
+    end
+}
+
+Balatest.TestPlay {
+    name = 'judgement_does_nothing_with_rolling_stones',
+    category = { 'jokers', 'stardust_crusaders', 'judgement', 'rolling_stones' },
+    jokers = { 'j_jojoker_judgement', 'j_jojoker_rolling_stones' },
+    deck = { cards = {
+        { r = 'K', s = 'S' },
+        { r = '5', s = 'H' },
+        { r = '2', s = 'C' } } },
+    execute = function()
+        local king = find_playing_card('King', 'Spades')
+        king.ability.perma_bonus = 20
+        king.ability.perma_mult = 3
+        restore_pseudorandom = force_pseudorandom_roll('judgement', 0.9)
+        Balatest.play_hand { 'KS' }
+    end,
+    assert = function()
+        restore_pseudorandom()
+        local king = find_playing_card('King', 'Spades')
+        Balatest.assert_eq(king.ability.perma_bonus, 20, "Judgement reset chips despite Rolling Stones zeroing its odds")
+        Balatest.assert_eq(king.ability.perma_mult, 3, "Judgement reset mult despite Rolling Stones zeroing its odds")
+    end
+}
+
+Balatest.TestPlay {
+    name = 'judgement_chips_score_on_the_hand_they_are_gained',
+    category = { 'jokers', 'stardust_crusaders', 'judgement' },
+    jokers = { 'j_jojoker_judgement' },
+    deck = { cards = {
+        { r = 'K', s = 'S' },
+        { r = '5', s = 'H' },
+        { r = '2', s = 'C' } } },
+    execute = function()
+        restore_pseudorandom = force_pseudorandom_roll('judgement', 0.1)
+        Balatest.play_hand { 'KS' }
+    end,
+    assert = function()
+        restore_pseudorandom()
+        -- High Card: 5 + 10 for the King + Judgement's chips
+        Balatest.assert_chips(15 + G.jokers.cards[1].ability.extra.chips_mod, "Judgement's chips did not score on the hand they were gained")
+    end
+}
+
+Balatest.TestPlay {
+    name = 'judgement_mult_scores_on_the_hand_it_is_gained',
+    category = { 'jokers', 'stardust_crusaders', 'judgement' },
+    jokers = { 'j_jojoker_judgement' },
+    deck = { cards = {
+        { r = 'K', s = 'S' },
+        { r = '5', s = 'H' },
+        { r = '2', s = 'C' } } },
+    execute = function()
+        restore_pseudorandom = force_pseudorandom_roll('judgement', 0.5)
+        Balatest.play_hand { 'KS' }
+    end,
+    assert = function()
+        restore_pseudorandom()
+        -- High Card: 5 + 10 for the King, times 1 + Judgement's mult
+        Balatest.assert_chips(15 * (1 + G.jokers.cards[1].ability.extra.mult_mod), "Judgement's mult did not score on the hand it was gained")
+    end
+}
+
+Balatest.TestPlay {
+    name = 'judgement_reset_removes_bonuses_before_they_score',
+    category = { 'jokers', 'stardust_crusaders', 'judgement' },
+    jokers = { 'j_jojoker_judgement' },
+    deck = { cards = {
+        { r = 'K', s = 'S' },
+        { r = '5', s = 'H' },
+        { r = '2', s = 'C' } } },
+    execute = function()
+        local king = find_playing_card('King', 'Spades')
+        king.ability.perma_bonus = 20
+        king.ability.perma_mult = 3
+        restore_pseudorandom = force_pseudorandom_roll('judgement', 0.9)
+        Balatest.play_hand { 'KS' }
+    end,
+    assert = function()
+        restore_pseudorandom()
+        -- High Card: 5 + 10 for the King, with its bonuses already wiped
+        Balatest.assert_chips(15, "Judgement's reset did not take effect before the card scored")
+    end
+}
+
+--#endregion

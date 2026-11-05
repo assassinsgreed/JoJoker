@@ -509,6 +509,14 @@ local loc = {
                     "{C:inactive}Currently: {C:mult}+#3#{}"
                 }
             },
+            j_jojoker_judgement = {
+                name = "Judgement",
+                text = {
+                    "Each scored card has a chance to permanently",
+                    "gain {C:chips}+#3#{} or {C:mult}+#4#{}, or {C:red}lose{}",
+                    "all bonus {C:chips}chips{} and {C:mult}mult{}.",
+                }
+            },
             j_jojoker_avdol = {
                 name = "Muhammad Avdol",
                 text = {
@@ -1597,6 +1605,7 @@ local loc = {
             sound_kill_da_hoe = "Let's kill da hoe!",
             sound_beeeetch = "Beeeetch!",
             sound_yo_angelo = "Yo, Angelo.",
+            sound_hail_2_u = "Hail 2 U!",
 
             -- Common strings
             a_hand = "a hand",
@@ -1610,6 +1619,8 @@ local loc = {
             k_downgrade_ex = "Downgrade!",
             k_free_ex = "Free!",
             k_bang_ex = "Bang!",
+            k_plus_chips = "+Chips",
+            k_plus_mult = "+Mult",
 
             -- Joker badges
             joker_type_stand_badge = "Stand",

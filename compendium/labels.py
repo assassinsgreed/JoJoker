@@ -99,6 +99,7 @@ LABELS = Labels(
     },
     conflicts={
         'sets_every_chance_to_0': 'sets every chance to 0',
+        'can_wipe_permanent_card_buffs': 'can wipe the permanent chips and mult other jokers add to cards',
         'has_a_destroy_chance_that': 'has a destroy chance that Darby Brothers doubles',
         'has_a_run_ending_chance_that': 'has a run-ending chance that Darby Brothers doubles',
         'strips_the_lucky_enhancement_sword': 'strips the Lucky enhancement Sword of Luck and Pluck relies on',

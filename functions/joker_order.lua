@@ -124,6 +124,7 @@ jojoker.joker_order = {
     "i_am_a_rock",
     "in_a_silent_way",
     "john_rod",
+    "judgement",
     "jumpin_jack_flash",
     "khnum",
     "killer_queen",
