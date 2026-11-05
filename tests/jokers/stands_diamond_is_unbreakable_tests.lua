@@ -741,5 +741,84 @@ Balatest.TestPlay {
         Balatest.assert_eq(G.jokers.cards[2].ability.extra.chips, 13, "Highway Star did not absorb the chips The First Napkin gave the King")
     end
 }
+--#endregion
 
+--#region Enigma
+Balatest.TestPlay {
+    name = 'enigma_seals_one_card_when_the_blind_is_beaten',
+    category = { 'jokers', 'diamond_is_unbreakable', 'enigma' },
+    jokers = { 'j_jojoker_enigma' },
+    execute = function()
+        Balatest.play_hand { 'AS', 'AH', 'AC', 'AD' }
+    end,
+    assert = function()
+        Balatest.assert_eq(count_sealed_playing_cards(), 1, "Enigma did not seal exactly one card on blind completion")
+    end
+}
+
+Balatest.TestPlay {
+    name = 'enigma_seals_a_card_for_each_blind_beaten',
+    category = { 'jokers', 'diamond_is_unbreakable', 'enigma' },
+    jokers = { 'j_jojoker_enigma' },
+    execute = function()
+        Balatest.play_hand { 'AS', 'AH', 'AC', 'AD' }
+        Balatest.cash_out()
+        Balatest.exit_shop()
+        Balatest.start_round()
+        Balatest.play_hand { 'AS', 'AH', 'AC', 'AD' }
+    end,
+    assert = function()
+        Balatest.assert_eq(count_sealed_playing_cards(), 2, "Enigma did not seal a card for each blind beaten")
+    end
+}
+
+Balatest.TestPlay {
+    name = 'enigma_only_seals_unsealed_cards',
+    category = { 'jokers', 'diamond_is_unbreakable', 'enigma' },
+    jokers = { 'j_jojoker_enigma' },
+    deck = { cards = {
+        { r = 'A', s = 'S', g = 'Red' },
+        { r = 'A', s = 'H', g = 'Red' },
+        { r = 'A', s = 'C', g = 'Red' },
+        { r = 'A', s = 'D', g = 'Red' },
+        { r = '2', s = 'H' } } },
+    execute = function()
+        Balatest.play_hand { 'AS', 'AH', 'AC', 'AD' }
+    end,
+    assert = function()
+        Balatest.assert_eq(count_sealed_playing_cards('Red'), 4, "Enigma replaced an existing seal")
+        Balatest.assert_eq(count_sealed_playing_cards(), 5, "Enigma did not seal the only unsealed card")
+    end
+}
+
+Balatest.TestPlay {
+    name = 'enigma_does_nothing_when_every_card_is_sealed',
+    category = { 'jokers', 'diamond_is_unbreakable', 'enigma' },
+    jokers = { 'j_jojoker_enigma' },
+    deck = { cards = {
+        { r = 'A', s = 'S', g = 'Red' },
+        { r = 'A', s = 'H', g = 'Red' },
+        { r = 'A', s = 'C', g = 'Red' },
+        { r = 'A', s = 'D', g = 'Red' },
+        { r = '2', s = 'H', g = 'Red' } } },
+    execute = function()
+        Balatest.play_hand { 'AS', 'AH', 'AC', 'AD' }
+    end,
+    assert = function()
+        Balatest.assert_eq(count_sealed_playing_cards('Red'), 5, "Enigma changed a seal when every card was already sealed")
+    end
+}
+
+Balatest.TestPlay {
+    name = 'enigma_does_not_seal_before_the_blind_ends',
+    category = { 'jokers', 'diamond_is_unbreakable', 'enigma' },
+    jokers = { 'j_jojoker_enigma' },
+    execute = function()
+        keep_blind_unbeaten()
+        Balatest.play_hand { 'AS', 'AH', 'AC', 'AD' }
+    end,
+    assert = function()
+        Balatest.assert_eq(count_sealed_playing_cards(), 0, "Enigma sealed a card before the blind was beaten")
+    end
+}
 --#endregion

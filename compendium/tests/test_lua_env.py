@@ -7,7 +7,7 @@ def find(mod, key):
 
 
 def test_loads_every_joker(mod):
-    assert len(mod.jokers) == 173
+    assert len(mod.jokers) == 174
 
 
 def test_order_is_collection_order(mod):

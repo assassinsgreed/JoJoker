@@ -107,6 +107,7 @@ jojoker.joker_order = {
     "dragons_dream",
     "echoes_act_3",
     "emperor",
+    "enigma",
     "foo_fighters",
     "fun_fun_fun",
     "gold_experience",

@@ -711,6 +711,14 @@ local loc = {
                     "{C:inactive}Currently: {C:chips}+#1#{} {C:mult}+#2#{}"
                 }
             },
+            j_jojoker_enigma = {
+                name = "Enigma",
+                alt_name = "Misterioso",
+                text = {
+                    "When a blind ends, adds a random {C:attention}seal{}",
+                    "to a random unsealed card in your deck.",
+                }
+            },
             j_jojoker_ghost_girl_alley = {
                 name = "Ghost Girl Alley",
                 text = {

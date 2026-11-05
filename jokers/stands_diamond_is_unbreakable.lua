@@ -647,7 +647,39 @@ local highway_star = {
     end
 }
 
+local enigma = {
+    name = "enigma",
+    rarity = 1,
+    cost = 5,
+    jtype = "Stand",
+    part = "diamond_is_unbreakable",
+    themes = { support = { jojoker.themes.SEALS } },
+    blueprint_compat = true,
+    perishable_compat = true,
+    eternal_compat = true,
+    calculate = function(self, card, context)
+        -- At the end of the round, add a random seal to a random card in the deck without one
+        if context.end_of_round and context.main_eval and not context.game_over then
+            local unsealed = {}
+            for _, playing_card in ipairs(G.playing_cards) do
+                if not playing_card.seal then
+                    unsealed[#unsealed + 1] = playing_card
+                end
+            end
+            if #unsealed > 0 then
+                local target = pseudorandom_element(unsealed, pseudoseed('enigma'))
+                target:set_seal(SMODS.poll_seal({ guaranteed = true, key = 'enigma_seal' }), true, true)
+                jojoker.debug("Enigma: Sealing a random card in the deck on blind completion")
+                return {
+                    message = localize('k_upgrade_ex'),
+                    colour = G.C.GOLD
+                }
+            end
+        end
+    end
+}
+
 return {
     name = "Diamond is Unbreakable Stand Jokers",
-    list = { red_hot_chili_pepper, the_hand, superfly, crazy_diamond, bad_company, cheap_trick, cinderella, atom_heart_father, surface, killer_queen, heavens_door, the_lock, harvest, echoes_act_3, aqua_necklace, highway_star },
+    list = { red_hot_chili_pepper, the_hand, superfly, crazy_diamond, bad_company, cheap_trick, cinderella, atom_heart_father, surface, killer_queen, heavens_door, the_lock, harvest, echoes_act_3, aqua_necklace, highway_star, enigma },
 }

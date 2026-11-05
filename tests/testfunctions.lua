@@ -38,6 +38,16 @@ count_enhanced_playing_cards = function(center_key)
     return count
 end
 
+count_sealed_playing_cards = function(seal)
+    local count = 0
+    for _, c in ipairs(G.playing_cards) do
+        if (seal and c.seal == seal) or (not seal and c.seal) then
+            count = count + 1
+        end
+    end
+    return count
+end
+
 debuff_playing_cards = function(rank, suit)
     for _, c in ipairs(G.playing_cards) do
         if c.base.value == rank and (not suit or c.base.suit == suit) then

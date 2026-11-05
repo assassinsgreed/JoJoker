@@ -259,6 +259,15 @@ jd_def["j_jojoker_highway_star"] = {
     },
 }
 
+jd_def["j_jojoker_enigma"] = {
+    text = {
+        { text = "Adds random seal", colour = G.C.GREY },
+    },
+    reminder_text = {
+        { text = "at end of round", colour = G.C.GREY },
+    }
+}
+
 jd_def["j_jojoker_ghost_girl_alley"] = {
     text = {
         { text = "+", colour = G.C.CHIPS },
