@@ -621,6 +621,49 @@ get_lowest_scored_rank_id = function(scoring_hand)
   return lowest
 end
 
+get_distinct_scored_rank_ids = function(scoring_hand)
+  local ids, seen = {}, {}
+  for _, scored_card in ipairs(scoring_hand or {}) do
+    local id = scored_card:get_id()
+    if not SMODS.has_no_rank(scored_card) and not seen[id] then
+      seen[id] = true
+      ids[#ids + 1] = id
+    end
+  end
+  return ids
+end
+
+get_under_world_card_chips = function(card, playing_card)
+  if SMODS.has_no_rank(playing_card) then return 0 end
+  local hands = card.ability.extra.rank_hands[playing_card:get_id()] or 0
+  return playing_card.base.nominal * (card.ability.extra.xchips_mod ^ hands - 1)
+end
+
+get_under_world_rank_table = function(card)
+  local entries = {}
+  for _, rank in pairs(SMODS.Ranks) do
+    local count = card.ability.extra.rank_hands[rank.id]
+    if count then entries[#entries + 1] = { id = rank.id, label = rank.shorthand, count = count } end
+  end
+  table.sort(entries, function(a, b) return a.id > b.id end)
+
+  local text = function(str, colour) return { n = G.UIT.T, config = { text = str, colour = colour, scale = 0.32 } } end
+  if #entries == 0 then
+    return { { n = G.UIT.R, config = { align = "cm" }, nodes = { text(localize('none_used'), G.C.UI.TEXT_INACTIVE) } } }
+  end
+
+  local rows, row = {}, nil
+  for i, entry in ipairs(entries) do
+    if (i - 1) % 4 == 0 then
+      row = { n = G.UIT.R, config = { align = "cl" }, nodes = {} }
+      rows[#rows + 1] = row
+    end
+    row.nodes[#row.nodes + 1] = { n = G.UIT.C, config = { align = "cr", minw = 0.3 }, nodes = { text(entry.label, G.C.FILTER) } }
+    row.nodes[#row.nodes + 1] = { n = G.UIT.C, config = { align = "cl", minw = 0.6 }, nodes = { text(" ("..entry.count..")", G.C.UI.TEXT_DARK) } }
+  end
+  return rows
+end
+
 has_scoring_face_and_stone = function(scoring_hand)
   local has_face, has_stone = false, false
   for _, scored_card in ipairs(scoring_hand or {}) do

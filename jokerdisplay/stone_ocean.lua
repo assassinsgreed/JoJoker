@@ -194,6 +194,23 @@ jd_def["j_jojoker_jumpin_jack_flash"] = {
     end,
 }
 
+jd_def["j_jojoker_under_world"] = {
+    text = {
+        { text = "+", colour = G.C.CHIPS },
+        { ref_table = "card.joker_display_values", ref_value = "chips", retrigger_type = "mult", colour = G.C.CHIPS },
+    },
+    calc_function = function(card)
+        local chips = 0
+        local _, _, scoring_hand = JokerDisplay.evaluate_hand()
+        for _, scoring_card in pairs(scoring_hand) do
+            if not scoring_card.debuff then
+                chips = chips + get_under_world_card_chips(card, scoring_card) * JokerDisplay.calculate_card_triggers(scoring_card, scoring_hand)
+            end
+        end
+        card.joker_display_values.chips = chips
+    end
+}
+
 jd_def["j_jojoker_loccobarocco_and_charlotte"] = {
     text = {
         { text = "+", colour = G.C.CHIPS },

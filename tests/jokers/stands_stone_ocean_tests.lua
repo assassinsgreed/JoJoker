@@ -530,5 +530,105 @@ Balatest.TestPlay {
         Balatest.assert_chips(15, "Jumpin' Jack Flash retriggered a Jack that did not score")
     end
 }
+--#endregion
 
+--#region Under World
+Balatest.TestPlay {
+    name = 'under_world_doubles_a_rank_scored_earlier_this_round',
+    category = { 'jokers', 'stone_ocean', 'under_world' },
+    jokers = { 'j_jojoker_under_world' },
+    execute = function()
+        Balatest.play_hand { '2S' }
+        Balatest.play_hand { '2H' }
+    end,
+    assert = function()
+        Balatest.assert_chips(7 + (5 + 2 * 2), "Under World did not double the chips of a rank scored in an earlier hand")
+    end
+}
+
+Balatest.TestPlay {
+    name = 'under_world_compounds_for_each_earlier_hand_with_the_rank',
+    category = { 'jokers', 'stone_ocean', 'under_world' },
+    jokers = { 'j_jojoker_under_world' },
+    hands = 5,
+    execute = function()
+        Balatest.play_hand { 'AS' }
+        Balatest.play_hand { 'AH' }
+        Balatest.play_hand { 'AC' }
+        Balatest.play_hand { 'AD' }
+    end,
+    assert = function()
+        Balatest.assert_eq(G.jokers.cards[1].ability.extra.rank_hands[14], 4, "Under World did not count each hand that scored an Ace")
+        Balatest.assert_chips((5 + 11) + (5 + 11 * 2) + (5 + 11 * 4) + (5 + 11 * 8), "Under World did not compound X2 rank chips for each earlier hand with Aces")
+    end
+}
+
+Balatest.TestPlay {
+    name = 'under_world_doubles_every_scoring_card_of_the_rank',
+    category = { 'jokers', 'stone_ocean', 'under_world' },
+    jokers = { 'j_jojoker_under_world' },
+    execute = function()
+        Balatest.play_hand { 'AS', 'AH' }
+        Balatest.play_hand { 'AC', 'AD' }
+    end,
+    assert = function()
+        Balatest.assert_eq(G.jokers.cards[1].ability.extra.rank_hands[14], 2, "Under World counted a Pair of Aces as more than one hand")
+        Balatest.assert_chips((10 + 22) * 2 + (10 + 44) * 2, "Under World did not double each scoring Ace")
+    end
+}
+
+Balatest.TestPlay {
+    name = 'under_world_tracks_every_rank_in_a_hand',
+    category = { 'jokers', 'stone_ocean', 'under_world' },
+    jokers = { 'j_jojoker_under_world' },
+    execute = function()
+        keep_blind_unbeaten()
+        Balatest.play_hand { 'AS', 'AH', '2S', '2H', '2C' }
+        Balatest.play_hand { 'AC' }
+        Balatest.play_hand { '2D' }
+    end,
+    assert = function()
+        Balatest.assert_chips((40 + 22 + 6) * 4 + (5 + 22) + (5 + 4), "Under World did not double both ranks from a Full House")
+    end
+}
+
+Balatest.TestPlay {
+    name = 'under_world_ignores_ranks_that_did_not_score',
+    category = { 'jokers', 'stone_ocean', 'under_world' },
+    jokers = { 'j_jojoker_under_world' },
+    execute = function()
+        Balatest.play_hand { '2S', '2H', 'KS' }
+        Balatest.play_hand { 'KH' }
+    end,
+    assert = function()
+        Balatest.assert_eq(G.jokers.cards[1].ability.extra.rank_hands[2], 1, "Under World did not count the scored Pair of 2s")
+        Balatest.assert_chips(28 + 15, "Under World counted an unscored King kicker toward its rank")
+    end
+}
+
+Balatest.TestPlay {
+    name = 'under_world_keeps_ranks_between_rounds_of_an_ante',
+    category = { 'jokers', 'stone_ocean', 'under_world' },
+    jokers = { 'j_jojoker_under_world' },
+    execute = function()
+        Balatest.play_hand { 'AS' }
+        Balatest.end_round()
+    end,
+    assert = function()
+        Balatest.assert_eq(G.jokers.cards[1].ability.extra.rank_hands[14], 1, "Under World forgot its rank tally before the ante ended")
+    end
+}
+
+Balatest.TestPlay {
+    name = 'under_world_forgets_ranks_when_the_ante_ends',
+    category = { 'jokers', 'stone_ocean', 'under_world' },
+    jokers = { 'j_jojoker_under_world' },
+    execute = function()
+        Balatest.play_hand { 'AS' }
+        Balatest.q(function() ease_ante(1) end)
+    end,
+    assert = function()
+        Balatest.assert_eq(next(G.jokers.cards[1].ability.extra.rank_hands), nil, "Under World kept its rank tally after the ante ended")
+    end
+}
 --#endregion

@@ -174,6 +174,7 @@ jojoker.joker_order = {
     "the_world",
     "thoth",
     "tomb_of_the_boom",
+    "under_world",
     "wheel_of_fortune",
     "white_album",
     "white_snake",

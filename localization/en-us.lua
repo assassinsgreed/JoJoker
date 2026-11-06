@@ -1089,6 +1089,17 @@ local loc = {
                     "Retrigger each played {C:attention}Jack{} {C:attention}#1#{} times."
                 }
             },
+            j_jojoker_under_world = {
+                name = "Under World",
+                alt_name = "Netherworld",
+                text = {
+                    "Scored cards' base {C:chips}chips{} are {X:chips,C:white} X#1# {}",
+                    "for each hand this ante they scored in.",
+                },
+                in_play_text = {
+                    "{C:inactive}Hands per rank this ante:{}"
+                }
+            },
             j_jojoker_loccobarocco_and_charlotte = {
                 name = "Loccobarocco and Charlotte",
                 text = {

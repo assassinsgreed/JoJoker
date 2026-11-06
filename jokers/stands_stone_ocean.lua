@@ -603,7 +603,56 @@ local jumpin_jack_flash = {
     end
 }
 
+local under_world = {
+    name = "under_world",
+    rarity = 3,
+    cost = 9,
+    jtype = "Stand",
+    part = "stone_ocean",
+    themes = { core = { jojoker.themes.HANDS_PLAYED }, support = { jojoker.themes.ALL_QUEEN_DECK, jojoker.themes.JACK_DECK } },
+    blueprint_compat = true,
+    perishable_compat = true,
+    eternal_compat = true,
+    config = { extra = { xchips_mod = 2, rank_hands = {} } },
+    loc_vars = function(self, info_queue, center)
+        return {
+            vars = {center.ability.extra.xchips_mod},
+            main_end = center.area == G.jokers and {
+                { n = G.UIT.C, config = { align = "cm", padding = 0.03 }, nodes = get_under_world_rank_table(center) }
+            } or nil
+        }
+    end,
+    calculate = function(self, card, context)
+        -- multiplies each scored card's chips by the number of hands that contained it in this round
+        if context.individual and context.cardarea == G.play then
+            local chips = get_under_world_card_chips(card, context.other_card)
+            if chips > 0 then
+                jojoker.debug("Under World: Scored rank replayed earlier this round, adding "..chips.." chips")
+                return {
+                    chips = chips,
+                }
+            end
+        end
+
+        -- Queued so the tally, and JokerDisplay with it, only moves once this hand's chips have scored
+        if context.after and not context.blueprint then
+            local ids = get_distinct_scored_rank_ids(context.scoring_hand)
+            G.E_MANAGER:add_event(Event({ func = function()
+                for _, id in ipairs(ids) do
+                    card.ability.extra.rank_hands[id] = (card.ability.extra.rank_hands[id] or 0) + 1
+                end
+                return true
+            end }))
+        end
+
+        if context.ante_change and not context.blueprint then
+            jojoker.debug("Under World: Ante changed, forgetting played ranks")
+            card.ability.extra.rank_hands = {}
+        end
+    end
+}
+
 return {
     name = "Stone Ocean Stands Jokers",
-    list = { goo_goo_dolls, stone_free, made_in_heaven, dragons_dream, green_green_grass_of_home, survivor, foo_fighters, white_snake, burning_down_the_house, limp_bizkit, marilyn_manson, c_moon, planet_waves, kiss, jumpin_jack_flash },
+    list = { goo_goo_dolls, stone_free, made_in_heaven, dragons_dream, green_green_grass_of_home, survivor, foo_fighters, white_snake, burning_down_the_house, limp_bizkit, marilyn_manson, c_moon, planet_waves, kiss, jumpin_jack_flash, under_world },
 }
