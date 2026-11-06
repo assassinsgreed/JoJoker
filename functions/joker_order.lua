@@ -57,6 +57,7 @@ jojoker.joker_order = {
     -- Effects
     "clacker_balls",
     "dark_determination",
+    "dios_bone",
     "earth_wind_and_fire",
     "epitaph",
     "german_engineering",

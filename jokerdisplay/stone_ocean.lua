@@ -224,3 +224,23 @@ jd_def["j_jojoker_loccobarocco_and_charlotte"] = {
         card.joker_display_values.chips = get_loccobarocco_chips(card, scoring_hand)
     end
 }
+
+jd_def["j_jojoker_dios_bone"] = {
+    text = {
+        {
+            border_nodes = {
+                { text = "X" },
+                { ref_table = "card.joker_display_values", ref_value = "xmult", retrigger_type = "exp" }
+            }
+        }
+    },
+    reminder_text = {
+        { text = "Remaining: ", colour = G.C.GREY },
+        { ref_table = "card.ability.extra", ref_value = "scored_cards_remaining", colour = G.C.GREY }
+    },
+    calc_function = function(card)
+        local _, _, scoring_hand = JokerDisplay.evaluate_hand()
+        local activates = #scoring_hand > 0 and #scoring_hand >= card.ability.extra.scored_cards_remaining
+        card.joker_display_values.xmult = activates and card.ability.extra.Xmult or 1
+    end
+}

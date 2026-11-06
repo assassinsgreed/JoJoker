@@ -139,6 +139,7 @@ JokerSprites = {
         {name = "jumpin_jack_flash", base = {pos = {x = 1, y = 3}}, part_atlas = "stone_ocean" },
         {name = "loccobarocco_and_charlotte", base = {pos = {x = 2, y = 3}}, part_atlas = "stone_ocean" },
         {name = "under_world", base = {pos = {x = 3, y = 3}}, part_atlas = "stone_ocean" },
+        {name = "dios_bone", base = {pos = {x = 4, y = 3}}, part_atlas = "stone_ocean" },
         -- Part 7: Steel Ball Run
         {name = "mandom", base = {pos = {x = 0, y = 0}}, part_atlas = "steel_ball_run" },
         {name = "the_fifth_lesson", base = {pos = {x = 1, y = 0}}, part_atlas = "steel_ball_run" },

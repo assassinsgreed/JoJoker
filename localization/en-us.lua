@@ -1107,6 +1107,16 @@ local loc = {
                     "{C:attention}X#1#{} their {C:chips}chips{}."
                 }
             },
+            j_jojoker_dios_bone = {
+                name = "DIO's Bone",
+                text = {
+                    "Every {C:attention}#1#{} scored cards,",
+                    "gives {X:mult,C:white} X#2#{}.",
+                },
+                in_play_text = {
+                    "{C:inactive}Scored cards remaining: {C:attention}#3#{C:inactive}",
+                }
+            },
             -- Part 7: Steel Ball Run
             j_jojoker_mandom = {
                 name = "Mandom",
