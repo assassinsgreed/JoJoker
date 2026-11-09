@@ -143,6 +143,7 @@ jojoker.joker_order = {
     "milagro_man",
     "moody_blues",
     "notorious_big",
+    "november_rain",
     "oh_lonesome_me",
     "paisley_park",
     "paper_moon_king",

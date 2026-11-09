@@ -30,3 +30,20 @@ jd_def["j_jojoker_jodio_joestar"] = {
         { text = "Per scored gold card", colour = G.C.GREY },
     }
 }
+
+jd_def["j_jojoker_november_rain"] = {
+    text = {
+        {
+            border_nodes = {
+                { text = "X" },
+                { ref_table = "card.joker_display_values", ref_value = "Xmult" }
+            }
+        }
+    },
+    calc_function = function(card)
+        local _, _, scoring_hand = JokerDisplay.evaluate_hand()
+        local middle_card = scoring_hand[math.ceil(#scoring_hand / 2)]
+        local triggers = middle_card and not middle_card.debuff and JokerDisplay.calculate_card_triggers(middle_card, scoring_hand) or 0
+        card.joker_display_values.Xmult = card.ability.extra.Xmult ^ triggers
+    end
+}

@@ -11,6 +11,7 @@ SMODS = { Atlas = function() end, Joker = function() end, current_mod = { config
 jojoker = { debug = function() end }
 G = {
     GAME = { probabilities = { normal = 1 }, starting_deck_size = 52, hands = {} },
+    jokers = {},
     C = setmetatable({}, { __index = function() return {} end }),
     P_CENTERS = setmetatable({}, { __index = function() return {} end }),
 }

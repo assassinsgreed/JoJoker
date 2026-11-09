@@ -122,3 +122,110 @@ Balatest.TestPlay {
 }
 
 --#endregion
+
+--#region November Rain
+
+Balatest.TestPlay {
+    name = 'november_rain_destroys_the_middle_scored_card',
+    category = { 'jokers', 'the_jojolands', 'november_rain' },
+    jokers = { 'j_jojoker_november_rain' },
+    execute = function()
+        Balatest.play_hand { 'KS', 'QS', 'JS', '10S', '9S' }
+    end,
+    assert = function()
+        Balatest.assert_eq(#G.playing_cards, 51, "November Rain did not destroy exactly one card")
+        Balatest.assert_eq(count_playing_cards('Jack', 'Spades'), 0, "November Rain did not destroy the middle scored card")
+    end
+}
+
+Balatest.TestPlay {
+    name = 'november_rain_destroys_the_left_middle_card_of_an_even_hand',
+    category = { 'jokers', 'the_jojolands', 'november_rain' },
+    jokers = { 'j_jojoker_november_rain' },
+    execute = function()
+        Balatest.play_hand { 'KS', 'KH', '4S', '4H' }
+    end,
+    assert = function()
+        Balatest.assert_eq(#G.playing_cards, 51, "November Rain did not destroy exactly one card")
+        Balatest.assert_eq(count_playing_cards('King', 'Hearts'), 0, "November Rain did not destroy the second of four scored cards")
+        Balatest.assert_eq(count_playing_cards('4'), 4, "November Rain destroyed a card right of the middle")
+    end
+}
+
+Balatest.TestPlay {
+    name = 'november_rain_destroys_the_first_of_two_scored_cards',
+    category = { 'jokers', 'the_jojolands', 'november_rain' },
+    jokers = { 'j_jojoker_november_rain' },
+    execute = function()
+        Balatest.play_hand { 'KS', 'KH' }
+    end,
+    assert = function()
+        Balatest.assert_eq(count_playing_cards('King', 'Spades'), 0, "November Rain did not destroy the first of two scored cards")
+        Balatest.assert_eq(count_playing_cards('King', 'Hearts'), 1, "November Rain destroyed the second of two scored cards")
+    end
+}
+
+Balatest.TestPlay {
+    name = 'november_rain_ignores_unscored_cards',
+    category = { 'jokers', 'the_jojolands', 'november_rain' },
+    jokers = { 'j_jojoker_november_rain' },
+    execute = function()
+        Balatest.play_hand { 'KS', '3H', '2C' }
+    end,
+    assert = function()
+        Balatest.assert_eq(count_playing_cards('King', 'Spades'), 0, "November Rain did not destroy the only scored card")
+        Balatest.assert_eq(count_playing_cards('3', 'Hearts'), 1, "November Rain destroyed an unscored card")
+        Balatest.assert_eq(count_playing_cards('2', 'Clubs'), 1, "November Rain destroyed an unscored card")
+    end
+}
+
+Balatest.TestPlay {
+    name = 'november_rain_destroys_a_card_for_each_hand_played',
+    category = { 'jokers', 'the_jojolands', 'november_rain' },
+    jokers = { 'j_jojoker_november_rain' },
+    execute = function()
+        Balatest.play_hand { '2S' }
+        Balatest.play_hand { '3S' }
+    end,
+    assert = function()
+        Balatest.assert_eq(#G.playing_cards, 50, "November Rain did not destroy a card for each hand")
+    end
+}
+
+Balatest.TestPlay {
+    name = 'november_rain_middle_card_gives_xmult',
+    category = { 'jokers', 'the_jojolands', 'november_rain' },
+    jokers = { 'j_jojoker_november_rain' },
+    execute = function()
+        Balatest.play_hand { 'KS', 'KH' }
+    end,
+    assert = function()
+        -- Pair: (10 base + 10 + 10) * 2 mult * X4
+        Balatest.assert_chips(240, "November Rain did not apply its Xmult")
+    end
+}
+
+Balatest.TestPlay {
+    name = 'november_rain_xmult_applies_on_each_retrigger',
+    category = { 'jokers', 'the_jojolands', 'november_rain' },
+    jokers = { 'j_jojoker_november_rain' },
+    deck = { cards = {
+        { r = 'K', s = 'S', g = 'Red' },
+        { r = 'K', s = 'H' },
+        { r = '2', s = 'D' },
+        { r = '2', s = 'D' },
+        { r = '2', s = 'D' },
+        { r = '2', s = 'D' },
+        { r = '2', s = 'D' },
+        { r = '2', s = 'D' } } },
+    execute = function()
+        Balatest.play_hand { 'KS', 'KH' }
+    end,
+    assert = function()
+        -- Pair: (10 base + 10 + 10 + 10 retrigger) * 2 mult * X4 * X4
+        Balatest.assert_chips(1280, "November Rain did not apply its Xmult on each retrigger")
+        Balatest.assert_eq(#G.playing_cards, 7, "November Rain destroyed the retriggered card more than once")
+    end
+}
+
+--#endregion

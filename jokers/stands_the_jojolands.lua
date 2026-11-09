@@ -117,7 +117,42 @@ local john_rod = {
     end
 }
 
+local november_rain = {
+    name = "november_rain",
+    rarity = 2,
+    cost = 6,
+    jtype = "Stand",
+    part = "the_jojolands",
+    themes = { support = { jojoker.themes.DECK_SHRINKING, jojoker.themes.RETRIGGERS } },
+    blueprint_compat = false,
+    perishable_compat = true,
+    eternal_compat = true,
+    config = { extra = { Xmult = 4 } },
+    loc_vars = function(self, info_queue, center)
+        return {vars = {center.ability.extra.Xmult}}
+    end,
+    calculate = function(self, card, context)
+        if context.blueprint then return end
+
+        -- The middle scored card gives 3 xmult and is destroyed after scoring
+        if context.individual and not context.end_of_round and context.cardarea == G.play
+            and context.other_card == context.scoring_hand[math.ceil(#context.scoring_hand / 2)] then
+            jojoker.debug("November Rain: Middle scored card giving XMult of "..card.ability.extra.Xmult)
+            return {
+                x_mult = card.ability.extra.Xmult,
+                card = card
+            }
+        end
+
+        if context.destroy_card and context.cardarea == G.play
+            and context.destroy_card == context.scoring_hand[math.ceil(#context.scoring_hand / 2)] then
+            jojoker.debug("November Rain: Destroying middle scored card")
+            return { remove = true }
+        end
+    end
+}
+
 return {
     name = "The JOJOLands Stands Jokers",
-    list = { smooth_operator, john_rod },
+    list = { smooth_operator, john_rod, november_rain },
 }

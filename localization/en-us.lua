@@ -1479,6 +1479,14 @@ local loc = {
                     "{C:inactive}Currently: {X:mult,C:white} X#3# {}"
                 }
             },
+            j_jojoker_november_rain = {
+                name = "November Rain",
+                text = {
+                    "The {C:attention}middle{} scored card gives",
+                    "{X:mult,C:white} X#1# {} Mult, then is {C:attention}destroyed{}.",
+                    "{C:inactive}(Leftmost on even hands)",
+                }
+            },
         },
         Other = {
             scan_cards = {
