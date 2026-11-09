@@ -1324,6 +1324,15 @@ local loc = {
                     "{C:attention}1{} random discarded card."
                 }
             },
+            j_jojoker_wired = {
+                name = "Wired",
+                alt_name = "Roped",
+                text = {
+                    "Forces {C:attention}#1#{} random cards in hand",
+                    "to stay {C:attention}selected{}. When scored, they",
+                    "give {C:mult}+#2#x{} their {C:attention}rank{} as mult."
+                }
+            },
             -- Part 8: Jojolion
             j_jojoker_soft_and_wet = {
                 name = "Soft & Wet",

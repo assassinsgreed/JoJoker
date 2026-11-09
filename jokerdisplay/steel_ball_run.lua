@@ -277,6 +277,27 @@ jd_def["j_jojoker_boku_no_rhythm_wo_kiitekure"] = {
     },
 }
 
+jd_def["j_jojoker_wired"] = {
+    text = {
+        { text = "+", colour = G.C.MULT },
+        { ref_table = "card.joker_display_values", ref_value = "first_mult", colour = G.C.MULT },
+        { text = " / ", colour = G.C.GREY },
+        { text = "+", colour = G.C.MULT },
+        { ref_table = "card.joker_display_values", ref_value = "second_mult", colour = G.C.MULT },
+    },
+    calc_function = function(card)
+        local mults = {}
+        for _, hand_card in ipairs(G.hand and G.hand.cards or {}) do
+            if hand_card.ability.jojoker_wired then
+                local scores = not hand_card.debuff and not SMODS.has_no_rank(hand_card)
+                mults[#mults + 1] = scores and hand_card:get_id() * card.ability.extra.rank_multiplier or 0
+            end
+        end
+        card.joker_display_values.first_mult = mults[1] or 0
+        card.joker_display_values.second_mult = mults[2] or 0
+    end,
+}
+
 jd_def["j_jojoker_sugar_mountain"] = {
     text = {
         { text = "$", colour = G.C.MONEY },

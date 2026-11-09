@@ -507,7 +507,45 @@ local boku_no_rhythm_wo_kiitekure = {
     end
 }
 
+local wired = {
+    name = "wired",
+    rarity = 2,
+    cost = 6,
+    jtype = "Stand",
+    part = "steel_ball_run",
+    blueprint_compat = true,
+    perishable_compat = true,
+    eternal_compat = true,
+    config = { extra = { cards = 2, rank_multiplier = 2 } },
+    loc_vars = function(self, info_queue, center)
+        return {vars = { center.ability.extra.cards, center.ability.extra.rank_multiplier }}
+    end,
+    remove_from_deck = function(self, card, from_debuff)
+        release_wired_cards()
+    end,
+    calculate = function(self, card, context)
+        -- 2 cards are forcibly picked
+        if context.hand_drawn and not context.blueprint then
+            local newly_wired = wire_hand_cards(card.ability.extra.cards)
+            if newly_wired > 0 then
+                jojoker.debug("Wired: Forced "..newly_wired.." cards into the selection.")
+            end
+        end
+
+        -- When either wired card scores, it gives 2x it's rank as mult.
+        if context.individual and context.cardarea == G.play and context.other_card.ability.jojoker_wired
+            and not context.other_card.debuff and not SMODS.has_no_rank(context.other_card) then
+            local mult = context.other_card:get_id() * card.ability.extra.rank_multiplier
+            jojoker.debug("Wired: Giving "..mult.." mult to a wired card.")
+            return {
+                mult = mult,
+                card = card
+            }
+        end
+    end
+}
+
 return {
     name = "Steel Ball Run Stand Jokers",
-    list = { mandom, chocolate_disco, oh_lonesome_me, hey_ya, tattoo_you, civil_war, ball_breaker, love_train, in_a_silent_way, d4c, tomb_of_the_boom, scary_monsters, boku_no_rhythm_wo_kiitekure },
+    list = { mandom, chocolate_disco, oh_lonesome_me, hey_ya, tattoo_you, civil_war, ball_breaker, love_train, in_a_silent_way, d4c, tomb_of_the_boom, scary_monsters, boku_no_rhythm_wo_kiitekure, wired },
 }

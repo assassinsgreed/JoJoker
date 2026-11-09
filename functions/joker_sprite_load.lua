@@ -165,6 +165,7 @@ JokerSprites = {
         {name = "tomb_of_the_boom", base = {pos = {x = 1, y = 4}}, part_atlas = "steel_ball_run" },
         {name = "scary_monsters", base = {pos = {x = 2, y = 4}}, part_atlas = "steel_ball_run" },
         {name = "boku_no_rhythm_wo_kiitekure", base = {pos = {x = 3, y = 4}}, part_atlas = "steel_ball_run" },
+        {name = "wired", base = {pos = {x = 4, y = 4}}, part_atlas = "steel_ball_run" },
         -- Part 8: Jojolion
         {name = "soft_and_wet", base = {pos = {x = 0, y = 0}}, part_atlas = "jojolion" },
         {name = "paper_moon_king", base = {pos = {x = 1, y = 0}}, part_atlas = "jojolion" },

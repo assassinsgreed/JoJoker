@@ -204,3 +204,28 @@ pool_offers = function(pool_type, key, rarity)
     end
     return false
 end
+
+count_wired_cards = function(area)
+    local count = 0
+    for _, c in ipairs(area.cards) do
+        if c.ability.jojoker_wired then
+            count = count + 1
+        end
+    end
+    return count
+end
+
+-- Wired picks at random, so rewrite ranks afterward to tell the wired cards from the rest
+set_wired_card_bases = function(wired_keys, unwired_key)
+    Balatest.q(function()
+        local wired_index = 0
+        for _, c in ipairs(G.hand.cards) do
+            if c.ability.jojoker_wired then
+                wired_index = wired_index + 1
+                c:set_base(G.P_CARDS[wired_keys[wired_index]])
+            else
+                c:set_base(G.P_CARDS[unwired_key])
+            end
+        end
+    end)
+end

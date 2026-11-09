@@ -859,3 +859,139 @@ Balatest.TestPlay {
 }
 
 --#endregion
+--#region Wired
+
+Balatest.TestPlay {
+    name = 'wired_forces_cards_into_the_selection',
+    category = { 'jokers', 'steel_ball_run', 'wired' },
+    jokers = { 'j_jojoker_wired' },
+    deck = { cards = {
+        { r = '2', s = 'S' }, { r = '2', s = 'S' }, { r = '2', s = 'S' }, { r = '2', s = 'S' }, { r = '2', s = 'S' },
+        { r = '2', s = 'S' }, { r = '2', s = 'S' }, { r = '2', s = 'S' }, { r = '2', s = 'S' }, { r = '2', s = 'S' } } },
+    hand_size = 5,
+    execute = function() end,
+    assert = function()
+        Balatest.assert_eq(count_wired_cards(G.hand), G.jokers.cards[1].ability.extra.cards, "Wired did not wire the right number of cards")
+        Balatest.assert_eq(#G.hand.highlighted, G.jokers.cards[1].ability.extra.cards, "Wired did not select its wired cards")
+    end
+}
+
+Balatest.TestPlay {
+    name = 'wired_cards_cannot_be_deselected',
+    category = { 'jokers', 'steel_ball_run', 'wired' },
+    jokers = { 'j_jojoker_wired' },
+    deck = { cards = {
+        { r = '2', s = 'S' }, { r = '2', s = 'S' }, { r = '2', s = 'S' }, { r = '2', s = 'S' }, { r = '2', s = 'S' },
+        { r = '2', s = 'S' }, { r = '2', s = 'S' }, { r = '2', s = 'S' }, { r = '2', s = 'S' }, { r = '2', s = 'S' } } },
+    hand_size = 5,
+    execute = function()
+        Balatest.unhighlight_all()
+    end,
+    assert = function()
+        Balatest.assert_eq(#G.hand.highlighted, G.jokers.cards[1].ability.extra.cards, "Wired cards were deselected")
+    end
+}
+
+Balatest.TestPlay {
+    name = 'wired_wires_new_cards_after_a_discard',
+    category = { 'jokers', 'steel_ball_run', 'wired' },
+    jokers = { 'j_jojoker_wired' },
+    deck = { cards = {
+        { r = '2', s = 'S' }, { r = '2', s = 'S' }, { r = '2', s = 'S' }, { r = '2', s = 'S' }, { r = '2', s = 'S' },
+        { r = '2', s = 'S' }, { r = '2', s = 'S' }, { r = '2', s = 'S' }, { r = '2', s = 'S' }, { r = '2', s = 'S' } } },
+    hand_size = 3,
+    execute = function()
+        Balatest.discard {}
+    end,
+    assert = function()
+        Balatest.assert_eq(#G.discard.cards, G.jokers.cards[1].ability.extra.cards, "Wired cards were not discarded")
+        Balatest.assert_eq(count_wired_cards(G.hand), G.jokers.cards[1].ability.extra.cards, "Wired did not wire new cards after the discard")
+        Balatest.assert_eq(count_wired_cards(G.discard), 0, "Discarded cards kept their wires")
+    end
+}
+
+Balatest.TestPlay {
+    name = 'wired_releases_its_cards_when_sold',
+    category = { 'jokers', 'steel_ball_run', 'wired' },
+    jokers = { 'j_jojoker_wired' },
+    deck = { cards = {
+        { r = '2', s = 'S' }, { r = '2', s = 'S' }, { r = '2', s = 'S' }, { r = '2', s = 'S' }, { r = '2', s = 'S' },
+        { r = '2', s = 'S' }, { r = '2', s = 'S' }, { r = '2', s = 'S' }, { r = '2', s = 'S' }, { r = '2', s = 'S' } } },
+    hand_size = 5,
+    execute = function()
+        Balatest.sell(function() return G.jokers.cards[1] end)
+        Balatest.unhighlight_all()
+    end,
+    assert = function()
+        Balatest.assert_eq(count_wired_cards(G.hand), 0, "Wired left its cards wired after being sold")
+        Balatest.assert_eq(#G.hand.highlighted, 0, "Wired left its cards stuck selected after being sold")
+    end
+}
+
+Balatest.TestPlay {
+    name = 'wired_gives_scored_wired_cards_mult_from_their_rank',
+    category = { 'jokers', 'steel_ball_run', 'wired' },
+    jokers = { 'j_jojoker_wired' },
+    deck = { cards = {
+        { r = 'K', s = 'S' }, { r = 'K', s = 'S' }, { r = 'K', s = 'S' }, { r = 'K', s = 'S' } } },
+    hand_size = 2,
+    execute = function()
+        Balatest.play_hand {}
+    end,
+    assert = function()
+        local multiplier = G.jokers.cards[1].ability.extra.rank_multiplier
+        Balatest.assert_chips((10 + 10 + 10) * (2 + 13 * multiplier * 2), "Wired did not give mult from the rank of each wired King")
+    end
+}
+
+Balatest.TestPlay {
+    name = 'wired_counts_aces_as_rank_fourteen',
+    category = { 'jokers', 'steel_ball_run', 'wired' },
+    jokers = { 'j_jojoker_wired' },
+    deck = { cards = {
+        { r = 'A', s = 'S' }, { r = 'A', s = 'S' }, { r = 'A', s = 'S' }, { r = 'A', s = 'S' } } },
+    hand_size = 2,
+    execute = function()
+        Balatest.play_hand {}
+    end,
+    assert = function()
+        local multiplier = G.jokers.cards[1].ability.extra.rank_multiplier
+        Balatest.assert_chips((10 + 11 + 11) * (2 + 14 * multiplier * 2), "Wired did not count Aces as rank 14")
+    end
+}
+
+Balatest.TestPlay {
+    name = 'wired_pays_out_when_only_one_wired_card_scores',
+    category = { 'jokers', 'steel_ball_run', 'wired' },
+    jokers = { 'j_jojoker_wired' },
+    deck = { cards = {
+        { r = '2', s = 'S' }, { r = '2', s = 'S' }, { r = '2', s = 'S' }, { r = '2', s = 'S' } } },
+    hand_size = 2,
+    execute = function()
+        set_wired_card_bases({ 'S_K', 'H_2' }, 'S_2')
+        Balatest.play_hand {} -- High Card, only the King scores
+    end,
+    assert = function()
+        local multiplier = G.jokers.cards[1].ability.extra.rank_multiplier
+        Balatest.assert_chips((5 + 10) * (1 + 13 * multiplier), "Wired did not pay out for the one wired card that scored")
+    end
+}
+
+Balatest.TestPlay {
+    name = 'wired_does_not_give_mult_to_unwired_cards',
+    category = { 'jokers', 'steel_ball_run', 'wired' },
+    jokers = { 'j_jojoker_wired' },
+    deck = { cards = {
+        { r = '2', s = 'S' }, { r = '2', s = 'S' }, { r = '2', s = 'S' }, { r = '2', s = 'S' }, { r = '2', s = 'S' },
+        { r = '2', s = 'S' } } },
+    hand_size = 3,
+    execute = function()
+        set_wired_card_bases({ 'H_2', 'D_3' }, 'S_K')
+        Balatest.play_hand { 'KS' } -- High Card, only the unwired King scores
+    end,
+    assert = function()
+        Balatest.assert_chips(5 + 10, "Wired gave mult to an unwired card")
+    end
+}
+
+--#endregion

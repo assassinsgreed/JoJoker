@@ -181,6 +181,7 @@ jojoker.joker_order = {
     "wheel_of_fortune",
     "white_album",
     "white_snake",
+    "wired",
     "wonder_of_u",
     "yellow_temperance",
 

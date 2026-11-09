@@ -975,3 +975,41 @@ wang_chan_create_planet = function()
   }))
   return true
 end
+
+-- Forced selection is cleared on every play and discard, so stale wires are dropped before topping up
+wire_hand_cards = function(count)
+  local wired, unwired = 0, {}
+  for _, playing_card in ipairs(G.playing_cards) do
+    if playing_card.ability.jojoker_wired and not playing_card.ability.forced_selection then
+      playing_card.ability.jojoker_wired = nil
+    end
+  end
+  for _, hand_card in ipairs(G.hand.cards) do
+    if hand_card.ability.jojoker_wired then
+      wired = wired + 1
+    elseif not hand_card.ability.forced_selection then
+      unwired[#unwired + 1] = hand_card
+    end
+  end
+  local newly_wired = 0
+  while wired < count and #unwired > 0 do
+    local chosen, index = pseudorandom_element(unwired, pseudoseed('jojoker_wired'))
+    table.remove(unwired, index)
+    chosen.ability.jojoker_wired = true
+    chosen.ability.forced_selection = true
+    G.hand:add_to_highlighted(chosen, true)
+    wired = wired + 1
+    newly_wired = newly_wired + 1
+  end
+  return newly_wired
+end
+
+release_wired_cards = function()
+  for _, playing_card in ipairs(G.playing_cards or {}) do
+    if playing_card.ability.jojoker_wired then
+      playing_card.ability.jojoker_wired = nil
+      playing_card.ability.forced_selection = nil
+      if playing_card.area == G.hand then G.hand:remove_from_highlighted(playing_card, true) end
+    end
+  end
+end
