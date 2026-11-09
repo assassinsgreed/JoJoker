@@ -198,6 +198,53 @@ jojoker_track_black_holes_used = function(context)
   jojoker.debug("Black Hole used: "..G.GAME.jojoker_black_holes_used.." total this run")
 end
 
+-- Most recently played hand type is last; each type appears once
+jojoker_track_recent_hand_types = function(context)
+  if not (context.after and context.scoring_name) then return end
+  local recent = G.GAME.jojoker_recent_hand_types or {}
+  for i = #recent, 1, -1 do
+    if recent[i] == context.scoring_name then table.remove(recent, i) end
+  end
+  recent[#recent + 1] = context.scoring_name
+  G.GAME.jojoker_recent_hand_types = recent
+end
+
+jailhouse_lock_tracks = function(hand_name)
+  for _, recent_hand in ipairs(G.GAME.jojoker_recent_hand_types or {}) do
+    if recent_hand == hand_name then return true end
+  end
+  return false
+end
+
+get_jailhouse_locked_hands = function(hand_types)
+  local recent = G.GAME.jojoker_recent_hand_types or {}
+  if #recent < hand_types then return nil end
+  local locked = {}
+  for i = #recent - hand_types + 1, #recent do
+    locked[#locked + 1] = recent[i]
+  end
+  return locked
+end
+
+jailhouse_lock_blocks = function(hand_name, hand_types)
+  local locked = get_jailhouse_locked_hands(hand_types)
+  if not locked then return false end
+  for _, locked_hand in ipairs(locked) do
+    if locked_hand == hand_name then return false end
+  end
+  return true
+end
+
+get_jailhouse_tracked_hands_text = function(hand_types)
+  local recent = G.GAME and G.GAME.jojoker_recent_hand_types or {}
+  if #recent == 0 then return localize('none_used') end
+  local names = {}
+  for i = math.max(1, #recent - hand_types + 1), #recent do
+    names[#names + 1] = localize(recent[i], 'poker_hands')
+  end
+  return table.concat(names, ", ")
+end
+
 get_cream_mult = function(card)
   local highest_level = 1
   for _, hand in pairs(G.GAME.hands) do

@@ -632,3 +632,103 @@ Balatest.TestPlay {
     end
 }
 --#endregion
+
+--#region Jailhouse Lock
+
+Balatest.TestPlay {
+    name = 'jailhouse_lock_does_not_level_up_a_hand_type_the_first_time_it_is_played',
+    category = { 'jokers', 'stone_ocean', 'jailhouse_lock' },
+    jokers = { 'j_jojoker_jailhouse_lock' },
+    execute = function()
+        Balatest.play_hand { 'AS' }
+    end,
+    assert = function()
+        Balatest.assert_eq(G.GAME.hands['High Card'].level, 1, "Jailhouse Lock leveled up High Card the first time it was played")
+        Balatest.assert_chips((5 + 11) * 1, "Jailhouse Lock changed the score of a first-time High Card")
+    end
+}
+
+Balatest.TestPlay {
+    name = 'jailhouse_lock_levels_up_a_replayed_hand_type_before_three_types_are_played',
+    category = { 'jokers', 'stone_ocean', 'jailhouse_lock' },
+    jokers = { 'j_jojoker_jailhouse_lock' },
+    execute = function()
+        Balatest.play_hand { 'AS' }
+        Balatest.play_hand { 'AH' }
+    end,
+    assert = function()
+        Balatest.assert_eq(G.GAME.hands['High Card'].level, 1 + G.jokers.cards[1].ability.extra.levels, "Jailhouse Lock did not level up a replayed High Card before 3 hand types were played")
+        Balatest.assert_chips((5 + 11) * 1 + (5 + 10 * 2 + 11) * (1 + 1 * 2), "Jailhouse Lock did not score the replayed High Card with its new levels")
+    end
+}
+
+Balatest.TestPlay {
+    name = 'jailhouse_lock_scores_and_levels_up_a_locked_hand_type',
+    category = { 'jokers', 'stone_ocean', 'jailhouse_lock' },
+    jokers = { 'j_jojoker_jailhouse_lock' },
+    execute = function()
+        G.GAME.jojoker_recent_hand_types = { 'Flush', 'Straight', 'Pair' }
+        Balatest.play_hand { '2S', '2H' }
+    end,
+    assert = function()
+        Balatest.assert_eq(G.GAME.hands['Pair'].level, 1 + G.jokers.cards[1].ability.extra.levels, "Jailhouse Lock did not level up a locked Pair")
+        Balatest.assert_chips((10 + 15 * 2 + 2 + 2) * (2 + 1 * 2), "Jailhouse Lock did not score a locked Pair")
+    end
+}
+
+Balatest.TestPlay {
+    name = 'jailhouse_lock_debuffs_a_hand_type_outside_the_last_three',
+    category = { 'jokers', 'stone_ocean', 'jailhouse_lock' },
+    jokers = { 'j_jojoker_jailhouse_lock' },
+    execute = function()
+        G.GAME.jojoker_recent_hand_types = { 'Pair', 'Flush', 'Straight' }
+        Balatest.play_hand { 'AS' }
+    end,
+    assert = function()
+        Balatest.assert_eq(G.GAME.hands['High Card'].level, 1, "Jailhouse Lock leveled up a hand type it debuffed")
+        Balatest.assert_chips(0, "Jailhouse Lock did not debuff a hand type outside the last 3")
+    end
+}
+
+Balatest.TestPlay {
+    name = 'jailhouse_lock_rotates_a_debuffed_hand_type_into_the_lock',
+    category = { 'jokers', 'stone_ocean', 'jailhouse_lock' },
+    jokers = { 'j_jojoker_jailhouse_lock' },
+    execute = function()
+        G.GAME.jojoker_recent_hand_types = { 'Pair', 'Flush', 'Straight' }
+        Balatest.play_hand { 'AS' }
+        Balatest.play_hand { 'AH' }
+    end,
+    assert = function()
+        Balatest.assert_eq(table.concat(get_jailhouse_locked_hands(G.jokers.cards[1].ability.extra.hand_types), ', '), 'Flush, Straight, High Card', "Jailhouse Lock did not drop the oldest hand type when a new one was played")
+        Balatest.assert_chips((5 + 10 * 2 + 11) * (1 + 1 * 2), "Jailhouse Lock did not score High Card once it rotated into the lock")
+    end
+}
+
+Balatest.TestPlay {
+    name = 'jailhouse_lock_replaying_a_locked_type_makes_it_the_most_recent',
+    category = { 'jokers', 'stone_ocean', 'jailhouse_lock' },
+    jokers = { 'j_jojoker_jailhouse_lock' },
+    execute = function()
+        G.GAME.jojoker_recent_hand_types = { 'Pair', 'Flush', 'Straight' }
+        Balatest.play_hand { '2S', '2H' }
+        Balatest.play_hand { 'AS' }
+    end,
+    assert = function()
+        Balatest.assert_eq(table.concat(get_jailhouse_locked_hands(G.jokers.cards[1].ability.extra.hand_types), ', '), 'Straight, Pair, High Card', "Jailhouse Lock dropped a hand type that was replayed recently")
+    end
+}
+
+Balatest.TestPlay {
+    name = 'jailhouse_lock_tracks_hand_types_played_before_it_was_owned',
+    category = { 'jokers', 'stone_ocean', 'jailhouse_lock' },
+    execute = function()
+        Balatest.play_hand { 'AS' }
+        Balatest.play_hand { '2S', '2H' }
+    end,
+    assert = function()
+        Balatest.assert_eq(table.concat(G.GAME.jojoker_recent_hand_types, ', '), 'High Card, Pair', "Hand types were not tracked without Jailhouse Lock owned")
+    end
+}
+
+--#endregion

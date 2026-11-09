@@ -126,6 +126,7 @@ jojoker.joker_order = {
     "horus",
     "i_am_a_rock",
     "in_a_silent_way",
+    "jailhouse_lock",
     "john_rod",
     "judgement",
     "jumpin_jack_flash",

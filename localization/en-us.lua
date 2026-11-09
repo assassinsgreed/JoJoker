@@ -1117,6 +1117,17 @@ local loc = {
                     "{C:inactive}Scored cards remaining: {C:attention}#3#{C:inactive}",
                 }
             },
+            j_jojoker_jailhouse_lock = {
+                name = "Jailhouse Lock",
+                text = {
+                    "Replayed hand types gain {C:attention}+#1#{} levels.",
+                    "Only the last {C:attention}#2#{} unique hand",
+                    "types played can score.",
+                },
+                in_play_text = {
+                    "{C:inactive}Tracked: {C:attention}#3#{}"
+                }
+            },
             -- Part 7: Steel Ball Run
             j_jojoker_mandom = {
                 name = "Mandom",
@@ -1703,6 +1714,7 @@ local loc = {
         v_dictionary = {
             jojoker_notorious_badge = "Notorious Activated X#1#",
             jojoker_purple_haze_badge = "Infected +#1#/+#2#",
+            jailhouse_lock_debuff = "Only the last #1# hand types score",
         },
         quips = {
             jojoker_lose_quip1 = {"You thought you could beat me?", "Yare yare daze...",},

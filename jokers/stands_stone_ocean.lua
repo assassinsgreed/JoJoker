@@ -652,7 +652,47 @@ local under_world = {
     end
 }
 
+local jailhouse_lock = {
+    name = "jailhouse_lock",
+    rarity = 3,
+    cost = 8,
+    jtype = "Stand",
+    part = "stone_ocean",
+    themes = { support = { jojoker.themes.HAND_LEVELS, jojoker.themes.HIGHEST_HAND_LEVEL } },
+    blueprint_compat = true,
+    perishable_compat = true,
+    eternal_compat = true,
+    config = { extra = { levels = 2, hand_types = 3 } },
+    loc_vars = function(self, info_queue, center)
+        return {
+            vars = {center.ability.extra.levels, center.ability.extra.hand_types, get_jailhouse_tracked_hands_text(center.ability.extra.hand_types)}
+        }
+    end,
+    calculate = function(self, card, context)
+        -- Remember 3 most recent hands. When played, level them up by 2 before scoring. When not, debuff the hand and push it into the 3 most recent hands.
+        if context.debuff_hand and not context.blueprint and jailhouse_lock_blocks(context.scoring_name, card.ability.extra.hand_types) then
+            if not context.check then
+                jojoker.debug("Jailhouse Lock: "..context.scoring_name.." is not one of the last "..card.ability.extra.hand_types.." hand types, debuffing")
+            end
+            return {
+                debuff = true,
+                debuff_text = localize{type='variable', key='jailhouse_lock_debuff', vars={card.ability.extra.hand_types}},
+            }
+        end
+
+        -- A hand type's first play only starts tracking it
+        if context.before and jailhouse_lock_tracks(context.scoring_name) then
+            jojoker.debug("Jailhouse Lock: Leveling up "..context.scoring_name.." by "..card.ability.extra.levels)
+            SMODS.smart_level_up_hand(card, context.scoring_name, nil, card.ability.extra.levels)
+            return {
+                message = localize('k_upgrade_ex'),
+                colour = G.C.GOLD
+            }
+        end
+    end
+}
+
 return {
     name = "Stone Ocean Stands Jokers",
-    list = { goo_goo_dolls, stone_free, made_in_heaven, dragons_dream, green_green_grass_of_home, survivor, foo_fighters, white_snake, burning_down_the_house, limp_bizkit, marilyn_manson, c_moon, planet_waves, kiss, jumpin_jack_flash, under_world },
+    list = { goo_goo_dolls, stone_free, made_in_heaven, dragons_dream, green_green_grass_of_home, survivor, foo_fighters, white_snake, burning_down_the_house, limp_bizkit, marilyn_manson, c_moon, planet_waves, kiss, jumpin_jack_flash, under_world, jailhouse_lock },
 }

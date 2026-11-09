@@ -244,3 +244,22 @@ jd_def["j_jojoker_dios_bone"] = {
         card.joker_display_values.xmult = activates and card.ability.extra.Xmult or 1
     end
 }
+
+jd_def["j_jojoker_jailhouse_lock"] = {
+    text = {
+        { text = "+", colour = G.C.FILTER },
+        { ref_table = "card.joker_display_values", ref_value = "levels", colour = G.C.FILTER },
+        { text = " Lv", colour = G.C.FILTER },
+    },
+    reminder_text = {
+        { text = "(", colour = G.C.GREY },
+        { ref_table = "card.joker_display_values", ref_value = "tracked_hands", colour = G.C.GREY },
+        { text = ")", colour = G.C.GREY },
+    },
+    calc_function = function(card)
+        local text = JokerDisplay.evaluate_hand()
+        local levels_up = jailhouse_lock_tracks(text) and not jailhouse_lock_blocks(text, card.ability.extra.hand_types)
+        card.joker_display_values.levels = levels_up and card.ability.extra.levels or 0
+        card.joker_display_values.tracked_hands = get_jailhouse_tracked_hands_text(card.ability.extra.hand_types)
+    end
+}
