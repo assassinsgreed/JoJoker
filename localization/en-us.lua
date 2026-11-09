@@ -1487,6 +1487,15 @@ local loc = {
                     "{C:inactive}(Leftmost on even hands)",
                 }
             },
+            j_jojoker_hacca_howler = {
+                name = "Hacca Howler",
+                text = {
+                    "{C:chips}+#1#{} for every {C:money}$#2#{} held.",
+                },
+                in_play_text = {
+                    "{C:inactive}Currently: {C:chips}+#3#{}"
+                }
+            },
         },
         Other = {
             scan_cards = {

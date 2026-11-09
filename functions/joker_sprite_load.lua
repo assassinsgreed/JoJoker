@@ -187,6 +187,7 @@ JokerSprites = {
         {name = "jodio_joestar", base = {pos = {x = 1, y = 0}}, part_atlas = "the_jojolands" },
         {name = "john_rod", base = {pos = {x = 2, y = 0}}, part_atlas = "the_jojolands" },
         {name = "november_rain", base = {pos = {x = 3, y = 0}}, part_atlas = "the_jojolands" },
+        {name = "hacca_howler", base = {pos = {x = 4, y = 0}}, part_atlas = "the_jojolands" },
         -- Other
     }
 }

@@ -31,6 +31,16 @@ jd_def["j_jojoker_jodio_joestar"] = {
     }
 }
 
+jd_def["j_jojoker_hacca_howler"] = {
+    text = {
+        { text = "+", colour = G.C.CHIPS },
+        { ref_table = "card.joker_display_values", ref_value = "chips", retrigger_type = "chips", colour = G.C.CHIPS },
+    },
+    calc_function = function(card)
+        card.joker_display_values.chips = math.floor(math.max(0, G.GAME.dollars) / card.ability.extra.dollars_per) * card.ability.extra.chips_mod
+    end
+}
+
 jd_def["j_jojoker_november_rain"] = {
     text = {
         {

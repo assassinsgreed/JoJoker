@@ -36,7 +36,43 @@ local jodio_joestar = {
     end
 }
 
+local hacca_howler = {
+    name = "hacca_howler",
+    rarity = 2,
+    cost = 6,
+    jtype = "Character",
+    part = "the_jojolands",
+    themes = { core = { jojoker.themes.MONEY_HELD } },
+    blueprint_compat = true,
+    perishable_compat = true,
+    eternal_compat = true,
+    config = { extra = { chips_mod = 100, dollars_per = 20 } },
+    loc_vars = function(self, info_queue, center)
+        return {
+            vars = {
+                center.ability.extra.chips_mod,
+                center.ability.extra.dollars_per,
+                math.floor(math.max(0, G.GAME.dollars) / center.ability.extra.dollars_per) * center.ability.extra.chips_mod
+            }
+        }
+    end,
+    calculate = function(self, card, context)
+        -- Gives 100 chips for every $20 held, rounded down
+        if context.joker_main then
+            local chips = math.floor(math.max(0, G.GAME.dollars) / card.ability.extra.dollars_per) * card.ability.extra.chips_mod
+            if chips > 0 then
+                jojoker.debug("Hacca Howler: Giving " .. chips .. " chips for $" .. G.GAME.dollars .. " held")
+                return {
+                    message = localize{type='variable', key='a_chips', vars={chips}},
+                    colour = G.C.CHIPS,
+                    chip_mod = chips,
+                }
+            end
+        end
+    end
+}
+
 return {
     name = "The JOJOLands Characters Jokers",
-    list = { jodio_joestar },
+    list = { jodio_joestar, hacca_howler },
 }

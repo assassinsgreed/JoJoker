@@ -145,7 +145,7 @@ local sugar_mountain = {
     cost = 8,
     jtype = "Character",
     part = "steel_ball_run",
-    conflicts = { red_hot_chili_pepper = "can_reset_your_money_to", milagro_man = "can_reset_your_money_to" },
+    conflicts = { red_hot_chili_pepper = "can_reset_your_money_to", milagro_man = "can_reset_your_money_to", hacca_howler = "can_reset_your_money_to" },
     blueprint_compat = false,
     perishable_compat = true,
     eternal_compat = false,

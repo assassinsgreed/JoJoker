@@ -15,6 +15,7 @@ jojoker.joker_order = {
     "erina",
     "esidisi",
     "george_joestar",
+    "hacca_howler",
     "hayato",
     "hol_horse",
     "jodio_joestar",

@@ -32,7 +32,7 @@ local thunder_cross_split_attack = {
     cost = 7,
     jtype = "Effect",
     part = "phantom_blood",
-    conflicts = { red_hot_chili_pepper = "spends_your_money", milagro_man = "spends_your_money" },
+    conflicts = { red_hot_chili_pepper = "spends_your_money", milagro_man = "spends_your_money", hacca_howler = "spends_your_money" },
     blueprint_compat = false,
     perishable_compat = true,
     eternal_compat = true,
