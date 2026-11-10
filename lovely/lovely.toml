@@ -134,3 +134,41 @@ payload = '''
   return self.base.nominal - self.ability.nominal_drain + self.ability.bonus + self.ability.perma_bonus
 '''
 match_indent = true
+
+# Title screen logo and card are JoJoker's when enabled in config
+[[patches]]
+[patches.regex]
+target = "game.lua"
+pattern = 'G\.ASSET_ATLAS\["balatro"\]'
+position = "at"
+payload = "jojoker.title_logo_atlas()"
+
+[[patches]]
+[patches.pattern]
+target = "game.lua"
+pattern = "local replace_card = Card(self.title_top.T.x, self.title_top.T.y, 1.2*G.CARD_W*SC_scale, 1.2*G.CARD_H*SC_scale, G.P_CARDS.S_A, G.P_CENTERS.c_base)"
+position = "at"
+payload = '''
+local title_joker = jojoker.random_title_joker()
+local replace_card = title_joker
+  and Card(self.title_top.T.x, self.title_top.T.y, 1.2*G.CARD_W*SC_scale, 1.2*G.CARD_H*SC_scale, nil, title_joker, {bypass_discovery_center = true, bypass_discovery_ui = true})
+  or Card(self.title_top.T.x, self.title_top.T.y, 1.2*G.CARD_W*SC_scale, 1.2*G.CARD_H*SC_scale, G.P_CARDS.S_A, G.P_CENTERS.c_base)
+'''
+match_indent = true
+
+[[patches]]
+[patches.pattern]
+target = "game.lua"
+pattern = "if replace_card and (G.P_CENTERS.j_blueprint.unlocked) then"
+position = "at"
+payload = "if replace_card and not title_joker and (G.P_CENTERS.j_blueprint.unlocked) then"
+match_indent = true
+
+[[patches]]
+[patches.pattern]
+target = "game.lua"
+pattern = "replace_card.no_ui = true"
+position = "at"
+payload = "replace_card.no_ui = not title_joker"
+match_indent = true
+times = 1

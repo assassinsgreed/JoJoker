@@ -35,6 +35,14 @@ SMODS.Atlas({
     py = 32
 })
 
+-- Title screen logo (swapped in by jojoker.title_logo_atlas)
+SMODS.Atlas({
+    key = "logo",
+    path = "logo.png",
+    px = 333,
+    py = 216
+})
+
 --Custom colors for badges
 local jokercolours = loc_colour
 function loc_colour(_c, _default)

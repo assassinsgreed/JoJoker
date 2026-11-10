@@ -8,6 +8,19 @@ function jojoker.debug(message)
     if jojoker_config.developer_mode then sendDebugMessage(message) end
 end
 
+function jojoker.title_logo_atlas()
+    return G.ASSET_ATLAS[jojoker_config.custom_title_screen and "jojoker_logo" or "balatro"]
+end
+
+function jojoker.random_title_joker()
+    if not jojoker_config.custom_title_screen then return nil end
+    local jokers = {}
+    for key, center in pairs(G.P_CENTERS) do
+        if center.set == 'Joker' and key:find('^j_jojoker_') then jokers[#jokers + 1] = center end
+    end
+    return jokers[math.random(#jokers)]
+end
+
 -- Load the JokerDisplay mod if it is enabled
 if (SMODS.Mods["JokerDisplay"] or {}).can_load then
     local jokerDisplays = NFS.getDirectoryItems(mod_dir.."jokerdisplay")

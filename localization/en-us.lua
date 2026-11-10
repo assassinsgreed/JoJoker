@@ -1594,7 +1594,7 @@ local loc = {
                     "{C:blue}THE JOJOLands{} will appear"
                 }
             },
-            -- Misc No Restart Tooltips
+            -- Misc Tooltips
             jojoker_only_collection_tooltip = {
                 name = "JoJoker Only Collection",
                 text = {
@@ -1607,6 +1607,13 @@ local loc = {
                 text = {
                     "Display joker cards with their",
                     "localized names, whenever possible."
+                }
+            },
+            custom_title_screen_tooltip = {
+                name = "JoJoker Title Screen",
+                text = {
+                    "Replace the {C:attention}title screen{} logo and",
+                    "card with {C:attention}JoJoker{} versions"
                 }
             },
             developer_mode_tooltip = {
@@ -1695,6 +1702,7 @@ local loc = {
 
             -- Config Menu
             jojoker_settings_header_norestart = "No Restart Required:",
+            jojoker_settings_header_restart = "Restart Required:",
             jojoker_settings_jojoker_only = "JoJoker Only?",
             jojoker_settings_part_1_enabled = "Phantom Blood Enabled?",
             jojoker_settings_part_2_enabled = "Battle Tendency Enabled?",
@@ -1709,6 +1717,7 @@ local loc = {
             -- Misc config options
             jojoker_settings_jojoker_only_collection = "Only JoJoker Jokers in Collection?",
             jojoker_settings_use_localized_names = "Use Localized Joker Names?",
+            jojoker_settings_custom_title_screen = "JoJoker Title Screen?",
             jojoker_settings_developer_mode = "Developer Mode?",
         },
         v_dictionary = {
