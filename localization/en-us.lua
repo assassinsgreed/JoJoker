@@ -1494,6 +1494,18 @@ local loc = {
                     "{C:inactive}Currently: {C:attention}#2#{C:inactive}/#1# rounds"
                 }
             },
+            j_jojoker_awaking_iii_leaves = {
+                name = "Awaking III Leaves",
+                text = {
+                    "Gains {C:chips}+#1#{} when the last played",
+                    "{C:attention}poker hand{} is played again.",
+                    "Resets on a different hand.",
+                },
+                in_play_text = {
+                    "{C:inactive}Last hand: {C:attention}#3#",
+                    "{C:inactive}Currently: {C:chips}+#2#",
+                }
+            },
             -- Part 9: THE JOJOLands
             j_jojoker_smooth_operator = {
                 name = "Smooth Operators",

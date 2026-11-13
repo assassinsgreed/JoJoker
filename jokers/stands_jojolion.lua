@@ -510,7 +510,56 @@ local speed_king = {
     end,
 }
 
+local awaking_iii_leaves = {
+    name = "awaking_iii_leaves",
+    rarity = 1,
+    cost = 5,
+    jtype = "Stand",
+    part = "jojolion",
+    similar = { jojoker.similar.STREAK_SCALING },
+    blueprint_compat = true,
+    perishable_compat = true,
+    eternal_compat = true,
+    config = { extra = { chips_mod = 30, chips = 0 } },
+    loc_vars = function(self, info_queue, center)
+        local recent = G.GAME and G.GAME.jojoker_recent_hand_types or {}
+        return {
+            vars = { center.ability.extra.chips_mod, center.ability.extra.chips, recent[#recent] and localize(recent[#recent], 'poker_hands') or localize('none_used') }
+        }
+    end,
+    calculate = function(self, card, context)
+        -- Gives +30 chips per replayed hand type, resetting if it changes
+        -- The run tracker records a hand only after it scores, so its newest entry is still the previous hand here
+        if context.before and context.cardarea == G.jokers and not context.blueprint then
+            local recent = G.GAME.jojoker_recent_hand_types or {}
+            if context.scoring_name == recent[#recent] then
+                card.ability.extra.chips = card.ability.extra.chips + card.ability.extra.chips_mod
+                jojoker.debug("Awaking III Leaves: "..context.scoring_name.." replayed, chips now "..card.ability.extra.chips)
+                return {
+                    message = localize('k_upgrade_ex'),
+                    colour = G.C.CHIPS
+                }
+            elseif card.ability.extra.chips > 0 then
+                card.ability.extra.chips = 0
+                jojoker.debug("Awaking III Leaves: "..context.scoring_name.." differs from the last hand, resetting chips")
+                return {
+                    message = localize('k_reset'),
+                    colour = G.C.RED
+                }
+            end
+        end
+
+        if context.joker_main and card.ability.extra.chips > 0 then
+            return {
+                message = localize{type='variable', key='a_chips', vars={card.ability.extra.chips}},
+                colour = G.C.CHIPS,
+                chip_mod = card.ability.extra.chips,
+            }
+        end
+    end
+}
+
 return {
     name = "Jojolion Stands Jokers",
-    list = { soft_and_wet, paper_moon_king, milagro_man, i_am_a_rock, california_king_bed, doctor_wu, wonder_of_u, paisley_park, space_trucking, fun_fun_fun, blue_hawaii, speed_king },
+    list = { soft_and_wet, paper_moon_king, milagro_man, i_am_a_rock, california_king_bed, doctor_wu, wonder_of_u, paisley_park, space_trucking, fun_fun_fun, blue_hawaii, speed_king, awaking_iii_leaves },
 }

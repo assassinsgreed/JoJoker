@@ -91,6 +91,7 @@ jojoker.joker_order = {
     "aqua_necklace",
     "atom_heart_father",
     "atum",
+    "awaking_iii_leaves",
     "baby_face",
     "bad_company",
     "ball_breaker",

@@ -659,3 +659,102 @@ Balatest.TestPlay {
 }
 
 --#endregion
+--#region Awaking III Leaves
+
+Balatest.TestPlay {
+    name = 'awaking_iii_leaves_does_not_gain_chips_on_the_first_hand',
+    category = { 'jokers', 'jojolion', 'awaking_iii_leaves' },
+    jokers = { 'j_jojoker_awaking_iii_leaves' },
+    execute = function()
+        Balatest.play_hand { '2S', '2H' }
+    end,
+    assert = function()
+        Balatest.assert_eq(G.jokers.cards[1].ability.extra.chips, 0, "Awaking III Leaves gained chips with no previous hand")
+    end
+}
+
+Balatest.TestPlay {
+    name = 'awaking_iii_leaves_gains_chips_when_the_last_hand_is_replayed',
+    category = { 'jokers', 'jojolion', 'awaking_iii_leaves' },
+    jokers = { 'j_jojoker_awaking_iii_leaves' },
+    execute = function()
+        Balatest.play_hand { '2S', '2H' }
+        Balatest.play_hand { '3S', '3H' }
+    end,
+    assert = function()
+        Balatest.assert_eq(G.jokers.cards[1].ability.extra.chips, G.jokers.cards[1].ability.extra.chips_mod, "Awaking III Leaves did not gain chips when a Pair was replayed")
+    end
+}
+
+Balatest.TestPlay {
+    name = 'awaking_iii_leaves_gains_chips_for_each_replay',
+    category = { 'jokers', 'jojolion', 'awaking_iii_leaves' },
+    jokers = { 'j_jojoker_awaking_iii_leaves' },
+    execute = function()
+        Balatest.play_hand { '2S', '2H' }
+        Balatest.play_hand { '3S', '3H' }
+        Balatest.play_hand { '4S', '4H' }
+    end,
+    assert = function()
+        Balatest.assert_eq(G.jokers.cards[1].ability.extra.chips, G.jokers.cards[1].ability.extra.chips_mod * 2, "Awaking III Leaves did not gain chips on every replay")
+    end
+}
+
+Balatest.TestPlay {
+    name = 'awaking_iii_leaves_resets_when_a_different_hand_is_played',
+    category = { 'jokers', 'jojolion', 'awaking_iii_leaves' },
+    jokers = { 'j_jojoker_awaking_iii_leaves' },
+    execute = function()
+        Balatest.play_hand { '2S', '2H' }
+        Balatest.play_hand { '3S', '3H' }
+        Balatest.play_hand { '4S' }
+    end,
+    assert = function()
+        Balatest.assert_eq(G.jokers.cards[1].ability.extra.chips, 0, "Awaking III Leaves did not reset when a High Card followed a Pair")
+    end
+}
+
+Balatest.TestPlay {
+    name = 'awaking_iii_leaves_carries_the_last_hand_across_rounds',
+    category = { 'jokers', 'jojolion', 'awaking_iii_leaves' },
+    jokers = { 'j_jojoker_awaking_iii_leaves' },
+    execute = function()
+        Balatest.play_hand { '2S', '2H' }
+        Balatest.next_round()
+        Balatest.play_hand { '3S', '3H' }
+    end,
+    assert = function()
+        Balatest.assert_eq(G.jokers.cards[1].ability.extra.chips, G.jokers.cards[1].ability.extra.chips_mod, "Awaking III Leaves did not count the last hand of the previous round")
+    end
+}
+
+Balatest.TestPlay {
+    name = 'awaking_iii_leaves_counts_a_hand_played_before_it_was_owned',
+    category = { 'jokers', 'jojolion', 'awaking_iii_leaves' },
+    execute = function()
+        Balatest.play_hand { '2S', '2H' }
+        Balatest.q(function()
+            SMODS.add_card { key = 'j_jojoker_awaking_iii_leaves' }
+        end)
+        Balatest.play_hand { '3S', '3H' }
+    end,
+    assert = function()
+        Balatest.assert_eq(G.jokers.cards[1].ability.extra.chips, G.jokers.cards[1].ability.extra.chips_mod, "Awaking III Leaves did not count the hand played before it was obtained")
+    end
+}
+
+Balatest.TestPlay {
+    name = 'awaking_iii_leaves_adds_its_chips_to_the_replayed_hand',
+    category = { 'jokers', 'jojolion', 'awaking_iii_leaves' },
+    jokers = { 'j_jojoker_awaking_iii_leaves' },
+    execute = function()
+        Balatest.play_hand { '2S', '2H' }
+        Balatest.play_hand { '3S', '3H' }
+    end,
+    assert = function()
+        -- (10 Pair + 2 + 2) * 2, then (10 Pair + 3 + 3 + 30) * 2
+        Balatest.assert_chips((10 + 2 + 2) * 2 + (10 + 3 + 3 + 30) * 2, "Awaking III Leaves did not add its chips to the replayed hand")
+    end
+}
+
+--#endregion

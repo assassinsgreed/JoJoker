@@ -163,3 +163,19 @@ jd_def["j_jojoker_speed_king"] = {
         end
     end
 }
+
+jd_def["j_jojoker_awaking_iii_leaves"] = {
+    text = {
+        { text = "+", colour = G.C.CHIPS },
+        { ref_table = "card.ability.extra", ref_value = "chips", retrigger_type = "chips",  colour = G.C.CHIPS },
+    },
+    reminder_text = {
+        { text = "(" },
+        { ref_table = "card.joker_display_values", ref_value = "last_hand", colour = G.C.FILTER },
+        { text = ")" }
+    },
+    calc_function = function(card)
+        local recent = G.GAME.jojoker_recent_hand_types or {}
+        card.joker_display_values.last_hand = recent[#recent] and localize(recent[#recent], 'poker_hands') or localize('none_used')
+    end
+}
