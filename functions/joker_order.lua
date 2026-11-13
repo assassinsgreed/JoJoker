@@ -163,6 +163,8 @@ jojoker.joker_order = {
     "scary_monsters",
     "sethan",
     "sex_pistols",
+    "silver_chariot",
+    "silver_chariot_armorless",
     "smooth_operator",
     "soft_and_wet",
     "space_trucking",

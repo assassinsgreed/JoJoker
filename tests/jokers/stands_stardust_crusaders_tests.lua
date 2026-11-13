@@ -1267,5 +1267,110 @@ Balatest.TestPlay {
         Balatest.assert_chips(15, "Judgement's reset did not take effect before the card scored")
     end
 }
+--#endregion
+
+--#region Silver Chariot
+
+Balatest.TestPlay {
+    name = 'silver_chariot_gives_xmult_for_scored_steel_card',
+    category = { 'jokers', 'stardust_crusaders', 'silver_chariot' },
+    jokers = { 'j_jojoker_silver_chariot' },
+    deck = { cards = {
+        { r = '2', s = 'S' },
+        { r = '3', s = 'C', e = 'm_steel' } } },
+    execute = function()
+        Balatest.play_hand { '3C' }
+    end,
+    assert = function()
+        local xmult = G.jokers.cards[1].ability.extra.Xmult
+        -- High Card: 5 + 3
+        Balatest.assert_chips(math.floor(8 * xmult), "Silver Chariot did not multiply for a scored steel card")
+    end
+}
+
+Balatest.TestPlay {
+    name = 'silver_chariot_gives_xmult_for_each_scored_steel_card',
+    category = { 'jokers', 'stardust_crusaders', 'silver_chariot' },
+    jokers = { 'j_jojoker_silver_chariot' },
+    deck = { cards = {
+        { r = '3', s = 'C', e = 'm_steel' },
+        { r = '3', s = 'S', e = 'm_steel' },
+        { r = '2', s = 'H' } } },
+    execute = function()
+        Balatest.play_hand { '3C', '3S' }
+    end,
+    assert = function()
+        local xmult = G.jokers.cards[1].ability.extra.Xmult
+        -- Pair: (10 + 3 + 3) chips, X2 base mult
+        Balatest.assert_chips(math.floor(16 * 2 * xmult * xmult), "Silver Chariot did not multiply for each scored steel card")
+    end
+}
+
+Balatest.TestPlay {
+    name = 'silver_chariot_ignores_steel_card_held_in_hand',
+    category = { 'jokers', 'stardust_crusaders', 'silver_chariot' },
+    jokers = { 'j_jojoker_silver_chariot' },
+    deck = { cards = {
+        { r = '2', s = 'S' },
+        { r = '3', s = 'C', e = 'm_steel' } } },
+    execute = function()
+        Balatest.play_hand { '2S' }
+    end,
+    assert = function()
+        -- High Card: 5 + 2, with only the held steel card's own X1.5
+        Balatest.assert_chips(math.floor(7 * 1.5), "Silver Chariot multiplied for a steel card that was held instead of scored")
+    end
+}
+
+Balatest.TestPlay {
+    name = 'silver_chariot_stays_armored_when_score_does_not_catch_fire',
+    category = { 'jokers', 'stardust_crusaders', 'silver_chariot' },
+    jokers = { 'j_jojoker_silver_chariot' },
+    execute = function()
+        Balatest.play_hand { '2S' }
+    end,
+    assert = function()
+        Balatest.assert_eq(G.jokers.cards[1].config.center, G.P_CENTERS['j_jojoker_silver_chariot'], "Silver Chariot transformed although the score did not catch fire")
+    end
+}
+
+Balatest.TestPlay {
+    name = 'silver_chariot_becomes_armorless_when_score_catches_fire',
+    category = { 'jokers', 'stardust_crusaders', 'silver_chariot' },
+    jokers = { 'j_jojoker_silver_chariot' },
+    execute = function()
+        Balatest.play_hand { '4S', '5S', '6S', '7S', '8S' }
+    end,
+    assert = function()
+        Balatest.assert_eq(G.jokers.cards[1].config.center, G.P_CENTERS['j_jojoker_silver_chariot_armorless'], "Silver Chariot did not become armorless when the score caught fire")
+    end
+}
+
+Balatest.TestPlay {
+    name = 'silver_chariot_armorless_gives_xmult_for_scored_steel_card',
+    category = { 'jokers', 'stardust_crusaders', 'silver_chariot' },
+    jokers = { 'j_jojoker_silver_chariot_armorless' },
+    deck = { cards = {
+        { r = '2', s = 'S' },
+        { r = '3', s = 'C', e = 'm_steel' } } },
+    execute = function()
+        Balatest.play_hand { '3C' }
+    end,
+    assert = function()
+        local xmult = G.jokers.cards[1].ability.extra.Xmult
+        Balatest.assert_chips(math.floor(8 * xmult), "Silver Chariot (Armorless) did not multiply for a scored steel card")
+    end
+}
+
+Balatest.TestPlay {
+    name = 'silver_chariot_armorless_is_not_in_pool',
+    category = { 'jokers', 'stardust_crusaders', 'silver_chariot' },
+    execute = function()
+        Balatest.wait()
+    end,
+    assert = function()
+        Balatest.assert_eq(G.P_CENTERS['j_jojoker_silver_chariot_armorless']:in_pool(), false, "Silver Chariot (Armorless) was in the shop and Judgement pool")
+    end
+}
 
 --#endregion

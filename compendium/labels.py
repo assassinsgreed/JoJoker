@@ -45,7 +45,7 @@ LABELS = Labels(
         'stone_steel_eater': ('Stone & Steel eater', 'Spice Girl strips Stone and Steel for permanent gains; I Am a Rock and Doctor Wu supply the Stone.'),
         'permanent_buff_eater': ('Permanent buff eater', 'Highway Star drains the extra chips and mult off scoring cards for itself; these keep piling them on.'),
         'glass_cards': ('Glass cards', 'John Rod pays extra for Glass cards; Love Train keeps the rest of your Glass from shattering.'),
-        'steel_gold_cards': ('Steel & Gold cards', 'Metallica grows from scored Steel and Gold cards and Jodio Joestar cashes in scored Gold; Blue Hawaii spreads them across the hand.'),
+        'steel_gold_cards': ('Steel & Gold cards', 'Metallica grows from scored Steel and Gold cards and Jodio Joestar cashes in scored Gold; Silver Chariot multiplies for each scored Steel card; Blue Hawaii spreads them across the hand.'),
         'seals': ('Seals', 'Atom Heart Father grows with seals in the deck; these add seals.'),
         'retriggers': ('Retriggers', 'Moody Blues, Mandom and Clacker Balls retrigger any card, so they stack with every other retrigger.'),
         'score_every_card': ('Score every card', 'Splash and Stone cards make every played card score, for jokers that pay per scored card.'),

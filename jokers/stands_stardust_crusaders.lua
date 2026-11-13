@@ -827,7 +827,75 @@ local judgement = {
     end
 }
 
+local silver_chariot = {
+    name = "silver_chariot",
+    rarity = 3,
+    cost = 7,
+    jtype = "Stand",
+    part = "stardust_crusaders",
+    themes = { core = { jojoker.themes.STEEL_GOLD_CARDS } },
+    blueprint_compat = true,
+    perishable_compat = true,
+    eternal_compat = true,
+    config = { extra = { Xmult = 2 } },
+    loc_vars = function(self, info_queue, card)
+        info_queue[#info_queue + 1] = G.P_CENTERS.m_steel
+        return {vars = {card.ability.extra.Xmult}}
+    end,
+    calculate = function(self, card, context)
+        -- Played steel cards give xmult when scored
+        if context.individual and context.cardarea == G.play
+            and SMODS.has_enhancement(context.other_card, 'm_steel') then
+            jojoker.debug("Silver Chariot: Giving X"..card.ability.extra.Xmult.." for a scored steel card")
+            return { x_mult = card.ability.extra.Xmult }
+        end
+
+        -- Shed the armor once the hand's score has caught fire
+        if context.after and not context.blueprint then
+            if SMODS.calculate_round_score() > G.GAME.blind.chips then
+                -- Queued so JokerDisplay doesn't update before the scoring animation shows the mult given
+                G.E_MANAGER:add_event(Event({
+                    func = function()
+                        jojoker.debug("Silver Chariot: Score caught fire, transforming into Silver Chariot (Armorless)")
+                        transform_joker(card, "j_jojoker_silver_chariot_armorless")
+                        return true
+                    end
+                }))
+                return { message = localize('sound_armor_off') }
+            end
+        end
+    end
+}
+
+local silver_chariot_armorless = {
+    name = "silver_chariot_armorless",
+    rarity = 3,
+    cost = 7,
+    jtype = "Stand",
+    part = "stardust_crusaders",
+    blueprint_compat = true,
+    perishable_compat = true,
+    eternal_compat = true,
+    config = { extra = { Xmult = 3 } },
+    loc_vars = function(self, info_queue, card)
+        info_queue[#info_queue + 1] = G.P_CENTERS.m_steel
+        return {vars = {card.ability.extra.Xmult}}
+    end,
+    calculate = function(self, card, context)
+        -- Played steel cards give even more xmult when scored
+        if context.individual and context.cardarea == G.play
+            and SMODS.has_enhancement(context.other_card, 'm_steel') then
+            jojoker.debug("Silver Chariot (Armorless): Giving X"..card.ability.extra.Xmult.." for a scored steel card")
+            return { x_mult = card.ability.extra.Xmult }
+        end
+    end,
+    -- Only obtained from Silver Chariot changing form
+    in_pool = function(self, args)
+        return false
+    end
+}
+
 return {
     name = "Stardust Crusaders Stand Jokers",
-    list = { magician_red, yellow_temperance, star_platinum, wheel_of_fortune, the_lovers, anubis, sethan, the_world, death_thirteen, tenore_sax, khnum, hierophant_green, the_fool, thoth, the_sun, hermit_purple, atum, horus, emperor, cream, judgement },
+    list = { magician_red, yellow_temperance, star_platinum, wheel_of_fortune, the_lovers, anubis, sethan, the_world, death_thirteen, tenore_sax, khnum, hierophant_green, the_fool, thoth, the_sun, hermit_purple, atum, horus, emperor, cream, judgement, silver_chariot, silver_chariot_armorless },
 }

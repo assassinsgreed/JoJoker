@@ -295,6 +295,26 @@ jd_def["j_jojoker_judgement"] = {
     }
 }
 
+jd_def["j_jojoker_silver_chariot"] = {
+    text = {
+        { text = "X", colour = G.C.MULT },
+        { ref_table = "card.ability.extra", ref_value = "Xmult", retrigger_type = "exp", colour = G.C.MULT },
+    },
+    reminder_text = {
+        { text = "Per scored Steel card", colour = G.C.GREY },
+    }
+}
+
+jd_def["j_jojoker_silver_chariot_armorless"] = {
+    text = {
+        { text = "X", colour = G.C.MULT },
+        { ref_table = "card.ability.extra", ref_value = "Xmult", retrigger_type = "exp", colour = G.C.MULT },
+    },
+    reminder_text = {
+        { text = "Per scored Steel card", colour = G.C.GREY },
+    }
+}
+
 jd_def["j_jojoker_avdol"] = {
     text = {
         { text = "Random Tarot", colour = G.C.PURPLE }

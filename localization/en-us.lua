@@ -533,6 +533,19 @@ local loc = {
                     "all bonus {C:chips}chips{} and {C:mult}mult{}.",
                 }
             },
+            j_jojoker_silver_chariot = {
+                name = "Silver Chariot",
+                text = {
+                    "Each scored {C:attention}Steel{} card gives {X:mult,C:white} X#1# {} Mult.",
+                    "Transforms when the score catches {C:attention}fire{}.",
+                }
+            },
+            j_jojoker_silver_chariot_armorless = {
+                name = "Silver Chariot (Armorless)",
+                text = {
+                    "Each scored {C:attention}Steel{} card gives {X:mult,C:white} X#1# {} Mult.",
+                }
+            },
             j_jojoker_avdol = {
                 name = "Muhammad Avdol",
                 text = {
@@ -1695,6 +1708,7 @@ local loc = {
             sound_gaa = "Gaa!",
             sound_time_moves = "Time has started to move...",
             sound_stopped_thinking = "Eventually Kars stopped thinking",
+            sound_armor_off = "Armor off!",
             sound_grr = "Grr!",
             sound_burnt_out = "Burnt out!",
             sound_lucky = "Lucky!",
