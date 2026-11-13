@@ -152,3 +152,156 @@ Balatest.TestPlay {
 }
 
 --#endregion
+
+--#region Anasui (Male)
+
+Balatest.TestPlay {
+    name = 'anasui_m_adds_hands_and_removes_a_discard_when_added',
+    category = { 'jokers', 'stone_ocean', 'anasui_m' },
+    jokers = { 'j_jojoker_anasui_m' },
+    hands = 1,
+    discards = 3,
+    execute = function()
+        Balatest.wait()
+    end,
+    assert = function()
+        local extra = G.jokers.cards[1].ability.extra
+        Balatest.assert_eq(G.GAME.current_round.hands_left, 1 + extra.hands, "Anasui (Male) did not add hands")
+        Balatest.assert_eq(G.GAME.current_round.discards_left, 3 + extra.discards, "Anasui (Male) did not remove a discard")
+        Balatest.assert_eq(G.GAME.round_resets.hands, 1 + extra.hands, "Anasui (Male) did not change round reset hands")
+        Balatest.assert_eq(G.GAME.round_resets.discards, 3 + extra.discards, "Anasui (Male) did not change round reset discards")
+    end
+}
+
+Balatest.TestPlay {
+    name = 'anasui_m_reverts_hands_and_discards_when_sold',
+    category = { 'jokers', 'stone_ocean', 'anasui_m' },
+    jokers = { 'j_jojoker_anasui_m' },
+    hands = 1,
+    discards = 3,
+    execute = function()
+        Balatest.sell(function() return G.jokers.cards[1] end)
+    end,
+    assert = function()
+        Balatest.assert_eq(G.GAME.current_round.hands_left, 1, "Anasui (Male) did not remove its hands when sold")
+        Balatest.assert_eq(G.GAME.current_round.discards_left, 3, "Anasui (Male) did not return its discard when sold")
+    end
+}
+
+Balatest.TestPlay {
+    name = 'anasui_m_does_not_shift_totals_after_debuff_cycle',
+    category = { 'jokers', 'stone_ocean', 'anasui_m' },
+    jokers = { 'j_jojoker_anasui_m' },
+    hands = 1,
+    discards = 3,
+    execute = function()
+        Balatest.q(function()
+            SMODS.debuff_card(G.jokers.cards[1], true, 'balatest')
+            return true
+        end)
+        Balatest.q(function()
+            SMODS.debuff_card(G.jokers.cards[1], false, 'balatest')
+            return true
+        end)
+        Balatest.wait()
+    end,
+    assert = function()
+        local extra = G.jokers.cards[1].ability.extra
+        Balatest.assert_eq(G.GAME.round_resets.hands, 1 + extra.hands, "Anasui (Male) shifted round reset hands after a debuff cycle")
+        Balatest.assert_eq(G.GAME.round_resets.discards, 3 + extra.discards, "Anasui (Male) shifted round reset discards after a debuff cycle")
+    end
+}
+
+Balatest.TestPlay {
+    name = 'anasui_m_bonus_persists_into_the_next_round',
+    category = { 'jokers', 'stone_ocean', 'anasui_m' },
+    jokers = { 'j_jojoker_anasui_m' },
+    hands = 1,
+    discards = 3,
+    execute = function()
+        Balatest.next_round()
+    end,
+    assert = function()
+        local extra = G.jokers.cards[1].ability.extra
+        Balatest.assert_eq(G.GAME.current_round.hands_left, 1 + extra.hands, "Anasui (Male) hands did not carry into the next round")
+        Balatest.assert_eq(G.GAME.current_round.discards_left, 3 + extra.discards, "Anasui (Male) discards did not carry into the next round")
+    end
+}
+
+--#endregion
+
+--#region Anasui (Female)
+
+Balatest.TestPlay {
+    name = 'anasui_f_adds_discards_and_removes_a_hand_when_added',
+    category = { 'jokers', 'stone_ocean', 'anasui_f' },
+    jokers = { 'j_jojoker_anasui_f' },
+    hands = 3,
+    discards = 1,
+    execute = function()
+        Balatest.wait()
+    end,
+    assert = function()
+        local extra = G.jokers.cards[1].ability.extra
+        Balatest.assert_eq(G.GAME.current_round.hands_left, 3 + extra.hands, "Anasui (Female) did not remove a hand")
+        Balatest.assert_eq(G.GAME.current_round.discards_left, 1 + extra.discards, "Anasui (Female) did not add discards")
+        Balatest.assert_eq(G.GAME.round_resets.hands, 3 + extra.hands, "Anasui (Female) did not change round reset hands")
+        Balatest.assert_eq(G.GAME.round_resets.discards, 1 + extra.discards, "Anasui (Female) did not change round reset discards")
+    end
+}
+
+Balatest.TestPlay {
+    name = 'anasui_f_reverts_hands_and_discards_when_sold',
+    category = { 'jokers', 'stone_ocean', 'anasui_f' },
+    jokers = { 'j_jojoker_anasui_f' },
+    hands = 3,
+    discards = 1,
+    execute = function()
+        Balatest.sell(function() return G.jokers.cards[1] end)
+    end,
+    assert = function()
+        Balatest.assert_eq(G.GAME.current_round.hands_left, 3, "Anasui (Female) did not return its hand when sold")
+        Balatest.assert_eq(G.GAME.current_round.discards_left, 1, "Anasui (Female) did not remove its discards when sold")
+    end
+}
+
+Balatest.TestPlay {
+    name = 'anasui_f_does_not_shift_totals_after_debuff_cycle',
+    category = { 'jokers', 'stone_ocean', 'anasui_f' },
+    jokers = { 'j_jojoker_anasui_f' },
+    hands = 3,
+    discards = 1,
+    execute = function()
+        Balatest.q(function()
+            SMODS.debuff_card(G.jokers.cards[1], true, 'balatest')
+            return true
+        end)
+        Balatest.q(function()
+            SMODS.debuff_card(G.jokers.cards[1], false, 'balatest')
+            return true
+        end)
+        Balatest.wait()
+    end,
+    assert = function()
+        local extra = G.jokers.cards[1].ability.extra
+        Balatest.assert_eq(G.GAME.round_resets.hands, 3 + extra.hands, "Anasui (Female) shifted round reset hands after a debuff cycle")
+        Balatest.assert_eq(G.GAME.round_resets.discards, 1 + extra.discards, "Anasui (Female) shifted round reset discards after a debuff cycle")
+    end
+}
+
+Balatest.TestPlay {
+    name = 'anasui_m_and_anasui_f_together_net_one_hand_and_one_discard',
+    category = { 'jokers', 'stone_ocean', 'anasui_f', 'anasui_m' },
+    jokers = { 'j_jojoker_anasui_m', 'j_jojoker_anasui_f' },
+    hands = 3,
+    discards = 3,
+    execute = function()
+        Balatest.wait()
+    end,
+    assert = function()
+        Balatest.assert_eq(G.GAME.current_round.hands_left, 4, "Both Anasuis together did not net +1 hand")
+        Balatest.assert_eq(G.GAME.current_round.discards_left, 4, "Both Anasuis together did not net +1 discard")
+    end
+}
+
+--#endregion

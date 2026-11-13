@@ -225,6 +225,30 @@ jd_def["j_jojoker_loccobarocco_and_charlotte"] = {
     end
 }
 
+jd_def["j_jojoker_anasui_m"] = {
+    text = {
+        { text = "+", colour = G.C.BLUE },
+        { ref_table = "card.ability.extra", ref_value = "hands", colour = G.C.BLUE },
+        { text = " hands", colour = G.C.BLUE },
+    },
+    reminder_text = {
+        { ref_table = "card.ability.extra", ref_value = "discards", colour = G.C.RED },
+        { text = " discard", colour = G.C.RED },
+    },
+}
+
+jd_def["j_jojoker_anasui_f"] = {
+    text = {
+        { text = "+", colour = G.C.RED },
+        { ref_table = "card.ability.extra", ref_value = "discards", colour = G.C.RED },
+        { text = " discards", colour = G.C.RED },
+    },
+    reminder_text = {
+        { ref_table = "card.ability.extra", ref_value = "hands", colour = G.C.BLUE },
+        { text = " hand", colour = G.C.BLUE },
+    },
+}
+
 jd_def["j_jojoker_dios_bone"] = {
     text = {
         {

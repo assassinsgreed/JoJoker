@@ -40,7 +40,7 @@ def test_conflicts_are_pairwise_and_two_sided(rel):
 
 
 def test_review_round_synergies(rel):
-    assert "yoshikage_kira" in flat(partners(rel, "made_in_heaven"))
+    assert {"yoshikage_kira", "anasui_m", "anasui_f"} <= flat(partners(rel, "made_in_heaven"))
     assert "stroheim_german_engineering" in flat(partners(rel, "killer_queen"))
     assert "paper_moon_king" in flat(partners(rel, "tequila_joseph"))
     assert "tomb_of_the_boom" in flat(partners(rel, "tattoo_you"))

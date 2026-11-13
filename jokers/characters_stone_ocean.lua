@@ -89,7 +89,67 @@ local loccobarocco_and_charlotte = {
     end
 }
 
+local anasui_m = {
+    name = "anasui_m",
+    rarity = 2,
+    cost = 6,
+    jtype = "Character",
+    part = "stone_ocean",
+    themes = { support = { jojoker.themes.HANDS_PLAYED, jojoker.themes.MADE_IN_HEAVEN } },
+    blueprint_compat = false,
+    perishable_compat = true,
+    eternal_compat = true,
+    config = { extra = { hands = 2, discards = -1 } },
+    loc_vars = function(self, info_queue, card)
+      return {vars = { math.abs(card.ability.extra.hands), math.abs(card.ability.extra.discards) }}
+    end,
+    -- +2 hands, -1 discards while in deck
+    add_to_deck = function(self, card, from_debuff)
+        if not from_debuff then
+            jojoker.debug("Anasui (Male): Added to deck, changing hands by "..card.ability.extra.hands.." and discards by "..card.ability.extra.discards)
+            shift_hands_and_discards(card.ability.extra.hands, card.ability.extra.discards)
+        end
+    end,
+    remove_from_deck = function(self, card, from_debuff)
+        -- Must mirror the from_debuff check in add_to_deck, or each debuff cycle permanently shifts the totals
+        if not from_debuff then
+            jojoker.debug("Anasui (Male): Removing from deck, reverting hands and discards")
+            shift_hands_and_discards(-card.ability.extra.hands, -card.ability.extra.discards)
+        end
+    end
+}
+
+local anasui_f = {
+    name = "anasui_f",
+    rarity = 2,
+    cost = 6,
+    jtype = "Character",
+    part = "stone_ocean",
+    themes = { support = { jojoker.themes.DISCARDS, jojoker.themes.MADE_IN_HEAVEN } },
+    blueprint_compat = false,
+    perishable_compat = true,
+    eternal_compat = true,
+    config = { extra = { hands = -1, discards = 2 } },
+    loc_vars = function(self, info_queue, card)
+      return {vars = { math.abs(card.ability.extra.hands), math.abs(card.ability.extra.discards) }}
+    end,
+    -- -1 hands, +2 discards while in deck
+    add_to_deck = function(self, card, from_debuff)
+        if not from_debuff then
+            jojoker.debug("Anasui (Female): Added to deck, changing hands by "..card.ability.extra.hands.." and discards by "..card.ability.extra.discards)
+            shift_hands_and_discards(card.ability.extra.hands, card.ability.extra.discards)
+        end
+    end,
+    remove_from_deck = function(self, card, from_debuff)
+        -- Must mirror the from_debuff check in add_to_deck, or each debuff cycle permanently shifts the totals
+        if not from_debuff then
+            jojoker.debug("Anasui (Female): Removing from deck, reverting hands and discards")
+            shift_hands_and_discards(-card.ability.extra.hands, -card.ability.extra.discards)
+        end
+    end
+}
+
 return {
     name = "Stone Ocean Character Jokers",
-    list = { savage_garden, pucci, loccobarocco_and_charlotte },
+    list = { savage_garden, pucci, loccobarocco_and_charlotte, anasui_m, anasui_f },
 }

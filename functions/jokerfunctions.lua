@@ -1060,3 +1060,11 @@ release_wired_cards = function()
     end
   end
 end
+
+-- Changes both the per-round totals and the current round, so the shift applies immediately
+shift_hands_and_discards = function(hands, discards)
+  G.GAME.round_resets.hands = G.GAME.round_resets.hands + hands
+  G.GAME.round_resets.discards = G.GAME.round_resets.discards + discards
+  ease_hands_played(hands)
+  ease_discard(discards)
+end

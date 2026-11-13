@@ -1113,6 +1113,20 @@ local loc = {
                     "{C:attention}X#1#{} their {C:chips}chips{}."
                 }
             },
+            j_jojoker_anasui_m = {
+                name = "Anasui",
+                text = {
+                    "{C:blue}+#1#{} hands,",
+                    "{C:red}-#2#{} discard.",
+                }
+            },
+            j_jojoker_anasui_f = {
+                name = "Anasui",
+                text = {
+                    "{C:red}+#2#{} discards,",
+                    "{C:blue}-#1#{} hand.",
+                }
+            },
             j_jojoker_dios_bone = {
                 name = "DIO's Bone",
                 text = {
