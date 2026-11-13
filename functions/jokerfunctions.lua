@@ -1086,3 +1086,14 @@ copy_missing_card_properties = function(from, to)
   end
   return copied
 end
+
+jojoker_add_random_tag = function(seed)
+  local tag_pool, pool_key = get_current_pool('Tag')
+  local selected_tag = pseudorandom_element(tag_pool, pseudoseed(seed..pool_key))
+  local it = 1
+  while selected_tag == 'UNAVAILABLE' do
+    it = it + 1
+    selected_tag = pseudorandom_element(tag_pool, pseudoseed(seed..pool_key..'_resample'..it))
+  end
+  add_tag(Tag(selected_tag, false, 'Small'))
+end

@@ -222,3 +222,108 @@ Balatest.TestPlay {
     end
 }
 -- #endregion
+-- #region Toilet Pig
+
+local added_tags
+
+Balatest.TestPlay {
+    name = 'toilet_pig_gives_a_tag_after_enough_cards_are_discarded',
+    category = { 'jokers', 'stardust_crusaders', 'toilet_pig' },
+    jokers = { 'j_jojoker_toilet_pig' },
+    deck = { cards = identical_cards('2', 'S', 50) },
+    discards = 10,
+    execute = function()
+        added_tags = count_random_tags_given()
+        for _ = 1, math.ceil(G.P_CENTERS.j_jojoker_toilet_pig.config.extra.cards / 5) do
+            Balatest.discard { '2S', '2S', '2S', '2S', '2S' }
+        end
+    end,
+    assert = function()
+        local cards = G.jokers.cards[1].ability.extra.cards
+        local overflow = math.ceil(cards / 5) * 5 - cards
+        Balatest.assert_eq(added_tags.count, 1, "Toilet Pig did not give a tag after a full count of discarded cards")
+        Balatest.assert_eq(G.jokers.cards[1].ability.extra.remaining, cards - overflow, "Toilet Pig did not restart its count after giving a tag")
+    end
+}
+
+Balatest.TestPlay {
+    name = 'toilet_pig_counts_down_without_a_tag_before_enough_cards_are_discarded',
+    category = { 'jokers', 'stardust_crusaders', 'toilet_pig' },
+    jokers = { 'j_jojoker_toilet_pig' },
+    deck = { cards = identical_cards('2', 'S', 30) },
+    execute = function()
+        added_tags = count_random_tags_given()
+        Balatest.discard { '2S', '2S', '2S', '2S', '2S' }
+    end,
+    assert = function()
+        Balatest.assert_eq(added_tags.count, 0, "Toilet Pig gave a tag before enough cards were discarded")
+        Balatest.assert_eq(G.jokers.cards[1].ability.extra.remaining, G.jokers.cards[1].ability.extra.cards - 5, "Toilet Pig did not count each discarded card")
+    end
+}
+
+Balatest.TestPlay {
+    name = 'toilet_pig_keeps_its_count_between_rounds',
+    category = { 'jokers', 'stardust_crusaders', 'toilet_pig' },
+    jokers = { 'j_jojoker_toilet_pig' },
+    deck = { cards = identical_cards('2', 'S', 30) },
+    execute = function()
+        added_tags = count_random_tags_given()
+        Balatest.q(function() G.jokers.cards[1].ability.extra.remaining = 3 end)
+        Balatest.discard { '2S', '2S' }
+        Balatest.next_round()
+        Balatest.discard { '2S' }
+    end,
+    assert = function()
+        Balatest.assert_eq(added_tags.count, 1, "Toilet Pig lost its discard count between rounds")
+    end
+}
+
+Balatest.TestPlay {
+    name = 'toilet_pig_gives_a_tag_for_each_full_count_in_one_discard',
+    category = { 'jokers', 'stardust_crusaders', 'toilet_pig' },
+    jokers = { 'j_jojoker_toilet_pig' },
+    deck = { cards = identical_cards('2', 'S', 30) },
+    execute = function()
+        added_tags = count_random_tags_given()
+        Balatest.q(function()
+            G.jokers.cards[1].ability.extra.cards = 2
+            G.jokers.cards[1].ability.extra.remaining = 1
+        end)
+        Balatest.discard { '2S', '2S', '2S', '2S', '2S' }
+    end,
+    assert = function()
+        Balatest.assert_eq(added_tags.count, 3, "Toilet Pig did not give a tag for every full count reached in one discard")
+        Balatest.assert_eq(G.jokers.cards[1].ability.extra.remaining, 2, "Toilet Pig did not carry the leftover discarded cards into its next count")
+    end
+}
+
+Balatest.TestPlay {
+    name = 'toilet_pig_copies_give_a_tag_when_placed_before_it',
+    category = { 'jokers', 'stardust_crusaders', 'toilet_pig' },
+    jokers = { 'j_jojoker_khnum', 'j_jojoker_toilet_pig' },
+    deck = { cards = identical_cards('2', 'S', 30) },
+    execute = function()
+        added_tags = count_random_tags_given()
+        Balatest.q(function() G.jokers.cards[2].ability.extra.remaining = 5 end)
+        Balatest.discard { '2S', '2S', '2S', '2S', '2S' }
+    end,
+    assert = function()
+        Balatest.assert_eq(added_tags.count, 2, "Khnum did not copy Toilet Pig's tag")
+    end
+}
+
+Balatest.TestPlay {
+    name = 'toilet_pig_does_not_count_played_cards',
+    category = { 'jokers', 'stardust_crusaders', 'toilet_pig' },
+    jokers = { 'j_jojoker_toilet_pig' },
+    deck = { cards = identical_cards('2', 'S', 30) },
+    execute = function()
+        keep_blind_unbeaten()
+        Balatest.play_hand { '2S', '2S', '2S', '2S', '2S' }
+    end,
+    assert = function()
+        Balatest.assert_eq(G.jokers.cards[1].ability.extra.remaining, G.jokers.cards[1].ability.extra.cards, "Toilet Pig counted played cards as discarded")
+    end
+}
+
+-- #endregion

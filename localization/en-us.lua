@@ -468,6 +468,16 @@ local loc = {
                     "Visit the {C:attention}shop{} after skipping."
                 }
             },
+            j_jojoker_toilet_pig = {
+                name = "Toilet Pig",
+                text = {
+                    "Gives a random {C:attention}tag{} for",
+                    "every {C:attention}#1#{} cards discarded.",
+                },
+                in_play_text = {
+                    "{C:inactive}Remaining: {C:attention}#2# {C:inactive}cards{}"
+                }
+            },
             j_jojoker_hermit_purple = {
                 name = "Hermit Purple",
                 text = {
@@ -1734,6 +1744,7 @@ local loc = {
             k_bang_ex = "Bang!",
             k_plus_chips = "+Chips",
             k_plus_mult = "+Mult",
+            k_plus_tag = "+Tag",
 
             -- Joker badges
             joker_type_stand_badge = "Stand",

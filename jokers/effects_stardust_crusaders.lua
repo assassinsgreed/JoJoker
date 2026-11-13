@@ -107,7 +107,48 @@ local speedwagon_foundation_submarine = {
     end
 }
 
+local toilet_pig = {
+    name = "toilet_pig",
+    rarity = 2,
+    cost = 6,
+    jtype = "Effect",
+    part = "stardust_crusaders",
+    themes = { core = { jojoker.themes.DISCARDS } },
+    blueprint_compat = true,
+    perishable_compat = true,
+    eternal_compat = true,
+    config = { extra = { cards = 25, remaining = 25, tags_due = 0 } },
+    loc_vars = function(self, info_queue, center)
+        return {vars = { center.ability.extra.cards, center.ability.extra.remaining }}
+    end,
+    calculate = function(self, card, context)
+        -- Gives a random tag for every 20 cards discarded
+        -- Count the whole discard up front so copies know the payout regardless of joker order
+        if context.pre_discard and not context.blueprint then
+            card.ability.extra.tags_due = 0
+            card.ability.extra.remaining = card.ability.extra.remaining - #context.full_hand
+            while card.ability.extra.remaining <= 0 do
+                card.ability.extra.remaining = card.ability.extra.remaining + card.ability.extra.cards
+                card.ability.extra.tags_due = card.ability.extra.tags_due + 1
+            end
+        end
+
+        if context.discard and card.ability.extra.tags_due > 0
+            and context.other_card == context.full_hand[#context.full_hand] then
+            for _ = 1, card.ability.extra.tags_due do
+                jojoker_add_random_tag('jojoker_toilet_pig')
+            end
+            jojoker.debug("Toilet Pig: Gave "..card.ability.extra.tags_due.." random tag(s) for discarded cards.")
+
+            return {
+                message = localize('k_plus_tag'),
+                colour = G.C.FILTER,
+            }
+        end
+    end
+}
+
 return {
     name = "Stardust Crusaders Effect Jokers",
-    list = { joestar_birthmark, hat_hair, speedwagon_foundation_submarine },
+    list = { joestar_birthmark, hat_hair, speedwagon_foundation_submarine, toilet_pig },
 }

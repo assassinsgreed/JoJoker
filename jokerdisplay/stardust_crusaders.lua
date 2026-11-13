@@ -200,6 +200,16 @@ jd_def["j_jojoker_speedwagon_foundation_submarine"] = {
     }
 }
 
+jd_def["j_jojoker_toilet_pig"] = {
+    text = {
+        { ref_table = "card.ability.extra", ref_value = "remaining", colour = G.C.FILTER },
+        { text = " cards left", colour = G.C.GREY },
+    },
+    reminder_text = {
+        { text = "Until random tag", colour = G.C.GREY },
+    }
+}
+
 jd_def["j_jojoker_enya"] = {
     text = {
         { ref_table = "card.ability.extra", ref_value = "most_used_tarot_name", retrigger_type = "most_used_tarot_name", colour = G.C.PURPLE },

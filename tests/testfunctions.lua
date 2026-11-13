@@ -229,3 +229,19 @@ set_wired_card_bases = function(wired_keys, unwired_key)
         end
     end)
 end
+
+identical_cards = function(rank, suit, count)
+    local cards = {}
+    for i = 1, count do cards[i] = { r = rank, s = suit } end
+    return cards
+end
+
+-- Counts jokers' random tag grants; G.GAME.tags drops immediate tags and Double Tag adds extra copies
+count_random_tags_given = function()
+    local given = { count = 0 }
+    Balatest.hook(_G, 'jojoker_add_random_tag', function(orig, ...)
+        given.count = given.count + 1
+        return orig(...)
+    end)
+    return given
+end

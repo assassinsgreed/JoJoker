@@ -412,8 +412,8 @@ local killer_queen = {
 
 local heavens_door = {
     name = "heavens_door",
-    rarity = 2,
-    cost = 6,
+    rarity = 1,
+    cost = 5,
     jtype = "Stand",
     part = "diamond_is_unbreakable",
     similar = { jojoker.similar.BOSS_BLIND_REWARDS },
@@ -425,14 +425,7 @@ local heavens_door = {
         if context.end_of_round and context.game_over == false and context.main_eval and context.beat_boss and not card.debuff then
             jojoker.debug("Heaven's Door: Giving random tag after beating boss")
             card:juice_up(0.1)
-            local tag_pool = get_current_pool('Tag')
-            local selected_tag = pseudorandom_element(tag_pool, 'jojoker')
-            local it = 1
-            while selected_tag == 'UNAVAILABLE' do
-                it = it + 1
-                selected_tag = pseudorandom_element(tag_pool, 'jojoker_seed_resample'..it)
-            end
-            add_tag(Tag(selected_tag, false, 'Small'))
+            jojoker_add_random_tag('jojoker_heavens_door')
 
             return {
                 message = localize('sound_rewriting'),
