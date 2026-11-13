@@ -7,7 +7,7 @@ from compendium.model import Joker, Mod
 TYPE_ORDER = ["Character", "Effect", "Stand"]
 
 STUBS = """
-SMODS = { Atlas = function() end, Joker = function() end, current_mod = { config = {} } }
+SMODS = { Atlas = function() end, Joker = function() end, find_card = function() return {} end, current_mod = { config = {} } }
 jojoker = { debug = function() end }
 G = {
     GAME = { probabilities = { normal = 1 }, starting_deck_size = 52, dollars = 0, hands = {} },

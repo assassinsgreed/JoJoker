@@ -1185,6 +1185,27 @@ local loc = {
                     "{C:inactive}Tracked: {C:attention}#3#{}"
                 }
             },
+            j_jojoker_weather_report = {
+                name = "Weather Report",
+                alt_name = "Weather Forecast",
+                text = {
+                    "{C:attention}#1# in #2#{} chance to turn all other",
+                    "Jokers into {C:attention}Snails{} after blinds.",
+                    "{X:mult,C:white} X#3# {} for each {C:attention}Snail{}.",
+                },
+                in_play_text = {
+                    "{C:inactive}Currently: {X:mult,C:white} X#4# {}"
+                }
+            },
+            j_jojoker_snail = {
+                name = "Snail",
+                text = {
+                    "Gains {C:chips}+#1#{} per hand played.",
+                },
+                in_play_text = {
+                    "{C:inactive}Currently: {C:chips}+#2#{}"
+                }
+            },
             -- Part 7: Steel Ball Run
             j_jojoker_mandom = {
                 name = "Mandom",
@@ -1733,6 +1754,7 @@ local loc = {
             sound_baby_face_spawn = "Simple is best!",
             sound_calamity_approaches = "Calamity approaches...",
             sound_wonder_of_u = "Wonder of U!",
+            sound_heavy_weather = "Heavy Weather!",
             sound_german_engineering = "German Science is the world's finest!",
             sound_ho_ho_ho = "Ho ho ho...",
             sound_left_napkin = "I choose the left napkin!",

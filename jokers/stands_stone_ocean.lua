@@ -692,7 +692,61 @@ local jailhouse_lock = {
     end
 }
 
+local weather_report = {
+    name = "weather_report",
+    rarity = 3,
+    cost = 8,
+    jtype = "Stand",
+    part = "stone_ocean",
+    blueprint_compat = true,
+    perishable_compat = true,
+    eternal_compat = true,
+    config = { extra = { Xmult = 1.75, numerator = 1, denominator = 3 } },
+    loc_vars = function(self, info_queue, center)
+        info_queue[#info_queue + 1] = G.P_CENTERS.j_jojoker_snail
+        return {
+            vars = { center.ability.extra.numerator, center.ability.extra.denominator, center.ability.extra.Xmult, center.ability.extra.Xmult ^ #SMODS.find_card('j_jojoker_snail') }
+        }
+    end,
+    calculate = function(self, card, context)
+        -- Gives xmult per snail in the roster
+        if context.joker_main then
+            local snails = #SMODS.find_card('j_jojoker_snail')
+            if snails > 0 then
+                local xmult = card.ability.extra.Xmult ^ snails
+                jojoker.debug("Weather Report: Giving X"..xmult.." mult for "..snails.." snails")
+                return {
+                    message = localize{type = 'variable', key = 'a_xmult', vars = {xmult}},
+                    colour = G.C.MULT,
+                    Xmult_mod = xmult,
+                }
+            end
+        end
+
+        -- 1 in 3 chance for Heavy Weather to occur, turning every other joker into a Snail
+        if context.end_of_round and not context.individual and not context.repetition and not context.blueprint then
+            if SMODS.pseudorandom_probability(card, 'weather_report', card.ability.extra.numerator, card.ability.extra.denominator, 'weather_report') then
+                local converted = 0
+                for _, joker in ipairs(G.jokers.cards) do
+                    if joker ~= card and joker.config.center.key ~= 'j_jojoker_snail' then
+                        transform_joker(joker, 'j_jojoker_snail')
+                        converted = converted + 1
+                    end
+                end
+
+                if converted > 0 then
+                    jojoker.debug("Weather Report: Heavy Weather turned "..converted.." jokers into snails")
+                    return {
+                        message = localize('sound_heavy_weather'),
+                        colour = G.C.GREEN
+                    }
+                end
+            end
+        end
+    end
+}
+
 return {
     name = "Stone Ocean Stands Jokers",
-    list = { goo_goo_dolls, stone_free, made_in_heaven, dragons_dream, green_green_grass_of_home, survivor, foo_fighters, white_snake, burning_down_the_house, limp_bizkit, marilyn_manson, c_moon, planet_waves, kiss, jumpin_jack_flash, under_world, jailhouse_lock },
+    list = { goo_goo_dolls, stone_free, made_in_heaven, dragons_dream, green_green_grass_of_home, survivor, foo_fighters, white_snake, burning_down_the_house, limp_bizkit, marilyn_manson, c_moon, planet_waves, kiss, jumpin_jack_flash, under_world, jailhouse_lock, weather_report },
 }

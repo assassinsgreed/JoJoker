@@ -85,6 +85,7 @@ Open `_site/index.html#<joker_key>` and read the pop-up: similar jokers, every E
 |---|---|
 | Putting two support jokers in a theme with no core | They'll show no partners; one must be core, or they need a different theme |
 | Listing a conflict per theme | Conflicts are joker-vs-joker; list each affected joker |
+| Only checking what a new joker harms | Also check every existing `LABELS.conflicts` reason against it and add it to those declarers' lists (ex. a chance joker joins every `sets_every_chance_to_0` list) |
 | Writing the joker's name inside the conflict reason | The site prepends the declaring joker's name |
 | Adding a `_alt` localization entry by hand | It's generated from `alt_name` |
 | Editing `_site/` | It's build output; change the Lua or `compendium/site/` instead |

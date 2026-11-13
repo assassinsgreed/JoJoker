@@ -287,3 +287,34 @@ jd_def["j_jojoker_jailhouse_lock"] = {
         card.joker_display_values.tracked_hands = get_jailhouse_tracked_hands_text(card.ability.extra.hand_types)
     end
 }
+
+jd_def["j_jojoker_weather_report"] = {
+    text = {
+        {
+            border_nodes = {
+                { text = "X" },
+                { ref_table = "card.joker_display_values", ref_value = "xmult", retrigger_type = "exp" }
+            }
+        }
+    },
+    reminder_text = {
+        { text = "(", colour = G.C.GREY },
+        { ref_table = "card.ability.extra", ref_value = "numerator", colour = G.C.GOLD },
+        { text = " in ", colour = G.C.GOLD },
+        { ref_table = "card.ability.extra", ref_value = "denominator", colour = G.C.GOLD },
+        { text = " Heavy Weather)", colour = G.C.GREY },
+    },
+    calc_function = function(card)
+        card.joker_display_values.xmult = card.ability.extra.Xmult ^ #SMODS.find_card('j_jojoker_snail')
+    end
+}
+
+jd_def["j_jojoker_snail"] = {
+    text = {
+        { text = "+", colour = G.C.CHIPS },
+        { ref_table = "card.joker_display_values", ref_value = "chips", retrigger_type = "chips", colour = G.C.CHIPS },
+    },
+    calc_function = function(card)
+        card.joker_display_values.chips = card.ability.extra.chips + card.ability.extra.chips_mod
+    end
+}

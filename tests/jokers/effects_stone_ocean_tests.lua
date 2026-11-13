@@ -80,5 +80,42 @@ Balatest.TestPlay {
         Balatest.assert_chips(math.floor(7 * G.jokers.cards[1].ability.extra.Xmult) + 8, "DIO's Bone gave Xmult again on the hand after the threshold")
     end
 }
+--#endregion
 
+--#region Snail
+Balatest.TestPlay {
+    name = 'snail_gains_chips_per_hand_played',
+    category = { 'jokers', 'stone_ocean', 'snail' },
+    jokers = { 'j_jojoker_snail' },
+    execute = function()
+        keep_blind_unbeaten()
+        Balatest.play_hand { '2S' }
+        Balatest.play_hand { '3S' }
+    end,
+    assert = function()
+        local extra = G.jokers.cards[1].ability.extra
+        Balatest.assert_eq(extra.chips, extra.chips_mod * 2, "Snail did not gain chips for each hand played")
+    end
+}
+
+Balatest.TestPlay {
+    name = 'snail_scores_chips_gained_this_hand',
+    category = { 'jokers', 'stone_ocean', 'snail' },
+    jokers = { 'j_jojoker_snail' },
+    execute = function()
+        Balatest.play_hand { '2S' }
+    end,
+    assert = function()
+        Balatest.assert_chips(7 + G.jokers.cards[1].ability.extra.chips_mod, "Snail did not score the chips gained this hand")
+    end
+}
+
+Balatest.TestPlay {
+    name = 'snail_never_appears_in_the_joker_pool',
+    category = { 'jokers', 'stone_ocean', 'snail' },
+    execute = function() end,
+    assert = function()
+        Balatest.assert(not pool_offers('Joker', 'j_jojoker_snail', 'Common'), "Snail was offered in the joker pool")
+    end
+}
 --#endregion

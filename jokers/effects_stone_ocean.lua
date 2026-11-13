@@ -44,7 +44,43 @@ local dios_bone = {
     end
 }
 
+local snail = {
+    name = "snail",
+    rarity = 1,
+    cost = 1,
+    jtype = "Effect",
+    part = "stone_ocean",
+    blueprint_compat = true,
+    perishable_compat = true,
+    eternal_compat = true,
+    config = { extra = { chips_mod = 10, chips = 0 } },
+    loc_vars = function(self, info_queue, center)
+        return {
+            vars = { center.ability.extra.chips_mod, center.ability.extra.chips }
+        }
+    end,
+    calculate = function(self, card, context)
+        -- Gains chips per hand played
+        if context.before and not context.blueprint then
+            card.ability.extra.chips = card.ability.extra.chips + card.ability.extra.chips_mod
+            jojoker.debug("Snail: Increasing chips to "..card.ability.extra.chips)
+        end
+
+        if context.joker_main then
+            return {
+                message = localize{type = 'variable', key = 'a_chips', vars = {card.ability.extra.chips}},
+                colour = G.C.CHIPS,
+                chip_mod = card.ability.extra.chips,
+            }
+        end
+    end,
+    -- Only Weather Report's Heavy Weather makes Snails
+    in_pool = function(self, args)
+        return false
+    end,
+}
+
 return {
     name = "Stone Ocean Effects Jokers",
-    list = { dios_bone },
+    list = { dios_bone, snail },
 }

@@ -196,6 +196,31 @@ definition its `themes`, `similar` and `conflicts` fields (or deliberately none)
 `maintain-compendium` skill, which walks through the classification checklist and the
 verification commands. A joker with no real partners gets no fields; don't invent loose ones.
 
+### Conflicts are a required step
+
+Conflicts get skipped more than anything else. Run both directions for every new joker,
+even when it has no themes:
+
+1. **Outgoing — does the new joker harm others?** If it destroys, resets, spends, strips or
+   debuffs something specific jokers need, declare `conflicts` on the new joker, keyed by
+   each affected joker.
+2. **Incoming — do existing jokers harm the new one?** Conflicts are declared on the joker
+   that does the harm, so these go into the *existing* joker's `conflicts`, not the new one's.
+   Read every reason in `LABELS.conflicts` (`compendium/labels.py`) and ask whether it hits
+   the new joker. For each that does, find its declarers
+   (`grep -rn '"<reason_id>"' jokers/`) and add the new joker's key to each one's list.
+   - A chance-based joker joins every `sets_every_chance_to_0` list (ex. Rolling Stones).
+   - A joker that needs face cards, Stone cards, hands, discards, consumables, money or
+     card buffs joins the matching reason's lists.
+
+Effects that harm *every* joker equally (ex. Heavy Weather turning all jokers into Snails)
+are not listed per joker.
+
+Each added conflict raises the conflict count pinned in `compendium/tests/test_mod_data.py`,
+so update it in the same change. In the final summary, state the conflict outcome for both
+directions explicitly. When there are none, write "Conflicts: none outgoing, none incoming"
+rather than leaving it out.
+
 ## 9. Tests
 
 `tests/jokers/<same file name>_tests.lua`, in a `--#region <Joker Name>` block placed to

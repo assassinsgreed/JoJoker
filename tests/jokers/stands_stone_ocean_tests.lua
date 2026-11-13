@@ -730,5 +730,101 @@ Balatest.TestPlay {
         Balatest.assert_eq(table.concat(G.GAME.jojoker_recent_hand_types, ', '), 'High Card, Pair', "Hand types were not tracked without Jailhouse Lock owned")
     end
 }
+--#endregion
 
+--#region Weather Report
+Balatest.TestPlay {
+    name = 'weather_report_heavy_weather_turns_other_jokers_into_snails',
+    category = { 'jokers', 'stone_ocean', 'weather_report' },
+    jokers = { 'j_jojoker_weather_report', 'j_jojoker_kiss', 'j_jojoker_dios_bone' },
+    execute = function()
+        G.jokers.cards[1].ability.extra.denominator = G.jokers.cards[1].ability.extra.numerator
+        Balatest.end_round()
+    end,
+    assert = function()
+        Balatest.assert_eq(G.jokers.cards[1].config.center.key, 'j_jojoker_weather_report', "Weather Report turned itself into a Snail")
+        Balatest.assert_eq(G.jokers.cards[2].config.center.key, 'j_jojoker_snail', "Heavy Weather did not turn Kiss into a Snail")
+        Balatest.assert_eq(G.jokers.cards[3].config.center.key, 'j_jojoker_snail', "Heavy Weather did not turn DIO's Bone into a Snail")
+    end
+}
+
+Balatest.TestPlay {
+    name = 'weather_report_heavy_weather_turns_other_weather_reports_into_snails',
+    category = { 'jokers', 'stone_ocean', 'weather_report' },
+    jokers = { 'j_jojoker_weather_report', 'j_jojoker_weather_report' },
+    execute = function()
+        G.jokers.cards[1].ability.extra.denominator = G.jokers.cards[1].ability.extra.numerator
+        Balatest.end_round()
+    end,
+    assert = function()
+        Balatest.assert_eq(G.jokers.cards[1].config.center.key, 'j_jojoker_weather_report', "The first Weather Report did not survive Heavy Weather")
+        Balatest.assert_eq(G.jokers.cards[2].config.center.key, 'j_jojoker_snail', "Heavy Weather did not turn the other Weather Report into a Snail")
+    end
+}
+
+Balatest.TestPlay {
+    name = 'weather_report_heavy_weather_keeps_eternal_stickers',
+    category = { 'jokers', 'stone_ocean', 'weather_report' },
+    jokers = { 'j_jojoker_weather_report', { id = 'j_jojoker_kiss', eternal = true } },
+    execute = function()
+        G.jokers.cards[1].ability.extra.denominator = G.jokers.cards[1].ability.extra.numerator
+        Balatest.end_round()
+    end,
+    assert = function()
+        Balatest.assert_eq(G.jokers.cards[2].config.center.key, 'j_jojoker_snail', "Heavy Weather did not turn an Eternal joker into a Snail")
+        Balatest.assert(G.jokers.cards[2].ability.eternal, "Heavy Weather dropped the Eternal sticker")
+    end
+}
+
+Balatest.TestPlay {
+    name = 'weather_report_heavy_weather_skips_snails_so_they_keep_their_chips',
+    category = { 'jokers', 'stone_ocean', 'weather_report' },
+    jokers = { 'j_jojoker_weather_report', 'j_jojoker_snail' },
+    execute = function()
+        G.jokers.cards[1].ability.extra.denominator = G.jokers.cards[1].ability.extra.numerator
+        G.jokers.cards[2].ability.extra.chips = 100
+        Balatest.end_round()
+    end,
+    assert = function()
+        Balatest.assert_eq(G.jokers.cards[2].ability.extra.chips, 100, "Heavy Weather reset an existing Snail's chips")
+    end
+}
+
+Balatest.TestPlay {
+    name = 'weather_report_leaves_jokers_alone_when_heavy_weather_misses',
+    category = { 'jokers', 'stone_ocean', 'weather_report' },
+    jokers = { 'j_jojoker_weather_report', 'j_jojoker_kiss' },
+    execute = function()
+        G.jokers.cards[1].ability.extra.numerator = 0
+        Balatest.end_round()
+    end,
+    assert = function()
+        Balatest.assert_eq(G.jokers.cards[2].config.center.key, 'j_jojoker_kiss', "Weather Report converted a joker without Heavy Weather triggering")
+    end
+}
+
+Balatest.TestPlay {
+    name = 'weather_report_gives_compounding_xmult_per_snail',
+    category = { 'jokers', 'stone_ocean', 'weather_report' },
+    jokers = { 'j_jojoker_weather_report', 'j_jojoker_snail', 'j_jojoker_snail' },
+    execute = function()
+        Balatest.play_hand { '2S' }
+    end,
+    assert = function()
+        local snail_chips = G.jokers.cards[2].ability.extra.chips_mod + G.jokers.cards[3].ability.extra.chips_mod
+        Balatest.assert_chips(math.floor((7 + snail_chips) * G.jokers.cards[1].ability.extra.Xmult ^ 2), "Weather Report did not give X1.5 for each Snail")
+    end
+}
+
+Balatest.TestPlay {
+    name = 'weather_report_gives_no_xmult_without_snails',
+    category = { 'jokers', 'stone_ocean', 'weather_report' },
+    jokers = { 'j_jojoker_weather_report' },
+    execute = function()
+        Balatest.play_hand { '2S' }
+    end,
+    assert = function()
+        Balatest.assert_chips(7, "Weather Report gave Xmult without any Snails")
+    end
+}
 --#endregion
