@@ -154,8 +154,8 @@ local hey_ya = {
 
 local tattoo_you = {
     name = "tattoo_you",
-    rarity = 1,
-    cost = 4,
+    rarity = 2,
+    cost = 7,
     jtype = "Stand",
     part = "steel_ball_run",
     themes = { core = { jojoker.themes.JACK_DECK }, support = { jojoker.themes.JACKS, jojoker.themes.FACE_CARDS } },
