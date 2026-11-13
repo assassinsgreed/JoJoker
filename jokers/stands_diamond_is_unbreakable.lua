@@ -441,6 +441,7 @@ local the_lock = {
     cost = 5,
     jtype = "Stand",
     part = "diamond_is_unbreakable",
+    themes = { core = { jojoker.themes.REPEAT_HAND } },
     similar = { jojoker.similar.STREAK_SCALING },
     blueprint_compat = true,
     perishable_compat = true,

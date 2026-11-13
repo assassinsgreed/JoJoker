@@ -516,6 +516,7 @@ local awaking_iii_leaves = {
     cost = 5,
     jtype = "Stand",
     part = "jojolion",
+    themes = { core = { jojoker.themes.REPEAT_HAND } },
     similar = { jojoker.similar.STREAK_SCALING },
     blueprint_compat = true,
     perishable_compat = true,

@@ -5,6 +5,7 @@ jojoker.themes = {
     LUCKY_CARDS = "lucky_cards",
     SCORE_ON_FIRE = "score_on_fire",
     HANDS_PLAYED = "hands_played",
+    REPEAT_HAND = "repeat_hand",
     DISCARDS = "discards",
     HAND_SIZE = "hand_size",
     MADE_IN_HEAVEN = "made_in_heaven",
