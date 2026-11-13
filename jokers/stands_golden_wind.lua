@@ -716,7 +716,87 @@ local metallica = {
     end
 }
 
+local silver_chariot_requiem = {
+    name = "silver_chariot_requiem",
+    rarity = 3,
+    cost = 8,
+    jtype = "Stand",
+    part = "golden_wind",
+    themes = { support = { jojoker.themes.ENHANCEMENT_EATERS } },
+    similar = { jojoker.similar.RANK_CHANGERS },
+    blueprint_compat = false,
+    perishable_compat = true,
+    eternal_compat = true,
+    calculate = function(self, card, context)
+        -- Rewrites the played cards once they have scored, before they are discarded
+        if context.after and not context.blueprint then
+            -- full_hand is G.play's live list, and destroyed cards are still in it
+            local played = {}
+            local highest
+            for _, played_card in ipairs(context.full_hand) do
+                if not played_card.getting_sliced then
+                    played[#played + 1] = played_card
+                    if not SMODS.has_no_rank(played_card) then
+                        highest = math.max(highest or 0, played_card:get_id())
+                    end
+                end
+            end
+            if #played == 0 then return end
+            SMODS.calculate_effect({ message = localize('k_upgrade_ex'), colour = G.C.GOLD }, card)
+
+            local to_enhance = {}
+            for _, played_card in ipairs(played) do
+                to_enhance[played_card] = not SMODS.has_no_rank(played_card) and played_card:get_id() == highest
+            end
+
+            for i, played_card in ipairs(played) do
+                local percent = 1.15 - (i - 0.999) / (#played - 0.998) * 0.3
+                G.E_MANAGER:add_event(Event({
+                    trigger = 'after',
+                    delay = 0.15,
+                    func = function()
+                        played_card:flip()
+                        play_sound('card1', percent)
+                        played_card:juice_up(0.3, 0.3)
+                        return true
+                    end
+                }))
+            end
+            delay(0.2)
+            G.E_MANAGER:add_event(Event({
+                trigger = 'after',
+                delay = 0.1,
+                func = function()
+                    for _, played_card in ipairs(played) do
+                        if to_enhance[played_card] then
+                            local enhancement = SMODS.poll_enhancement({ key = 'jojoker_silver_chariot_requiem', guaranteed = true })
+                            played_card:set_ability(G.P_CENTERS[enhancement])
+                        end
+                        SMODS.change_base(played_card, nil, pseudorandom_element(SMODS.Ranks, 'jojoker_silver_chariot_requiem').key)
+                    end
+                    jojoker.debug("Silver Chariot Requiem: Randomized "..#played.." played cards")
+                    return true
+                end
+            }))
+            for i, played_card in ipairs(played) do
+                local percent = 0.85 + (i - 0.999) / (#played - 0.998) * 0.3
+                G.E_MANAGER:add_event(Event({
+                    trigger = 'after',
+                    delay = 0.15,
+                    func = function()
+                        played_card:flip()
+                        play_sound('tarot2', percent, 0.6)
+                        played_card:juice_up(0.3, 0.3)
+                        return true
+                    end
+                }))
+            end
+            delay(0.5)
+        end
+    end
+}
+
 return {
     name = "Golden Wind Stand Jokers",
-    list = { sex_pistols, grateful_dead, spice_girl, sticky_fingers, gold_experience, gold_experience_requiem, king_crimson, moody_blues, baby_face, little_feet, black_sabbath, rolling_stones, notorious_big, white_album, aerosmith, purple_haze, talking_head, metallica },
+    list = { sex_pistols, grateful_dead, spice_girl, sticky_fingers, gold_experience, gold_experience_requiem, king_crimson, moody_blues, baby_face, little_feet, black_sabbath, rolling_stones, notorious_big, white_album, aerosmith, purple_haze, talking_head, metallica, silver_chariot_requiem },
 }

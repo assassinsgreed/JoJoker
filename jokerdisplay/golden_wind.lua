@@ -307,3 +307,12 @@ jd_def["j_jojoker_metallica"] = {
         }
     },
 }
+
+jd_def["j_jojoker_silver_chariot_requiem"] = {
+    text = {
+        { text = "Enhance highest, randomize ranks", colour = G.C.GREY },
+    },
+    reminder_text = {
+        { text = "after scoring", colour = G.C.GREY },
+    },
+}

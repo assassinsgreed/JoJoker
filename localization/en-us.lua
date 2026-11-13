@@ -974,6 +974,13 @@ local loc = {
                     "{C:inactive}Currently: {X:mult,C:white} X#2# {}"
                 }
             },
+            j_jojoker_silver_chariot_requiem = {
+                name = "Silver Chariot Requiem",
+                text = {
+                    "Randomize {C:attention}enhancements{} on the highest-ranked played",
+                    "cards, then {C:attention}randomize{} the rank of every played card."
+                }
+            },
             j_jojoker_seven_page_muda = {
                 name = "Seven Page Muda",
                 text = {

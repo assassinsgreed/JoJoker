@@ -165,6 +165,7 @@ jojoker.joker_order = {
     "sex_pistols",
     "silver_chariot",
     "silver_chariot_armorless",
+    "silver_chariot_requiem",
     "smooth_operator",
     "soft_and_wet",
     "space_trucking",

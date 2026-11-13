@@ -262,7 +262,17 @@ decay) fire before `assert` runs. When asserting on state that the round's end w
 change, call `keep_blind_unbeaten()` at the start of `execute`. Assertions on
 `G.GAME.chips` are unaffected.
 
+### Default deck first
+
+**Do not set `deck` or `hand_size` by default.** The standard 52-card deck is fully drawn
+into the hand in tests, so every card is playable by name and nothing can run out. Pin a
+custom `deck` (and `hand_size`) only when the standard deck cannot express the scenario
+(ex. a specific enhancement, duplicate cards, or a rank/suit count it lacks). A pinned
+deck changes which cards are drawn and can make a test fail that the default deck passes.
+
 ### Small custom decks
+
+Only applies once a test really needs a custom deck.
 
 **Never let a hand empty both the hand and the deck.** Vanilla ends the round when no
 cards remain in either; with the blind unbeaten the run is lost and card areas are torn

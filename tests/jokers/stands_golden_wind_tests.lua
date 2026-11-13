@@ -1070,5 +1070,119 @@ Balatest.TestPlay {
         Balatest.assert_chips(56, "Metallica did not apply its Xmult during scoring")
     end
 }
+--#endregion
+
+--#region Silver Chariot Requiem
+
+Balatest.TestPlay {
+    name = 'silver_chariot_requiem_randomizes_the_rank_of_every_played_card',
+    category = { 'jokers', 'golden_wind', 'silver_chariot_requiem' },
+    jokers = { 'j_jojoker_silver_chariot_requiem' },
+    deck = { cards = {
+        { r = '2', s = 'S' }, { r = '2', s = 'S' }, { r = '2', s = 'S' }, { r = '2', s = 'S' }, { r = '2', s = 'S' },
+        { r = '2', s = 'S' }, { r = '2', s = 'S' }, { r = '2', s = 'S' }, { r = '2', s = 'S' }, { r = '2', s = 'S' } } },
+    hand_size = 5,
+    execute = function()
+        force_silver_chariot_requiem_rank('Ace')
+        Balatest.play_hand { '2S', '2S', '2S', '2S', '2S' }
+        Balatest.wait()
+    end,
+    assert = function()
+        Balatest.assert_eq(count_playing_cards('Ace'), 5, "Silver Chariot Requiem did not randomize the rank of every played card")
+        Balatest.assert_eq(count_playing_cards('2'), 5, "Silver Chariot Requiem changed the rank of cards that were not played")
+    end
+}
+
+Balatest.TestPlay {
+    name = 'silver_chariot_requiem_randomizes_unscored_played_cards',
+    category = { 'jokers', 'golden_wind', 'silver_chariot_requiem' },
+    jokers = { 'j_jojoker_silver_chariot_requiem' },
+    deck = { cards = {
+        { r = '5', s = 'S' }, { r = '2', s = 'H' }, { r = '2', s = 'C' }, { r = '2', s = 'D' } } },
+    hand_size = 4,
+    execute = function()
+        force_silver_chariot_requiem_rank('Ace')
+        Balatest.play_hand { '5S', '2H' }
+        Balatest.wait()
+    end,
+    assert = function()
+        Balatest.assert_eq(count_playing_cards('Ace'), 2, "Silver Chariot Requiem skipped a played card that did not score")
+    end
+}
+
+Balatest.TestPlay {
+    name = 'silver_chariot_requiem_changes_ranks_after_the_hand_scores',
+    category = { 'jokers', 'golden_wind', 'silver_chariot_requiem' },
+    jokers = { 'j_jojoker_silver_chariot_requiem' },
+    execute = function()
+        force_silver_chariot_requiem_rank('Ace')
+        Balatest.play_hand { '2S' }
+    end,
+    assert = function()
+        -- High Card: (5 + 2) chips * 1 mult
+        Balatest.assert_chips(7, "Silver Chariot Requiem changed the rank before the hand finished scoring")
+    end
+}
+
+Balatest.TestPlay {
+    name = 'silver_chariot_requiem_enhances_only_the_highest_played_card',
+    category = { 'jokers', 'golden_wind', 'silver_chariot_requiem' },
+    jokers = { 'j_jojoker_silver_chariot_requiem' },
+    execute = function()
+        force_silver_chariot_requiem_rank('3')
+        Balatest.play_hand { 'KS', '2H' }
+        Balatest.wait()
+    end,
+    assert = function()
+        Balatest.assert_eq(count_enhanced_playing_cards(), 1, "Silver Chariot Requiem did not enhance exactly the highest played card")
+    end
+}
+
+Balatest.TestPlay {
+    name = 'silver_chariot_requiem_enhances_every_card_tied_for_highest',
+    category = { 'jokers', 'golden_wind', 'silver_chariot_requiem' },
+    jokers = { 'j_jojoker_silver_chariot_requiem' },
+    execute = function()
+        force_silver_chariot_requiem_rank('3')
+        Balatest.play_hand { 'KS', 'KH', '2C' }
+        Balatest.wait()
+    end,
+    assert = function()
+        Balatest.assert_eq(count_enhanced_playing_cards(), 2, "Silver Chariot Requiem did not enhance both cards tied for highest")
+    end
+}
+
+Balatest.TestPlay {
+    name = 'silver_chariot_requiem_does_not_enhance_unplayed_cards',
+    category = { 'jokers', 'golden_wind', 'silver_chariot_requiem' },
+    jokers = { 'j_jojoker_silver_chariot_requiem' },
+    execute = function()
+        force_silver_chariot_requiem_rank('3')
+        Balatest.play_hand { '2S' }
+        Balatest.wait()
+    end,
+    assert = function()
+        Balatest.assert_eq(count_enhanced_playing_cards(), 1, "Silver Chariot Requiem enhanced a card that was not played")
+    end
+}
+
+Balatest.TestPlay {
+    name = 'silver_chariot_requiem_skips_rankless_stone_cards_when_finding_the_highest',
+    category = { 'jokers', 'golden_wind', 'silver_chariot_requiem' },
+    jokers = { 'j_jojoker_silver_chariot_requiem' },
+    deck = { cards = {
+        { r = 'K', s = 'S', e = 'm_stone' },
+        { r = '2', s = 'H' },
+        { r = '4', s = 'D' } } },
+    execute = function()
+        force_silver_chariot_requiem_rank('3')
+        Balatest.play_hand { 'KS', '2H' }
+        Balatest.wait()
+    end,
+    assert = function()
+        Balatest.assert_eq(find_playing_card('3', 'Hearts').ability.set, 'Enhanced', "Silver Chariot Requiem treated a Stone card as the highest played card")
+        Balatest.assert_eq(find_playing_card('3', 'Spades').config.center, G.P_CENTERS.m_stone, "Silver Chariot Requiem did not randomize the rank of a played Stone card")
+    end
+}
 
 --#endregion

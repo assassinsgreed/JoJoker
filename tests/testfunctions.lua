@@ -192,6 +192,13 @@ force_scary_monsters_suit = function(suit)
     end)
 end
 
+force_silver_chariot_requiem_rank = function(rank)
+    Balatest.hook(_G, 'pseudorandom_element', function(orig, t, seed, ...)
+        if seed == 'jojoker_silver_chariot_requiem' then return SMODS.Ranks[rank] end
+        return orig(t, seed, ...)
+    end)
+end
+
 -- align_cards only keeps a card's x position while it is being dragged, so fake the drag until it settles
 drag_joker = function(card, x)
     card.states.drag.is = true
