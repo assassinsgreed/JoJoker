@@ -93,6 +93,15 @@ jd_def["j_jojoker_coco_jumbo"] = {
     }
 }
 
+jd_def["j_jojoker_polpo"] = {
+    text = {
+        { text = "Random consumable", colour = G.C.GREY }
+    },
+    reminder_text = {
+        { text = "after Big Blinds", colour = G.C.GREY }
+    }
+}
+
 jd_def["j_jojoker_gold_experience"] = {
     text = {
         { ref_table = "card.ability.extra", ref_value = "numerator", retrigger_type = "numerator",  colour = G.C.GOLD },

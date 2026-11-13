@@ -824,6 +824,13 @@ local loc = {
                     "{C:attention}+#1#{} consumable slot",
                 }
             },
+            j_jojoker_polpo = {
+                name = "Polpo",
+                text = {
+                    "Creates a random {C:attention}consumable{}",
+                    "after each {C:attention}Big Blind{}.",
+                }
+            },
             j_jojoker_gold_experience = {
                 name = "Gold Experience",
                 alt_name = "Golden Wind",

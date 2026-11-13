@@ -35,6 +35,7 @@ jojoker.joker_order = {
     "nypd",
     "old_joseph_joestar",
     "poco",
+    "polpo",
     "pucci",
     "reimi",
     "santana",

@@ -121,6 +121,7 @@ JokerSprites = {
         {name = "metallica", base = {pos = {x = 0, y = 4}}, part_atlas = "golden_wind" },
         {name = "mista", base = {pos = {x = 1, y = 4}}, part_atlas = "golden_wind" },
         {name = "coco_jumbo", base = {pos = {x = 2, y = 4}}, part_atlas = "golden_wind" },
+        {name = "polpo", base = {pos = {x = 3, y = 4}}, part_atlas = "golden_wind" },
         -- Part 6: Stone Ocean
         {name = "goo_goo_dolls", base = {pos = {x = 0, y = 0}}, part_atlas = "stone_ocean" },
         {name = "stone_free", base = {pos = {x = 1, y = 0}}, part_atlas = "stone_ocean" },

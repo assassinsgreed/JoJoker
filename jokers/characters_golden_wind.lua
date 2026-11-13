@@ -111,8 +111,39 @@ local coco_jumbo = {
     end
 }
 
+local polpo = {
+    name = "polpo",
+    rarity = 2,
+    cost = 6,
+    jtype = "Character",
+    part = "golden_wind",
+    themes = { support = { jojoker.themes.CONSUMABLE_ROOM } },
+    blueprint_compat = true,
+    perishable_compat = true,
+    eternal_compat = true,
+    calculate = function(self, card, context)
+        -- Gives a random consumable after each Big Blind, but only if the player has room for it
+        -- Blind is still the one just beaten at end of round, so its type decides the trigger
+        if context.end_of_round and context.main_eval and not context.individual and not context.repetition
+          and G.GAME.blind and G.GAME.blind:get_type() == 'Big' then
+            if #G.consumeables.cards + G.GAME.consumeable_buffer < G.consumeables.config.card_limit then
+                jojoker.debug("Polpo: Creating a random consumable after the Big Blind")
+                G.GAME.consumeable_buffer = G.GAME.consumeable_buffer + 1
+                G.E_MANAGER:add_event(Event({
+                    func = function()
+                        local set = pseudorandom_element({ 'Tarot', 'Planet', 'Spectral' }, pseudoseed('polpo'))
+                        SMODS.add_card({ set = set, key_append = 'polpo' })
+                        G.GAME.consumeable_buffer = G.GAME.consumeable_buffer - 1
+                        return true
+                    end
+                }))
+            end
+        end
+    end
+}
+
 
 return {
     name = "Golden Wind Character Jokers",
-    list = { leaky_eye_luca, mista, coco_jumbo },
+    list = { leaky_eye_luca, mista, coco_jumbo, polpo },
 }

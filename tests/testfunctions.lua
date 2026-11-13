@@ -177,6 +177,14 @@ count_perishable_shop_rolls = function(rolls)
     return perishable
 end
 
+-- Polpo picks its consumable set from this exact list, so only that call is forced
+force_polpo_consumable_set = function(set)
+    Balatest.hook(_G, 'pseudorandom_element', function(orig, t, seed, ...)
+        if #t == 3 and t[1] == 'Tarot' and t[2] == 'Planet' and t[3] == 'Spectral' then return set end
+        return orig(t, seed, ...)
+    end)
+end
+
 force_scary_monsters_suit = function(suit)
     Balatest.hook(_G, 'pseudorandom_element', function(orig, t, seed, ...)
         if seed == 'jojoker_scary_monsters' then return SMODS.Suits[suit], suit end

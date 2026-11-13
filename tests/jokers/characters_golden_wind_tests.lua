@@ -263,3 +263,93 @@ Balatest.TestPlay {
 }
 
 --#endregion
+--#region Polpo
+
+Balatest.TestPlay {
+    name = 'polpo_creates_a_consumable_after_a_big_blind',
+    category = { 'jokers', 'golden_wind', 'polpo' },
+    jokers = { 'j_jojoker_polpo' },
+    blind = 'bl_big',
+    execute = function()
+        Balatest.end_round()
+        Balatest.cash_out()
+    end,
+    assert = function()
+        Balatest.assert_eq(#G.consumeables.cards, 1, "Polpo did not create a consumable after the Big Blind")
+    end
+}
+
+Balatest.TestPlay {
+    name = 'polpo_does_not_create_a_consumable_after_a_small_blind',
+    category = { 'jokers', 'golden_wind', 'polpo' },
+    jokers = { 'j_jojoker_polpo' },
+    execute = function()
+        Balatest.end_round()
+        Balatest.cash_out()
+    end,
+    assert = function()
+        Balatest.assert_eq(#G.consumeables.cards, 0, "Polpo created a consumable after a Small Blind")
+    end
+}
+
+Balatest.TestPlay {
+    name = 'polpo_creates_a_tarot_after_a_big_blind',
+    category = { 'jokers', 'golden_wind', 'polpo' },
+    jokers = { 'j_jojoker_polpo' },
+    blind = 'bl_big',
+    execute = function()
+        force_polpo_consumable_set('Tarot')
+        Balatest.end_round()
+        Balatest.cash_out()
+    end,
+    assert = function()
+        Balatest.assert_eq(G.consumeables.cards[1].ability.set, 'Tarot', "Polpo did not create a Tarot card")
+    end
+}
+
+Balatest.TestPlay {
+    name = 'polpo_creates_a_planet_after_a_big_blind',
+    category = { 'jokers', 'golden_wind', 'polpo' },
+    jokers = { 'j_jojoker_polpo' },
+    blind = 'bl_big',
+    execute = function()
+        force_polpo_consumable_set('Planet')
+        Balatest.end_round()
+        Balatest.cash_out()
+    end,
+    assert = function()
+        Balatest.assert_eq(G.consumeables.cards[1].ability.set, 'Planet', "Polpo did not create a Planet card")
+    end
+}
+
+Balatest.TestPlay {
+    name = 'polpo_creates_a_spectral_after_a_big_blind',
+    category = { 'jokers', 'golden_wind', 'polpo' },
+    jokers = { 'j_jojoker_polpo' },
+    blind = 'bl_big',
+    execute = function()
+        force_polpo_consumable_set('Spectral')
+        Balatest.end_round()
+        Balatest.cash_out()
+    end,
+    assert = function()
+        Balatest.assert_eq(G.consumeables.cards[1].ability.set, 'Spectral', "Polpo did not create a Spectral card")
+    end
+}
+
+Balatest.TestPlay {
+    name = 'polpo_does_not_create_a_consumable_without_room',
+    category = { 'jokers', 'golden_wind', 'polpo' },
+    jokers = { 'j_jojoker_polpo' },
+    consumeables = { 'c_mars', 'c_mars' },
+    blind = 'bl_big',
+    execute = function()
+        Balatest.end_round()
+        Balatest.cash_out()
+    end,
+    assert = function()
+        Balatest.assert_eq(#G.consumeables.cards, 2, "Polpo created a consumable without a free slot")
+    end
+}
+
+--#endregion
