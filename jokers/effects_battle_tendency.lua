@@ -69,7 +69,36 @@ local clacker_balls = {
     end
 }
 
+local tommy_gun = {
+    name = "tommy_gun",
+    rarity = 1,
+    cost = 5,
+    jtype = "Effect",
+    part = "battle_tendency",
+    themes = { core = { jojoker.themes.ACES_AND_KINGS } },
+    blueprint_compat = true,
+    perishable_compat = true,
+    eternal_compat = true,
+    config = { extra = { chips = 47 } },
+    loc_vars = function(self, info_queue, center)
+        return { vars = {center.ability.extra.chips} }
+    end,
+    calculate = function(self, card, context)
+        -- Scored Aces and Kings give 47 chips (AK-47)
+        if context.individual and context.cardarea == G.play and not context.other_card.debuff then
+            local id = context.other_card:get_id()
+            if id == 14 or id == 13 then
+                jojoker.debug("Tommy Gun: Giving "..card.ability.extra.chips.." chips for scored card rank "..id)
+                return {
+                    chips = card.ability.extra.chips,
+                    card = card
+                }
+            end
+        end
+    end
+}
+
 return {
     name = "Battle Tendency Effects Jokers",
-    list = { german_engineering, clacker_balls },
+    list = { german_engineering, clacker_balls, tommy_gun },
 }

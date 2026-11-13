@@ -255,6 +255,7 @@ local ball_breaker = {
     cost = 8,
     jtype = "Stand",
     part = "steel_ball_run",
+    themes = { core = { jojoker.themes.ACES_AND_KINGS } },
     blueprint_compat = true,
     perishable_compat = true,
     eternal_compat = true,

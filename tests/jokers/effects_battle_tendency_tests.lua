@@ -120,3 +120,71 @@ Balatest.TestPlay {
 }
 
 --#endregion
+--#region Tommy Gun
+
+Balatest.TestPlay {
+    name = 'tommy_gun_gives_chips_for_scored_ace',
+    category = { 'jokers', 'battle_tendency', 'tommy_gun' },
+    jokers = { 'j_jojoker_tommy_gun' },
+    execute = function()
+        Balatest.play_hand { 'AS' }
+    end,
+    assert = function()
+        -- High Card: (5 base + 11 Ace + 47) chips * 1 mult
+        Balatest.assert_chips(63, "Tommy Gun did not give chips for a scored Ace")
+    end
+}
+
+Balatest.TestPlay {
+    name = 'tommy_gun_gives_chips_for_scored_king',
+    category = { 'jokers', 'battle_tendency', 'tommy_gun' },
+    jokers = { 'j_jojoker_tommy_gun' },
+    execute = function()
+        Balatest.play_hand { 'KS' }
+    end,
+    assert = function()
+        -- High Card: (5 base + 10 King + 47) chips * 1 mult
+        Balatest.assert_chips(62, "Tommy Gun did not give chips for a scored King")
+    end
+}
+
+Balatest.TestPlay {
+    name = 'tommy_gun_gives_chips_for_each_scored_ace_and_king',
+    category = { 'jokers', 'battle_tendency', 'tommy_gun' },
+    jokers = { 'j_jojoker_tommy_gun' },
+    execute = function()
+        Balatest.play_hand { 'AS', 'AH', 'KS', 'KH' }
+    end,
+    assert = function()
+        -- Two Pair: (20 base + 11 + 11 + 10 + 10 + 4 * 47) chips * 2 mult
+        Balatest.assert_chips(500, "Tommy Gun did not give chips for every scored Ace and King")
+    end
+}
+
+Balatest.TestPlay {
+    name = 'tommy_gun_does_not_give_chips_for_other_ranks',
+    category = { 'jokers', 'battle_tendency', 'tommy_gun' },
+    jokers = { 'j_jojoker_tommy_gun' },
+    execute = function()
+        Balatest.play_hand { 'QS' }
+    end,
+    assert = function()
+        -- High Card: (5 base + 10 Queen) chips * 1 mult
+        Balatest.assert_chips(15, "Tommy Gun gave chips for a card that was not an Ace or King")
+    end
+}
+
+Balatest.TestPlay {
+    name = 'tommy_gun_does_not_give_chips_for_unscored_ace',
+    category = { 'jokers', 'battle_tendency', 'tommy_gun' },
+    jokers = { 'j_jojoker_tommy_gun' },
+    execute = function()
+        Balatest.play_hand { '2S', '2H', 'AS' }
+    end,
+    assert = function()
+        -- Pair of 2s: (10 base + 2 + 2) chips * 2 mult; the Ace does not score
+        Balatest.assert_chips(28, "Tommy Gun gave chips for an Ace that did not score")
+    end
+}
+
+--#endregion

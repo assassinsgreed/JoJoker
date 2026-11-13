@@ -193,3 +193,24 @@ jd_def["j_jojoker_lisa_lisa"] = {
         { text = "Enhanced card after blind", colour = G.C.GREY },
     },
 }
+
+jd_def["j_jojoker_tommy_gun"] = {
+    text = {
+        { text = "+", colour = G.C.CHIPS },
+        { ref_table = "card.joker_display_values", ref_value = "chips", retrigger_type = "mult", colour = G.C.CHIPS },
+    },
+    reminder_text = {
+        { text = "(Aces, Kings)", colour = G.C.GREY },
+    },
+    calc_function = function(card)
+        local _, _, scoring_hand = JokerDisplay.evaluate_hand()
+        local hits = 0
+        for _, v in pairs(scoring_hand) do
+            local id = v:get_id()
+            if (id == 14 or id == 13) and not v.debuff then
+                hits = hits + JokerDisplay.calculate_card_triggers(v, scoring_hand)
+            end
+        end
+        card.joker_display_values.chips = hits * card.ability.extra.chips
+    end
+}

@@ -286,6 +286,12 @@ local loc = {
                     "each scored card retriggers."
                 }
             },
+            j_jojoker_tommy_gun = {
+                name = "Tommy Gun",
+                text = {
+                    "Each scored {C:attention}Ace{} or {C:attention}King{} gives {C:chips}+#1#{}."
+                }
+            },
             -- Part 3: Stardust Crusaders
             j_jojoker_magician_red = {
                 name = "Magician's Red",

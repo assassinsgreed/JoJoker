@@ -29,6 +29,7 @@ LABELS = Labels(
         'jacks': ('Jacks', 'Reward and retrigger Jacks; Tattoo You makes more of them.'),
         'jack_deck': ('Jack deck', 'Tattoo You turns your deck into Jacks; Tomb of the Boom then pulls every Jack into hand for easy Flush Fives.'),
         'sevens': ('Sevens', 'Seven Page Muda and Pucci both retrigger 7s.'),
+        'aces_and_kings': ('Aces & Kings', 'Tommy Gun and Ball Breaker pay out for scored Aces and Kings; Pucci retriggers the Kings.'),
         'low_ranks': ('Low ranks', 'Little Feet multiplies every scored 2-5, stacking on jokers that pay out for low cards.'),
         'face_cards': ('Face cards', 'Reward face cards; Pareidolia, Cinderella and Tattoo You make more of them.'),
         'pairs': ('Pairs', 'Reward playing a Pair.'),
