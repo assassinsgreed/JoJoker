@@ -559,7 +559,45 @@ local awaking_iii_leaves = {
     end
 }
 
+local doggy_style = {
+    name = "doggy_style",
+    rarity = 2,
+    cost = 8,
+    jtype = "Stand",
+    part = "jojolion",
+    themes = { support = { jojoker.themes.ENHANCEMENT_EATERS, jojoker.themes.SEALS } },
+    blueprint_compat = false,
+    perishable_compat = true,
+    eternal_compat = true,
+    calculate = function(self, card, context)
+        -- Ties the outermost scored cards together, filling each one's empty enhancement, seal and edition from the other
+        if context.before and context.cardarea == G.jokers and not context.blueprint then
+            local leftmost = context.scoring_hand[1]
+            local rightmost = context.scoring_hand[#context.scoring_hand]
+            if leftmost == rightmost or leftmost.debuff or rightmost.debuff then return end
+
+            local left_tied = copy_missing_card_properties(rightmost, leftmost)
+            local right_tied = copy_missing_card_properties(leftmost, rightmost)
+            if not left_tied and not right_tied then return end
+
+            jojoker.debug("Doggy Style: Tied the leftmost and rightmost scored cards together")
+            for _, tied in ipairs({ leftmost, rightmost }) do
+                G.E_MANAGER:add_event(Event({
+                    func = function()
+                        tied:juice_up()
+                        return true
+                    end
+                }))
+            end
+            return {
+                message = localize('k_copied_ex'),
+                colour = G.C.SECONDARY_SET.Enhanced
+            }
+        end
+    end
+}
+
 return {
     name = "Jojolion Stands Jokers",
-    list = { soft_and_wet, paper_moon_king, milagro_man, i_am_a_rock, california_king_bed, doctor_wu, wonder_of_u, paisley_park, space_trucking, fun_fun_fun, blue_hawaii, speed_king, awaking_iii_leaves },
+    list = { soft_and_wet, paper_moon_king, milagro_man, i_am_a_rock, california_king_bed, doctor_wu, wonder_of_u, paisley_park, space_trucking, fun_fun_fun, blue_hawaii, speed_king, awaking_iii_leaves, doggy_style },
 }

@@ -179,3 +179,12 @@ jd_def["j_jojoker_awaking_iii_leaves"] = {
         card.joker_display_values.last_hand = recent[#recent] and localize(recent[#recent], 'poker_hands') or localize('none_used')
     end
 }
+
+jd_def["j_jojoker_doggy_style"] = {
+    text = {
+        { text = "Share upgrades", colour = G.C.GREY },
+    },
+    reminder_text = {
+        { text = "(Left & Right)" }
+    },
+}

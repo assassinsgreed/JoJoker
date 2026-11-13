@@ -758,3 +758,116 @@ Balatest.TestPlay {
 }
 
 --#endregion
+--#region Doggy Style
+
+Balatest.TestPlay {
+    name = 'doggy_style_ties_enhancement_and_seal_between_the_outer_scored_cards',
+    category = { 'jokers', 'jojolion', 'doggy_style' },
+    jokers = { 'j_jojoker_doggy_style' },
+    deck = { cards = {
+        { r = '2', s = 'S', e = 'm_bonus' },
+        { r = '2', s = 'H', g = 'Red' },
+        { r = '9', s = 'D' } } },
+    execute = function()
+        Balatest.play_hand { '2S', '2H' }
+    end,
+    assert = function()
+        local spade, heart = find_playing_card('2', 'Spades'), find_playing_card('2', 'Hearts')
+        Balatest.assert(heart.config.center == G.P_CENTERS.m_bonus, "Doggy Style did not copy the enhancement to the other tied card")
+        Balatest.assert_eq(spade.seal, 'Red', "Doggy Style did not copy the seal to the other tied card")
+        Balatest.assert(spade.config.center == G.P_CENTERS.m_bonus, "Doggy Style removed the source card's enhancement")
+        Balatest.assert_eq(heart.seal, 'Red', "Doggy Style removed the source card's seal")
+    end
+}
+
+Balatest.TestPlay {
+    name = 'doggy_style_copies_editions',
+    category = { 'jokers', 'jojolion', 'doggy_style' },
+    jokers = { 'j_jojoker_doggy_style' },
+    deck = { cards = {
+        { r = '2', s = 'S', d = 'foil' },
+        { r = '2', s = 'H' },
+        { r = '9', s = 'D' } } },
+    execute = function()
+        Balatest.play_hand { '2S', '2H' }
+    end,
+    assert = function()
+        local heart = find_playing_card('2', 'Hearts')
+        Balatest.assert(heart.edition and heart.edition.foil, "Doggy Style did not copy the edition to the other tied card")
+    end
+}
+
+Balatest.TestPlay {
+    name = 'doggy_style_does_not_tie_the_middle_scored_card',
+    category = { 'jokers', 'jojolion', 'doggy_style' },
+    jokers = { 'j_jojoker_doggy_style' },
+    deck = { cards = {
+        { r = '2', s = 'S', e = 'm_bonus' },
+        { r = '2', s = 'H' },
+        { r = '2', s = 'D', g = 'Red' },
+        { r = '9', s = 'C' } } },
+    execute = function()
+        -- Hand sorts Spades before Hearts before Diamonds, so the Heart is in the middle
+        Balatest.play_hand { '2S', '2H', '2D' }
+    end,
+    assert = function()
+        local middle = find_playing_card('2', 'Hearts')
+        Balatest.assert(middle.config.center == G.P_CENTERS.c_base and not middle.seal, "Doggy Style changed the middle scored card")
+        Balatest.assert(find_playing_card('2', 'Diamonds').config.center == G.P_CENTERS.m_bonus, "Doggy Style did not tie the rightmost card to the leftmost")
+        Balatest.assert_eq(find_playing_card('2', 'Spades').seal, 'Red', "Doggy Style did not tie the leftmost card to the rightmost")
+    end
+}
+
+Balatest.TestPlay {
+    name = 'doggy_style_does_not_overwrite_existing_properties',
+    category = { 'jokers', 'jojolion', 'doggy_style' },
+    jokers = { 'j_jojoker_doggy_style' },
+    deck = { cards = {
+        { r = '2', s = 'S', e = 'm_bonus', g = 'Red' },
+        { r = '2', s = 'H', e = 'm_mult', g = 'Gold' },
+        { r = '9', s = 'D' } } },
+    execute = function()
+        Balatest.play_hand { '2S', '2H' }
+    end,
+    assert = function()
+        local spade, heart = find_playing_card('2', 'Spades'), find_playing_card('2', 'Hearts')
+        Balatest.assert(spade.config.center == G.P_CENTERS.m_bonus and spade.seal == 'Red', "Doggy Style overwrote the leftmost card's properties")
+        Balatest.assert(heart.config.center == G.P_CENTERS.m_mult and heart.seal == 'Gold', "Doggy Style overwrote the rightmost card's properties")
+    end
+}
+
+Balatest.TestPlay {
+    name = 'doggy_style_ignores_unscored_cards',
+    category = { 'jokers', 'jojolion', 'doggy_style' },
+    jokers = { 'j_jojoker_doggy_style' },
+    deck = { cards = {
+        { r = '9', s = 'D', e = 'm_bonus' },
+        { r = '2', s = 'S' },
+        { r = '2', s = 'H' },
+        { r = '5', s = 'C' } } },
+    execute = function()
+        Balatest.play_hand { '9D', '2S', '2H' }
+    end,
+    assert = function()
+        Balatest.assert_eq(count_enhanced_playing_cards('m_bonus'), 1, "Doggy Style tied an unscored card")
+    end
+}
+
+Balatest.TestPlay {
+    name = 'doggy_style_copied_enhancement_scores_this_hand',
+    category = { 'jokers', 'jojolion', 'doggy_style' },
+    jokers = { 'j_jojoker_doggy_style' },
+    deck = { cards = {
+        { r = '2', s = 'S', e = 'm_bonus' },
+        { r = '2', s = 'H' },
+        { r = '9', s = 'D' } } },
+    execute = function()
+        Balatest.play_hand { '2S', '2H' }
+    end,
+    assert = function()
+        -- (10 from pair + 2 * 2 + 2 Bonus * 30) * 2 from pair
+        Balatest.assert_chips((10 + 2 * 2 + 2 * 30) * 2, "Doggy Style's copied enhancement did not score")
+    end
+}
+
+--#endregion

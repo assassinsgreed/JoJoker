@@ -110,6 +110,7 @@ jojoker.joker_order = {
     "d4c",
     "death_thirteen",
     "doctor_wu",
+    "doggy_style",
     "dragons_dream",
     "echoes_act_3",
     "emperor",

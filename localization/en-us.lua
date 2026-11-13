@@ -1506,6 +1506,14 @@ local loc = {
                     "{C:inactive}Currently: {C:chips}+#2#",
                 }
             },
+            j_jojoker_doggy_style = {
+                name = "Doggy Style",
+                text = {
+                    "Ties the {C:attention}leftmost{} and {C:attention}rightmost{} scored cards.",
+                    "Each copies the other's {C:attention}enhancement{}, {C:attention}seal{}",
+                    "and {C:dark_edition}edition{} if it has none.",
+                }
+            },
             -- Part 9: THE JOJOLands
             j_jojoker_smooth_operator = {
                 name = "Smooth Operators",

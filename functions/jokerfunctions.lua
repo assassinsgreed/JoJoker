@@ -1068,3 +1068,21 @@ shift_hands_and_discards = function(hands, discards)
   ease_hands_played(hands)
   ease_discard(discards)
 end
+
+-- Copies only into empty slots, so a card never loses what it already has
+copy_missing_card_properties = function(from, to)
+  local copied = false
+  if to.config.center == G.P_CENTERS.c_base and from.config.center ~= G.P_CENTERS.c_base then
+    to:set_ability(from.config.center, nil, true)
+    copied = true
+  end
+  if not to.seal and from.seal then
+    to:set_seal(from.seal, true, true)
+    copied = true
+  end
+  if not to.edition and from.edition then
+    to:set_edition(from.edition.key, true, true)
+    copied = true
+  end
+  return copied
+end
