@@ -263,6 +263,17 @@ end
 '''
 match_indent = true
 
+## Shop jokers stay face down when placed in the shop (Johngalli A)
+[[patches]]
+[patches.pattern]
+target = "cardarea.lua"
+pattern = "if card.facing == 'back' and self.config.type ~= 'discard' and self.config.type ~= 'deck' and not stay_flipped then"
+position = "before"
+payload = '''
+if self == G.shop_jokers and card.ability.set == 'Joker' and next(SMODS.find_card('j_jojoker_johngalli_a')) then stay_flipped = true end
+'''
+match_indent = true
+
 ## Every second card drawn to hand stays face down (Hayato)
 [[patches]]
 [patches.pattern]

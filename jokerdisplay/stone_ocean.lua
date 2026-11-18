@@ -309,6 +309,15 @@ jd_def["j_jojoker_weather_report"] = {
     end
 }
 
+jd_def["j_jojoker_johngalli_a"] = {
+    text = {
+        { text = "Flipped Jokers", colour = G.C.GREY },
+    },
+    reminder_text = {
+        { text = "(In shop, gains edition when bought)", colour = G.C.GREY },
+    },
+}
+
 jd_def["j_jojoker_snail"] = {
     text = {
         { text = "+", colour = G.C.CHIPS },

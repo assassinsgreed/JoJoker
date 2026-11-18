@@ -303,5 +303,119 @@ Balatest.TestPlay {
         Balatest.assert_eq(G.GAME.current_round.discards_left, 4, "Both Anasuis together did not net +1 discard")
     end
 }
+--#endregion
 
+--#region Johngalli A
+Balatest.TestPlay {
+    name = 'johngalli_a_deals_shop_jokers_face_down',
+    category = { 'jokers', 'stone_ocean', 'johngalli_a' },
+    jokers = { 'j_jojoker_johngalli_a' },
+    execute = function()
+        only_jokers_in_shop()
+        Balatest.end_round()
+        Balatest.cash_out()
+    end,
+    assert = function()
+        Balatest.assert(#G.shop_jokers.cards > 0, "The shop had no jokers to check")
+        Balatest.assert_eq(count_face_down_cards(G.shop_jokers), #G.shop_jokers.cards, "Johngalli A left a shop joker face up")
+    end
+}
+
+Balatest.TestPlay {
+    name = 'johngalli_a_deals_rerolled_shop_jokers_face_down',
+    category = { 'jokers', 'stone_ocean', 'johngalli_a' },
+    jokers = { 'j_jojoker_johngalli_a' },
+    execute = function()
+        only_jokers_in_shop()
+        Balatest.end_round()
+        Balatest.cash_out()
+        reroll_shop_for_free()
+    end,
+    assert = function()
+        Balatest.assert(#G.shop_jokers.cards > 0, "The rerolled shop had no jokers to check")
+        Balatest.assert_eq(count_face_down_cards(G.shop_jokers), #G.shop_jokers.cards, "Johngalli A left a rerolled shop joker face up")
+    end
+}
+
+Balatest.TestPlay {
+    name = 'johngalli_a_leaves_shop_consumables_face_up',
+    category = { 'jokers', 'stone_ocean', 'johngalli_a' },
+    jokers = { 'j_jojoker_johngalli_a' },
+    execute = function()
+        no_jokers_in_shop()
+        Balatest.end_round()
+        Balatest.cash_out()
+    end,
+    assert = function()
+        Balatest.assert(#G.shop_jokers.cards > 0, "The shop had no consumables to check")
+        Balatest.assert_eq(count_face_down_cards(G.shop_jokers), 0, "Johngalli A turned a shop consumable face down")
+    end
+}
+
+local johngalli_bought
+
+Balatest.TestPlay {
+    name = 'johngalli_a_bought_joker_is_revealed_with_an_edition',
+    category = { 'jokers', 'stone_ocean', 'johngalli_a' },
+    jokers = { 'j_jojoker_johngalli_a' },
+    dollars = 100,
+    execute = function()
+        only_jokers_in_shop()
+        Balatest.end_round()
+        Balatest.cash_out()
+        Balatest.q(function() G.shop_jokers.cards[1]:set_edition(nil, true, true) end)
+        Balatest.buy(function()
+            johngalli_bought = G.shop_jokers.cards[1]
+            return johngalli_bought
+        end)
+    end,
+    assert = function()
+        Balatest.assert_eq(johngalli_bought.area, G.jokers, "The face-down joker was not bought")
+        Balatest.assert_eq(johngalli_bought.facing, 'front', "The bought joker stayed face down")
+        Balatest.assert(johngalli_bought.edition ~= nil, "Johngalli A did not give the bought joker an edition")
+        Balatest.assert(not johngalli_bought.edition.negative, "Johngalli A gave the bought joker Negative")
+    end
+}
+
+Balatest.TestPlay {
+    name = 'johngalli_a_keeps_the_existing_edition_of_a_bought_joker',
+    category = { 'jokers', 'stone_ocean', 'johngalli_a' },
+    jokers = { 'j_jojoker_johngalli_a' },
+    dollars = 100,
+    execute = function()
+        only_jokers_in_shop()
+        Balatest.end_round()
+        Balatest.cash_out()
+        Balatest.q(function() G.shop_jokers.cards[1]:set_edition('e_foil', true, true) end)
+        Balatest.buy(function()
+            johngalli_bought = G.shop_jokers.cards[1]
+            return johngalli_bought
+        end)
+    end,
+    assert = function()
+        Balatest.assert(johngalli_bought.edition and johngalli_bought.edition.foil, "Johngalli A replaced the bought joker's existing edition")
+    end
+}
+
+Balatest.TestPlay {
+    name = 'johngalli_a_sold_still_reveals_face_down_jokers_without_an_edition',
+    category = { 'jokers', 'stone_ocean', 'johngalli_a' },
+    jokers = { 'j_jojoker_johngalli_a' },
+    dollars = 100,
+    execute = function()
+        only_jokers_in_shop()
+        Balatest.end_round()
+        Balatest.cash_out()
+        Balatest.q(function() G.shop_jokers.cards[1]:set_edition(nil, true, true) end)
+        Balatest.sell(function() return G.jokers.cards[1] end)
+        Balatest.buy(function()
+            johngalli_bought = G.shop_jokers.cards[1]
+            return johngalli_bought
+        end)
+    end,
+    assert = function()
+        Balatest.assert_eq(johngalli_bought.facing, 'front', "A joker bought face down after selling Johngalli A stayed face down")
+        Balatest.assert(johngalli_bought.edition == nil, "A joker bought after selling Johngalli A still gained an edition")
+    end
+}
 --#endregion

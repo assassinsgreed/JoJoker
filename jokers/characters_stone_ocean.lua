@@ -151,7 +151,36 @@ local anasui_f = {
     end
 }
 
+local johngalli_a = {
+    name = "johngalli_a",
+    rarity = 2,
+    cost = 6,
+    jtype = "Character",
+    part = "stone_ocean",
+    blueprint_compat = false,
+    perishable_compat = true,
+    eternal_compat = true,
+    config = { extra = {} },
+    loc_vars = function(self, info_queue, card)
+      return {vars = {}}
+    end,
+    calculate = function(self, card, context)
+        if context.blueprint then return end
+
+        -- Facing is set rather than flipped so a second copy cannot turn the card back over
+        if context.modify_shop_card and context.card.ability.set == 'Joker' then
+            jojoker.debug("Johngalli A: Dealing "..context.card.config.center.key.." face down")
+            context.card.facing = 'back'
+            context.card.sprite_facing = 'back'
+        end
+        if context.buying_card and context.card ~= card and context.card.ability.set == 'Joker' and not context.card.edition then
+            jojoker.debug("Johngalli A: Giving "..context.card.config.center.key.." an edition")
+            context.card:set_edition(poll_edition('johngalli_a', nil, true, true))
+        end
+    end
+}
+
 return {
     name = "Stone Ocean Character Jokers",
-    list = { savage_garden, pucci, loccobarocco_and_charlotte, anasui_m, anasui_f },
+    list = { savage_garden, pucci, loccobarocco_and_charlotte, anasui_m, anasui_f, johngalli_a },
 }

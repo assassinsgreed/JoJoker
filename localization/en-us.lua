@@ -1176,6 +1176,15 @@ local loc = {
                     "{C:blue}-#1#{} hand.",
                 }
             },
+            j_jojoker_johngalli_a = {
+                name = "Johngalli A",
+                text = {
+                    "Shop {C:attention}Jokers{} are {C:attention}face down{}.",
+                    "Bought {C:attention}Jokers{} gain a random",
+                    "non-{C:dark_edition}Negative{} {C:dark_edition}edition{}",
+                    "if they have none.",
+                }
+            },
             j_jojoker_dios_bone = {
                 name = "DIO's Bone",
                 text = {

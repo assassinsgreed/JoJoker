@@ -260,3 +260,17 @@ count_random_tags_given = function()
     end)
     return given
 end
+
+only_jokers_in_shop = function()
+    Balatest.q(function()
+        G.GAME.playing_card_rate = 0
+        G.GAME.spectral_rate = 0
+        for _, v in ipairs(SMODS.ConsumableType.ctype_buffer) do
+            G.GAME[v:lower()..'_rate'] = 0
+        end
+    end)
+end
+
+no_jokers_in_shop = function()
+    Balatest.q(function() G.GAME.joker_rate = 0 end)
+end

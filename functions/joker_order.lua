@@ -21,6 +21,7 @@ jojoker.joker_order = {
     "hayato",
     "hol_horse",
     "jodio_joestar",
+    "johngalli_a",
     "johnny_joestar",
     "jonathan_joestar",
     "joseph_joestar",
