@@ -981,6 +981,18 @@ local loc = {
                     "cards, then {C:attention}randomize{} the rank of every played card."
                 }
             },
+            j_jojoker_green_day = {
+                name = "Green Day",
+                alt_name = "Green Tea",
+                text = {
+                    "Scored cards below the {C:attention}highest scored rank{}",
+                    "lose up to {C:attention}#1#{} base {C:chips}chips{}.",
+                    "Gains {X:mult,C:white} X#2# {} per chip lost.",
+                },
+                in_play_text = {
+                    "{C:inactive}Currently: {X:mult,C:white} X#3# {}"
+                }
+            },
             j_jojoker_seven_page_muda = {
                 name = "Seven Page Muda",
                 text = {

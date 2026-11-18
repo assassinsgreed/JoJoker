@@ -332,6 +332,52 @@ Balatest.TestPlay {
     end
 }
 
+Balatest.TestPlay {
+    name = 'dio_brando_drains_cards_that_have_scored_before',
+    category = { 'jokers', 'phantom_blood', 'dio_brando' },
+    jokers = { 'j_jojoker_dio_brando' },
+    execute = function()
+        -- Scoring a card stabilizes its drain to 0
+        find_playing_card('King', 'Spades').ability.nominal_drain = 0
+        Balatest.play_hand { 'KS' }
+    end,
+    assert = function()
+        local expected_xmult = 1 + G.jokers.cards[1].ability.extra.drain_rate * 9 / 100
+        Balatest.assert_eq(G.jokers.cards[1].ability.extra.Xmult, expected_xmult, "Dio Brando skipped a card that had scored before")
+    end
+}
+
+Balatest.TestPlay {
+    name = 'dio_brando_drains_the_rest_of_a_partially_drained_card',
+    category = { 'jokers', 'phantom_blood', 'dio_brando' },
+    jokers = { 'j_jojoker_dio_brando' },
+    execute = function()
+        find_playing_card('King', 'Spades').ability.nominal_drain = 3
+        Balatest.play_hand { 'KS' }
+    end,
+    assert = function()
+        local expected_xmult = 1 + G.jokers.cards[1].ability.extra.drain_rate * 6 / 100
+        Balatest.assert_eq(G.jokers.cards[1].ability.extra.Xmult, expected_xmult, "Dio Brando did not drain only the chips left on a partially drained card")
+        Balatest.assert_eq(find_playing_card('King', 'Spades'):get_chip_bonus(), 1, "Dio Brando did not leave the King with 1 chip")
+    end
+}
+
+Balatest.TestPlay {
+    name = 'dio_brando_ignores_stone_cards',
+    category = { 'jokers', 'phantom_blood', 'dio_brando' },
+    jokers = { 'j_jojoker_dio_brando' },
+    deck = { cards = {
+        { r = 'K', s = 'S', e = 'm_stone' },
+        { r = '3', s = 'H' },
+        { r = '4', s = 'D' } } },
+    execute = function()
+        Balatest.play_hand { 'KS' }
+    end,
+    assert = function()
+        Balatest.assert_eq(G.jokers.cards[1].ability.extra.Xmult, 1, "Dio Brando gained xmult from a Stone card, which has no base chips")
+    end
+}
+
 --#endregion
 --#region Poco
 

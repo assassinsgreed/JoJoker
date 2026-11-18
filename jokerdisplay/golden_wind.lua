@@ -308,6 +308,17 @@ jd_def["j_jojoker_metallica"] = {
     },
 }
 
+jd_def["j_jojoker_green_day"] = {
+    text = {
+        {
+            border_nodes = {
+                { text = "X" },
+                { ref_table = "card.ability.extra", ref_value = "Xmult", retrigger_type = "exp" }
+            }
+        }
+    },
+}
+
 jd_def["j_jojoker_silver_chariot_requiem"] = {
     text = {
         { text = "Enhance highest, randomize ranks", colour = G.C.GREY },

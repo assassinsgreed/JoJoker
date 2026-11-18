@@ -132,5 +132,6 @@ LABELS = Labels(
         'turns_unscored_cards_into_stone': 'turns unscored cards into Stone cards, which always score',
         'randomizes_the_suits_these': 'randomizes the suits these rely on',
         'resets_played_hands_to_level_1': 'resets played hands to level 1',
+        'drains_the_same_base_chips': 'drains the same base chips from scored cards',
     },
 )

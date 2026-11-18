@@ -124,6 +124,7 @@ jojoker.joker_order = {
     "gold_experience_requiem",
     "goo_goo_dolls",
     "grateful_dead",
+    "green_day",
     "green_green_grass_of_home",
     "harvest",
     "heavens_door",

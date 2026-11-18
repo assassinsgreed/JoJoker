@@ -390,15 +390,14 @@ local dio_brando = {
       return {vars = { center.ability.extra.drain_rate, center.ability.extra.Xmult }}
     end,
     calculate = function(self, card, context)
-        -- Before scoring, drains base chips out of each scoring card
+        -- Before scoring, drains every base chip but 1 out of each scoring card
         if context.before and context.scoring_hand then
             local total_drained = 0
-            for i = 1, #context.scoring_hand do
-                if not context.scoring_hand[i].ability.nominal_drain then
-                    -- Card has not been drained yet
-                    jojoker.debug("Dio Brando: Draining card with "..(context.scoring_hand[i].base.nominal or 0).." chips.")
-                    total_drained = total_drained + (context.scoring_hand[i].base.nominal - 1 or 0) -- Cards are left with 1 chip after draining 
-                    context.scoring_hand[i].ability.nominal_drain = context.scoring_hand[i].base.nominal or 0 -- Mark drained
+            for _, scoring_card in ipairs(context.scoring_hand) do
+                if not SMODS.has_no_rank(scoring_card) then
+                    local remaining = math.max(0, scoring_card.base.nominal - 1 - (scoring_card.ability.nominal_drain or 0))
+                    scoring_card.ability.nominal_drain = (scoring_card.ability.nominal_drain or 0) + remaining
+                    total_drained = total_drained + remaining
                 end
             end
             local xmult_to_add = (total_drained * card.ability.extra.drain_rate / 100)

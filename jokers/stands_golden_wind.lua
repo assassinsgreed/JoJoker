@@ -796,7 +796,62 @@ local silver_chariot_requiem = {
     end
 }
 
+local green_day = {
+    name = "green_day",
+    rarity = 3,
+    cost = 8,
+    jtype = "Stand",
+    part = "golden_wind",
+    themes = { support = { jojoker.themes.STRAIGHTS } },
+    conflicts = { dio_brando = "drains_the_same_base_chips" },
+    similar = { jojoker.similar.CHIPS_INTO_MULT },
+    blueprint_compat = true,
+    perishable_compat = true,
+    eternal_compat = true,
+    config = { extra = { drain_cap = 3, Xmult_mod = 0.05, Xmult = 1 } },
+    loc_vars = function(self, info_queue, center)
+        return {
+            vars = {center.ability.extra.drain_cap, center.ability.extra.Xmult_mod, center.ability.extra.Xmult}
+        }
+    end,
+    calculate = function(self, card, context)
+        -- Drains up to 3 chips from each scored card under the highest scored rank, adding xmult per removed chip
+        if context.before and not context.blueprint then
+            local highest_rank
+            for _, scoring_card in ipairs(context.scoring_hand) do
+                if not SMODS.has_no_rank(scoring_card) then
+                    highest_rank = math.max(highest_rank or 0, scoring_card:get_id())
+                end
+            end
+            local total_drained = 0
+            for _, scoring_card in ipairs(context.scoring_hand) do
+                if not SMODS.has_no_rank(scoring_card) and not scoring_card.debuff and scoring_card:get_id() < highest_rank then
+                    local remaining = scoring_card.base.nominal - 1 - (scoring_card.ability.nominal_drain or 0)
+                    local drained = math.max(0, math.min(card.ability.extra.drain_cap, remaining))
+                    scoring_card.ability.nominal_drain = (scoring_card.ability.nominal_drain or 0) + drained
+                    total_drained = total_drained + drained
+                end
+            end
+            if total_drained > 0 then
+                card.ability.extra.Xmult = card.ability.extra.Xmult + card.ability.extra.Xmult_mod * total_drained
+                jojoker.debug("Green Day: Drained "..total_drained.." chips from scored cards. Xmult is now "..card.ability.extra.Xmult)
+                return {
+                    message = localize('k_upgrade_ex'),
+                    colour = G.C.MULT
+                }
+            end
+        end
+
+        if context.joker_main and card.ability.extra.Xmult > 1 then
+            return {
+                message = localize{type = 'variable', key = 'a_xmult', vars = {card.ability.extra.Xmult}},
+                Xmult_mod = card.ability.extra.Xmult
+            }
+        end
+    end
+}
+
 return {
     name = "Golden Wind Stand Jokers",
-    list = { sex_pistols, grateful_dead, spice_girl, sticky_fingers, gold_experience, gold_experience_requiem, king_crimson, moody_blues, baby_face, little_feet, black_sabbath, rolling_stones, notorious_big, white_album, aerosmith, purple_haze, talking_head, metallica, silver_chariot_requiem },
+    list = { sex_pistols, grateful_dead, spice_girl, sticky_fingers, gold_experience, gold_experience_requiem, king_crimson, moody_blues, baby_face, little_feet, black_sabbath, rolling_stones, notorious_big, white_album, aerosmith, purple_haze, talking_head, metallica, silver_chariot_requiem, green_day },
 }

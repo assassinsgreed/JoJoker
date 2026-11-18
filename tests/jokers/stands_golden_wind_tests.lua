@@ -1184,5 +1184,111 @@ Balatest.TestPlay {
         Balatest.assert_eq(find_playing_card('3', 'Spades').config.center, G.P_CENTERS.m_stone, "Silver Chariot Requiem did not randomize the rank of a played Stone card")
     end
 }
+--#endregion
 
+--#region Green Day
+Balatest.TestPlay {
+    name = 'green_day_drains_every_card_below_the_highest_rank',
+    category = { 'jokers', 'golden_wind', 'green_day' },
+    jokers = { 'j_jojoker_green_day' },
+    execute = function()
+        Balatest.play_hand { 'KS', 'QS', 'JS', 'TS', '9S' }
+    end,
+    assert = function()
+        local extra = G.jokers.cards[1].ability.extra
+        local expected_xmult = 1 + extra.Xmult_mod * (extra.drain_cap * 4)
+        Balatest.assert_eq(extra.Xmult, expected_xmult, "Green Day xmult wasn't "..expected_xmult.." after four cards sat below the King")
+        Balatest.assert_eq(find_playing_card('King', 'Spades').ability.nominal_drain or 0, 0, "Green Day drained the highest ranked card")
+        Balatest.assert_eq(find_playing_card('Queen', 'Spades').ability.nominal_drain, extra.drain_cap, "Green Day did not drain the cap from a Queen below the King")
+    end
+}
+
+Balatest.TestPlay {
+    name = 'green_day_spares_every_card_tied_for_highest',
+    category = { 'jokers', 'golden_wind', 'green_day' },
+    jokers = { 'j_jojoker_green_day' },
+    execute = function()
+        Balatest.play_hand { '5S', '5C' }
+    end,
+    assert = function()
+        Balatest.assert_eq(G.jokers.cards[1].ability.extra.Xmult, 1, "Green Day drained a card tied for the highest rank")
+    end
+}
+
+Balatest.TestPlay {
+    name = 'green_day_drains_the_lower_pair_of_a_two_pair',
+    category = { 'jokers', 'golden_wind', 'green_day' },
+    jokers = { 'j_jojoker_green_day' },
+    execute = function()
+        Balatest.play_hand { 'KS', 'KC', '5S', '5C' }
+    end,
+    assert = function()
+        local extra = G.jokers.cards[1].ability.extra
+        local expected_xmult = 1 + extra.Xmult_mod * (extra.drain_cap * 2)
+        Balatest.assert_eq(extra.Xmult, expected_xmult, "Green Day did not drain both 5s below the Kings")
+        Balatest.assert_eq(find_playing_card('King', 'Clubs').ability.nominal_drain or 0, 0, "Green Day drained a King tied for the highest rank")
+    end
+}
+
+Balatest.TestPlay {
+    name = 'green_day_leaves_drained_cards_with_one_chip',
+    category = { 'jokers', 'golden_wind', 'green_day' },
+    jokers = { 'j_jojoker_green_day' },
+    execute = function()
+        Balatest.play_hand { '6S', '5S', '4S', '3S', '2S' }
+    end,
+    assert = function()
+        -- 5, 4 and 3 lose the cap or all but 1 chip; 2 only has 1 chip to lose
+        local expected_xmult = 1 + G.jokers.cards[1].ability.extra.Xmult_mod * (3 + 3 + 2 + 1)
+        Balatest.assert_eq(G.jokers.cards[1].ability.extra.Xmult, expected_xmult, "Green Day drained a card below 1 chip")
+        Balatest.assert_eq(find_playing_card('2', 'Spades'):get_chip_bonus(), 1, "Green Day did not leave the 2 of Spades with 1 chip")
+    end
+}
+
+Balatest.TestPlay {
+    name = 'green_day_does_not_drain_debuffed_cards',
+    category = { 'jokers', 'golden_wind', 'green_day' },
+    jokers = { 'j_jojoker_green_day' },
+    execute = function()
+        debuff_playing_cards('Queen', 'Spades')
+        Balatest.play_hand { 'KS', 'QS', 'JS', 'TS', '9S' }
+    end,
+    assert = function()
+        local extra = G.jokers.cards[1].ability.extra
+        local expected_xmult = 1 + extra.Xmult_mod * (extra.drain_cap * 3)
+        Balatest.assert_eq(extra.Xmult, expected_xmult, "Green Day did not drain only the three undebuffed cards below the King")
+        Balatest.assert_eq(find_playing_card('Queen', 'Spades').ability.nominal_drain or 0, 0, "Green Day drained chips from a debuffed card")
+    end
+}
+
+Balatest.TestPlay {
+    name = 'green_day_ignores_stone_cards',
+    category = { 'jokers', 'golden_wind', 'green_day' },
+    jokers = { 'j_jojoker_green_day' },
+    deck = { cards = {
+        { r = 'K', s = 'S' },
+        { r = '5', s = 'S', e = 'm_stone' },
+        { r = '3', s = 'H' },
+        { r = '4', s = 'D' } } },
+    execute = function()
+        Balatest.play_hand { 'KS', '5S' }
+    end,
+    assert = function()
+        Balatest.assert_eq(G.jokers.cards[1].ability.extra.Xmult, 1, "Green Day drained a Stone card, which has no rank")
+    end
+}
+
+Balatest.TestPlay {
+    name = 'green_day_applies_xmult_after_draining',
+    category = { 'jokers', 'golden_wind', 'green_day' },
+    jokers = { 'j_jojoker_green_day' },
+    execute = function()
+        G.jokers.cards[1].ability.extra.Xmult = 2
+        Balatest.play_hand { 'KS', 'QS', 'JS', 'TS', '9S' }
+    end,
+    assert = function()
+        -- Straight Flush: (100 + K 10 + Q 7 + J 7 + 10 7 + 9 6) chips * 8 mult * X2.6
+        Balatest.assert_chips(2849, "Green Day did not apply its drained Xmult during scoring")
+    end
+}
 --#endregion
