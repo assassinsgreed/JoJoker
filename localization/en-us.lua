@@ -1434,6 +1434,13 @@ local loc = {
                     "give {C:mult}+#2#x{} their {C:attention}rank{} as mult."
                 }
             },
+            j_jojoker_johnny_joestar = {
+                name = "Johnny Joestar",
+                text = {
+                    "Each scored {C:attention}#2#{} gives {C:chips}+#1#{}. Rank decreases",
+                    "per scoring hand containing it until {C:attention}Ace{} then resets.",
+                }
+            },
             -- Part 8: Jojolion
             j_jojoker_soft_and_wet = {
                 name = "Soft & Wet",

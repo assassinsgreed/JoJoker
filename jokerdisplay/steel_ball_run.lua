@@ -307,3 +307,27 @@ jd_def["j_jojoker_sugar_mountain"] = {
         { text = "Left to spend", colour = G.C.GREY },
     }
 }
+
+jd_def["j_jojoker_johnny_joestar"] = {
+    text = {
+        { text = "+", colour = G.C.CHIPS },
+        { ref_table = "card.joker_display_values", ref_value = "chips", colour = G.C.CHIPS },
+    },
+    reminder_text = {
+        { text = "(", colour = G.C.GREY },
+        { ref_table = "card.joker_display_values", ref_value = "rank", colour = G.C.FILTER },
+        { text = ")", colour = G.C.GREY },
+    },
+    calc_function = function(card)
+        local rank = card.ability.extra.rank
+        local _, _, scoring_hand = JokerDisplay.evaluate_hand()
+        local count = 0
+        for _, v in pairs(scoring_hand) do
+            if v:get_id() == rank and not v.debuff then
+                count = count + JokerDisplay.calculate_card_triggers(v, scoring_hand)
+            end
+        end
+        card.joker_display_values.chips = count * card.ability.extra.chips
+        card.joker_display_values.rank = rank == 14 and localize('Ace', 'ranks') or tostring(rank)
+    end
+}

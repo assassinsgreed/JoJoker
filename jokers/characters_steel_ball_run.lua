@@ -252,7 +252,51 @@ local sugar_mountain = {
     end
 }
 
+local johnny_joestar = {
+    name = "johnny_joestar",
+    rarity = 1,
+    cost = 5,
+    jtype = "Character",
+    part = "steel_ball_run",
+    blueprint_compat = true,
+    perishable_compat = true,
+    eternal_compat = true,
+    config = { extra = { chips = 30, rank = 10 } },
+    loc_vars = function(self, info_queue, center)
+        local rank = center.ability.extra.rank
+        return {
+            vars = { center.ability.extra.chips, rank == 14 and localize('Ace', 'ranks') or tostring(rank) }
+        }
+    end,
+    calculate = function(self, card, context)
+        -- Gives chips for each scored card matching the current rank
+        if context.individual and context.cardarea == G.play
+          and context.other_card:get_id() == card.ability.extra.rank and not context.other_card.debuff then
+            return {
+                chips = card.ability.extra.chips,
+                card = card
+            }
+        end
+
+        -- Counts down 10 to 2, then Ace, then back to 10
+        if context.after and not context.blueprint then
+            local rank = card.ability.extra.rank
+            for _, v in ipairs(context.scoring_hand) do
+                if v:get_id() == rank and not v.debuff then
+                    local next_rank = rank == 14 and 10 or rank == 2 and 14 or rank - 1
+                    card.ability.extra.rank = next_rank
+                    jojoker.debug("Johnny Joestar: Scored rank "..rank..", next rank is "..next_rank)
+                    return {
+                        message = next_rank == 14 and localize('Ace', 'ranks') or tostring(next_rank),
+                        colour = G.C.CHIPS,
+                    }
+                end
+            end
+        end
+    end
+}
+
 return {
     name = "Steel Ball Run Characters Jokers",
-    list = { danny_sbr, slow_dancer, valkyrie, sugar_mountain },
+    list = { danny_sbr, slow_dancer, valkyrie, sugar_mountain, johnny_joestar },
 }

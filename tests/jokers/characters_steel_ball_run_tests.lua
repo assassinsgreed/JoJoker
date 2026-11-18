@@ -269,3 +269,99 @@ Balatest.TestPlay {
 }
 
 --#endregion
+
+--#region Johnny Joestar
+Balatest.TestPlay {
+    name = 'johnny_joestar_gives_chips_for_a_scored_card_of_the_chosen_rank',
+    category = { 'jokers', 'steel_ball_run', 'johnny_joestar' },
+    jokers = { 'j_jojoker_johnny_joestar' },
+    execute = function()
+        Balatest.play_hand { '10S' }
+    end,
+    assert = function()
+        Balatest.assert_chips(45, "Johnny Joestar did not give chips for a scored 10") -- (5 base + 10 nominal + 30) * 1
+    end
+}
+
+Balatest.TestPlay {
+    name = 'johnny_joestar_gives_chips_for_each_scored_card_of_the_chosen_rank',
+    category = { 'jokers', 'steel_ball_run', 'johnny_joestar' },
+    jokers = { 'j_jojoker_johnny_joestar' },
+    execute = function()
+        Balatest.play_hand { '10S', '10H' }
+    end,
+    assert = function()
+        Balatest.assert_chips(180, "Johnny Joestar did not give chips for each scored 10") -- (10 base + 20 nominal + 60) * 2
+    end
+}
+
+Balatest.TestPlay {
+    name = 'johnny_joestar_does_not_give_chips_for_other_ranks',
+    category = { 'jokers', 'steel_ball_run', 'johnny_joestar' },
+    jokers = { 'j_jojoker_johnny_joestar' },
+    execute = function()
+        keep_blind_unbeaten()
+        Balatest.play_hand { '9S' }
+    end,
+    assert = function()
+        Balatest.assert_chips(14, "Johnny Joestar gave chips for a card that was not the chosen rank") -- (5 base + 9 nominal) * 1
+        Balatest.assert_eq(G.jokers.cards[1].ability.extra.rank, 10, "Johnny Joestar lowered its rank without scoring it")
+    end
+}
+
+Balatest.TestPlay {
+    name = 'johnny_joestar_lowers_rank_after_scoring_it',
+    category = { 'jokers', 'steel_ball_run', 'johnny_joestar' },
+    jokers = { 'j_jojoker_johnny_joestar' },
+    execute = function()
+        keep_blind_unbeaten()
+        Balatest.play_hand { '10S' }
+        Balatest.play_hand { '9S' }
+    end,
+    assert = function()
+        Balatest.assert_eq(G.jokers.cards[1].ability.extra.rank, 8, "Johnny Joestar did not lower its rank after each scored rank")
+    end
+}
+
+Balatest.TestPlay {
+    name = 'johnny_joestar_does_not_lower_rank_for_an_unscored_card',
+    category = { 'jokers', 'steel_ball_run', 'johnny_joestar' },
+    jokers = { 'j_jojoker_johnny_joestar' },
+    execute = function()
+        keep_blind_unbeaten()
+        Balatest.play_hand { 'AS', '10S' }
+    end,
+    assert = function()
+        Balatest.assert_eq(G.jokers.cards[1].ability.extra.rank, 10, "Johnny Joestar lowered its rank for an unscored 10")
+    end
+}
+
+Balatest.TestPlay {
+    name = 'johnny_joestar_moves_from_2_to_ace',
+    category = { 'jokers', 'steel_ball_run', 'johnny_joestar' },
+    jokers = { 'j_jojoker_johnny_joestar' },
+    execute = function()
+        keep_blind_unbeaten()
+        G.jokers.cards[1].ability.extra.rank = 2
+        Balatest.play_hand { '2S' }
+    end,
+    assert = function()
+        Balatest.assert_eq(G.jokers.cards[1].ability.extra.rank, 14, "Johnny Joestar did not move to Ace after scoring a 2")
+    end
+}
+
+Balatest.TestPlay {
+    name = 'johnny_joestar_returns_to_10_after_scoring_an_ace',
+    category = { 'jokers', 'steel_ball_run', 'johnny_joestar' },
+    jokers = { 'j_jojoker_johnny_joestar' },
+    execute = function()
+        keep_blind_unbeaten()
+        G.jokers.cards[1].ability.extra.rank = 14
+        Balatest.play_hand { 'AS' }
+    end,
+    assert = function()
+        Balatest.assert_chips(46, "Johnny Joestar did not give chips for a scored Ace") -- (5 base + 11 nominal + 30) * 1
+        Balatest.assert_eq(G.jokers.cards[1].ability.extra.rank, 10, "Johnny Joestar did not return to 10 after scoring an Ace")
+    end
+}
+--#endregion
