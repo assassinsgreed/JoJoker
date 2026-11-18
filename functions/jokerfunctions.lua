@@ -1097,3 +1097,34 @@ jojoker_add_random_tag = function(seed)
   end
   add_tag(Tag(selected_tag, false, 'Small'))
 end
+
+osiris_absorb_edition = function(card, edition)
+  local extra = card.ability.extra
+  if edition.foil then
+    extra.chips = extra.chips + extra.chips_mod
+  elseif edition.holo then
+    extra.mult = extra.mult + extra.mult_mod
+  elseif edition.polychrome then
+    extra.Xmult = extra.Xmult + extra.Xmult_mod
+  end
+end
+
+-- Negative is only taken while Osiris lacks it, so absorbing never costs a joker slot
+osiris_absorb_editions = function(card)
+  local absorbed = false
+  for _, joker in ipairs(G.jokers.cards) do
+    local edition = joker ~= card and joker.edition
+    if edition and (edition.foil or edition.holo or edition.polychrome) then
+      osiris_absorb_edition(card, edition)
+      joker:set_edition(nil)
+      absorbed = true
+    elseif edition and edition.negative and not (card.edition and card.edition.negative) then
+      -- Osiris's own edition is replaced by Negative, so it is absorbed rather than lost
+      if card.edition then osiris_absorb_edition(card, card.edition) end
+      card:set_edition('e_negative')
+      joker:set_edition(nil)
+      absorbed = true
+    end
+  end
+  return absorbed
+end

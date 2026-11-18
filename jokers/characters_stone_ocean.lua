@@ -157,6 +157,7 @@ local johngalli_a = {
     cost = 6,
     jtype = "Character",
     part = "stone_ocean",
+    themes = { support = { jojoker.themes.JOKER_EDITIONS } },
     blueprint_compat = false,
     perishable_compat = true,
     eternal_compat = true,

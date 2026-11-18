@@ -1372,5 +1372,156 @@ Balatest.TestPlay {
         Balatest.assert_eq(G.P_CENTERS['j_jojoker_silver_chariot_armorless']:in_pool(), false, "Silver Chariot (Armorless) was in the shop and Judgement pool")
     end
 }
+--#endregion
+
+--#region Osiris
+Balatest.TestPlay {
+    name = 'osiris_absorbs_foil_into_chips',
+    category = { 'jokers', 'stardust_crusaders', 'osiris' },
+    jokers = { 'j_jojoker_osiris', 'j_jojoker_the_sun' },
+    execute = function()
+        set_joker_edition(2, 'e_foil')
+        Balatest.end_round()
+    end,
+    assert = function()
+        Balatest.assert_eq(G.jokers.cards[1].ability.extra.chips, G.jokers.cards[1].ability.extra.chips_mod, "Osiris did not gain chips from a Foil joker")
+        Balatest.assert(G.jokers.cards[2].edition == nil, "Osiris left the Foil edition on the other joker")
+    end
+}
+
+Balatest.TestPlay {
+    name = 'osiris_absorbs_holographic_into_mult',
+    category = { 'jokers', 'stardust_crusaders', 'osiris' },
+    jokers = { 'j_jojoker_osiris', 'j_jojoker_the_sun' },
+    execute = function()
+        set_joker_edition(2, 'e_holo')
+        Balatest.end_round()
+    end,
+    assert = function()
+        Balatest.assert_eq(G.jokers.cards[1].ability.extra.mult, G.jokers.cards[1].ability.extra.mult_mod, "Osiris did not gain mult from a Holographic joker")
+        Balatest.assert(G.jokers.cards[2].edition == nil, "Osiris left the Holographic edition on the other joker")
+    end
+}
+
+Balatest.TestPlay {
+    name = 'osiris_absorbs_polychrome_into_xmult',
+    category = { 'jokers', 'stardust_crusaders', 'osiris' },
+    jokers = { 'j_jojoker_osiris', 'j_jojoker_the_sun' },
+    execute = function()
+        set_joker_edition(2, 'e_polychrome')
+        Balatest.end_round()
+    end,
+    assert = function()
+        Balatest.assert_eq(G.jokers.cards[1].ability.extra.Xmult, 1 + G.jokers.cards[1].ability.extra.Xmult_mod, "Osiris did not gain xmult from a Polychrome joker")
+        Balatest.assert(G.jokers.cards[2].edition == nil, "Osiris left the Polychrome edition on the other joker")
+    end
+}
+
+Balatest.TestPlay {
+    name = 'osiris_absorbs_every_joker_edition_and_keeps_growing',
+    category = { 'jokers', 'stardust_crusaders', 'osiris' },
+    jokers = { 'j_jojoker_osiris', 'j_jojoker_the_sun', 'j_jojoker_hierophant_green' },
+    execute = function()
+        set_joker_edition(2, 'e_foil')
+        set_joker_edition(3, 'e_foil')
+        Balatest.end_round()
+        Balatest.next_round()
+        set_joker_edition(2, 'e_foil')
+        Balatest.end_round()
+    end,
+    assert = function()
+        Balatest.assert_eq(G.jokers.cards[1].ability.extra.chips, 3 * G.jokers.cards[1].ability.extra.chips_mod, "Osiris did not absorb every Foil joker across both rounds")
+    end
+}
+
+Balatest.TestPlay {
+    name = 'osiris_takes_negative_without_changing_joker_slots',
+    category = { 'jokers', 'stardust_crusaders', 'osiris' },
+    jokers = { 'j_jojoker_osiris', 'j_jojoker_the_sun' },
+    execute = function()
+        set_joker_edition(2, 'e_negative')
+        Balatest.end_round()
+    end,
+    assert = function()
+        Balatest.assert(G.jokers.cards[1].edition and G.jokers.cards[1].edition.negative, "Osiris did not take the Negative edition")
+        Balatest.assert(G.jokers.cards[2].edition == nil, "Osiris left the Negative edition on the other joker")
+        Balatest.assert_eq(G.jokers.config.card_limit, 6, "Taking Negative changed the joker slot count")
+    end
+}
+
+Balatest.TestPlay {
+    name = 'osiris_leaves_negative_alone_once_it_is_negative',
+    category = { 'jokers', 'stardust_crusaders', 'osiris' },
+    jokers = { 'j_jojoker_osiris', 'j_jojoker_the_sun' },
+    execute = function()
+        set_joker_edition(1, 'e_negative')
+        set_joker_edition(2, 'e_negative')
+        Balatest.end_round()
+    end,
+    assert = function()
+        Balatest.assert(G.jokers.cards[2].edition and G.jokers.cards[2].edition.negative, "Osiris stripped a second Negative it could not use")
+        Balatest.assert_eq(G.jokers.config.card_limit, 7, "Osiris cost a joker slot by absorbing a second Negative")
+    end
+}
+
+Balatest.TestPlay {
+    name = 'osiris_absorbs_its_own_edition_when_taking_negative',
+    category = { 'jokers', 'stardust_crusaders', 'osiris' },
+    jokers = { 'j_jojoker_osiris', 'j_jojoker_the_sun' },
+    execute = function()
+        set_joker_edition(1, 'e_foil')
+        set_joker_edition(2, 'e_negative')
+        Balatest.end_round()
+    end,
+    assert = function()
+        Balatest.assert(G.jokers.cards[1].edition and G.jokers.cards[1].edition.negative, "Osiris did not take the Negative edition")
+        Balatest.assert_eq(G.jokers.cards[1].ability.extra.chips, G.jokers.cards[1].ability.extra.chips_mod, "Osiris lost its own Foil instead of absorbing it")
+    end
+}
+
+Balatest.TestPlay {
+    name = 'osiris_does_not_absorb_before_the_round_ends',
+    category = { 'jokers', 'stardust_crusaders', 'osiris' },
+    jokers = { 'j_jojoker_osiris', 'j_jojoker_the_sun' },
+    execute = function()
+        keep_blind_unbeaten()
+        set_joker_edition(2, 'e_foil')
+        Balatest.play_hand { '2S' }
+    end,
+    assert = function()
+        Balatest.assert_eq(G.jokers.cards[1].ability.extra.chips, 0, "Osiris absorbed an edition before the round ended")
+        Balatest.assert(G.jokers.cards[2].edition and G.jokers.cards[2].edition.foil, "Osiris stripped an edition before the round ended")
+    end
+}
+
+Balatest.TestPlay {
+    name = 'osiris_scores_nothing_extra_before_absorbing',
+    category = { 'jokers', 'stardust_crusaders', 'osiris' },
+    jokers = { 'j_jojoker_osiris' },
+    execute = function()
+        Balatest.play_hand { '2S' }
+    end,
+    assert = function()
+        -- High Card: 5 + 2
+        Balatest.assert_chips(7, "Osiris added to the score before absorbing any edition")
+    end
+}
+
+Balatest.TestPlay {
+    name = 'osiris_scores_absorbed_chips_mult_and_xmult',
+    category = { 'jokers', 'stardust_crusaders', 'osiris' },
+    jokers = { 'j_jojoker_osiris' },
+    execute = function()
+        local extra = G.jokers.cards[1].ability.extra
+        extra.chips = 50
+        extra.mult = 10
+        extra.Xmult = 1.5
+        Balatest.play_hand { '2S' }
+    end,
+    assert = function()
+        -- High Card: (5 + 2 + 50) chips, (1 + 10) mult, X1.5
+        Balatest.assert_chips(math.floor(57 * 11 * 1.5), "Osiris did not score its absorbed chips, mult and xmult")
+    end
+}
 
 --#endregion

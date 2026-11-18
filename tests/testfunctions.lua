@@ -131,6 +131,11 @@ make_consumeable_negative = function(index)
     Balatest.wait()
 end
 
+set_joker_edition = function(index, edition)
+    Balatest.q(function() G.jokers.cards[index]:set_edition(edition, true, true) end)
+    Balatest.wait()
+end
+
 -- Overwrites cards from the bottom of the area up, so a deck's draw order stays deterministic
 set_card_bases = function(area, keys)
     for i, key in ipairs(keys) do

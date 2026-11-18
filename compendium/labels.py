@@ -69,6 +69,7 @@ LABELS = Labels(
         'emperor': ('Emperor', "Emperor's huge XMult comes with a chance to end the run; Rolling Stones sets that chance to 0 and Burning Down the House survives it."),
         'consumable_slots': ('Consumable slots', 'Wamuu pays for every empty consumable slot; Coco Jumbo adds a slot and Space Trucking makes held consumables Negative.'),
         'consumable_room': ('Consumable room', 'Talking Head, Reimi, Avdol, Wang Chan and Polpo only create consumables when a slot is free; Coco Jumbo adds one.'),
+        'joker_editions': ('Joker editions', 'Osiris strips Foil, Holographic, Polychrome and Negative off your other jokers and keeps growing; Johngalli A puts a fresh edition on every joker you buy.'),
     },
     similar={
         'card_preview': 'Card preview',

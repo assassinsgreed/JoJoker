@@ -60,6 +60,7 @@ jojoker.themes = {
     EMPEROR = "emperor",
     CONSUMABLE_SLOTS = "consumable_slots",
     CONSUMABLE_ROOM = "consumable_room",
+    JOKER_EDITIONS = "joker_editions",
 }
 
 jojoker.similar = {

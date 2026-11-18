@@ -895,7 +895,47 @@ local silver_chariot_armorless = {
     end
 }
 
+local osiris = {
+    name = "osiris",
+    rarity = 3,
+    cost = 8,
+    jtype = "Stand",
+    part = "stardust_crusaders",
+    themes = { core = { jojoker.themes.JOKER_EDITIONS } },
+    blueprint_compat = true,
+    perishable_compat = true,
+    eternal_compat = true,
+    config = { extra = { chips_mod = 50, mult_mod = 10, Xmult_mod = 0.5, chips = 0, mult = 0, Xmult = 1 } },
+    loc_vars = function(self, info_queue, center)
+        local extra = center.ability.extra
+        return {
+            vars = { extra.chips_mod, extra.mult_mod, extra.Xmult_mod, extra.chips, extra.mult, extra.Xmult }
+        }
+    end,
+    calculate = function(self, card, context)
+        -- Absorbs editions from other jokers at the end of the round, giving chips, mult, and xmult
+        if context.end_of_round and not context.individual and not context.repetition and not context.blueprint then
+            if osiris_absorb_editions(card) then
+                jojoker.debug("Osiris: Absorbed editions, now at +"..card.ability.extra.chips.." chips, +"..card.ability.extra.mult.." mult, X"..card.ability.extra.Xmult)
+                return {
+                    message = localize('k_upgrade_ex'),
+                    colour = G.C.DARK_EDITION
+                }
+            end
+        end
+
+        if context.joker_main then
+            local extra = card.ability.extra
+            return {
+                chips = extra.chips > 0 and extra.chips or nil,
+                mult = extra.mult > 0 and extra.mult or nil,
+                xmult = extra.Xmult > 1 and extra.Xmult or nil,
+            }
+        end
+    end
+}
+
 return {
     name = "Stardust Crusaders Stand Jokers",
-    list = { magician_red, yellow_temperance, star_platinum, wheel_of_fortune, the_lovers, anubis, sethan, the_world, death_thirteen, tenore_sax, khnum, hierophant_green, the_fool, thoth, the_sun, hermit_purple, atum, horus, emperor, cream, judgement, silver_chariot, silver_chariot_armorless },
+    list = { magician_red, yellow_temperance, star_platinum, wheel_of_fortune, the_lovers, anubis, sethan, the_world, death_thirteen, tenore_sax, khnum, hierophant_green, the_fool, thoth, the_sun, hermit_purple, atum, horus, emperor, cream, judgement, silver_chariot, silver_chariot_armorless, osiris },
 }

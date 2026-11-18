@@ -546,6 +546,18 @@ local loc = {
                     "Each scored {C:attention}Steel{} card gives {X:mult,C:white} X#1# {} Mult.",
                 }
             },
+            j_jojoker_osiris = {
+                name = "Osiris",
+                text = {
+                    "At end of round, strips {C:dark_edition}editions{} from",
+                    "other Jokers. Gains {C:chips}+#1#{} per Foil, {C:mult}+#2#{}",
+                    "per Holographic and {X:mult,C:white} X#3# {} per Polychrome.",
+                    "Can become {C:dark_edition}Negative{} if it is not already.",
+                },
+                in_play_text = {
+                    "{C:inactive}Currently: {C:chips}+#4#{} {C:mult}+#5#{} {X:mult,C:white} X#6# {}"
+                }
+            },
             j_jojoker_avdol = {
                 name = "Muhammad Avdol",
                 text = {

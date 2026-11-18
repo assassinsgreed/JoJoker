@@ -323,3 +323,19 @@ jd_def["j_jojoker_avdol"] = {
         { text = "On blind select", colour = G.C.GREY, }
     },
 }
+
+jd_def["j_jojoker_osiris"] = {
+    text = {
+        { text = "+", colour = G.C.CHIPS },
+        { ref_table = "card.ability.extra", ref_value = "chips", retrigger_type = "mult", colour = G.C.CHIPS },
+        { text = " +", colour = G.C.MULT },
+        { ref_table = "card.ability.extra", ref_value = "mult", retrigger_type = "mult", colour = G.C.MULT },
+        { text = " " },
+        {
+            border_nodes = {
+                { text = "X" },
+                { ref_table = "card.ability.extra", ref_value = "Xmult", retrigger_type = "exp" }
+            }
+        }
+    },
+}
