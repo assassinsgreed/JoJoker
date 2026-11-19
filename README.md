@@ -19,6 +19,10 @@ See the [JoJoker Compendium](https://assassinsgreed.github.io/JoJoker/) for a li
    2. `./Modes/JoJoker/JoJoker-main` is incorrect
 6. Start the game, configure JoJoker in the mods section, and have fun!
 
+### Updating
+
+Open **Mods → JoJoker → Config**. The **Mod Version** section shows your installed version and the latest release. If a newer release exists, click **Update to vX.Y.Z**, and the game will download it, replace the mod files and restart. Your JoJoker settings are kept.
+
 ## Recommended Mods
 
 These mods have integrations in JoJoker to enahnce the experience:
@@ -30,6 +34,21 @@ These mods have integrations in JoJoker to enahnce the experience:
 For developer resources, consult the [repo wiki](https://github.com/assassinsgreed/JoJoker/wiki). Feel free to open a PR with any bug fixes or feature improvements you'd like to see!
 
 In the future, we'll look at other ways to get in touch, such as Discord.
+
+### Releasing
+
+The in-game updater installs the latest published GitHub Release. It compares the release tag against the `version` field in `JoJoker.json` and ignores a leading `v`, so the two must match.
+
+1. Bump `version` in [JoJoker.json](JoJoker.json) to the new version, e.g. `"version": "0.1.0"`, and commit it to `main`.
+2. On GitHub, go to **Releases → Draft a new release**. Type the new tag (e.g. `v0.1.0`) into **Choose a tag**, select **Create new tag on publish**, leave the target as `main`, and publish.
+
+Notes:
+
+- Only a published, non-pre-release release counts as "latest". Drafts and releases marked as pre-release are ignored by the updater.
+- Players get the tag's source code zip, so nothing needs to be built or attached to the release.
+- Publishing the release also republishes the [compendium site](#compendium-site).
+- If the tag and `JoJoker.json` don't match, players who already have the release will still be offered the update.
+- The update button is disabled while **Developer Mode** is on, so a working copy is never overwritten.
 
 ### Compendium site
 

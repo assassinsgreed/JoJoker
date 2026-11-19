@@ -1,4 +1,6 @@
 -- Config UI
+local github_url = SMODS.current_mod.github
+
 local joker_pool_toggles = {
     { ref_value = "jojoker_only", label = "jojoker_settings_jojoker_only", tooltip = { set = 'Other', key = 'jojoker_only_tooltip' } },
     { ref_value = "phantom_blood", label = "jojoker_settings_part_1_enabled", tooltip = { set = 'Other', key = 'part1_tooltip' } },
@@ -39,7 +41,73 @@ local create_menu_toggles = function(parent, toggles)
     end
 end
 
+local settings_header = function(key)
+    return {
+        n = G.UIT.R,
+        config = { padding = 0.25, align = "cm" },
+        nodes = {{ n = G.UIT.T, config = { text = localize(key), shadow = true, scale = 0.75 * 0.8, colour = HEX("ED533A") } }}
+    }
+end
+
+local settings_text_row = function(text, colour)
+    return {
+        n = G.UIT.R,
+        config = { align = "cm", padding = 0.05 },
+        nodes = {{ n = G.UIT.T, config = { text = text, shadow = true, scale = 0.4, colour = colour or G.C.UI.TEXT_LIGHT } }}
+    }
+end
+
+local LATEST_VERSION_TEXT = {
+    idle = "jojoker_update_checking",
+    checking = "jojoker_update_checking",
+    none = "jojoker_update_no_release",
+    unreachable = "jojoker_update_unreachable",
+}
+
+local UPDATABLE_STATES = { available = true, downloading = true, failed = true }
+
+local version_section = function()
+    local updater = jojoker.updater
+    local latest_key = LATEST_VERSION_TEXT[updater.state]
+    local nodes = {
+        settings_text_row(localize("jojoker_update_installed") .. " " .. updater.installed),
+        settings_text_row(latest_key and localize(latest_key)
+            or localize({ type = "variable", key = "jojoker_update_latest", vars = { updater.release } })),
+    }
+    if UPDATABLE_STATES[updater.state] then
+        local enabled = not jojoker_config.developer_mode and updater.state ~= "downloading"
+        nodes[#nodes + 1] = UIBox_button({
+            minw = 3.85,
+            colour = enabled and G.C.GREEN or G.C.UI.BACKGROUND_INACTIVE,
+            button = "jojoker_update",
+            label = { updater.state == "downloading" and localize("jojoker_update_downloading")
+                or localize({ type = "variable", key = "jojoker_update_to_release", vars = { updater.release } }) },
+        })
+        if updater.state == "failed" then
+            nodes[#nodes + 1] = settings_text_row(localize("jojoker_update_failed"), G.C.RED)
+        end
+        if jojoker_config.developer_mode then
+            nodes[#nodes + 1] = settings_text_row(localize("jojoker_update_developer_mode"), G.C.UI.TEXT_INACTIVE)
+        end
+    end
+    return { n = G.UIT.ROOT, config = { align = "cm", colour = G.C.CLEAR }, nodes = nodes }
+end
+
+jojoker.updater.on_change = function()
+    local slot = G.OVERLAY_MENU and G.OVERLAY_MENU:get_UIE_by_ID("jojoker_version_section")
+    if not slot then return end
+    slot.config.object:remove()
+    slot.config.object = UIBox({ definition = version_section(), config = { parent = slot, type = "cm" } })
+    slot.UIBox:recalculate()
+    G.OVERLAY_MENU:recalculate()
+end
+
+function G.FUNCS.jojoker_update(e)
+    if not jojoker_config.developer_mode then jojoker.updater.update() end
+end
+
 local jojokerconfig = function()
+    jojoker.updater.check()
     return {
         n = G.UIT.ROOT,
         config = {
@@ -48,24 +116,7 @@ local jojokerconfig = function()
             colour = G.C.CLEAR,
         },
         nodes = {
-          {
-            n = G.UIT.R,
-            config = {
-              padding = 0.25,
-              align = "cm"
-            },
-            nodes = {
-              {
-                n = G.UIT.T,
-                config = {
-                  text = localize("jojoker_settings_header_norestart"),
-                  shadow = true,
-                  scale = 0.75 * 0.8,
-                  colour = HEX("ED533A")
-                }
-              }
-            },
-          },
+          settings_header("jojoker_settings_header_norestart"),
           UIBox_button({
               minw = 3.85,
               colour = HEX("7220D6"),
@@ -84,30 +135,19 @@ local jojokerconfig = function()
               button = "jojoker_developer",
               label = {"Developer Options"}
           }),
-          {
-            n = G.UIT.R,
-            config = {
-              padding = 0.25,
-              align = "cm"
-            },
-            nodes = {
-              {
-                n = G.UIT.T,
-                config = {
-                  text = localize("jojoker_settings_header_restart"),
-                  shadow = true,
-                  scale = 0.75 * 0.8,
-                  colour = HEX("ED533A")
-                }
-              }
-            },
-          },
+          settings_header("jojoker_settings_header_restart"),
           UIBox_button({
               minw = 3.85,
               colour = HEX("AB1A0F"),
               button = "jojoker_misc_restart",
               label = {"Misc Restart Options"}
           }),
+          settings_header("jojoker_settings_header_version"),
+          {
+            n = G.UIT.R,
+            config = { align = "cm" },
+            nodes = {{ n = G.UIT.O, config = { id = "jojoker_version_section", object = UIBox({ definition = version_section(), config = { type = "cm" } }) } }}
+          },
         }
     }
 end
@@ -213,7 +253,7 @@ local jojoker_credits = function()
 end
 
 function G.FUNCS.jojoker_github(e)
-	love.system.openURL("https://github.com/assassinsgreed/jojoker")
+	love.system.openURL(github_url)
 end
 
 SMODS.current_mod.extra_tabs = function()

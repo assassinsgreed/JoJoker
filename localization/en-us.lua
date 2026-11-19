@@ -1884,11 +1884,22 @@ local loc = {
             jojoker_settings_use_localized_names = "Use Localized Joker Names?",
             jojoker_settings_custom_title_screen = "JoJoker Title Screen?",
             jojoker_settings_developer_mode = "Developer Mode?",
+            -- Updater
+            jojoker_settings_header_version = "Mod Version:",
+            jojoker_update_installed = "Installed:",
+            jojoker_update_checking = "Checking for new version...",
+            jojoker_update_no_release = "No releases published yet",
+            jojoker_update_unreachable = "Couldn't reach GitHub",
+            jojoker_update_downloading = "Updating...",
+            jojoker_update_failed = "Update failed, see log",
+            jojoker_update_developer_mode = "Updates disabled in Developer Mode",
         },
         v_dictionary = {
             jojoker_notorious_badge = "Notorious Activated X#1#",
             jojoker_purple_haze_badge = "Infected +#1#/+#2#",
             jailhouse_lock_debuff = "Only the last #1# hand types score",
+            jojoker_update_latest = "Latest: #1#",
+            jojoker_update_to_release = "Update to #1#",
         },
         quips = {
             jojoker_lose_quip1 = {"You thought you could beat me?", "Yare yare daze...",},
