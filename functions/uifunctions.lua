@@ -43,6 +43,22 @@ SMODS.collection_pool = function(_base_pool)
   return pool
 end
 
+-- Only show Jojoker joker count when jojoker_only_collection is enabled
+local set_discover_tallies_ref = set_discover_tallies
+function set_discover_tallies()
+  set_discover_tallies_ref()
+  if not jojoker_config.jojoker_only_collection then return end
+  local jokers = { tally = 0, of = 0 }
+  for _, v in pairs(G.P_CENTERS) do
+    if v.set == 'Joker' and v.part and not v.omit and not v.no_collection then
+      jokers.of = jokers.of + 1
+      if v.discovered then jokers.tally = jokers.tally + 1 end
+    end
+  end
+  G.DISCOVER_TALLIES.jokers.tally = jokers.tally
+  G.DISCOVER_TALLIES.jokers.of = jokers.of
+end
+
 -- Add Scan support (Viewing top x cards of deck)
 create_scan_cardarea = function()
    local config = { card_limit = 0, type = 'scan' }
