@@ -128,6 +128,7 @@ jojoker.joker_order = {
     "grateful_dead",
     "green_day",
     "green_green_grass_of_home",
+    "hanged_man",
     "harvest",
     "heavens_door",
     "hermit_purple",

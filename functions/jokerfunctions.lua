@@ -1128,3 +1128,15 @@ osiris_absorb_editions = function(card)
   end
   return absorbed
 end
+
+-- Played cards Hanged Man pushed out of scoring, each giving its rank as mult
+get_hanged_man_reflections = function(full_hand, scoring_hand)
+  local reflections, total = {}, 0
+  for _, played in ipairs(full_hand) do
+    if not played.debuff and not SMODS.in_scoring(played, scoring_hand) and not SMODS.has_no_rank(played) then
+      reflections[#reflections + 1] = { card = played, mult = played:get_id() }
+      total = total + played:get_id()
+    end
+  end
+  return reflections, total
+end

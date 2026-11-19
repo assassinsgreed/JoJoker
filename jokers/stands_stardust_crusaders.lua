@@ -935,7 +935,41 @@ local osiris = {
     end
 }
 
+local hanged_man = {
+    name = "hanged_man",
+    rarity = 2,
+    cost = 6,
+    jtype = "Stand",
+    part = "stardust_crusaders",
+    conflicts = { caesar = "stops_every_card_that_would_score", angelo = "stops_every_card_that_would_score", stone_free = "stops_every_card_that_would_score", survivor = "stops_every_card_that_would_score" },
+    blueprint_compat = true,
+    perishable_compat = true,
+    eternal_compat = true,
+    config = { extra = {} },
+    calculate = function(self, card, context)
+        -- Swaps which played cards score; Always-scoring cards like Stone count as would-be scorers
+        if context.modify_scoring_hand and not context.blueprint then
+            if SMODS.in_scoring(context.other_card, context.scoring_hand) or SMODS.always_scores(context.other_card) then
+                return { remove_from_hand = true }
+            end
+            return { add_to_hand = true }
+        end
+
+        if context.joker_main then
+            local reflections, total = get_hanged_man_reflections(context.full_hand, context.scoring_hand)
+            if total > 0 then
+                jojoker.debug("Hanged Man: Giving "..total.." mult from the ranks of cards that would have scored")
+                local effect
+                for i = #reflections, 1, -1 do
+                    effect = { mult = reflections[i].mult, message_card = reflections[i].card, extra = effect }
+                end
+                return effect
+            end
+        end
+    end
+}
+
 return {
     name = "Stardust Crusaders Stand Jokers",
-    list = { magician_red, yellow_temperance, star_platinum, wheel_of_fortune, the_lovers, anubis, sethan, the_world, death_thirteen, tenore_sax, khnum, hierophant_green, the_fool, thoth, the_sun, hermit_purple, atum, horus, emperor, cream, judgement, silver_chariot, silver_chariot_armorless, osiris },
+    list = { magician_red, yellow_temperance, star_platinum, wheel_of_fortune, the_lovers, anubis, sethan, the_world, death_thirteen, tenore_sax, khnum, hierophant_green, the_fool, thoth, the_sun, hermit_purple, atum, horus, emperor, cream, judgement, silver_chariot, silver_chariot_armorless, osiris, hanged_man },
 }

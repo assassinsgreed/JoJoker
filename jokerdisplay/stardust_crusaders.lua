@@ -339,3 +339,15 @@ jd_def["j_jojoker_osiris"] = {
         }
     },
 }
+
+jd_def["j_jojoker_hanged_man"] = {
+    text = {
+        { text = "+", colour = G.C.MULT },
+        { ref_table = "card.joker_display_values", ref_value = "mult", retrigger_type = "mult", colour = G.C.MULT },
+    },
+    calc_function = function(card)
+        local text, _, scoring_hand = JokerDisplay.evaluate_hand()
+        local _, total = get_hanged_man_reflections(JokerDisplay.current_hand, scoring_hand)
+        card.joker_display_values.mult = text ~= "Unknown" and total or 0
+    end
+}

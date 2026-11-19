@@ -558,6 +558,14 @@ local loc = {
                     "{C:inactive}Currently: {C:chips}+#4#{} {C:mult}+#5#{} {X:mult,C:white} X#6# {}"
                 }
             },
+            j_jojoker_hanged_man = {
+                name = "Hanged Man",
+                text = {
+                    "Only {C:attention}unscored{} cards score.",
+                    "Cards that would have scored give",
+                    "their {C:attention}rank{} as {C:mult}Mult{} instead.",
+                }
+            },
             j_jojoker_avdol = {
                 name = "Muhammad Avdol",
                 text = {

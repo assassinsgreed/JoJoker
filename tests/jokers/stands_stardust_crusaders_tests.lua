@@ -1523,5 +1523,100 @@ Balatest.TestPlay {
         Balatest.assert_chips(math.floor(57 * 11 * 1.5), "Osiris did not score its absorbed chips, mult and xmult")
     end
 }
+--#endregion
+
+--#region Hanged Man
+Balatest.TestPlay {
+    name = 'hanged_man_scores_unscored_cards_and_turns_scorers_into_rank_mult',
+    category = { 'jokers', 'stardust_crusaders', 'hanged_man' },
+    jokers = { 'j_jojoker_hanged_man' },
+    execute = function()
+        Balatest.play_hand { 'KS', 'KC', '2S', '5S', '9S' }
+    end,
+    assert = function()
+        -- Pair: (10 + 2 + 5 + 9) * (2 + 13 + 13)
+        Balatest.assert_chips(26 * 28, "Hanged Man did not score the unscored cards and give the Kings' ranks as mult")
+    end
+}
+
+Balatest.TestPlay {
+    name = 'hanged_man_gives_rank_mult_when_every_card_would_score',
+    category = { 'jokers', 'stardust_crusaders', 'hanged_man' },
+    jokers = { 'j_jojoker_hanged_man' },
+    execute = function()
+        Balatest.play_hand { 'AS' }
+    end,
+    assert = function()
+        -- High Card: 5 * (1 + 14), the Ace gives no chips
+        Balatest.assert_chips(5 * 15, "Hanged Man did not give the Ace's rank as mult in place of its chips")
+    end
+}
+
+Balatest.TestPlay {
+    name = 'hanged_man_lets_unscored_cards_trigger_scoring_effects',
+    category = { 'jokers', 'stardust_crusaders', 'hanged_man', 'silver_chariot' },
+    jokers = { 'j_jojoker_hanged_man', 'j_jojoker_silver_chariot' },
+    deck = { cards = {
+        { r = 'K', s = 'S' },
+        { r = 'K', s = 'C' },
+        { r = '2', s = 'S', e = 'm_steel' },
+        { r = '3', s = 'H' } } },
+    execute = function()
+        Balatest.play_hand { 'KS', 'KC', '2S' }
+    end,
+    assert = function()
+        -- Pair: (10 + 2) * (2 * Silver Chariot's XMult as the Steel 2 scores, then + 13 + 13 from Hanged Man)
+        -- Read from the center, since the score catching fire turns Silver Chariot Armorless before assert
+        local xmult = G.P_CENTERS.j_jojoker_silver_chariot.config.extra.Xmult
+        Balatest.assert_chips(math.floor(12 * (2 * xmult + 26)), "Hanged Man did not let the unscored Steel card score")
+    end
+}
+
+Balatest.TestPlay {
+    name = 'hanged_man_pushes_stone_cards_out_of_scoring',
+    category = { 'jokers', 'stardust_crusaders', 'hanged_man' },
+    jokers = { 'j_jojoker_hanged_man' },
+    deck = { cards = {
+        { r = 'K', s = 'S' },
+        { r = '2', s = 'C', e = 'm_stone' },
+        { r = '3', s = 'H' } } },
+    execute = function()
+        Balatest.play_hand { 'KS', '2C' }
+    end,
+    assert = function()
+        -- High Card: 5 * (1 + 13), the rankless Stone card gives nothing
+        Balatest.assert_chips(5 * 14, "Hanged Man let a Stone card score or gave it rank mult")
+    end
+}
+
+Balatest.TestPlay {
+    name = 'hanged_man_gives_no_rank_mult_for_debuffed_cards',
+    category = { 'jokers', 'stardust_crusaders', 'hanged_man' },
+    jokers = { 'j_jojoker_hanged_man' },
+    execute = function()
+        Balatest.q(function()
+            debuff_playing_cards('King', 'Spades')
+            return true
+        end)
+        Balatest.play_hand { 'KS', '2S' }
+    end,
+    assert = function()
+        -- High Card: (5 + 2) * 1
+        Balatest.assert_chips(7, "Hanged Man gave rank mult for a debuffed card")
+    end
+}
+
+Balatest.TestPlay {
+    name = 'hanged_man_overrides_survivor_splash',
+    category = { 'jokers', 'stardust_crusaders', 'hanged_man', 'survivor' },
+    jokers = { 'j_jojoker_hanged_man', 'j_jojoker_survivor' },
+    execute = function()
+        Balatest.play_hand { 'KS', 'KC', '2S' }
+    end,
+    assert = function()
+        -- Pair: (10 + 2) * (2 + 13 + 13)
+        Balatest.assert_chips(12 * 28, "Survivor's Splash let the Pair score through Hanged Man")
+    end
+}
 
 --#endregion

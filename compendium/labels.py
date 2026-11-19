@@ -134,5 +134,7 @@ LABELS = Labels(
         'randomizes_the_suits_these': 'randomizes the suits these rely on',
         'resets_played_hands_to_level_1': 'resets played hands to level 1',
         'drains_the_same_base_chips': 'drains the same base chips from scored cards',
+        'stops_every_card_that_would_score': 'stops every card that would score, Stone cards included, from scoring',
+        'turns_the_cards_pushed_out_of_scoring': 'turns the cards pushed out of scoring into rankless Stone cards',
     },
 )
