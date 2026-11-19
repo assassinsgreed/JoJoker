@@ -137,6 +137,14 @@ local loc = {
                     "{C:inactive}(Must have room){}",
                 }
             },
+            j_jojoker_jack_the_ripper = {
+                name = "Jack the Ripper",
+                text = {
+                    "At end of round, destroys a random",
+                    "{C:blue}Common{} or {C:green}Uncommon{} Joker",
+                    "and earns {C:money}$#1#{}.",
+                }
+            },
             -- Part 2: Battle Tendency
             j_jojoker_joseph_joestar = {
                 name = "Joseph Joestar",

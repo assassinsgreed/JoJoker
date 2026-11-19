@@ -528,7 +528,54 @@ local wang_chan = {
     end
 }
 
+local jack_the_ripper = {
+    name = "jack_the_ripper",
+    rarity = 1,
+    cost = 4,
+    jtype = "Character",
+    part = "phantom_blood",
+    themes = { support = { jojoker.themes.JOKER_DESTRUCTION, jojoker.themes.MONEY_HELD } },
+    similar = { jojoker.similar.DESTROY_JOKERS },
+    blueprint_compat = false,
+    perishable_compat = true,
+    eternal_compat = true,
+    config = { extra = { money_mod = 5 } },
+    loc_vars = function(self, info_queue, center)
+      return {vars = { center.ability.extra.money_mod }}
+    end,
+    calculate = function(self, card, context)
+        -- Destroys a random common or uncommon joker (not itself) at the end of round and pays out some money
+        if context.end_of_round and context.main_eval and not context.game_over and not context.blueprint then
+            local victims = {}
+            for _, joker in ipairs(G.jokers.cards) do
+                local rarity = joker.config.center.rarity
+                if joker ~= card and (rarity == 1 or rarity == 2) and not SMODS.is_eternal(joker, card) and not joker.getting_sliced then
+                    victims[#victims + 1] = joker
+                end
+            end
+            if #victims == 0 then return end
+
+            local victim = pseudorandom_element(victims, pseudoseed('jack_the_ripper'))
+            jojoker.debug("Jack the Ripper: Destroying "..victim.ability.name.." for $"..card.ability.extra.money_mod)
+            jojoker_joker_destroyed_by_joker(victim, card)
+            victim.getting_sliced = true
+            G.E_MANAGER:add_event(Event({
+                func = function()
+                    victim:start_dissolve({ G.C.RED }, nil, 1.6)
+                    play_sound('slice1', 0.96 + math.random() * 0.08)
+                    return true
+                end
+            }))
+            ease_dollars(card.ability.extra.money_mod)
+            return {
+                message = localize('$')..card.ability.extra.money_mod,
+                colour = G.C.MONEY,
+            }
+        end
+    end
+}
+
 return {
     name = "Phantom Blood Character Jokers",
-    list = { danny, baron_zeppeli, speedwagon, zombies, straizo, george_joestar, dario_brando, erina, jonathan_joestar, dio_brando, poco, tarkus, wang_chan },
+    list = { danny, baron_zeppeli, speedwagon, zombies, straizo, george_joestar, dario_brando, erina, jonathan_joestar, dio_brando, poco, tarkus, wang_chan, jack_the_ripper },
 }

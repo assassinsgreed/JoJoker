@@ -532,5 +532,107 @@ Balatest.TestPlay {
         Balatest.assert_eq(#G.consumeables.cards, 0, "Wang Chan created a planet without a winning hand")
     end
 }
+--#endregion
+
+--#region Jack the Ripper
+Balatest.TestPlay {
+    name = 'jack_the_ripper_destroys_a_common_joker_for_money_at_end_of_round',
+    category = { 'jokers', 'phantom_blood', 'jack_the_ripper' },
+    jokers = { 'j_jojoker_jack_the_ripper', 'j_jojoker_speedwagon' },
+    dollars = 0,
+    execute = function()
+        Balatest.end_round()
+    end,
+    assert = function()
+        Balatest.assert_eq(#G.jokers.cards, 1, "Jack the Ripper did not destroy the Common joker")
+        Balatest.assert_eq(G.jokers.cards[1].config.center.key, 'j_jojoker_jack_the_ripper', "Jack the Ripper destroyed itself instead of the Common joker")
+        Balatest.assert_eq(G.GAME.dollars, G.jokers.cards[1].ability.extra.money_mod, "Jack the Ripper did not pay out for the destroyed joker")
+    end
+}
+
+Balatest.TestPlay {
+    name = 'jack_the_ripper_destroys_an_uncommon_joker_at_end_of_round',
+    category = { 'jokers', 'phantom_blood', 'jack_the_ripper' },
+    jokers = { 'j_jojoker_jack_the_ripper', 'j_jojoker_tarkus' },
+    execute = function()
+        Balatest.end_round()
+    end,
+    assert = function()
+        Balatest.assert_eq(#G.jokers.cards, 1, "Jack the Ripper did not destroy the Uncommon joker")
+    end
+}
+
+Balatest.TestPlay {
+    name = 'jack_the_ripper_destroys_only_one_joker_per_round',
+    category = { 'jokers', 'phantom_blood', 'jack_the_ripper' },
+    jokers = { 'j_jojoker_jack_the_ripper', 'j_jojoker_speedwagon', 'j_jojoker_george_joestar' },
+    dollars = 0,
+    execute = function()
+        Balatest.end_round()
+    end,
+    assert = function()
+        Balatest.assert_eq(#G.jokers.cards, 2, "Jack the Ripper did not destroy exactly one joker")
+        Balatest.assert_eq(G.GAME.dollars, G.jokers.cards[1].ability.extra.money_mod, "Jack the Ripper did not pay out exactly once")
+    end
+}
+
+Balatest.TestPlay {
+    name = 'jack_the_ripper_destroys_a_joker_each_round',
+    category = { 'jokers', 'phantom_blood', 'jack_the_ripper' },
+    jokers = { 'j_jojoker_jack_the_ripper', 'j_jojoker_speedwagon', 'j_jojoker_straizo' },
+    execute = function()
+        Balatest.play_hand { 'AS', 'AH', 'AC', 'AD' }
+        Balatest.cash_out()
+        Balatest.exit_shop()
+        Balatest.start_round()
+        Balatest.play_hand { 'AS', 'AH', 'AC', 'AD' }
+    end,
+    assert = function()
+        Balatest.assert_eq(#G.jokers.cards, 1, "Jack the Ripper did not destroy a joker at the end of each blind")
+        Balatest.assert_eq(G.jokers.cards[1].config.center.key, 'j_jojoker_jack_the_ripper', "Jack the Ripper was destroyed")
+    end
+}
+
+Balatest.TestPlay {
+    name = 'jack_the_ripper_spares_rare_jokers_and_itself',
+    category = { 'jokers', 'phantom_blood', 'jack_the_ripper' },
+    jokers = { 'j_jojoker_jack_the_ripper', 'j_jojoker_baron_zeppeli' },
+    dollars = 0,
+    execute = function()
+        Balatest.end_round()
+    end,
+    assert = function()
+        Balatest.assert_eq(#G.jokers.cards, 2, "Jack the Ripper destroyed a Rare joker or itself")
+        Balatest.assert_eq(G.GAME.dollars, 0, "Jack the Ripper paid out without destroying a joker")
+    end
+}
+
+Balatest.TestPlay {
+    name = 'jack_the_ripper_spares_eternal_jokers',
+    category = { 'jokers', 'phantom_blood', 'jack_the_ripper' },
+    jokers = { 'j_jojoker_jack_the_ripper', { id = 'j_jojoker_speedwagon', eternal = true } },
+    dollars = 0,
+    execute = function()
+        Balatest.end_round()
+    end,
+    assert = function()
+        Balatest.assert(G.jokers.cards[2].ability.eternal, "Speedwagon did not start eternal, so this test proves nothing")
+        Balatest.assert_eq(#G.jokers.cards, 2, "Jack the Ripper destroyed an eternal joker")
+        Balatest.assert_eq(G.GAME.dollars, 0, "Jack the Ripper paid out without destroying a joker")
+    end
+}
+
+Balatest.TestPlay {
+    name = 'jack_the_ripper_counts_as_destroying_notorious_big',
+    category = { 'jokers', 'phantom_blood', 'jack_the_ripper' },
+    jokers = { 'j_jojoker_jack_the_ripper', 'j_jojoker_notorious_big' },
+    execute = function()
+        Balatest.end_round()
+    end,
+    assert = function()
+        Balatest.assert_eq(#G.jokers.cards, 1, "Jack the Ripper did not destroy Notorious B.I.G.")
+        Balatest.assert_eq(G.jokers.cards[1].ability.jojoker_notorious_xmult, notorious_big_xmult(), "Notorious B.I.G. did not pass its Xmult to Jack the Ripper")
+    end
+}
 
 --#endregion

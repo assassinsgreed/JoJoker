@@ -20,6 +20,7 @@ jojoker.joker_order = {
     "hacca_howler",
     "hayato",
     "hol_horse",
+    "jack_the_ripper",
     "jodio_joestar",
     "johngalli_a",
     "johnny_joestar",

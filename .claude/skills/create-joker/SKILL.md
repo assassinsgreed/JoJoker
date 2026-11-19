@@ -319,3 +319,14 @@ seed:
 Match the codebase: comments are sparse. One short line above a `calculate` branch
 explaining *why* it exists is the norm; a comment restating what the code does is not.
 Names carry the documentation.
+
+The exception: every joker opens its effect function with a one-line summary of what the
+joker does, as the first line of `calculate` (or of `add_to_deck`, `calc_dollar_bonus`,
+`update`, etc. for jokers that don't calculate). Each branch inside it can still carry its
+own short *why* comment.
+
+```lua
+calculate = function(self, card, context)
+    -- Destroys a random common or uncommon joker (not itself) at the end of round and pays out some money
+    if context.end_of_round and context.main_eval and not context.game_over and not context.blueprint then
+```

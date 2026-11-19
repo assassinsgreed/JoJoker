@@ -191,3 +191,13 @@ jd_def["j_jojoker_wang_chan"] = {
         { text = "Of winning hand", colour = G.C.GREY }
     },
 }
+
+jd_def["j_jojoker_jack_the_ripper"] = {
+    text = {
+        { text = "+$", colour = G.C.MONEY },
+        { ref_table = "card.ability.extra", ref_value = "money_mod", colour = G.C.MONEY },
+    },
+    reminder_text = {
+        { text = "Per Joker destroyed", colour = G.C.GREY },
+    },
+}
