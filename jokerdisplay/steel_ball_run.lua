@@ -298,6 +298,20 @@ jd_def["j_jojoker_wired"] = {
     end,
 }
 
+jd_def["j_jojoker_cream_starter"] = {
+    text = {
+        { text = "Lowest ", colour = G.C.GREY },
+        { text = "-", colour = G.C.FILTER },
+        { ref_table = "card.ability.extra", ref_value = "ranks", colour = G.C.FILTER },
+        { text = " / Highest ", colour = G.C.GREY },
+        { text = "+", colour = G.C.FILTER },
+        { ref_table = "card.ability.extra", ref_value = "ranks", colour = G.C.FILTER },
+    },
+    reminder_text = {
+        { text = "(Rank)", colour = G.C.GREY },
+    },
+}
+
 jd_def["j_jojoker_sugar_mountain"] = {
     text = {
         { text = "$", colour = G.C.MONEY },

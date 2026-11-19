@@ -993,5 +993,102 @@ Balatest.TestPlay {
         Balatest.assert_chips(5 + 10, "Wired gave mult to an unwired card")
     end
 }
+--#endregion
 
+--#region Cream Starter
+Balatest.TestPlay {
+    name = 'cream_starter_moves_a_rank_from_the_lowest_scored_card_to_the_highest',
+    category = { 'jokers', 'steel_ball_run', 'cream_starter' },
+    jokers = { 'j_jojoker_cream_starter' },
+    execute = function()
+        Balatest.play_hand { '3S', '5S', '7S', '9S', 'QS' }
+    end,
+    assert = function()
+        Balatest.assert_eq(count_playing_cards('3', 'Spades'), 0, "Cream Starter did not lower the lowest scored card")
+        Balatest.assert_eq(count_playing_cards('2', 'Spades'), 2, "Cream Starter did not lower the lowest scored card by one rank")
+        Balatest.assert_eq(count_playing_cards('Queen', 'Spades'), 0, "Cream Starter did not raise the highest scored card")
+        Balatest.assert_eq(count_playing_cards('King', 'Spades'), 2, "Cream Starter did not raise the highest scored card by one rank")
+        Balatest.assert_eq(count_playing_cards('5', 'Spades') + count_playing_cards('7', 'Spades') + count_playing_cards('9', 'Spades'), 3, "Cream Starter changed a scored card that was neither lowest nor highest")
+    end
+}
+
+Balatest.TestPlay {
+    name = 'cream_starter_changes_ranks_before_the_hand_scores',
+    category = { 'jokers', 'steel_ball_run', 'cream_starter' },
+    jokers = { 'j_jojoker_cream_starter' },
+    execute = function()
+        Balatest.play_hand { '3S', '5S', '7S', '9S', 'QS' }
+    end,
+    assert = function()
+        -- Flush: the 3 scores as a 2 and the Queen as a King
+        Balatest.assert_chips((35 + 2 + 5 + 7 + 9 + 10) * 4, "Cream Starter did not change ranks before the hand scored")
+    end
+}
+
+Balatest.TestPlay {
+    name = 'cream_starter_moves_every_card_tied_for_lowest_or_highest_rank',
+    category = { 'jokers', 'steel_ball_run', 'cream_starter' },
+    jokers = { 'j_jojoker_cream_starter' },
+    execute = function()
+        Balatest.play_hand { '3S', '3H', '9S', '9H' }
+    end,
+    assert = function()
+        Balatest.assert_eq(count_playing_cards('3'), 2, "Cream Starter did not lower every tied lowest card")
+        Balatest.assert_eq(count_playing_cards('2'), 6, "Cream Starter did not lower the tied lowest cards to 2s")
+        Balatest.assert_eq(count_playing_cards('9'), 2, "Cream Starter did not raise every tied highest card")
+        Balatest.assert_eq(count_playing_cards('10'), 6, "Cream Starter did not raise the tied highest cards to 10s")
+    end
+}
+
+Balatest.TestPlay {
+    name = 'cream_starter_wraps_a_2_down_to_an_ace_and_an_ace_up_to_a_2',
+    category = { 'jokers', 'steel_ball_run', 'cream_starter' },
+    jokers = { 'j_jojoker_cream_starter' },
+    execute = function()
+        Balatest.play_hand { 'AS', '2H', '3S', '4S', '5S' }
+    end,
+    assert = function()
+        Balatest.assert_eq(count_playing_cards('Ace', 'Hearts'), 2, "Cream Starter did not wrap the lowest 2 down to an Ace")
+        Balatest.assert_eq(count_playing_cards('2', 'Spades'), 2, "Cream Starter did not wrap the highest Ace up to a 2")
+    end
+}
+
+Balatest.TestPlay {
+    name = 'cream_starter_does_nothing_when_every_scored_card_shares_a_rank',
+    category = { 'jokers', 'steel_ball_run', 'cream_starter' },
+    jokers = { 'j_jojoker_cream_starter' },
+    execute = function()
+        Balatest.play_hand { '7S', '7H' }
+    end,
+    assert = function()
+        Balatest.assert_eq(count_playing_cards('7'), 4, "Cream Starter changed a hand of matching ranks")
+    end
+}
+
+Balatest.TestPlay {
+    name = 'cream_starter_ignores_played_cards_that_do_not_score',
+    category = { 'jokers', 'steel_ball_run', 'cream_starter' },
+    jokers = { 'j_jojoker_cream_starter' },
+    execute = function()
+        Balatest.play_hand { 'KS', '3S' } -- High Card, only the King scores
+    end,
+    assert = function()
+        Balatest.assert_eq(count_playing_cards('3', 'Spades'), 1, "Cream Starter lowered a played card that did not score")
+        Balatest.assert_eq(count_playing_cards('King', 'Spades'), 1, "Cream Starter raised a lone scoring card")
+    end
+}
+
+Balatest.TestPlay {
+    name = 'cream_starter_skips_stone_cards',
+    category = { 'jokers', 'steel_ball_run', 'cream_starter' },
+    jokers = { 'j_jojoker_cream_starter' },
+    deck = { cards = {
+        { r = '2', s = 'S', e = 'm_stone' }, { r = '8', s = 'S' }, { r = 'K', s = 'S' }, { r = 'K', s = 'H' } } },
+    execute = function()
+        Balatest.play_hand { '2S', '8S' } -- High Card, the Stone card always scores
+    end,
+    assert = function()
+        Balatest.assert_eq(count_playing_cards('8', 'Spades'), 1, "Cream Starter treated a rankless Stone card as the lowest scored card")
+    end
+}
 --#endregion

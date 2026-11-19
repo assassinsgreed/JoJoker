@@ -1471,6 +1471,13 @@ local loc = {
                     "give {C:mult}+#2#x{} their {C:attention}rank{} as mult."
                 }
             },
+            j_jojoker_cream_starter = {
+                name = "Cream Starter",
+                text = {
+                    "Before scoring, the {C:attention}lowest{} ranked scored",
+                    "cards give {C:attention}#1#{} rank to the {C:attention}highest{}.",
+                }
+            },
             j_jojoker_johnny_joestar = {
                 name = "Johnny Joestar",
                 text = {
@@ -1835,6 +1842,7 @@ local loc = {
             sound_beeeetch = "Beeeetch!",
             sound_yo_angelo = "Yo, Angelo.",
             sound_hail_2_u = "Hail 2 U!",
+            sound_reshaped = "Reshaped!",
 
             -- Common strings
             a_hand = "a hand",

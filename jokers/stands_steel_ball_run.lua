@@ -546,7 +546,56 @@ local wired = {
     end
 }
 
+local cream_starter = {
+    name = "cream_starter",
+    rarity = 2,
+    cost = 7,
+    jtype = "Stand",
+    part = "steel_ball_run",
+    conflicts = { tommy_gun = "shifts_scored_cards_out_of_the_ranks", little_feet = "shifts_scored_cards_out_of_the_ranks" },
+    similar = { jojoker.similar.RANK_CHANGERS },
+    blueprint_compat = true,
+    perishable_compat = true,
+    eternal_compat = true,
+    config = { extra = { ranks = 1 } },
+    loc_vars = function(self, info_queue, center)
+        return { vars = { center.ability.extra.ranks } }
+    end,
+    calculate = function(self, card, context)
+        -- Before scoring, the lowest ranked scored cards give rank to the highest ranked scored cards
+        if context.before then
+            local ranked = {}
+            local lowest_id, highest_id
+            for _, scored in ipairs(context.scoring_hand) do
+                if not scored.debuff and not SMODS.has_no_rank(scored) then
+                    local id = scored:get_id()
+                    ranked[#ranked + 1] = { card = scored, id = id }
+                    lowest_id = math.min(lowest_id or id, id)
+                    highest_id = math.max(highest_id or id, id)
+                end
+            end
+            if not lowest_id or lowest_id == highest_id then return end
+
+            -- Ids are read up front so a card that wraps cannot be moved twice
+            for _, entry in ipairs(ranked) do
+                if entry.id == lowest_id then
+                    SMODS.modify_rank(entry.card, -card.ability.extra.ranks)
+                    entry.card:juice_up()
+                elseif entry.id == highest_id then
+                    SMODS.modify_rank(entry.card, card.ability.extra.ranks)
+                    entry.card:juice_up()
+                end
+            end
+            jojoker.debug("Cream Starter: Moved rank from the lowest scored cards to the highest.")
+            return {
+                message = localize('sound_reshaped'),
+                colour = G.C.FILTER,
+            }
+        end
+    end
+}
+
 return {
     name = "Steel Ball Run Stand Jokers",
-    list = { mandom, chocolate_disco, oh_lonesome_me, hey_ya, tattoo_you, civil_war, ball_breaker, love_train, in_a_silent_way, d4c, tomb_of_the_boom, scary_monsters, boku_no_rhythm_wo_kiitekure, wired },
+    list = { mandom, chocolate_disco, oh_lonesome_me, hey_ya, tattoo_you, civil_war, ball_breaker, love_train, in_a_silent_way, d4c, tomb_of_the_boom, scary_monsters, boku_no_rhythm_wo_kiitekure, wired, cream_starter },
 }

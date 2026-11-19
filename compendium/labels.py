@@ -132,6 +132,7 @@ LABELS = Labels(
         'makes_every_played_card_score': 'makes every played card score',
         'turns_unscored_cards_into_stone': 'turns unscored cards into Stone cards, which always score',
         'randomizes_the_suits_these': 'randomizes the suits these rely on',
+        'shifts_scored_cards_out_of_the_ranks': 'shifts scored cards out of the ranks these pay out for, wrapping Aces to 2s and 2s to Aces',
         'resets_played_hands_to_level_1': 'resets played hands to level 1',
         'drains_the_same_base_chips': 'drains the same base chips from scored cards',
         'stops_every_card_that_would_score': 'stops every card that would score, Stone cards included, from scoring',
