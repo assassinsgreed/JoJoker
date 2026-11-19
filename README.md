@@ -23,6 +23,8 @@ See the [JoJoker Compendium](https://assassinsgreed.github.io/JoJoker/) for a li
 
 Open **Mods → JoJoker → Config**. The **Mod Version** section shows your installed version and the latest release. If a newer release exists, click **Update to vX.Y.Z**, and the game will download it, replace the mod files and restart. Your JoJoker settings are kept.
 
+It is recommended to discard any saved runs when updating, because game mechanics can change and break runs saved midway.
+
 ## Recommended Mods
 
 These mods have integrations in JoJoker to enahnce the experience:
