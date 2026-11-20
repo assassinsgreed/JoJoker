@@ -971,7 +971,56 @@ local hanged_man = {
     end
 }
 
+local bastet = {
+    name = "bastet",
+    rarity = 2,
+    cost = 6,
+    jtype = "Stand",
+    part = "stardust_crusaders",
+    themes = { core = { jojoker.themes.STEEL_GOLD_CARDS }, support = { jojoker.themes.LUCK } },
+    blueprint_compat = true,
+    perishable_compat = true,
+    eternal_compat = true,
+    config = { extra = { numerator = 1, denominator = 3 } },
+    loc_vars = function(self, info_queue, center)
+        info_queue[#info_queue + 1] = G.P_CENTERS.m_steel
+        return {
+            vars = { center.ability.extra.numerator, center.ability.extra.denominator }
+        }
+    end,
+    calculate = function(self, card, context)
+        -- Each scored Steel card has a chance to magnetize a random unenhanced card held in hand into Steel
+        if context.individual and context.cardarea == G.play and not context.other_card.debuff
+            and SMODS.has_enhancement(context.other_card, 'm_steel') then
+            local unenhanced = {}
+            for _, held_card in ipairs(G.hand.cards) do
+                if held_card.config.center == G.P_CENTERS.c_base then
+                    unenhanced[#unenhanced + 1] = held_card
+                end
+            end
+            if #unenhanced == 0 then return end
+
+            if SMODS.pseudorandom_probability(card, 'bastet', card.ability.extra.numerator, card.ability.extra.denominator, 'bastet') then
+                local target = pseudorandom_element(unenhanced, pseudoseed('bastet'))
+                target:set_ability(G.P_CENTERS.m_steel, nil, true)
+                jojoker.debug("Bastet: Held card magnetized into a steel card")
+                G.E_MANAGER:add_event(Event({
+                    func = function()
+                        target:juice_up()
+                        return true
+                    end
+                }))
+                return {
+                    message = localize('k_upgrade_ex'),
+                    colour = G.C.GREY,
+                    message_card = target,
+                }
+            end
+        end
+    end
+}
+
 return {
     name = "Stardust Crusaders Stand Jokers",
-    list = { magician_red, yellow_temperance, star_platinum, wheel_of_fortune, the_lovers, anubis, sethan, the_world, death_thirteen, tenore_sax, khnum, hierophant_green, the_fool, thoth, the_sun, hermit_purple, atum, horus, emperor, cream, judgement, silver_chariot, silver_chariot_armorless, osiris, hanged_man },
+    list = { magician_red, yellow_temperance, star_platinum, wheel_of_fortune, the_lovers, anubis, sethan, the_world, death_thirteen, tenore_sax, khnum, hierophant_green, the_fool, thoth, the_sun, hermit_purple, atum, horus, emperor, cream, judgement, silver_chariot, silver_chariot_armorless, osiris, hanged_man, bastet },
 }

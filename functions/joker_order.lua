@@ -104,6 +104,7 @@ jojoker.joker_order = {
     "baby_face",
     "bad_company",
     "ball_breaker",
+    "bastet",
     "black_sabbath",
     "blue_hawaii",
     "boku_no_rhythm_wo_kiitekure",

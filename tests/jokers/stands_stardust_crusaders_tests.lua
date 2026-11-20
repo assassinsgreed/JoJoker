@@ -1633,5 +1633,119 @@ Balatest.TestPlay {
         Balatest.assert_chips(12 * 28, "Survivor's Splash let the Pair score through Hanged Man")
     end
 }
+--#endregion
 
+--#region Bastet
+Balatest.TestPlay {
+    name = 'bastet_turns_a_held_card_into_steel_when_a_steel_card_scores',
+    category = { 'jokers', 'stardust_crusaders', 'bastet' },
+    jokers = { 'j_jojoker_bastet' },
+    deck = { cards = {
+        { r = 'K', s = 'S', e = 'm_steel' },
+        { r = '2', s = 'H' },
+        { r = '3', s = 'D' },
+        { r = '4', s = 'C' } } },
+    execute = function()
+        G.jokers.cards[1].ability.extra.denominator = G.jokers.cards[1].ability.extra.numerator
+        Balatest.play_hand { 'KS' }
+    end,
+    assert = function()
+        Balatest.assert_eq(count_enhanced_playing_cards('m_steel'), 2, "Bastet did not turn a held card into steel when a steel card scored")
+    end
+}
+
+Balatest.TestPlay {
+    name = 'bastet_turns_a_held_card_into_steel_for_each_scored_steel_card',
+    category = { 'jokers', 'stardust_crusaders', 'bastet' },
+    jokers = { 'j_jojoker_bastet' },
+    deck = { cards = {
+        { r = 'K', s = 'S', e = 'm_steel' },
+        { r = 'K', s = 'H', e = 'm_steel' },
+        { r = '2', s = 'H' },
+        { r = '3', s = 'D' },
+        { r = '4', s = 'C' } } },
+    execute = function()
+        G.jokers.cards[1].ability.extra.denominator = G.jokers.cards[1].ability.extra.numerator
+        Balatest.play_hand { 'KS', 'KH' }
+    end,
+    assert = function()
+        Balatest.assert_eq(count_enhanced_playing_cards('m_steel'), 4, "Bastet did not turn a held card into steel for each scored steel card")
+    end
+}
+
+Balatest.TestPlay {
+    name = 'bastet_only_turns_unenhanced_held_cards_into_steel',
+    category = { 'jokers', 'stardust_crusaders', 'bastet' },
+    jokers = { 'j_jojoker_bastet' },
+    deck = { cards = {
+        { r = 'K', s = 'S', e = 'm_steel' },
+        { r = '2', s = 'H', e = 'm_bonus' },
+        { r = '3', s = 'D', e = 'm_gold' },
+        { r = '4', s = 'C' } } },
+    execute = function()
+        G.jokers.cards[1].ability.extra.denominator = G.jokers.cards[1].ability.extra.numerator
+        Balatest.play_hand { 'KS' }
+    end,
+    assert = function()
+        Balatest.assert_eq(count_enhanced_playing_cards('m_steel'), 2, "Bastet did not turn the unenhanced held card into steel")
+        Balatest.assert_eq(count_enhanced_playing_cards('m_bonus'), 1, "Bastet overwrote a held bonus card")
+        Balatest.assert_eq(count_enhanced_playing_cards('m_gold'), 1, "Bastet overwrote a held gold card")
+    end
+}
+
+Balatest.TestPlay {
+    name = 'bastet_ignores_scored_cards_that_are_not_steel',
+    category = { 'jokers', 'stardust_crusaders', 'bastet' },
+    jokers = { 'j_jojoker_bastet' },
+    deck = { cards = {
+        { r = 'K', s = 'S' },
+        { r = '2', s = 'H' },
+        { r = '3', s = 'D' },
+        { r = '4', s = 'C' } } },
+    execute = function()
+        G.jokers.cards[1].ability.extra.denominator = G.jokers.cards[1].ability.extra.numerator
+        Balatest.play_hand { 'KS' }
+    end,
+    assert = function()
+        Balatest.assert_eq(count_enhanced_playing_cards('m_steel'), 0, "Bastet turned a held card into steel without a scored steel card")
+    end
+}
+
+Balatest.TestPlay {
+    name = 'bastet_ignores_played_steel_cards_that_do_not_score',
+    category = { 'jokers', 'stardust_crusaders', 'bastet' },
+    jokers = { 'j_jojoker_bastet' },
+    deck = { cards = {
+        { r = 'K', s = 'S' },
+        { r = 'K', s = 'H' },
+        { r = '2', s = 'C', e = 'm_steel' },
+        { r = '3', s = 'D' },
+        { r = '4', s = 'C' } } },
+    execute = function()
+        G.jokers.cards[1].ability.extra.denominator = G.jokers.cards[1].ability.extra.numerator
+        Balatest.play_hand { 'KS', 'KH', '2C' }
+    end,
+    assert = function()
+        Balatest.assert_eq(count_enhanced_playing_cards('m_steel'), 1, "Bastet turned a held card into steel for an unscored steel card")
+    end
+}
+
+Balatest.TestPlay {
+    name = 'bastet_steel_card_scores_while_held_the_same_hand',
+    category = { 'jokers', 'stardust_crusaders', 'bastet' },
+    jokers = { 'j_jojoker_bastet' },
+    deck = { cards = {
+        { r = 'K', s = 'S', e = 'm_steel' },
+        { r = '2', s = 'H' },
+        { r = '3', s = 'D' },
+        { r = '4', s = 'C' } } },
+    execute = function()
+        G.jokers.cards[1].ability.extra.denominator = G.jokers.cards[1].ability.extra.numerator
+        Balatest.play_hand { 'KS' }
+    end,
+    assert = function()
+        -- High Card: 5 + 10, with the newly held steel card's X1.5
+        Balatest.assert_chips(math.floor(15 * 1.5), "Bastet's new steel card did not give X1.5 while held")
+    end
+}
 --#endregion

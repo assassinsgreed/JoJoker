@@ -592,6 +592,14 @@ local loc = {
                     "their {C:attention}rank{} as {C:mult}Mult{} instead.",
                 }
             },
+            j_jojoker_bastet = {
+                name = "Bastet",
+                text = {
+                    "Each scored {C:attention}Steel{} card has a {C:attention}#1# in #2#{}",
+                    "chance to turn a random unenhanced",
+                    "card held in hand into {C:attention}Steel{}.",
+                }
+            },
             j_jojoker_avdol = {
                 name = "Muhammad Avdol",
                 text = {
