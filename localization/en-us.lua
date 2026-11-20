@@ -1275,6 +1275,14 @@ local loc = {
                     "{C:inactive}Currently: {X:mult,C:white} X#4# {}"
                 }
             },
+            j_jojoker_diver_down = {
+                name = "Diver Down",
+                alt_name = "Diver Drive",
+                text = {
+                    "After scoring, turns all scored cards",
+                    "into the {C:attention}rank{} and {C:attention}suit{} of a random one.",
+                },
+            },
             j_jojoker_snail = {
                 name = "Snail",
                 text = {
@@ -1904,6 +1912,7 @@ local loc = {
             k_downgrade_ex = "Downgrade!",
             k_free_ex = "Free!",
             k_bang_ex = "Bang!",
+            k_dive_ex = "Dive!",
             k_plus_chips = "+Chips",
             k_plus_mult = "+Mult",
             k_plus_tag = "+Tag",

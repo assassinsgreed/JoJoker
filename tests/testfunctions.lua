@@ -286,3 +286,15 @@ end
 no_jokers_in_shop = function()
     Balatest.q(function() G.GAME.joker_rate = 0 end)
 end
+
+count_distinct_bases = function(cards)
+    local count, seen = 0, {}
+    for _, c in ipairs(cards) do
+        local base = c.base.value..c.base.suit
+        if not seen[base] then
+            seen[base] = true
+            count = count + 1
+        end
+    end
+    return count
+end

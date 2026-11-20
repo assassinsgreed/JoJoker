@@ -140,5 +140,7 @@ LABELS = Labels(
         'drains_the_sell_value_death_thirteen': 'drains the sell value Death Thirteen turns into Mult',
         'stops_every_card_that_would_score': 'stops every card that would score, Stone cards included, from scoring',
         'turns_the_cards_pushed_out_of_scoring': 'turns the cards pushed out of scoring into rankless Stone cards',
+        'turns_scored_cards_into_one_rank': 'turns scored cards into a single rank, leaving fewer ranks to build Straights from',
+        'turns_scored_cards_into_one_suit': 'turns scored cards into a single suit, erasing the variety these pay out for',
     },
 )

@@ -943,7 +943,7 @@ local hanged_man = {
     cost = 6,
     jtype = "Stand",
     part = "stardust_crusaders",
-    conflicts = { caesar = "stops_every_card_that_would_score", angelo = "stops_every_card_that_would_score", stone_free = "stops_every_card_that_would_score", survivor = "stops_every_card_that_would_score" },
+    conflicts = { caesar = "stops_every_card_that_would_score", angelo = "stops_every_card_that_would_score", stone_free = "stops_every_card_that_would_score", survivor = "stops_every_card_that_would_score", diver_down = "stops_every_card_that_would_score" },
     blueprint_compat = true,
     perishable_compat = true,
     eternal_compat = true,

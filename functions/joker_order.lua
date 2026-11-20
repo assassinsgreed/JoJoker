@@ -120,6 +120,7 @@ jojoker.joker_order = {
     "cream_starter",
     "d4c",
     "death_thirteen",
+    "diver_down",
     "doctor_wu",
     "doggy_style",
     "dragons_dream",

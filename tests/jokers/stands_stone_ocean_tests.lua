@@ -828,3 +828,101 @@ Balatest.TestPlay {
     end
 }
 --#endregion
+
+--#region Diver Down
+Balatest.TestPlay {
+    name = 'diver_down_turns_every_scored_card_into_one_rank_and_suit',
+    category = { 'jokers', 'stone_ocean', 'diver_down' },
+    jokers = { 'j_jojoker_diver_down' },
+    execute = function()
+        Balatest.play_hand { '2S', '3H', '4C', '5D', '6S' }
+        Balatest.wait()
+    end,
+    assert = function()
+        Balatest.assert_eq(count_distinct_bases(G.discard.cards), 1, "Diver Down did not give every scored card the same rank and suit")
+    end
+}
+
+Balatest.TestPlay {
+    name = 'diver_down_leaves_unscored_played_cards_alone',
+    category = { 'jokers', 'stone_ocean', 'diver_down' },
+    jokers = { 'j_jojoker_diver_down' },
+    execute = function()
+        Balatest.play_hand { '4S', '4H', '9C' }
+        Balatest.wait()
+    end,
+    assert = function()
+        Balatest.assert_eq(count_playing_cards('9', 'Clubs'), 1, "Diver Down converted a played card that did not score")
+        Balatest.assert_eq(count_distinct_bases(G.discard.cards), 2, "Diver Down did not give both scored 4s the same suit")
+    end
+}
+
+Balatest.TestPlay {
+    name = 'diver_down_skips_stone_cards',
+    category = { 'jokers', 'stone_ocean', 'diver_down' },
+    jokers = { 'j_jojoker_diver_down' },
+    deck = { cards = {
+        { r = '4', s = 'S' }, { r = '4', s = 'H' }, { r = 'K', s = 'C', e = 'm_stone' },
+        { r = '2', s = 'D' }, { r = '2', s = 'D' }, { r = '2', s = 'D' } } },
+    hand_size = 6,
+    execute = function()
+        Balatest.play_hand { '4S', '4H', 'KC' }
+        Balatest.wait()
+    end,
+    assert = function()
+        Balatest.assert_eq(count_playing_cards('King', 'Clubs'), 1, "Diver Down picked or converted a Stone card")
+        Balatest.assert_eq(count_distinct_bases(G.discard.cards), 2, "Diver Down did not convert the 4s around the Stone card")
+    end
+}
+
+Balatest.TestPlay {
+    name = 'diver_down_does_nothing_when_only_stone_cards_score',
+    category = { 'jokers', 'stone_ocean', 'diver_down' },
+    jokers = { 'j_jojoker_diver_down' },
+    deck = { cards = {
+        { r = 'K', s = 'C', e = 'm_stone' }, { r = 'Q', s = 'H', e = 'm_stone' },
+        { r = '2', s = 'D' }, { r = '2', s = 'D' } } },
+    hand_size = 4,
+    execute = function()
+        Balatest.play_hand { 'KC', 'QH' }
+        Balatest.wait()
+    end,
+    assert = function()
+        Balatest.assert_eq(count_playing_cards('King', 'Clubs'), 1, "Diver Down converted a Stone card")
+        Balatest.assert_eq(count_playing_cards('Queen', 'Hearts'), 1, "Diver Down converted a Stone card")
+    end
+}
+
+Balatest.TestPlay {
+    name = 'diver_down_skips_cards_destroyed_during_scoring',
+    category = { 'jokers', 'stone_ocean', 'diver_down' },
+    jokers = { 'j_jojoker_diver_down' },
+    deck = { cards = {
+        { r = '4', s = 'S', e = 'm_glass' }, { r = '4', s = 'H', e = 'm_glass' },
+        { r = '2', s = 'D' }, { r = '2', s = 'D' } } },
+    hand_size = 4,
+    execute = function()
+        restore_pseudorandom = force_pseudorandom_roll('glass', 0)
+        Balatest.play_hand { '4S', '4H' }
+        Balatest.wait()
+    end,
+    assert = function()
+        restore_pseudorandom()
+        Balatest.assert_eq(#G.playing_cards, 2, "Both shattered Glass cards should be gone from the deck")
+        Balatest.assert_eq(count_playing_cards('2', 'Diamonds'), 2, "Diver Down converted cards outside the scored hand")
+    end
+}
+
+Balatest.TestPlay {
+    name = 'diver_down_converts_only_after_the_hand_scores',
+    category = { 'jokers', 'stone_ocean', 'diver_down' },
+    jokers = { 'j_jojoker_diver_down' },
+    execute = function()
+        Balatest.play_hand { '2S', '5S', '7S', '9S', 'KS' }
+    end,
+    assert = function()
+        -- Flush: (35 + 2 + 5 + 7 + 9 + 10) chips * 4 mult
+        Balatest.assert_chips(272, "Diver Down changed the cards before the hand finished scoring")
+    end
+}
+--#endregion

@@ -688,6 +688,45 @@ get_distinct_scored_rank_ids = function(scoring_hand)
   return ids
 end
 
+get_ranked_cards = function(cards)
+  local ranked = {}
+  for _, c in ipairs(cards or {}) do
+    if not SMODS.has_no_rank(c) then
+      ranked[#ranked + 1] = c
+    end
+  end
+  return ranked
+end
+
+flip_and_change_bases = function(cards, suit, rank)
+  for i, c in ipairs(cards) do
+    local percent = 1.15 - (i - 0.999) / (#cards - 0.998) * 0.3
+    G.E_MANAGER:add_event(Event({ trigger = 'after', delay = 0.15, func = function()
+      c:flip()
+      play_sound('card1', percent)
+      c:juice_up(0.3, 0.3)
+      return true
+    end }))
+  end
+  delay(0.2)
+  G.E_MANAGER:add_event(Event({ trigger = 'after', delay = 0.1, func = function()
+    for _, c in ipairs(cards) do
+      SMODS.change_base(c, suit, rank)
+    end
+    return true
+  end }))
+  for i, c in ipairs(cards) do
+    local percent = 0.85 + (i - 0.999) / (#cards - 0.998) * 0.3
+    G.E_MANAGER:add_event(Event({ trigger = 'after', delay = 0.15, func = function()
+      c:flip()
+      play_sound('tarot2', percent, 0.6)
+      c:juice_up(0.3, 0.3)
+      return true
+    end }))
+  end
+  delay(0.5)
+end
+
 get_under_world_card_chips = function(card, playing_card)
   if SMODS.has_no_rank(playing_card) then return 0 end
   local hands = card.ability.extra.rank_hands[playing_card:get_id()] or 0

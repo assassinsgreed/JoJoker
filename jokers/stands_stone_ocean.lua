@@ -746,7 +746,54 @@ local weather_report = {
     end
 }
 
+local diver_down = {
+    name = "diver_down",
+    rarity = 3,
+    cost = 8,
+    jtype = "Stand",
+    part = "stone_ocean",
+    themes = { support = { jojoker.themes.PAIRS, jojoker.themes.FLUSHES } },
+    conflicts = { jonathan_joestar = "turns_scored_cards_into_one_suit", straizo = "turns_scored_cards_into_one_rank" },
+    similar = { jojoker.similar.RANK_CHANGERS },
+    blueprint_compat = false,
+    perishable_compat = true,
+    eternal_compat = true,
+    calculate = function(self, card, context)
+        -- Dives into a random scored card, then gives every other scored card its rank and suit after scoring
+        if context.before and not context.blueprint then
+            local ranked = get_ranked_cards(context.scoring_hand)
+            card.jojoker_diver_down_target = #ranked > 0 and pseudorandom_element(ranked, 'jojoker_diver_down') or nil
+        end
+
+        if context.individual and context.cardarea == G.play and not context.blueprint
+            and context.other_card == card.jojoker_diver_down_target then
+            return {
+                message = localize('k_dive_ex'),
+                colour = G.C.SECONDARY_SET.Spectral,
+                message_card = context.other_card,
+            }
+        end
+
+        if context.after and not context.blueprint and card.jojoker_diver_down_target then
+            local source = card.jojoker_diver_down_target
+            card.jojoker_diver_down_target = nil
+            local converted = {}
+            for _, scored_card in ipairs(get_ranked_cards(context.scoring_hand)) do
+                -- Cards destroyed during scoring are still in scoring_hand
+                if scored_card ~= source and not scored_card.getting_sliced then
+                    converted[#converted + 1] = scored_card
+                end
+            end
+            if #converted == 0 then return end
+
+            jojoker.debug("Diver Down: Turning "..#converted.." scored cards into the "..source.base.value.." of "..source.base.suit)
+            SMODS.calculate_effect({ message = localize('sound_reshaped'), colour = G.C.SECONDARY_SET.Spectral }, card)
+            flip_and_change_bases(converted, source.base.suit, source.base.value)
+        end
+    end
+}
+
 return {
     name = "Stone Ocean Stands Jokers",
-    list = { goo_goo_dolls, stone_free, made_in_heaven, dragons_dream, green_green_grass_of_home, survivor, foo_fighters, white_snake, burning_down_the_house, limp_bizkit, marilyn_manson, c_moon, planet_waves, kiss, jumpin_jack_flash, under_world, jailhouse_lock, weather_report },
+    list = { goo_goo_dolls, stone_free, made_in_heaven, dragons_dream, green_green_grass_of_home, survivor, foo_fighters, white_snake, burning_down_the_house, limp_bizkit, marilyn_manson, c_moon, planet_waves, kiss, jumpin_jack_flash, under_world, jailhouse_lock, weather_report, diver_down },
 }
