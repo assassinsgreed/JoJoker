@@ -1675,6 +1675,13 @@ local loc = {
                     "and {C:dark_edition}edition{} if it has none.",
                 }
             },
+            j_jojoker_ozon_baby = {
+                name = "Ozon Baby",
+                text = {
+                    "Blinds require {C:attention}X#1#{} score.",
+                    "Earn {C:money}X#2#{} money at {C:attention}cash out{}.",
+                }
+            },
             -- Part 9: THE JOJOLands
             j_jojoker_smooth_operator = {
                 name = "Smooth Operators",
@@ -1831,6 +1838,7 @@ local loc = {
             sound_pop = "Pop!",
             sound_ora = "Ora Ora Ora!", -- TODO: Use this somewhere?
             sound_yip = "Yip!",
+            sound_ozon_baby = "Pressurized!",
             sound_prediction = "Your next line is...",
             sound_nice = "Naaaaiiiiiccceeee!",
             sound_mista = "Miiiistaaa!",

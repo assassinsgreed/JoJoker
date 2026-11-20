@@ -166,6 +166,7 @@ jojoker.joker_order = {
     "november_rain",
     "oh_lonesome_me",
     "osiris",
+    "ozon_baby",
     "paisley_park",
     "paper_moon_king",
     "planet_waves",

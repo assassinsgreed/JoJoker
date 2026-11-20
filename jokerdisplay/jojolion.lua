@@ -188,3 +188,11 @@ jd_def["j_jojoker_doggy_style"] = {
         { text = "(Left & Right)" }
     },
 }
+
+jd_def["j_jojoker_ozon_baby"] = {
+    text = {
+        { text = "X", colour = G.C.MONEY },
+        { ref_table = "card.ability.extra", ref_value = "payout_mult", colour = G.C.MONEY },
+        { text = " cash out", colour = G.C.GREY },
+    },
+}

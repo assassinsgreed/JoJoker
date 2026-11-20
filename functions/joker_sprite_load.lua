@@ -207,6 +207,7 @@ JokerSprites = {
         {name = "wall_eyes", base = {pos = {x = 0, y = 3}}, part_atlas = "jojolion" },
         {name = "awaking_iii_leaves", base = {pos = {x = 1, y = 3}}, part_atlas = "jojolion" },
         {name = "doggy_style", base = {pos = {x = 2, y = 3}}, part_atlas = "jojolion" },
+        {name = "ozon_baby", base = {pos = {x = 3, y = 3}}, part_atlas = "jojolion" },
         -- Part 9: THE JOJOLands
         {name = "smooth_operator", base = {pos = {x = 0, y = 0}}, part_atlas = "the_jojolands" },
         {name = "jodio_joestar", base = {pos = {x = 1, y = 0}}, part_atlas = "the_jojolands" },

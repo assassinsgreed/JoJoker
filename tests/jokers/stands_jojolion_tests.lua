@@ -869,5 +869,59 @@ Balatest.TestPlay {
         Balatest.assert_chips((10 + 2 * 2 + 2 * 30) * 2, "Doggy Style's copied enhancement did not score")
     end
 }
+--#endregion
 
+--#region Ozon Baby
+Balatest.TestPlay {
+    name = 'ozon_baby_doubles_the_blind_requirement',
+    category = { 'jokers', 'jojolion', 'ozon_baby' },
+    jokers = { 'j_jojoker_ozon_baby' },
+    execute = function() end,
+    assert = function()
+        local base_chips = get_blind_amount(G.GAME.round_resets.ante) * G.GAME.blind.mult * G.GAME.starting_params.ante_scaling
+        Balatest.assert_eq(G.GAME.blind.chips, base_chips * G.jokers.cards[1].ability.extra.blind_mult, "Ozon Baby did not double the blind requirement")
+    end
+}
+
+Balatest.TestPlay {
+    name = 'ozon_baby_doubles_joker_cash_out_payouts',
+    category = { 'jokers', 'jojolion', 'ozon_baby' },
+    jokers = { 'j_jojoker_ozon_baby', 'j_jojoker_milagro_man' },
+    dollars = 10,
+    execute = function()
+        Balatest.end_round()
+        Balatest.cash_out()
+    end,
+    assert = function()
+        Balatest.assert_dollars(14, "Ozon Baby did not double Milagro Man's $2 payout") -- 10 + 2 * 2
+    end
+}
+
+Balatest.TestPlay {
+    name = 'ozon_baby_stacks_with_another_ozon_baby',
+    category = { 'jokers', 'jojolion', 'ozon_baby' },
+    jokers = { 'j_jojoker_ozon_baby', 'j_jojoker_ozon_baby', 'j_jojoker_milagro_man' },
+    dollars = 10,
+    execute = function()
+        Balatest.end_round()
+        Balatest.cash_out()
+    end,
+    assert = function()
+        Balatest.assert_dollars(18, "Two Ozon Babies did not quadruple Milagro Man's $2 payout") -- 10 + 2 * 4
+    end
+}
+
+Balatest.TestPlay {
+    name = 'ozon_baby_pays_nothing_when_nothing_is_earned',
+    category = { 'jokers', 'jojolion', 'ozon_baby' },
+    jokers = { 'j_jojoker_ozon_baby' },
+    dollars = 10,
+    execute = function()
+        Balatest.end_round()
+        Balatest.cash_out()
+    end,
+    assert = function()
+        Balatest.assert_dollars(10, "Ozon Baby paid out without any other cash-out earnings")
+    end
+}
 --#endregion

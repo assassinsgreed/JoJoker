@@ -294,3 +294,22 @@ payload = '''
 if self == G.hand and type(hayato_flips_draw) == "function" and hayato_flips_draw() then stay_flipped = true end
 '''
 match_indent = true
+
+## Ozon Baby multiplies the whole cash-out total, after every other payout row
+[[patches]]
+[patches.pattern]
+target = "functions/state_events.lua"
+pattern = "if total_cashout_rows > 7 then"
+position = "before"
+payload = '''
+for _, ozon_baby in ipairs(SMODS.find_card('j_jojoker_ozon_baby')) do
+    if dollars > 0 then
+        local bonus = dollars * (ozon_baby.ability.extra.payout_mult - 1)
+        i = i + 1
+        add_round_eval_row({dollars = bonus, bonus = true, name = 'joker'..i, pitch = pitch, card = ozon_baby})
+        pitch = pitch + 0.06
+        dollars = dollars + bonus
+    end
+end
+'''
+match_indent = true

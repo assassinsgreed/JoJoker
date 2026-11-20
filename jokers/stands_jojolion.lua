@@ -598,7 +598,35 @@ local doggy_style = {
     end
 }
 
+local ozon_baby = {
+    name = "ozon_baby",
+    rarity = 3,
+    cost = 8,
+    jtype = "Stand",
+    part = "jojolion",
+    themes = { core = { jojoker.themes.MONEY_HELD } },
+    blueprint_compat = false,
+    perishable_compat = true,
+    eternal_compat = true,
+    config = { extra = { blind_mult = 2, payout_mult = 2 } },
+    loc_vars = function(self, info_queue, center)
+        return {vars = {center.ability.extra.blind_mult, center.ability.extra.payout_mult}}
+    end,
+    calculate = function(self, card, context)
+        -- Raises each blind's score requirement; the cash-out doubling is patched into G.FUNCS.evaluate_round
+        if context.setting_blind and not context.blueprint then
+            G.GAME.blind.chips = G.GAME.blind.chips * card.ability.extra.blind_mult
+            G.GAME.blind.chip_text = number_format(G.GAME.blind.chips)
+            jojoker.debug("Ozon Baby: Blind requirement raised to "..G.GAME.blind.chips)
+            return {
+                message = localize('sound_ozon_baby'),
+                colour = G.C.RED
+            }
+        end
+    end
+}
+
 return {
     name = "Jojolion Stands Jokers",
-    list = { soft_and_wet, paper_moon_king, milagro_man, i_am_a_rock, california_king_bed, doctor_wu, wonder_of_u, paisley_park, space_trucking, fun_fun_fun, blue_hawaii, speed_king, awaking_iii_leaves, doggy_style },
+    list = { soft_and_wet, paper_moon_king, milagro_man, i_am_a_rock, california_king_bed, doctor_wu, wonder_of_u, paisley_park, space_trucking, fun_fun_fun, blue_hawaii, speed_king, awaking_iii_leaves, doggy_style, ozon_baby },
 }
