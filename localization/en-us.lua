@@ -1956,7 +1956,7 @@ local loc = {
             jojoker_purple_haze_badge = "Infected +#1#/+#2#",
             jailhouse_lock_debuff = "Only the last #1# hand types score",
             jojoker_update_latest = "Latest: #1#",
-            jojoker_update_to_release = "Update to #1#",
+            jojoker_update_to_release = "Update to #1# and restart",
         },
         quips = {
             jojoker_lose_quip1 = {"You thought you could beat me?", "Yare yare daze...",},
