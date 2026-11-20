@@ -293,3 +293,10 @@ jd_def["j_jojoker_earth_wind_and_fire"] = {
         { text = "Duplicates allowed", colour = G.C.GREY },
     },
 }
+
+jd_def["j_jojoker_boy_ii_man"] = {
+    text = {
+        { text = "+", colour = G.C.CHIPS },
+        { ref_table = "card.ability.extra", ref_value = "chips", retrigger_type = "mult", colour = G.C.CHIPS },
+    },
+}

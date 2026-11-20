@@ -106,6 +106,7 @@ jojoker.joker_order = {
     "black_sabbath",
     "blue_hawaii",
     "boku_no_rhythm_wo_kiitekure",
+    "boy_ii_man",
     "burning_down_the_house",
     "c_moon",
     "california_king_bed",

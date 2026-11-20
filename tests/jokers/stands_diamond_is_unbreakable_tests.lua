@@ -822,3 +822,152 @@ Balatest.TestPlay {
     end
 }
 --#endregion
+
+--#region Boy II Man
+Balatest.TestPlay {
+    name = 'boy_ii_man_debuffs_the_other_joker_on_blind_start',
+    category = { 'jokers', 'diamond_is_unbreakable', 'boy_ii_man' },
+    jokers = { 'j_jojoker_boy_ii_man', 'j_jojoker_aqua_necklace' },
+    execute = function()
+        keep_blind_unbeaten()
+    end,
+    assert = function()
+        Balatest.assert(G.jokers.cards[2].debuff, "Boy II Man did not debuff the other joker")
+        Balatest.assert(not G.jokers.cards[1].debuff, "Boy II Man debuffed itself")
+    end
+}
+
+Balatest.TestPlay {
+    name = 'boy_ii_man_debuffs_exactly_one_joker',
+    category = { 'jokers', 'diamond_is_unbreakable', 'boy_ii_man' },
+    jokers = { 'j_jojoker_boy_ii_man', 'j_jojoker_aqua_necklace', 'j_jojoker_enigma', 'j_jojoker_the_hand' },
+    execute = function()
+        keep_blind_unbeaten()
+    end,
+    assert = function()
+        local debuffed = 0
+        for _, joker in ipairs(G.jokers.cards) do
+            if joker.debuff then debuffed = debuffed + 1 end
+        end
+        Balatest.assert_eq(debuffed, 1, "Boy II Man did not debuff exactly one joker")
+    end
+}
+
+Balatest.TestPlay {
+    name = 'boy_ii_man_steals_chips_for_a_common_joker',
+    category = { 'jokers', 'diamond_is_unbreakable', 'boy_ii_man' },
+    jokers = { 'j_jojoker_boy_ii_man', 'j_jojoker_aqua_necklace' },
+    execute = function()
+        keep_blind_unbeaten()
+    end,
+    assert = function()
+        local extra = G.jokers.cards[1].ability.extra
+        Balatest.assert_eq(extra.chips, extra.chips_per_rarity, "Boy II Man did not steal chips for one rarity level")
+    end
+}
+
+Balatest.TestPlay {
+    name = 'boy_ii_man_steals_chips_for_a_rare_joker',
+    category = { 'jokers', 'diamond_is_unbreakable', 'boy_ii_man' },
+    jokers = { 'j_jojoker_boy_ii_man', 'j_jojoker_echoes_act_3' },
+    execute = function()
+        keep_blind_unbeaten()
+    end,
+    assert = function()
+        local extra = G.jokers.cards[1].ability.extra
+        Balatest.assert_eq(extra.chips, 3 * extra.chips_per_rarity, "Boy II Man did not steal chips for three rarity levels")
+    end
+}
+
+Balatest.TestPlay {
+    name = 'boy_ii_man_steals_chips_for_a_legendary_joker',
+    category = { 'jokers', 'diamond_is_unbreakable', 'boy_ii_man' },
+    jokers = { 'j_jojoker_boy_ii_man', 'j_jojoker_killer_queen' },
+    execute = function()
+        keep_blind_unbeaten()
+    end,
+    assert = function()
+        local extra = G.jokers.cards[1].ability.extra
+        Balatest.assert_eq(extra.chips, 4 * extra.chips_per_rarity, "Boy II Man did not steal chips for four rarity levels")
+    end
+}
+
+Balatest.TestPlay {
+    name = 'boy_ii_man_scores_its_stolen_chips',
+    category = { 'jokers', 'diamond_is_unbreakable', 'boy_ii_man' },
+    jokers = { 'j_jojoker_boy_ii_man', 'j_jojoker_highway_star' },
+    execute = function()
+        Balatest.play_hand { 'AS' }
+    end,
+    assert = function()
+        Balatest.assert_chips(5 + 11 + 2 * G.jokers.cards[1].ability.extra.chips_per_rarity, "Boy II Man did not score chips for an uncommon joker")
+    end
+}
+
+Balatest.TestPlay {
+    name = 'boy_ii_man_gives_nothing_without_another_joker',
+    category = { 'jokers', 'diamond_is_unbreakable', 'boy_ii_man' },
+    jokers = { 'j_jojoker_boy_ii_man' },
+    execute = function()
+        Balatest.play_hand { 'AS' }
+    end,
+    assert = function()
+        Balatest.assert(not G.jokers.cards[1].debuff, "Boy II Man debuffed itself with no other joker")
+        Balatest.assert_chips(5 + 11, "Boy II Man gave chips without a joker to steal from")
+    end
+}
+
+Balatest.TestPlay {
+    name = 'boy_ii_man_restores_the_joker_at_end_of_round',
+    category = { 'jokers', 'diamond_is_unbreakable', 'boy_ii_man' },
+    jokers = { 'j_jojoker_boy_ii_man', 'j_jojoker_aqua_necklace' },
+    execute = function()
+        Balatest.end_round()
+    end,
+    assert = function()
+        Balatest.assert(not G.jokers.cards[2].debuff, "Boy II Man's target stayed debuffed after the round ended")
+        Balatest.assert_eq(G.jokers.cards[1].ability.extra.chips, 0, "Boy II Man kept its stolen chips after the round ended")
+    end
+}
+
+Balatest.TestPlay {
+    name = 'boy_ii_man_steals_again_each_blind',
+    category = { 'jokers', 'diamond_is_unbreakable', 'boy_ii_man' },
+    jokers = { 'j_jojoker_boy_ii_man', 'j_jojoker_aqua_necklace' },
+    execute = function()
+        Balatest.next_round()
+        keep_blind_unbeaten()
+    end,
+    assert = function()
+        local extra = G.jokers.cards[1].ability.extra
+        Balatest.assert(G.jokers.cards[2].debuff, "Boy II Man did not debuff a joker on the next blind")
+        Balatest.assert_eq(extra.chips, extra.chips_per_rarity, "Boy II Man did not steal chips on the next blind")
+    end
+}
+
+Balatest.TestPlay {
+    name = 'boy_ii_man_restores_the_joker_when_sold',
+    category = { 'jokers', 'diamond_is_unbreakable', 'boy_ii_man' },
+    jokers = { 'j_jojoker_boy_ii_man', 'j_jojoker_aqua_necklace' },
+    execute = function()
+        keep_blind_unbeaten()
+        Balatest.sell(function() return G.jokers.cards[1] end)
+    end,
+    assert = function()
+        Balatest.assert(not G.jokers.cards[1].debuff, "Boy II Man's target stayed debuffed after Boy II Man was sold")
+    end
+}
+
+Balatest.TestPlay {
+    name = 'boy_ii_man_does_not_restore_jokers_debuffed_by_others',
+    category = { 'jokers', 'diamond_is_unbreakable', 'boy_ii_man' },
+    jokers = { 'j_jojoker_boy_ii_man', 'j_jojoker_aqua_necklace' },
+    execute = function()
+        Balatest.q(function() SMODS.debuff_card(G.jokers.cards[2], true, 'balatest') end)
+        Balatest.end_round()
+    end,
+    assert = function()
+        Balatest.assert(G.jokers.cards[2].debuff, "Boy II Man lifted a debuff it did not cause")
+    end
+}
+--#endregion

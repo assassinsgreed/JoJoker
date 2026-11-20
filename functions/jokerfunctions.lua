@@ -989,6 +989,24 @@ jojoker_recover_mista = function(context)
   end
 end
 
+jojoker_restore_boy_ii_man_targets = function()
+  for _, joker in ipairs(G.jokers and G.jokers.cards or {}) do
+    if joker.ability.debuff_sources and joker.ability.debuff_sources.jojoker_boy_ii_man then
+      jojoker.debug("Boy II Man: Restoring "..joker.config.center.key)
+      SMODS.debuff_card(joker, false, 'jojoker_boy_ii_man')
+    end
+  end
+end
+
+-- Boy II Man's stolen joker is only debuffed for the blind
+jojoker_recover_boy_ii_man_targets = function(context)
+  if not (context.end_of_round and context.main_eval) or context.individual or context.repetition then return end
+  for _, boy_ii_man in ipairs(SMODS.find_card('j_jojoker_boy_ii_man', true)) do
+    boy_ii_man.ability.extra.chips = 0
+  end
+  jojoker_restore_boy_ii_man_targets()
+end
+
 avdol_create_tarot = function()
   if #G.consumeables.cards + G.GAME.consumeable_buffer >= G.consumeables.config.card_limit then return false end
   G.GAME.consumeable_buffer = G.GAME.consumeable_buffer + 1

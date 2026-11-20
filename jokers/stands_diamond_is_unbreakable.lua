@@ -673,7 +673,62 @@ local enigma = {
     end
 }
 
+local boy_ii_man = {
+    name = "boy_ii_man",
+    rarity = 2,
+    cost = 6,
+    jtype = "Stand",
+    part = "diamond_is_unbreakable",
+    themes = { support = { jojoker.themes.DEBUFFED_JOKERS } },
+    blueprint_compat = true,
+    perishable_compat = true,
+    eternal_compat = true,
+    config = { extra = { chips_per_rarity = 100, chips = 0 } },
+    loc_vars = function(self, info_queue, center)
+        return {vars = { center.ability.extra.chips_per_rarity, center.ability.extra.chips }}
+    end,
+    calculate = function(self, card, context)
+        -- Debuffs a random other joker each blind and gives chips for its rarity
+        if context.setting_blind and not context.blueprint then
+            local others = {}
+            for _, joker in ipairs(G.jokers.cards) do
+                if joker ~= card then others[#others + 1] = joker end
+            end
+            if #others > 0 then
+                local target = pseudorandom_element(others, pseudoseed('boy_ii_man'))
+                local rarity = target.config.center.rarity
+                card.ability.extra.chips = (type(rarity) == "number" and rarity or 0) * card.ability.extra.chips_per_rarity
+                SMODS.debuff_card(target, true, 'jojoker_boy_ii_man')
+                jojoker.debug("Boy II Man: Debuffed "..target.config.center.key..", stealing "..card.ability.extra.chips.." chips")
+                return {
+                    message = localize("k_debuffed"),
+                    colour = G.C.RED,
+                    message_card = target,
+                }
+            end
+        end
+
+        if context.joker_main and card.ability.extra.chips > 0 then
+            jojoker.debug("Boy II Man: Giving "..card.ability.extra.chips.." stolen chips")
+            return {
+                message = localize{type='variable', key='a_chips', vars={card.ability.extra.chips}},
+                colour = G.C.CHIPS,
+                chip_mod = card.ability.extra.chips,
+            }
+        end
+    end,
+    remove_from_deck = function(self, card, from_debuff)
+        -- Another Boy II Man still owns the shared debuff source, so only the last one restores
+        if not from_debuff then
+            for _, other in ipairs(SMODS.find_card('j_jojoker_boy_ii_man', true)) do
+                if other ~= card then return end
+            end
+            jojoker_restore_boy_ii_man_targets()
+        end
+    end
+}
+
 return {
     name = "Diamond is Unbreakable Stand Jokers",
-    list = { red_hot_chili_pepper, the_hand, superfly, crazy_diamond, bad_company, cheap_trick, cinderella, atom_heart_father, surface, killer_queen, heavens_door, the_lock, harvest, echoes_act_3, aqua_necklace, highway_star, enigma },
+    list = { red_hot_chili_pepper, the_hand, superfly, crazy_diamond, bad_company, cheap_trick, cinderella, atom_heart_father, surface, killer_queen, heavens_door, the_lock, harvest, echoes_act_3, aqua_necklace, highway_star, enigma, boy_ii_man },
 }

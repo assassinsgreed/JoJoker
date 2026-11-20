@@ -815,6 +815,17 @@ local loc = {
                 },
             },
             -- Part 5: Golden Wind
+            j_jojoker_boy_ii_man = {
+                name = "Boy II Man",
+                alt_name = "Boys Man Man",
+                text = {
+                    "Each blind, {C:red}debuffs{} a random {C:attention}Joker{}",
+                    "and steals {C:chips}+#1#{} per {C:attention}rarity{} level.",
+                },
+                in_play_text = {
+                    "{C:inactive}Currently: {C:chips}+#2#{}"
+                }
+            },
             j_jojoker_sex_pistols = {
                 name = "Sex Pistols",
                 alt_name = "Six Bullets",
