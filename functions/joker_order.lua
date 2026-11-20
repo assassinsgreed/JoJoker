@@ -49,6 +49,7 @@ jojoker.joker_order = {
     "smokey",
     "speedwagon",
     "speedwagon_bt",
+    "steven_steel",
     "straizo",
     "stroheim",
     "stroheim_german_engineering",

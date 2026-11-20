@@ -345,3 +345,16 @@ jd_def["j_jojoker_johnny_joestar"] = {
         card.joker_display_values.rank = rank == 14 and localize('Ace', 'ranks') or tostring(rank)
     end
 }
+
+jd_def["j_jojoker_steven_steel"] = {
+    text = {
+        { text = "$", colour = G.C.MONEY },
+        { ref_table = "card.joker_display_values", ref_value = "dollars", colour = G.C.MONEY },
+    },
+    reminder_text = {
+        { text = "At end of round", colour = G.C.GREY },
+    },
+    calc_function = function(card)
+        card.joker_display_values.dollars = get_steven_steel_payout(card)
+    end
+}

@@ -258,16 +258,24 @@ get_goo_goo_dolls_mult = function(card)
   return math.max(0, missing) * card.ability.extra.mult
 end
 
-count_stone_cards = function()
+count_deck_enhancement = function(enhancement)
   local count = 0
   for _, playing_card in ipairs(G.playing_cards or {}) do
-    if SMODS.has_enhancement(playing_card, 'm_stone') then count = count + 1 end
+    if SMODS.has_enhancement(playing_card, enhancement) then count = count + 1 end
   end
   return count
 end
 
+count_stone_cards = function()
+  return count_deck_enhancement('m_stone')
+end
+
 get_wall_eyes_chips = function(card)
   return count_stone_cards() * card.ability.extra.chips
+end
+
+get_steven_steel_payout = function(card)
+  return math.min(count_deck_enhancement('m_steel') * card.ability.extra.money_mod, card.ability.extra.money_cap)
 end
 
 get_bad_company_mult = function(card)

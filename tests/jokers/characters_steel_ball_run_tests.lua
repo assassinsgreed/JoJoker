@@ -365,3 +365,63 @@ Balatest.TestPlay {
     end
 }
 --#endregion
+
+--#region Steven Steel
+Balatest.TestPlay {
+    name = 'steven_steel_gives_money_for_each_steel_card_in_deck_at_end_of_round',
+    category = { 'jokers', 'steel_ball_run', 'steven_steel' },
+    jokers = { 'j_jojoker_steven_steel' },
+    execute = function()
+        enhance_playing_cards(3, 'm_steel')
+        Balatest.end_round()
+        Balatest.cash_out()
+    end,
+    assert = function()
+        Balatest.assert_dollars(3 * G.jokers.cards[1].ability.extra.money_mod, "Steven Steel did not give money for each steel card in the deck")
+    end
+}
+
+Balatest.TestPlay {
+    name = 'steven_steel_counts_steel_cards_that_were_played_this_round',
+    category = { 'jokers', 'steel_ball_run', 'steven_steel' },
+    jokers = { 'j_jojoker_steven_steel' },
+    execute = function()
+        find_playing_card('2', 'Spades'):set_ability(G.P_CENTERS.m_steel, nil, true)
+        find_playing_card('3', 'Spades'):set_ability(G.P_CENTERS.m_steel, nil, true)
+        Balatest.play_hand { '2S', '3S' }
+        Balatest.end_round()
+        Balatest.cash_out()
+    end,
+    assert = function()
+        Balatest.assert_dollars(2 * G.jokers.cards[1].ability.extra.money_mod, "Steven Steel did not count steel cards that were played this round")
+    end
+}
+
+Balatest.TestPlay {
+    name = 'steven_steel_caps_money_given',
+    category = { 'jokers', 'steel_ball_run', 'steven_steel' },
+    jokers = { 'j_jojoker_steven_steel' },
+    execute = function()
+        enhance_playing_cards(G.jokers.cards[1].ability.extra.money_cap + 5, 'm_steel')
+        Balatest.end_round()
+        Balatest.cash_out()
+    end,
+    assert = function()
+        Balatest.assert_dollars(G.jokers.cards[1].ability.extra.money_cap, "Steven Steel did not cap the money given")
+    end
+}
+
+Balatest.TestPlay {
+    name = 'steven_steel_gives_no_money_without_steel_cards',
+    category = { 'jokers', 'steel_ball_run', 'steven_steel' },
+    jokers = { 'j_jojoker_steven_steel' },
+    execute = function()
+        enhance_playing_cards(3, 'm_bonus')
+        Balatest.end_round()
+        Balatest.cash_out()
+    end,
+    assert = function()
+        Balatest.assert_dollars(0, "Steven Steel gave money without any steel cards in the deck")
+    end
+}
+--#endregion

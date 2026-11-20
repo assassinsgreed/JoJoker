@@ -1514,6 +1514,16 @@ local loc = {
                     "per scoring hand containing it until {C:attention}Ace{} then resets.",
                 }
             },
+            j_jojoker_steven_steel = {
+                name = "Steven Steel",
+                text = {
+                    "Earn {C:money}$#1#{} per {C:attention}Steel{} card in your",
+                    "full deck at end of round {C:inactive}(Max {C:money}$#2#{C:inactive}){}",
+                },
+                in_play_text = {
+                    "{C:inactive}Currently: {C:money}$#3#{}"
+                }
+            },
             -- Part 8: Jojolion
             j_jojoker_soft_and_wet = {
                 name = "Soft & Wet",

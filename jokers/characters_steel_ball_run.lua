@@ -296,7 +296,33 @@ local johnny_joestar = {
     end
 }
 
+local steven_steel = {
+    name = "steven_steel",
+    rarity = 2,
+    cost = 6,
+    jtype = "Character",
+    part = "steel_ball_run",
+    themes = { support = { jojoker.themes.STEEL_GOLD_CARDS, jojoker.themes.MONEY_HELD } },
+    blueprint_compat = false,
+    perishable_compat = true,
+    eternal_compat = true,
+    config = { extra = { money_mod = 1, money_cap = 15 } },
+    loc_vars = function(self, info_queue, center)
+        info_queue[#info_queue + 1] = G.P_CENTERS.m_steel
+        return {
+            vars = { center.ability.extra.money_mod, center.ability.extra.money_cap, get_steven_steel_payout(center) }
+        }
+    end,
+    calc_dollar_bonus = function(self, card)
+        -- Pays out per Steel card in the full deck at end of round, up to a cap
+        local payout = get_steven_steel_payout(card)
+        if payout <= 0 then return end
+        jojoker.debug("Steven Steel: Giving $"..payout.." for "..count_deck_enhancement('m_steel').." steel cards in deck.")
+        return ease_joker_dollars(card, "Steven Steel", payout, true)
+    end
+}
+
 return {
     name = "Steel Ball Run Characters Jokers",
-    list = { danny_sbr, slow_dancer, valkyrie, sugar_mountain, johnny_joestar },
+    list = { danny_sbr, slow_dancer, valkyrie, sugar_mountain, johnny_joestar, steven_steel },
 }

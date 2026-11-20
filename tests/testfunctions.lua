@@ -38,6 +38,12 @@ count_enhanced_playing_cards = function(center_key)
     return count
 end
 
+enhance_playing_cards = function(count, center_key)
+    for i = 1, count do
+        G.playing_cards[i]:set_ability(G.P_CENTERS[center_key], nil, true)
+    end
+end
+
 count_sealed_playing_cards = function(seal)
     local count = 0
     for _, c in ipairs(G.playing_cards) do
