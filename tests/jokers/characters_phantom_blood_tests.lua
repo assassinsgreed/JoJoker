@@ -634,5 +634,81 @@ Balatest.TestPlay {
         Balatest.assert_eq(G.jokers.cards[1].ability.jojoker_notorious_xmult, notorious_big_xmult(), "Notorious B.I.G. did not pass its Xmult to Jack the Ripper")
     end
 }
+--#endregion
 
+--#region Bruford
+Balatest.TestPlay {
+    name = 'bruford_drains_each_other_joker_and_gains_mult_per_joker_drained',
+    category = { 'jokers', 'phantom_blood', 'bruford' },
+    jokers = { 'j_jojoker_bruford', 'j_jojoker_speedwagon', 'j_jojoker_tarkus' },
+    execute = function()
+        Balatest.end_round()
+    end,
+    assert = function()
+        local bruford = G.jokers.cards[1]
+        Balatest.assert_eq(bruford.ability.extra.mult, 2 * bruford.ability.extra.mult_mod, "Bruford did not gain mult for each joker drained")
+        Balatest.assert_eq(bruford.sell_cost, math.floor(bruford.cost / 2), "Bruford drained its own sell value")
+        Balatest.assert_eq(G.jokers.cards[2].sell_cost, math.floor(G.jokers.cards[2].cost / 2) - bruford.ability.extra.money_mod, "Bruford did not drain Speedwagon's sell value")
+        Balatest.assert_eq(G.jokers.cards[3].sell_cost, math.floor(G.jokers.cards[3].cost / 2) - bruford.ability.extra.money_mod, "Bruford did not drain Tarkus's sell value")
+    end
+}
+
+Balatest.TestPlay {
+    name = 'bruford_skips_jokers_with_no_sell_value',
+    category = { 'jokers', 'phantom_blood', 'bruford' },
+    jokers = { 'j_jojoker_bruford', 'j_jojoker_speedwagon' },
+    execute = function()
+        local speedwagon = G.jokers.cards[2]
+        speedwagon.ability.extra_value = -speedwagon.sell_cost
+        speedwagon:set_cost()
+        Balatest.end_round()
+    end,
+    assert = function()
+        Balatest.assert_eq(G.jokers.cards[2].sell_cost, 0, "Bruford drained a joker below $0 sell value")
+        Balatest.assert_eq(G.jokers.cards[1].ability.extra.mult, 0, "Bruford gained mult from a joker with no sell value")
+    end
+}
+
+Balatest.TestPlay {
+    name = 'bruford_drains_only_down_to_zero',
+    category = { 'jokers', 'phantom_blood', 'bruford' },
+    jokers = { 'j_jojoker_bruford', 'j_jojoker_speedwagon' },
+    execute = function()
+        G.jokers.cards[1].ability.extra.money_mod = 100
+        Balatest.end_round()
+    end,
+    assert = function()
+        Balatest.assert_eq(G.jokers.cards[2].sell_cost, 0, "Bruford drained a joker below $0 sell value")
+        Balatest.assert_eq(G.jokers.cards[1].ability.extra.mult, G.jokers.cards[1].ability.extra.mult_mod, "Bruford did not gain mult for the drained joker")
+    end
+}
+
+Balatest.TestPlay {
+    name = 'bruford_drains_at_the_end_of_each_blind',
+    category = { 'jokers', 'phantom_blood', 'bruford' },
+    jokers = { 'j_jojoker_bruford', 'j_jojoker_tarkus' },
+    execute = function()
+        Balatest.play_hand { 'AS', 'AH', 'AC', 'AD' }
+        Balatest.cash_out()
+        Balatest.exit_shop()
+        Balatest.start_round()
+        Balatest.play_hand { 'AS', 'AH', 'AC', 'AD' }
+    end,
+    assert = function()
+        Balatest.assert_eq(G.jokers.cards[1].ability.extra.mult, 2 * G.jokers.cards[1].ability.extra.mult_mod, "Bruford did not drain at the end of each blind")
+    end
+}
+
+Balatest.TestPlay {
+    name = 'bruford_gives_its_mult_when_scoring',
+    category = { 'jokers', 'phantom_blood', 'bruford' },
+    jokers = { 'j_jojoker_bruford' },
+    execute = function()
+        G.jokers.cards[1].ability.extra.mult = 10
+        Balatest.play_hand { '2S' }
+    end,
+    assert = function()
+        Balatest.assert_chips(77, "Bruford did not add its mult to the hand")
+    end
+}
 --#endregion

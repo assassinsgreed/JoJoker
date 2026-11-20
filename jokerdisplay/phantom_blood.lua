@@ -201,3 +201,10 @@ jd_def["j_jojoker_jack_the_ripper"] = {
         { text = "Per Joker destroyed", colour = G.C.GREY },
     },
 }
+
+jd_def["j_jojoker_bruford"] = {
+    text = {
+        { text = "+", colour = G.C.MULT },
+        { ref_table = "card.ability.extra", ref_value = "mult", retrigger_type = "mult", colour = G.C.MULT },
+    },
+}

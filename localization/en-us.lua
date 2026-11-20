@@ -145,6 +145,17 @@ local loc = {
                     "and earns {C:money}$#1#{}.",
                 }
             },
+            j_jojoker_bruford = {
+                name = "Bruford",
+                alt_name = "Blueford",
+                text = {
+                    "At end of round, drains {C:money}$#1#{} of sell value",
+                    "from each Joker, gaining {C:mult}+#2#{} for each.",
+                },
+                in_play_text = {
+                    "{C:inactive}Currently: {C:mult}+#3#{}"
+                }
+            },
             -- Part 2: Battle Tendency
             j_jojoker_joseph_joestar = {
                 name = "Joseph Joestar",

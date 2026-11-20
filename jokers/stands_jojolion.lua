@@ -228,7 +228,7 @@ local wonder_of_u = {
     jtype = "Stand",
     part = "jojolion",
     themes = { support = { jojoker.themes.JOKER_DESTRUCTION } },
-    conflicts = { george_joestar = "destroys_all_other_jokers", baby_face = "destroys_all_other_jokers", d4c = "destroys_all_other_jokers" },
+    conflicts = { george_joestar = "destroys_all_other_jokers", baby_face = "destroys_all_other_jokers", d4c = "destroys_all_other_jokers", bruford = "destroys_all_other_jokers" },
     blueprint_compat = false,
     perishable_compat = false,
     eternal_compat = false,

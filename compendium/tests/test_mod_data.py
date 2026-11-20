@@ -55,6 +55,6 @@ def test_similar_groups(rel):
 
 def test_counts_match_themes_doc(mod):
     themes = {t for j in mod.jokers for t in j.themes_core + j.themes_support}
-    assert len(themes) == 60
-    assert sum(len(j.conflicts) for j in mod.jokers) == 112
+    assert len(themes) == 61
+    assert sum(len(j.conflicts) for j in mod.jokers) == 114
     assert len({g for j in mod.jokers for g in j.similar}) == 27

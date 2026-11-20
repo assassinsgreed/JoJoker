@@ -242,7 +242,7 @@ local dario_brando = {
     cost = 4,
     jtype = "Character",
     part = "phantom_blood",
-    themes = { support = { jojoker.themes.SELL_VALUE, jojoker.themes.SELLING_JOKERS } },
+    themes = { support = { jojoker.themes.SELL_VALUE, jojoker.themes.SELL_VALUE_DRAIN, jojoker.themes.SELLING_JOKERS } },
     conflicts = { darby_brothers = "has_a_destroy_chance_that" },
     blueprint_compat = true,
     perishable_compat = true,
@@ -575,7 +575,54 @@ local jack_the_ripper = {
     end
 }
 
+local bruford = {
+    name = "bruford",
+    rarity = 2,
+    cost = 7,
+    jtype = "Character",
+    part = "phantom_blood",
+    themes = { core = { jojoker.themes.SELL_VALUE_DRAIN } },
+    conflicts = { death_thirteen = "drains_the_sell_value_death_thirteen" },
+    blueprint_compat = true,
+    perishable_compat = true,
+    eternal_compat = true,
+    config = { extra = { money_mod = 1, mult_mod = 5, mult = 0 } },
+    loc_vars = function(self, info_queue, center)
+      return {vars = { center.ability.extra.money_mod, center.ability.extra.mult_mod, center.ability.extra.mult }}
+    end,
+    calculate = function(self, card, context)
+        -- At end of round, drains sell value from every other joker and gains mult for each one drained
+        if context.end_of_round and context.main_eval and not context.game_over and not context.blueprint then
+            local drained = 0
+            for _, joker in ipairs(G.jokers.cards) do
+                if joker ~= card and joker.sell_cost > 0 then
+                    joker.ability.extra_value = (joker.ability.extra_value or 0) - math.min(card.ability.extra.money_mod, joker.sell_cost)
+                    joker:set_cost()
+                    card_eval_status_text(joker, 'extra', nil, nil, nil, {message = localize('sound_value_down'), colour = G.C.RED})
+                    drained = drained + 1
+                end
+            end
+            if drained == 0 then return end
+
+            card.ability.extra.mult = card.ability.extra.mult + drained * card.ability.extra.mult_mod
+            jojoker.debug("Bruford: Drained "..drained.." jokers, increasing mult to "..card.ability.extra.mult)
+            return {
+                message = localize('k_upgrade_ex'),
+                colour = G.C.MULT,
+            }
+        end
+
+        if context.joker_main and card.ability.extra.mult > 0 then
+            return {
+                message = localize{type = 'variable', key = 'a_mult', vars = {card.ability.extra.mult}},
+                colour = G.C.MULT,
+                mult_mod = card.ability.extra.mult,
+            }
+        end
+    end
+}
+
 return {
     name = "Phantom Blood Character Jokers",
-    list = { danny, baron_zeppeli, speedwagon, zombies, straizo, george_joestar, dario_brando, erina, jonathan_joestar, dio_brando, poco, tarkus, wang_chan, jack_the_ripper },
+    list = { danny, baron_zeppeli, speedwagon, zombies, straizo, george_joestar, dario_brando, erina, jonathan_joestar, dio_brando, poco, tarkus, wang_chan, jack_the_ripper, bruford },
 }

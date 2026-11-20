@@ -45,6 +45,7 @@ jojoker.themes = {
     PERISHABLE_JOKERS = "perishable_jokers",
     JOKER_DESTRUCTION = "joker_destruction",
     SELL_VALUE = "sell_value",
+    SELL_VALUE_DRAIN = "sell_value_drain",
     SELLING_JOKERS = "selling_jokers",
     MONEY_HELD = "money_held",
     EXTRA_JOKERS = "extra_jokers",

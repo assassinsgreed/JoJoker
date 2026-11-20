@@ -6,6 +6,7 @@ jojoker.joker_order = {
     "angelo",
     "avdol",
     "baron_zeppeli",
+    "bruford",
     "caesar",
     "coco_jumbo",
     "danny",
