@@ -433,43 +433,53 @@ local tomb_of_the_boom = {
 
 local scary_monsters = {
     name = "scary_monsters",
-    rarity = 1,
-    cost = 4,
+    rarity = 2,
+    cost = 6,
     jtype = "Stand",
     part = "steel_ball_run",
-    conflicts = {
-        voice_of_love = "randomizes_the_suits_these",
-        the_lovers = "randomizes_the_suits_these",
-        crazy_diamond = "randomizes_the_suits_these",
-        nypd = "randomizes_the_suits_these",
-        leaky_eye_luca = "randomizes_the_suits_these",
-        aqua_necklace = "randomizes_the_suits_these",
-    },
-    blueprint_compat = false,
+    themes = { core = { jojoker.themes.FRESH_HANDS }, support = { jojoker.themes.DEBUFFED_CARDS } },
+    blueprint_compat = true,
     perishable_compat = true,
     eternal_compat = true,
+    config = { extra = { xmult = 1.5 } },
+    loc_vars = function(self, info_queue, center)
+        return { vars = { center.ability.extra.xmult } }
+    end,
+    remove_from_deck = function(self, card, from_debuff)
+        restore_scary_monsters_cards(G.playing_cards or {})
+    end,
     calculate = function(self, card, context)
-        -- Randomly change all scored cards' suits after scoring, except for Wild Cards
-        if context.after and not context.blueprint then
-            local targets = {}
-            for _, scored in ipairs(context.scoring_hand) do
-                if not SMODS.has_enhancement(scored, 'm_wild') then
-                    targets[#targets + 1] = { card = scored, suit = pseudorandom_element(SMODS.Suits, 'jojoker_scary_monsters').key }
-                end
-            end
-            if #targets == 0 then return end
+        -- Each scored card gives XMult, but cards left standing in hand after a hand are debuffed until they move
+        if context.individual and context.cardarea == G.play and not context.other_card.debuff then
+            jojoker.debug("Scary Monsters: Giving X"..card.ability.extra.xmult.." for a moving scored card.")
+            return { x_mult = card.ability.extra.xmult }
+        end
+        if context.blueprint then return end
 
-            -- Deferred so the new suits appear after the hand has finished scoring
+        if context.after then
+            restore_scary_monsters_cards(context.full_hand)
+            -- A winning hand ends the round, so its held cards never stood still
+            if SMODS.calculate_round_score() >= G.GAME.blind.chips then return end
+            -- Deferred so cards other jokers move out of the hand this hand are not caught standing still
             G.E_MANAGER:add_event(Event({
                 func = function()
-                    for _, target in ipairs(targets) do
-                        SMODS.change_base(target.card, target.suit)
-                        target.card:juice_up()
+                    if #G.hand.cards == 0 then return true end
+                    for _, held_card in ipairs(G.hand.cards) do
+                        SMODS.debuff_card(held_card, true, 'jojoker_scary_monsters')
                     end
-                    jojoker.debug("Scary Monsters: Randomized the suits of "..#targets.." scored cards.")
+                    jojoker.debug("Scary Monsters: Debuffed "..#G.hand.cards.." cards that stood still in hand.")
+                    card_eval_status_text(card, 'extra', nil, nil, nil, { message = localize('sound_grr'), colour = G.C.RED })
                     return true
                 end
             }))
+        end
+
+        if context.discard then
+            restore_scary_monsters_cards({ context.other_card })
+        end
+
+        if context.end_of_round and context.main_eval then
+            restore_scary_monsters_cards(G.playing_cards)
         end
     end
 }

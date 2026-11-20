@@ -196,11 +196,12 @@ force_polpo_consumable_set = function(set)
     end)
 end
 
-force_scary_monsters_suit = function(suit)
-    Balatest.hook(_G, 'pseudorandom_element', function(orig, t, seed, ...)
-        if seed == 'jojoker_scary_monsters' then return SMODS.Suits[suit], suit end
-        return orig(t, seed, ...)
-    end)
+count_debuffed_cards = function(cards)
+    local count = 0
+    for _, c in ipairs(cards) do
+        if c.debuff then count = count + 1 end
+    end
+    return count
 end
 
 force_silver_chariot_requiem_rank = function(rank)

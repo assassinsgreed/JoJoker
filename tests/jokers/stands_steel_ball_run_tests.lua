@@ -706,76 +706,129 @@ Balatest.TestPlay {
 --#region Scary Monsters
 
 Balatest.TestPlay {
-    name = 'scary_monsters_randomizes_the_suit_of_every_scored_card',
+    name = 'scary_monsters_gives_xmult_for_each_scored_card',
     category = { 'jokers', 'steel_ball_run', 'scary_monsters' },
     jokers = { 'j_jojoker_scary_monsters' },
-    deck = { cards = {
-        { r = '2', s = 'S' }, { r = '2', s = 'S' }, { r = '2', s = 'S' }, { r = '2', s = 'S' }, { r = '2', s = 'S' },
-        { r = '2', s = 'S' }, { r = '2', s = 'S' }, { r = '2', s = 'S' }, { r = '2', s = 'S' }, { r = '2', s = 'S' } } },
-    hand_size = 5,
     execute = function()
-        force_scary_monsters_suit('Hearts')
-        Balatest.play_hand { '2S', '2S', '2S', '2S', '2S' }
-        Balatest.wait()
+        Balatest.play_hand { '2S', '2H' }
     end,
     assert = function()
-        Balatest.assert_eq(count_playing_cards('2', 'Hearts'), 5, "Scary Monsters did not change the suit of every scored card")
-        Balatest.assert_eq(count_playing_cards('2', 'Spades'), 5, "Scary Monsters changed the suit of cards that were not played")
+        local xmult = G.jokers.cards[1].ability.extra.xmult
+        Balatest.assert_chips(math.floor((10 + 2 + 2) * 2 * xmult * xmult))
     end
 }
 
 Balatest.TestPlay {
-    name = 'scary_monsters_changes_suits_after_the_hand_scores',
+    name = 'scary_monsters_debuffs_cards_left_in_hand_after_a_hand',
     category = { 'jokers', 'steel_ball_run', 'scary_monsters' },
-    jokers = { 'j_jojoker_scary_monsters', 'j_jojoker_leaky_eye_luca' },
-    deck = { cards = {
-        { r = '2', s = 'S' }, { r = '2', s = 'S' }, { r = '2', s = 'S' }, { r = '2', s = 'S' } } },
-    hand_size = 2,
+    jokers = { 'j_jojoker_scary_monsters' },
     execute = function()
-        force_scary_monsters_suit('Hearts')
+        keep_blind_unbeaten()
         Balatest.play_hand { '2S' }
     end,
     assert = function()
-        Balatest.assert_chips(7 * (1 + G.jokers.cards[2].ability.extra.mult), "Scary Monsters changed the suit before the hand finished scoring")
+        Balatest.assert(#G.hand.cards > 0, "No cards were left in hand to debuff")
+        Balatest.assert_eq(count_debuffed_cards(G.hand.cards), #G.hand.cards, "Scary Monsters did not debuff every card left in hand")
     end
 }
 
 Balatest.TestPlay {
-    name = 'scary_monsters_ignores_wild_cards',
+    name = 'scary_monsters_does_not_debuff_newly_drawn_cards',
     category = { 'jokers', 'steel_ball_run', 'scary_monsters' },
     jokers = { 'j_jojoker_scary_monsters' },
-    deck = { cards = {
-        { r = '2', s = 'S', e = 'm_wild' }, { r = '2', s = 'S', e = 'm_wild' }, { r = '2', s = 'S', e = 'm_wild' },
-        { r = '2', s = 'S', e = 'm_wild' } } },
+    deck = { cards = { { r = '2', s = 'S' }, { r = '2', s = 'S' }, { r = '2', s = 'S' }, { r = '2', s = 'S' } } },
     hand_size = 2,
     execute = function()
-        force_scary_monsters_suit('Hearts')
-        Balatest.play_hand { '2S', '2S' }
-        Balatest.wait()
+        keep_blind_unbeaten()
+        Balatest.play_hand { '2S' }
     end,
     assert = function()
-        Balatest.assert_eq(count_playing_cards('2', 'Hearts'), 0, "Scary Monsters changed the suit of a Wild Card")
+        Balatest.assert_eq(#G.hand.cards, 2, "A new card was not drawn into the hand")
+        Balatest.assert_eq(count_debuffed_cards(G.hand.cards), 1, "Scary Monsters did not debuff only the card that stayed in hand")
     end
 }
 
 Balatest.TestPlay {
-    name = 'scary_monsters_ignores_played_cards_that_do_not_score',
+    name = 'scary_monsters_debuffed_cards_score_nothing',
     category = { 'jokers', 'steel_ball_run', 'scary_monsters' },
     jokers = { 'j_jojoker_scary_monsters' },
-    deck = { cards = {
-        { r = '2', s = 'S' }, { r = '2', s = 'S' }, { r = '2', s = 'S' }, { r = '2', s = 'S' } } },
-    hand_size = 2,
     execute = function()
-        force_scary_monsters_suit('Hearts')
-        Balatest.q(function()
-            set_card_bases(G.hand, { 'S_K', 'S_2' })
-        end)
-        Balatest.play_hand { 'KS', '2S' } -- High Card, only the King scores
-        Balatest.wait()
+        keep_blind_unbeaten()
+        Balatest.play_hand { '2S' }
+        Balatest.play_hand { '2H' }
     end,
     assert = function()
-        Balatest.assert_eq(count_playing_cards('King', 'Hearts'), 1, "Scary Monsters did not change the suit of the scored card")
-        Balatest.assert_eq(count_playing_cards('2', 'Hearts'), 0, "Scary Monsters changed the suit of a played card that did not score")
+        local xmult = G.jokers.cards[1].ability.extra.xmult
+        Balatest.assert_chips(math.floor((5 + 2) * xmult) + 5)
+    end
+}
+
+Balatest.TestPlay {
+    name = 'scary_monsters_discarding_a_card_removes_its_debuff',
+    category = { 'jokers', 'steel_ball_run', 'scary_monsters' },
+    jokers = { 'j_jojoker_scary_monsters' },
+    execute = function()
+        keep_blind_unbeaten()
+        Balatest.play_hand { '2S' }
+        Balatest.discard { '3S' }
+    end,
+    assert = function()
+        Balatest.assert_eq(count_debuffed_cards(G.discard.cards), 0, "Scary Monsters left a discarded or played card debuffed")
+    end
+}
+
+Balatest.TestPlay {
+    name = 'scary_monsters_does_not_debuff_on_discards',
+    category = { 'jokers', 'steel_ball_run', 'scary_monsters' },
+    jokers = { 'j_jojoker_scary_monsters' },
+    execute = function()
+        Balatest.discard { '2S' }
+    end,
+    assert = function()
+        Balatest.assert_eq(count_debuffed_cards(G.hand.cards), 0, "Scary Monsters debuffed held cards after a discard")
+    end
+}
+
+Balatest.TestPlay {
+    name = 'scary_monsters_removes_debuffs_at_end_of_round',
+    category = { 'jokers', 'steel_ball_run', 'scary_monsters' },
+    jokers = { 'j_jojoker_scary_monsters' },
+    execute = function()
+        keep_blind_unbeaten()
+        Balatest.play_hand { '2S' }
+        Balatest.end_round()
+    end,
+    assert = function()
+        Balatest.assert_eq(count_debuffed_cards(G.playing_cards), 0, "Scary Monsters left cards debuffed after the round ended")
+    end
+}
+
+Balatest.TestPlay {
+    name = 'scary_monsters_removes_debuffs_when_sold',
+    category = { 'jokers', 'steel_ball_run', 'scary_monsters' },
+    jokers = { 'j_jojoker_scary_monsters' },
+    execute = function()
+        keep_blind_unbeaten()
+        Balatest.play_hand { '2S' }
+        Balatest.sell(function() return G.jokers.cards[1] end)
+    end,
+    assert = function()
+        Balatest.assert_eq(count_debuffed_cards(G.playing_cards), 0, "Scary Monsters left cards debuffed after it was sold")
+    end
+}
+
+Balatest.TestPlay {
+    name = 'scary_monsters_does_not_debuff_cards_tenore_sax_shuffles_away',
+    category = { 'jokers', 'steel_ball_run', 'scary_monsters' },
+    jokers = { 'j_jojoker_scary_monsters', 'j_jojoker_tenore_sax' },
+    deck = { cards = { { r = '2', s = 'S' }, { r = '2', s = 'S' }, { r = '2', s = 'S' }, { r = '2', s = 'S' } } },
+    hand_size = 2,
+    execute = function()
+        keep_blind_unbeaten()
+        Balatest.play_hand { '2S' }
+    end,
+    assert = function()
+        Balatest.assert_eq(count_debuffed_cards(G.playing_cards), 0, "Scary Monsters debuffed a card Tenore Sax shuffled back into the deck")
     end
 }
 

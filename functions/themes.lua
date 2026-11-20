@@ -41,6 +41,7 @@ jojoker.themes = {
     RETRIGGERS = "retriggers",
     SCORE_EVERY_CARD = "score_every_card",
     DEBUFFED_CARDS = "debuffed_cards",
+    FRESH_HANDS = "fresh_hands",
     DEBUFFED_JOKERS = "debuffed_jokers",
     PERISHABLE_JOKERS = "perishable_jokers",
     JOKER_DESTRUCTION = "joker_destruction",

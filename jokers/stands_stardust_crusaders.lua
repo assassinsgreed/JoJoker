@@ -388,6 +388,7 @@ local tenore_sax = {
     cost = 6,
     jtype = "Stand",
     part = "stardust_crusaders",
+    themes = { support = { jojoker.themes.FRESH_HANDS } },
     blueprint_compat = false,
     perishable_compat = true,
     eternal_compat = true,
@@ -395,10 +396,11 @@ local tenore_sax = {
         -- After scoring, shuffle all cards back into the deck and draw a new hand
         if context.after then
             jojoker.debug("Tenore Sax: Shuffling all unplayed cards back into the deck")
-            -- Iterate backwards; emplacing into the deck removes the card from the hand
+            -- Iterate backwards since cards are removed from the hand; emplace alone leaves them listed in both areas
             for i = #G.hand.cards, 1, -1 do
                 local hand_card = G.hand.cards[i]
                 if not hand_card.highlighted then
+                    G.hand:remove_card(hand_card)
                     G.deck:emplace(hand_card)
                 end
             end

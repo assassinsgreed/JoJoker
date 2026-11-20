@@ -261,8 +261,15 @@ jd_def["j_jojoker_tomb_of_the_boom"] = {
 
 jd_def["j_jojoker_scary_monsters"] = {
     text = {
-        { text = "Randomize ", colour = G.C.GREY },
-        { text = "Scored Suits", colour = G.C.GREEN },
+        {
+            border_nodes = {
+                { text = "X" },
+                { ref_table = "card.ability.extra", ref_value = "xmult" }
+            }
+        }
+    },
+    reminder_text = {
+        { text = "Per scoring card", colour = G.C.GREY },
     }
 }
 

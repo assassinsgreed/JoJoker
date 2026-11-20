@@ -1478,8 +1478,9 @@ local loc = {
                 name = "Scary Monsters",
                 alt_name = "Frightening Monsters",
                 text = {
-                    "After scoring, {C:attention}randomizes{} the {C:attention}suits{}",
-                    "of all scored cards, except {C:attention}Wild Cards{}."
+                    "Gives {X:mult,C:white} X#1# {} per scored card.",
+                    "Cards left in hand after a hand is played",
+                    "are {C:red}debuffed{} until {C:attention}discarded{} or {C:attention}played{}."
                 }
             },
             j_jojoker_boku_no_rhythm_wo_kiitekure = {

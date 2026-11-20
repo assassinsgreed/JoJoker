@@ -329,6 +329,21 @@ Balatest.TestPlay {
     end
 }
 
+Balatest.TestPlay {
+    name = 'tenore_sax_removes_shuffled_cards_from_the_hand',
+    category = { 'jokers', 'stardust_crusaders', 'tenore_sax' },
+    jokers = { 'j_jojoker_tenore_sax' },
+    deck = { cards = { { r = '2', s = 'S' }, { r = '2', s = 'S' }, { r = '2', s = 'S' }, { r = '2', s = 'S' } } },
+    hand_size = 2,
+    execute = function()
+        keep_blind_unbeaten()
+        Balatest.play_hand { '2S' }
+    end,
+    assert = function()
+        Balatest.assert_eq(#G.hand.cards + #G.deck.cards, 3, "Tenore Sax left a shuffled card listed in both the hand and the deck")
+    end
+}
+
 --#endregion
 
 --#region Khnum

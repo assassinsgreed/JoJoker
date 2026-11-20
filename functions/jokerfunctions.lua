@@ -1087,6 +1087,12 @@ release_wired_cards = function()
   end
 end
 
+restore_scary_monsters_cards = function(cards)
+  for _, playing_card in ipairs(cards) do
+    SMODS.debuff_card(playing_card, false, 'jojoker_scary_monsters')
+  end
+end
+
 -- Changes both the per-round totals and the current round, so the shift applies immediately
 shift_hands_and_discards = function(hands, discards)
   G.GAME.round_resets.hands = G.GAME.round_resets.hands + hands
