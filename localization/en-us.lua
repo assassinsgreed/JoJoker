@@ -156,6 +156,13 @@ local loc = {
                     "{C:inactive}Currently: {C:mult}+#3#{}"
                 }
             },
+            j_jojoker_hamon = {
+                name = "Hamon",
+                text = {
+                    "When {C:attention}Blind{} is selected,",
+                    "converts all {C:red}discards{} into {C:blue}hands{}.",
+                }
+            },
             -- Part 2: Battle Tendency
             j_jojoker_joseph_joestar = {
                 name = "Joseph Joestar",

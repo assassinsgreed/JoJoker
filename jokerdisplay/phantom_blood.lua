@@ -208,3 +208,11 @@ jd_def["j_jojoker_bruford"] = {
         { ref_table = "card.ability.extra", ref_value = "mult", retrigger_type = "mult", colour = G.C.MULT },
     },
 }
+
+jd_def["j_jojoker_hamon"] = {
+    text = {
+        { text = "Discards", colour = G.C.RED },
+        { text = " to ", colour = G.C.GREY },
+        { text = "Hands", colour = G.C.BLUE },
+    },
+}

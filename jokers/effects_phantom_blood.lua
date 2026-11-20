@@ -140,7 +140,35 @@ local roundabout = {
     end
 }
 
+local hamon = {
+    name = "hamon",
+    rarity = 3,
+    cost = 7,
+    jtype = "Effect",
+    part = "phantom_blood",
+    themes = { support = { jojoker.themes.HANDS_PLAYED } },
+    conflicts = { speedwagon = "cuts_your_discards_down_to", old_joseph_joestar = "cuts_your_discards_down_to", boku_no_rhythm_wo_kiitekure = "cuts_your_discards_down_to", toilet_pig = "cuts_your_discards_down_to" },
+    blueprint_compat = false,
+    perishable_compat = true,
+    eternal_compat = true,
+    calculate = function(self, card, context)
+        -- Converts every discard into a hand when the blind is selected
+        if context.setting_blind and not context.blueprint then
+            local discards = G.GAME.current_round.discards_left
+            if discards > 0 then
+                jojoker.debug("Hamon: Converting "..discards.." discards into hands")
+                ease_discard(-discards, nil, true)
+                ease_hands_played(discards)
+                return {
+                    message = localize{type = 'variable', key = 'a_hands', vars = {discards}},
+                    colour = G.C.BLUE
+                }
+            end
+        end
+    end
+}
+
 return {
     name = "Phantom Blood Effect Jokers",
-    list = { sword_of_luck_and_pluck, thunder_cross_split_attack, vampiric_touch, roundabout },
+    list = { sword_of_luck_and_pluck, thunder_cross_split_attack, vampiric_touch, roundabout, hamon },
 }

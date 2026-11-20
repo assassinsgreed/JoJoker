@@ -70,6 +70,7 @@ jojoker.joker_order = {
     "epitaph",
     "german_engineering",
     "ghost_girl_alley",
+    "hamon",
     "hat_hair",
     "higashikata_house",
     "higashikata_fruit_parlor",

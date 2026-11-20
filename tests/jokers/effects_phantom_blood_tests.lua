@@ -135,3 +135,81 @@ Balatest.TestPlay {
 }
 
 --#endregion
+
+--#region Hamon
+Balatest.TestPlay {
+    name = 'hamon_converts_all_discards_into_hands_when_blind_is_selected',
+    category = { 'jokers', 'phantom_blood', 'hamon' },
+    jokers = { 'j_jojoker_hamon' },
+    hands = 4,
+    discards = 3,
+    execute = function()
+        Balatest.wait()
+    end,
+    assert = function()
+        Balatest.assert_eq(G.GAME.current_round.hands_left, 7, "Hamon did not convert discards into hands")
+        Balatest.assert_eq(G.GAME.current_round.discards_left, 0, "Hamon did not remove the converted discards")
+    end
+}
+
+Balatest.TestPlay {
+    name = 'hamon_does_not_change_per_round_hands_or_discards',
+    category = { 'jokers', 'phantom_blood', 'hamon' },
+    jokers = { 'j_jojoker_hamon' },
+    hands = 4,
+    discards = 3,
+    execute = function()
+        Balatest.wait()
+    end,
+    assert = function()
+        Balatest.assert_eq(G.GAME.round_resets.hands, 4, "Hamon changed the per-round hand total")
+        Balatest.assert_eq(G.GAME.round_resets.discards, 3, "Hamon changed the per-round discard total")
+    end
+}
+
+Balatest.TestPlay {
+    name = 'hamon_converts_discards_again_on_the_next_blind',
+    category = { 'jokers', 'phantom_blood', 'hamon' },
+    jokers = { 'j_jojoker_hamon' },
+    hands = 4,
+    discards = 3,
+    execute = function()
+        Balatest.next_round()
+    end,
+    assert = function()
+        Balatest.assert_eq(G.GAME.current_round.hands_left, 7, "Hamon did not convert discards on the next blind")
+        Balatest.assert_eq(G.GAME.current_round.discards_left, 0, "Hamon left discards on the next blind")
+    end
+}
+
+Balatest.TestPlay {
+    name = 'hamon_does_nothing_with_no_discards',
+    category = { 'jokers', 'phantom_blood', 'hamon' },
+    jokers = { 'j_jojoker_hamon' },
+    hands = 4,
+    discards = 0,
+    execute = function()
+        Balatest.wait()
+    end,
+    assert = function()
+        Balatest.assert_eq(G.GAME.current_round.hands_left, 4, "Hamon changed hands with no discards to convert")
+        Balatest.assert_eq(G.GAME.current_round.discards_left, 0, "Hamon changed discards when there were none")
+    end
+}
+
+Balatest.TestPlay {
+    name = 'hamon_stops_converting_once_sold',
+    category = { 'jokers', 'phantom_blood', 'hamon' },
+    jokers = { 'j_jojoker_hamon' },
+    hands = 4,
+    discards = 3,
+    execute = function()
+        Balatest.sell(function() return G.jokers.cards[1] end)
+        Balatest.next_round()
+    end,
+    assert = function()
+        Balatest.assert_eq(G.GAME.current_round.hands_left, 4, "Hamon still added hands after being sold")
+        Balatest.assert_eq(G.GAME.current_round.discards_left, 3, "Hamon still removed discards after being sold")
+    end
+}
+--#endregion

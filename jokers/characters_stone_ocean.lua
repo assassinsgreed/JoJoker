@@ -96,7 +96,7 @@ local anasui_m = {
     jtype = "Character",
     part = "stone_ocean",
     themes = { support = { jojoker.themes.HANDS_PLAYED, jojoker.themes.MADE_IN_HEAVEN } },
-    conflicts = { speedwagon = "takes_away_a_discard", old_joseph_joestar = "takes_away_a_discard", toilet_pig = "takes_away_a_discard", boku_no_rhythm_wo_kiitekure = "takes_away_a_discard" },
+    conflicts = { speedwagon = "takes_away_a_discard", old_joseph_joestar = "takes_away_a_discard", toilet_pig = "takes_away_a_discard", boku_no_rhythm_wo_kiitekure = "takes_away_a_discard", hamon = "takes_away_a_discard" },
     blueprint_compat = false,
     perishable_compat = true,
     eternal_compat = true,
