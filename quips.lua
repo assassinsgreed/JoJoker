@@ -14,4 +14,8 @@ if SMODS.JimboQuip then
             extra = { center = 'j_jojoker_rolling_stones' }
         }
     end
+
+    SMODS.current_mod.quip_filter = function(quip)
+        return not (quip.key:match('^wq_%d+$') or quip.key:match('^lq_%d+$'))
+    end
 end
